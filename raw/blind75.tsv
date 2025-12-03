@@ -1,0 +1,76 @@
+Problem Name	Difficulty	Intermediate Max time	Advanced Max time	Top of the crop max time	Problem Pattern (if any)
+Two Sum	Easy	25	15	8	Hash Table
+Best Time to Buy and Sell Stock	Easy	20	12	7	Greedy / Single Pass
+Contains Duplicate	Easy	15	10	5	Hash Set
+Product of Array Except Self	Medium	45	30	20	Prefix/Suffix Products
+Maximum Subarray	Medium	35	25	15	Kadane's Algorithm (DP)
+Maximum Product Subarray	Medium	50	35	25	Dynamic Programming (Track Min/Max)
+Find Minimum in Rotated Sorted Array	Medium	40	25	18	Modified Binary Search
+Search in Rotated Sorted Array	Medium	50	35	25	Modified Binary Search
+3Sum	Medium	55	40	28	Two Pointers + Sorting
+Container With Most Water	Medium	35	20	15	Two Pointers
+Sum of Two Integers	Medium	45	30	22	Bit Manipulation
+Number of 1 Bits	Easy	18	12	8	Bit Manipulation
+Counting Bits	Easy	30	20	15	Dynamic Programming + Bit Manipulation
+Missing Number	Easy	20	12	8	XOR / Math Formula
+Reverse Bits	Easy	25	15	10	Bit Manipulation
+Climbing Stairs	Easy	20	12	8	Fibonacci DP / 1D DP
+Coin Change	Medium	40	28	18	Unbounded Knapsack / 1D DP
+Longest Increasing Subsequence	Medium	50	35	25	1D DP / Binary Search
+Longest Common Subsequence	Medium	45	30	20	2D DP / Dual Sequence
+Word Break	Medium	50	35	25	1D DP / String Partition
+Combination Sum IV	Medium	45	32	22	Unbounded Knapsack / Count Ways
+House Robber	Medium	30	20	12	1D DP / Fibonacci-style
+House Robber II	Medium	45	30	20	1D DP with Circular Constraint
+Decode Ways	Medium	50	35	25	Fibonacci DP / Conditional Logic
+Unique Paths	Medium	35	22	15	2D Grid DP
+Jump Game	Medium	35	25	18	Greedy / 1D DP
+Clone Graph	Medium	40	28	20	DFS/BFS + HashMap
+Course Schedule	Medium	45	32	22	Topological Sort / Cycle Detection
+Pacific Atlantic Water Flow	Medium	55	40	30	DFS/BFS (Reverse Flow)
+Number of Islands	Medium	35	25	18	DFS/BFS (Connected Components)
+Longest Consecutive Sequence	Medium	40	28	20	Hash Set / Union Find
+Alien Dictionary	Hard	70	50	35	Topological Sort
+Graph Valid Tree	Medium	40	28	20	Union Find / DFS Cycle Detection
+Number of Connected Components in an Undirected Graph	Medium	35	25	18	Union Find / DFS
+Insert Interval	Medium	45	30	22	Sorting + Merging
+Merge Intervals	Medium	35	25	18	Sorting + Greedy
+Non-overlapping Intervals	Medium	45	32	22	Greedy (Activity Selection)
+Meeting Rooms	Easy	20	12	8	Sorting
+Meeting Rooms II	Medium	45	32	22	Min Heap / Two Pointers
+Reverse Linked List	Easy	20	12	8	Iterative Pointer Manipulation
+Linked List Cycle	Easy	22	15	10	Fast and Slow Pointers
+Merge Two Sorted Lists	Easy	25	18	12	Two Pointers / Iterative Merging
+Merge K Sorted Lists	Hard	65	45	32	Min Heap / Priority Queue
+Remove Nth Node From End of List	Medium	35	25	18	Two Pointers with Gap
+Reorder List	Medium	50	35	25	Three-Step Process (Find Middle + Reverse + Merge)
+Set Matrix Zeroes	Medium	45	30	22	In-Place Marking
+Spiral Matrix	Medium	50	35	25	Layer-by-Layer Traversal
+Rotate Image	Medium	40	28	20	In-Place Transpose + Reverse
+Word Search	Medium	55	40	28	DFS with Backtracking
+Longest Substring Without Repeating Characters	Medium	40	28	20	Sliding Window + Hash Set
+Longest Repeating Character Replacement	Medium	50	35	25	Sliding Window + Frequency Map
+Minimum Window Substring	Hard	70	50	38	Sliding Window + Two Hash Maps
+Valid Anagram	Easy	18	10	6	Hash Table / Frequency Counter
+Group Anagrams	Medium	40	28	18	Hash Table + Key Generation
+Valid Parentheses	Easy	20	12	8	Stack
+Valid Palindrome	Easy	20	12	8	Two Pointers
+Longest Palindromic Substring	Medium	50	35	25	Expand Around Center
+Palindromic Substrings	Medium	45	32	22	Expand Around Center
+Encode and Decode Strings	Medium	40	28	20	Length-Delimiter Protocol
+Maximum Depth of Binary Tree	Easy	18	10	6	DFS/Recursion
+Same Tree	Easy	20	12	8	DFS/Recursion
+Invert Binary Tree	Easy	18	10	6	DFS/Recursion
+Binary Tree Maximum Path Sum	Hard	65	48	35	DFS with Global Variable
+Binary Tree Level Order Traversal	Medium	35	25	18	BFS/Queue
+Serialize and Deserialize Binary Tree	Hard	70	50	38	DFS/BFS + Design
+Subtree of Another Tree	Easy	30	20	15	DFS/Recursion (Nested)
+Construct Binary Tree from Preorder and Inorder Traversal	Medium	50	35	25	DFS/Recursion + Hashing
+Validate Binary Search Tree	Medium	40	28	20	DFS with Range Constraints
+Kth Smallest Element in a BST	Medium	35	25	18	In-order DFS/Traversal
+Lowest Common Ancestor of a Binary Search Tree	Medium	35	25	18	BST Properties + Recursion
+Implement Trie (Prefix Tree)	Medium	45	32	22	Trie Data Structure + Design
+Add and Search Word	Medium	50	35	25	Trie + Backtracking
+Word Search II	Hard	75	55	40	Trie + DFS/Backtracking on Grid
+Top K Frequent Elements	Medium	38	28	18	HashMap + Heap
+Find Median from Data Stream	Hard	65	48	35	Two Heaps (Max + Min) + Design

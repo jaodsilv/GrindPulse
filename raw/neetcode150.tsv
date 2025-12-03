@@ -1,0 +1,151 @@
+Problem Name	Difficulty	Intermediate Max time	Advanced Max time	Top of the crop max time	Problem Pattern
+Contains Duplicate	Easy	30	20	10	Arrays & Hashing
+Valid Anagram	Easy	30	20	10	Arrays & Hashing
+Two Sum	Easy	30	20	10	Arrays & Hashing
+Group Anagrams	Medium	45	35	20	Arrays & Hashing
+Top K Frequent Elements	Medium	45	35	20	Arrays & Hashing
+Product of Array Except Self	Medium	45	35	20	Arrays & Hashing
+Valid Sudoku	Medium	45	35	20	Arrays & Hashing
+Encode and Decode Strings	Medium	45	35	20	Arrays & Hashing
+Longest Consecutive Sequence	Medium	45	35	20	Arrays & Hashing
+Valid Palindrome	Easy	30	20	10	Two Pointers
+Two Sum II - Input Array Is Sorted	Medium	45	35	20	Two Pointers
+3Sum	Medium	45	35	20	Two Pointers
+Container With Most Water	Medium	45	35	20	Two Pointers
+Trapping Rain Water	Hard	60	45	30	Two Pointers
+Best Time to Buy and Sell Stock	Easy	30	20	10	Sliding Window
+Longest Substring Without Repeating Characters	Medium	45	35	20	Sliding Window
+Longest Repeating Character Replacement	Medium	45	35	20	Sliding Window
+Permutation in String	Medium	45	35	20	Sliding Window
+Minimum Window Substring	Hard	60	45	30	Sliding Window
+Sliding Window Maximum	Hard	60	45	30	Sliding Window
+Valid Parentheses	Easy	30	20	10	Stack
+Min Stack	Medium	45	35	20	Stack
+Evaluate Reverse Polish Notation	Medium	45	35	20	Stack
+Generate Parentheses	Medium	45	35	20	Stack
+Daily Temperatures	Medium	45	35	20	Stack
+Car Fleet	Medium	45	35	20	Stack
+Largest Rectangle in Histogram	Hard	60	45	30	Stack
+Binary Search	Easy	30	20	10	Binary Search
+Search a 2D Matrix	Medium	45	35	20	Binary Search
+Koko Eating Bananas	Medium	45	35	20	Binary Search
+Find Minimum in Rotated Sorted Array	Medium	45	35	20	Binary Search
+Search in Rotated Sorted Array	Medium	45	35	20	Binary Search
+Time Based Key-Value Store	Medium	45	35	20	Binary Search
+Median of Two Sorted Arrays	Hard	60	45	30	Binary Search
+Reverse Linked List	Easy	30	20	10	Linked List
+Merge Two Sorted Lists	Easy	30	20	10	Linked List
+Reorder List	Medium	45	35	20	Linked List
+Remove Nth Node From End of List	Medium	45	35	20	Linked List
+Copy List with Random Pointer	Medium	45	35	20	Linked List
+Add Two Numbers	Medium	45	35	20	Linked List
+Linked List Cycle	Easy	30	20	10	Linked List
+Find the Duplicate Number	Medium	45	35	20	Linked List
+LRU Cache	Medium	45	35	20	Linked List
+Merge k Sorted Lists	Hard	60	45	30	Linked List
+Reverse Nodes in k-Group	Hard	60	45	30	Linked List
+Invert Binary Tree	Easy	30	20	10	Trees
+Maximum Depth of Binary Tree	Easy	30	20	10	Trees
+Diameter of Binary Tree	Easy	30	20	10	Trees
+Balanced Binary Tree	Easy	30	20	10	Trees
+Same Tree	Easy	30	20	10	Trees
+Subtree of Another Tree	Easy	30	20	10	Trees
+Lowest Common Ancestor of a Binary Search Tree	Medium	45	35	20	Trees
+Binary Tree Level Order Traversal	Medium	45	35	20	Trees
+Binary Tree Right Side View	Medium	45	35	20	Trees
+Count Good Nodes in Binary Tree	Medium	45	35	20	Trees
+Validate Binary Search Tree	Medium	45	35	20	Trees
+Kth Smallest Element in a BST	Medium	45	35	20	Trees
+Construct Binary Tree from Preorder and Inorder Traversal	Medium	45	35	20	Trees
+Binary Tree Maximum Path Sum	Hard	60	45	30	Trees
+Serialize and Deserialize Binary Tree	Hard	60	45	30	Trees
+Implement Trie (Prefix Tree)	Medium	45	35	20	Tries
+Design Add and Search Words Data Structure	Medium	45	35	20	Tries
+Word Search II	Hard	60	45	30	Tries
+Kth Largest Element in a Stream	Easy	30	20	10	Heap / Priority Queue
+Last Stone Weight	Easy	30	20	10	Heap / Priority Queue
+K Closest Points to Origin	Medium	45	35	20	Heap / Priority Queue
+Kth Largest Element in an Array	Medium	45	35	20	Heap / Priority Queue
+Task Scheduler	Medium	45	35	20	Heap / Priority Queue
+Design Twitter	Medium	45	35	20	Heap / Priority Queue
+Find Median from Data Stream	Hard	60	45	30	Heap / Priority Queue
+Subsets	Medium	45	35	20	Backtracking
+Combination Sum	Medium	45	35	20	Backtracking
+Permutations	Medium	45	35	20	Backtracking
+Subsets II	Medium	45	35	20	Backtracking
+Combination Sum II	Medium	45	35	20	Backtracking
+Word Search	Medium	45	35	20	Backtracking
+Palindrome Partitioning	Medium	45	35	20	Backtracking
+Letter Combinations of a Phone Number	Medium	45	35	20	Backtracking
+N-Queens	Hard	60	45	30	Backtracking
+Number of Islands	Medium	45	35	20	Graphs
+Clone Graph	Medium	45	35	20	Graphs
+Max Area of Island	Medium	45	35	20	Graphs
+Pacific Atlantic Water Flow	Medium	45	35	20	Graphs
+Surrounded Regions	Medium	45	35	20	Graphs
+Rotting Oranges	Medium	45	35	20	Graphs
+Walls and Gates	Medium	45	35	20	Graphs
+Course Schedule	Medium	45	35	20	Graphs
+Course Schedule II	Medium	45	35	20	Graphs
+Redundant Connection	Medium	45	35	20	Graphs
+Number of Connected Components in an Undirected Graph	Medium	45	35	20	Graphs
+Graph Valid Tree	Medium	45	35	20	Graphs
+Word Ladder	Hard	60	45	30	Graphs
+Reconstruct Itinerary	Hard	60	45	30	Advanced Graphs
+Min Cost to Connect All Points	Medium	45	35	20	Advanced Graphs
+Network Delay Time	Medium	45	35	20	Advanced Graphs
+Swim in Rising Water	Hard	60	45	30	Advanced Graphs
+Alien Dictionary	Hard	60	45	30	Advanced Graphs
+Cheapest Flights Within K Stops	Medium	45	35	20	Advanced Graphs
+Climbing Stairs	Easy	30	20	10	1-D Dynamic Programming
+Min Cost Climbing Stairs	Easy	30	20	10	1-D Dynamic Programming
+House Robber	Medium	45	35	20	1-D Dynamic Programming
+House Robber II	Medium	45	35	20	1-D Dynamic Programming
+Longest Palindromic Substring	Medium	45	35	20	1-D Dynamic Programming
+Palindromic Substrings	Medium	45	35	20	1-D Dynamic Programming
+Decode Ways	Medium	45	35	20	1-D Dynamic Programming
+Coin Change	Medium	45	35	20	1-D Dynamic Programming
+Maximum Product Subarray	Medium	45	35	20	1-D Dynamic Programming
+Word Break	Medium	45	35	20	1-D Dynamic Programming
+Longest Increasing Subsequence	Medium	45	35	20	1-D Dynamic Programming
+Partition Equal Subset Sum	Medium	45	35	20	1-D Dynamic Programming
+Unique Paths	Medium	45	35	20	2-D Dynamic Programming
+Longest Common Subsequence	Medium	45	35	20	2-D Dynamic Programming
+Best Time to Buy and Sell Stock with Cooldown	Medium	45	35	20	2-D Dynamic Programming
+Coin Change II	Medium	45	35	20	2-D Dynamic Programming
+Target Sum	Medium	45	35	20	2-D Dynamic Programming
+Interleaving String	Medium	45	35	20	2-D Dynamic Programming
+Longest Increasing Path in a Matrix	Hard	60	45	30	2-D Dynamic Programming
+Distinct Subsequences	Hard	60	45	30	2-D Dynamic Programming
+Edit Distance	Hard	60	45	30	2-D Dynamic Programming
+Burst Balloons	Hard	60	45	30	2-D Dynamic Programming
+Regular Expression Matching	Hard	60	45	30	2-D Dynamic Programming
+Maximum Subarray	Medium	45	35	20	Greedy
+Jump Game	Medium	45	35	20	Greedy
+Jump Game II	Medium	45	35	20	Greedy
+Gas Station	Medium	45	35	20	Greedy
+Hand of Straights	Medium	45	35	20	Greedy
+Merge Triplets to Form Target Triplet	Medium	45	35	20	Greedy
+Partition Labels	Medium	45	35	20	Greedy
+Valid Parenthesis String	Medium	45	35	20	Greedy
+Insert Interval	Medium	45	35	20	Intervals
+Merge Intervals	Medium	45	35	20	Intervals
+Non-overlapping Intervals	Medium	45	35	20	Intervals
+Meeting Rooms	Easy	30	20	10	Intervals
+Meeting Rooms II	Medium	45	35	20	Intervals
+Minimum Interval to Include Each Query	Hard	60	45	30	Intervals
+Rotate Image	Medium	45	35	20	Math & Geometry
+Spiral Matrix	Medium	45	35	20	Math & Geometry
+Set Matrix Zeroes	Medium	45	35	20	Math & Geometry
+Happy Number	Easy	30	20	10	Math & Geometry
+Plus One	Easy	30	20	10	Math & Geometry
+Pow(x, n)	Medium	45	35	20	Math & Geometry
+Multiply Strings	Medium	45	35	20	Math & Geometry
+Detect Squares	Medium	45	35	20	Math & Geometry
+Single Number	Easy	30	20	10	Bit Manipulation
+Number of 1 Bits	Easy	30	20	10	Bit Manipulation
+Counting Bits	Easy	30	20	10	Bit Manipulation
+Reverse Bits	Easy	30	20	10	Bit Manipulation
+Missing Number	Easy	30	20	10	Bit Manipulation
+Sum of Two Integers	Medium	45	35	20	Bit Manipulation
+Reverse Integer	Medium	45	35	20	Bit Manipulation
