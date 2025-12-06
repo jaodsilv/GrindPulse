@@ -772,6 +772,17 @@
           <option value="unsolved">Unsolved</option>
         </select>
 
+        <select id="color-filter-blind75" class="filter-dropdown">
+          <option value="">All Colors</option>
+          <option value="awareness-white">White (Fresh)</option>
+          <option value="awareness-green">Green</option>
+          <option value="awareness-yellow">Yellow</option>
+          <option value="awareness-red">Red</option>
+          <option value="awareness-dark-red">Dark Red</option>
+          <option value="awareness-flashing">Flashing (Urgent)</option>
+          <option value="unsolved-problem">Unsolved</option>
+        </select>
+
         <button class="export-btn" onclick="exportTabTSV('blind75')">Export blind75.tsv</button>
       </div>
 
@@ -823,6 +834,17 @@
           <option value="">All Status</option>
           <option value="solved">Solved</option>
           <option value="unsolved">Unsolved</option>
+        </select>
+
+        <select id="color-filter-neetcode150" class="filter-dropdown">
+          <option value="">All Colors</option>
+          <option value="awareness-white">White (Fresh)</option>
+          <option value="awareness-green">Green</option>
+          <option value="awareness-yellow">Yellow</option>
+          <option value="awareness-red">Red</option>
+          <option value="awareness-dark-red">Dark Red</option>
+          <option value="awareness-flashing">Flashing (Urgent)</option>
+          <option value="unsolved-problem">Unsolved</option>
         </select>
 
         <button class="export-btn" onclick="exportTabTSV('neetcode150')">Export neetcode150.tsv</button>
@@ -878,6 +900,17 @@
           <option value="unsolved">Unsolved</option>
         </select>
 
+        <select id="color-filter-neetcode250" class="filter-dropdown">
+          <option value="">All Colors</option>
+          <option value="awareness-white">White (Fresh)</option>
+          <option value="awareness-green">Green</option>
+          <option value="awareness-yellow">Yellow</option>
+          <option value="awareness-red">Red</option>
+          <option value="awareness-dark-red">Dark Red</option>
+          <option value="awareness-flashing">Flashing (Urgent)</option>
+          <option value="unsolved-problem">Unsolved</option>
+        </select>
+
         <button class="export-btn" onclick="exportTabTSV('neetcode250')">Export neetcode250.tsv</button>
       </div>
 
@@ -929,6 +962,17 @@
           <option value="">All Status</option>
           <option value="solved">Solved</option>
           <option value="unsolved">Unsolved</option>
+        </select>
+
+        <select id="color-filter-salesforce" class="filter-dropdown">
+          <option value="">All Colors</option>
+          <option value="awareness-white">White (Fresh)</option>
+          <option value="awareness-green">Green</option>
+          <option value="awareness-yellow">Yellow</option>
+          <option value="awareness-red">Red</option>
+          <option value="awareness-dark-red">Dark Red</option>
+          <option value="awareness-flashing">Flashing (Urgent)</option>
+          <option value="unsolved-problem">Unsolved</option>
         </select>
 
         <button class="export-btn" onclick="exportTabTSV('salesforce')">Export salesforce.tsv</button>
@@ -8138,6 +8182,11 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
         if (solvedFilter) {
           solvedFilter.addEventListener('change', () => applyFilters(fileKey));
         }
+
+        const colorFilter = document.getElementById(`color-filter-${fileKey}`);
+        if (colorFilter) {
+          colorFilter.addEventListener('change', () => applyFilters(fileKey));
+        }
       });
     }
 
@@ -8408,6 +8457,7 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
       const difficultyFilter = document.getElementById(`difficulty-filter-${fileKey}`).value;
       const patternFilter = document.getElementById(`pattern-filter-${fileKey}`).value;
       const solvedFilter = document.getElementById(`solved-filter-${fileKey}`).value;
+      const colorFilter = document.getElementById(`color-filter-${fileKey}`).value;
 
       const tbody = document.getElementById(`tbody-${fileKey}`);
       const rows = tbody.querySelectorAll('tr');
@@ -8438,6 +8488,11 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
           show = false;
         }
         if (solvedFilter === 'unsolved' && problem.solved) {
+          show = false;
+        }
+
+        // Color filter - check if row has the awareness class
+        if (colorFilter && !row.classList.contains(colorFilter)) {
           show = false;
         }
 

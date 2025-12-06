@@ -52,6 +52,11 @@ def generate_js_core():
         if (solvedFilter) {
           solvedFilter.addEventListener('change', () => applyFilters(fileKey));
         }
+
+        const colorFilter = document.getElementById(`color-filter-${fileKey}`);
+        if (colorFilter) {
+          colorFilter.addEventListener('change', () => applyFilters(fileKey));
+        }
       });
     }
 
@@ -322,6 +327,7 @@ def generate_js_core():
       const difficultyFilter = document.getElementById(`difficulty-filter-${fileKey}`).value;
       const patternFilter = document.getElementById(`pattern-filter-${fileKey}`).value;
       const solvedFilter = document.getElementById(`solved-filter-${fileKey}`).value;
+      const colorFilter = document.getElementById(`color-filter-${fileKey}`).value;
 
       const tbody = document.getElementById(`tbody-${fileKey}`);
       const rows = tbody.querySelectorAll('tr');
@@ -352,6 +358,11 @@ def generate_js_core():
           show = false;
         }
         if (solvedFilter === 'unsolved' && problem.solved) {
+          show = false;
+        }
+
+        // Color filter - check if row has the awareness class
+        if (colorFilter && !row.classList.contains(colorFilter)) {
           show = false;
         }
 

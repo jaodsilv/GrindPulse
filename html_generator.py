@@ -53,6 +53,17 @@ def generate_html_structure(file_list):
           <option value="unsolved">Unsolved</option>
         </select>
 
+        <select id="color-filter-{file_name}" class="filter-dropdown">
+          <option value="">All Colors</option>
+          <option value="awareness-white">White (Fresh)</option>
+          <option value="awareness-green">Green</option>
+          <option value="awareness-yellow">Yellow</option>
+          <option value="awareness-red">Red</option>
+          <option value="awareness-dark-red">Dark Red</option>
+          <option value="awareness-flashing">Flashing (Urgent)</option>
+          <option value="unsolved-problem">Unsolved</option>
+        </select>
+
         <button class="export-btn" onclick="exportTabTSV('{file_name}')">Export {file_name}.tsv</button>
       </div>
 
