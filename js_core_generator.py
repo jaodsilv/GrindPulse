@@ -15,10 +15,13 @@ def generate_js_core():
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
       loadFromLocalStorage();
+      initAwareness();
       populatePatternFilters();
       renderAllTabs();
       updateAllProgress();
       setupEventListeners();
+      initSettingsButton();
+      updateAwarenessColors();
     });
 
     // Setup event listeners
@@ -227,6 +230,7 @@ def generate_js_core():
         saveToLocalStorage(fileKey);
         updateProgress(fileKey);
         updateOverallProgress();
+        updateRowAwareness(fileKey, idx);
       };
       solvedTd.appendChild(solvedCheckbox);
 
@@ -241,6 +245,7 @@ def generate_js_core():
         problem.time_to_solve = this.value;
         syncDuplicates(problem.name, 'time_to_solve', this.value);
         saveToLocalStorage(fileKey);
+        updateRowAwareness(fileKey, idx);
       };
       timeTd.appendChild(timeInput);
 

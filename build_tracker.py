@@ -14,6 +14,8 @@ from html_generator import generate_html_structure
 from css_generator import generate_css
 from js_core_generator import generate_js_core
 from js_sync_generator import generate_js_sync
+from js_awareness_generator import generate_js_awareness
+from js_settings_generator import generate_js_settings
 
 def build_tracker():
     """Build the complete tracker.html file"""
@@ -31,6 +33,8 @@ def build_tracker():
     print("\nGenerating components...")
     html_structure = generate_html_structure(parsed_data['file_list'])
     css = generate_css()
+    js_awareness = generate_js_awareness()
+    js_settings = generate_js_settings()
     js_core = generate_js_core()
     js_sync = generate_js_sync()
 
@@ -40,8 +44,8 @@ const PROBLEM_DATA = {json.dumps(parsed_data, indent=2)};
 const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
     '''
 
-    # Combine all JavaScript
-    full_js = data_js + "\n" + js_core + "\n" + js_sync
+    # Combine all JavaScript (order matters: data -> awareness -> settings -> core -> sync)
+    full_js = data_js + "\n" + js_awareness + "\n" + js_settings + "\n" + js_core + "\n" + js_sync
 
     # Replace placeholders
     final_html = html_structure.replace('{CSS_PLACEHOLDER}', css)
