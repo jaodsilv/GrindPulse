@@ -180,7 +180,10 @@ def generate_js_awareness():
       const date = new Date(solvedDate);
 
       // Handle invalid dates
-      if (isNaN(date.getTime())) return -1;
+      if (isNaN(date.getTime())) {
+        console.warn('Invalid date format for solved_date:', solvedDate);
+        return -1;
+      }
 
       // Handle future dates (clock skew)
       if (date > now) return 0;

@@ -403,6 +403,13 @@ def generate_css():
       51%, 100% { background-color: #fca5a5; }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .awareness-flashing {
+        animation: none;
+        background-color: #dc2626 !important;
+      }
+    }
+
     /* Unsolved problem styling */
     .unsolved-problem {
       background-color: #f3f4f6 !important;

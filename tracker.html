@@ -402,6 +402,13 @@
       51%, 100% { background-color: #fca5a5; }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .awareness-flashing {
+        animation: none;
+        background-color: #dc2626 !important;
+      }
+    }
+
     /* Unsolved problem styling */
     .unsolved-problem {
       background-color: #f3f4f6 !important;
@@ -7716,7 +7723,10 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
       const date = new Date(solvedDate);
 
       // Handle invalid dates
-      if (isNaN(date.getTime())) return -1;
+      if (isNaN(date.getTime())) {
+        console.warn('Invalid date format for solved_date:', solvedDate);
+        return -1;
+      }
 
       // Handle future dates (clock skew)
       if (date > now) return 0;
@@ -7972,6 +7982,13 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
       document.body.appendChild(overlay);
     }
 
+    // Handle ESC key to close settings
+    function handleSettingsKeydown(e) {
+      if (e.key === 'Escape') {
+        closeSettingsPanel();
+      }
+    }
+
     // Toggle advanced settings visibility
     function toggleAdvancedSettings() {
       const advancedDiv = document.getElementById('advanced-settings');
@@ -7987,6 +8004,12 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
         toggleIcon.innerHTML = '&#9654;';  // Right arrow
         toggleBtn.innerHTML = '<span id="advanced-toggle-icon">&#9654;</span> Show Advanced Settings';
       }
+    }
+
+    // Clamp value to min/max range, with fallback default
+    function clampValue(value, min, max, defaultVal) {
+      if (isNaN(value)) return defaultVal;
+      return Math.max(min, Math.min(max, value));
     }
 
     // Populate settings inputs with current config values
@@ -8039,19 +8062,37 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
       const commitmentSelect = document.getElementById('setting-commitment');
       AWARENESS_CONFIG.commitment.problemsPerDay = parseFloat(commitmentSelect.value) || 2;
 
-      // Base rate
-      AWARENESS_CONFIG.baseRate = parseFloat(document.getElementById('setting-baseRate').value) || 2.0;
+      // Base rate (clamp 0.1 - 10)
+      AWARENESS_CONFIG.baseRate = clampValue(
+        parseFloat(document.getElementById('setting-baseRate').value),
+        0.1, 10, 2.0
+      );
 
-      // Solved count scaling
-      AWARENESS_CONFIG.baseSolvedScaling = parseFloat(document.getElementById('setting-baseSolvedScaling').value) || 0.1;
+      // Solved count scaling (clamp 0 - 1)
+      AWARENESS_CONFIG.baseSolvedScaling = clampValue(
+        parseFloat(document.getElementById('setting-baseSolvedScaling').value),
+        0, 1, 0.1
+      );
 
-      // Tier solved bonus
-      AWARENESS_CONFIG.tierSolvedBonus.top = parseFloat(document.getElementById('setting-tierBonus-top').value) || 0.3;
-      AWARENESS_CONFIG.tierSolvedBonus.advanced = parseFloat(document.getElementById('setting-tierBonus-advanced').value) || 0.2;
-      AWARENESS_CONFIG.tierSolvedBonus.intermediate = parseFloat(document.getElementById('setting-tierBonus-intermediate').value) || 0.1;
-      AWARENESS_CONFIG.tierSolvedBonus.below = parseFloat(document.getElementById('setting-tierBonus-below').value) || 0;
+      // Tier solved bonus (clamp 0 - 1)
+      AWARENESS_CONFIG.tierSolvedBonus.top = clampValue(
+        parseFloat(document.getElementById('setting-tierBonus-top').value),
+        0, 1, 0.3
+      );
+      AWARENESS_CONFIG.tierSolvedBonus.advanced = clampValue(
+        parseFloat(document.getElementById('setting-tierBonus-advanced').value),
+        0, 1, 0.2
+      );
+      AWARENESS_CONFIG.tierSolvedBonus.intermediate = clampValue(
+        parseFloat(document.getElementById('setting-tierBonus-intermediate').value),
+        0, 1, 0.1
+      );
+      AWARENESS_CONFIG.tierSolvedBonus.below = clampValue(
+        parseFloat(document.getElementById('setting-tierBonus-below').value),
+        0, 1, 0
+      );
 
-      // Tier-Difficulty Matrix
+      // Tier-Difficulty Matrix (clamp 0 - 3)
       const tiers = ['top', 'advanced', 'intermediate', 'below'];
       const difficulties = ['Easy', 'Medium', 'Hard'];
       const defaultMatrix = {
@@ -8064,17 +8105,35 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
         difficulties.forEach(diff => {
           const input = document.getElementById(`setting-tdm-${tier}-${diff}`);
           if (input) {
-            AWARENESS_CONFIG.tierDifficultyMultipliers[tier][diff] = parseFloat(input.value) || defaultMatrix[tier][diff];
+            AWARENESS_CONFIG.tierDifficultyMultipliers[tier][diff] = clampValue(
+              parseFloat(input.value),
+              0, 3, defaultMatrix[tier][diff]
+            );
           }
         });
       });
 
-      // Thresholds
-      AWARENESS_CONFIG.thresholds.white = parseInt(document.getElementById('setting-threshold-white').value) || 10;
-      AWARENESS_CONFIG.thresholds.green = parseInt(document.getElementById('setting-threshold-green').value) || 30;
-      AWARENESS_CONFIG.thresholds.yellow = parseInt(document.getElementById('setting-threshold-yellow').value) || 50;
-      AWARENESS_CONFIG.thresholds.red = parseInt(document.getElementById('setting-threshold-red').value) || 70;
-      AWARENESS_CONFIG.thresholds.darkRed = parseInt(document.getElementById('setting-threshold-darkRed').value) || 90;
+      // Thresholds (clamp 1 - 200)
+      AWARENESS_CONFIG.thresholds.white = clampValue(
+        parseInt(document.getElementById('setting-threshold-white').value),
+        1, 200, 10
+      );
+      AWARENESS_CONFIG.thresholds.green = clampValue(
+        parseInt(document.getElementById('setting-threshold-green').value),
+        1, 200, 30
+      );
+      AWARENESS_CONFIG.thresholds.yellow = clampValue(
+        parseInt(document.getElementById('setting-threshold-yellow').value),
+        1, 200, 50
+      );
+      AWARENESS_CONFIG.thresholds.red = clampValue(
+        parseInt(document.getElementById('setting-threshold-red').value),
+        1, 200, 70
+      );
+      AWARENESS_CONFIG.thresholds.darkRed = clampValue(
+        parseInt(document.getElementById('setting-threshold-darkRed').value),
+        1, 200, 90
+      );
     }
 
     // Setup real-time preview on input change
@@ -8098,6 +8157,7 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
       }
       populateSettingsInputs();
       overlay.classList.add('visible');
+      document.addEventListener('keydown', handleSettingsKeydown);
     }
 
     // Close settings panel
@@ -8106,6 +8166,7 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
       if (overlay) {
         overlay.classList.remove('visible');
       }
+      document.removeEventListener('keydown', handleSettingsKeydown);
       // Reload config to discard unsaved changes
       loadAwarenessConfig();
       updateAwarenessColors();
