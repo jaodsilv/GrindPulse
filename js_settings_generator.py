@@ -22,9 +22,10 @@ def generate_js_settings():
       panel.innerHTML = `
         <div class="settings-header">
           <h2>Awareness Settings</h2>
-          <button class="settings-close" onclick="closeSettingsPanel()">&times;</button>
+          <button type="button" class="settings-close" onclick="closeSettingsPanel()">&times;</button>
         </div>
 
+        <form id="settings-form" onsubmit="saveAndCloseSettings(); return false;">
         <div class="settings-content">
           <div class="settings-section">
             <h3>Your Commitment</h3>
@@ -64,6 +65,25 @@ def generate_js_settings():
             <label>
               Dark Red → Flashing:
               <input type="number" id="setting-threshold-darkRed" step="1" min="1" max="200" class="settings-input">
+            </label>
+          </div>
+
+          <div class="settings-section">
+            <h3>Auto-Refresh</h3>
+            <p class="settings-hint">How often to update awareness colors automatically</p>
+            <label>
+              Refresh interval:
+              <select id="setting-refreshInterval" class="settings-input settings-select">
+                <option value="3600000">Every hour</option>
+                <option value="21600000">Every 6 hours</option>
+                <option value="43200000">Every 12 hours</option>
+                <option value="86400000">Daily (recommended)</option>
+                <option value="0">Manual only</option>
+              </select>
+            </label>
+            <label>
+              Refresh on focus:
+              <input type="checkbox" id="setting-refreshOnFocus" class="checkbox-input">
             </label>
           </div>
 
@@ -156,9 +176,10 @@ def generate_js_settings():
         </div>
 
         <div class="settings-buttons">
-          <button class="settings-btn-secondary" onclick="resetSettingsToDefaults()">Reset to Defaults</button>
-          <button class="settings-btn-primary" onclick="saveAndCloseSettings()">Save & Close</button>
+          <button type="button" class="settings-btn-secondary" onclick="resetSettingsToDefaults()">Reset to Defaults</button>
+          <button type="submit" class="settings-btn-primary">Save & Close</button>
         </div>
+        </form>
       `;
 
       overlay.appendChild(panel);
@@ -193,6 +214,21 @@ def generate_js_settings():
     function clampValue(value, min, max, defaultVal) {
       if (isNaN(value)) return defaultVal;
       return Math.max(min, Math.min(max, value));
+    }
+
+    // Validate threshold ordering: white < green < yellow < red < darkRed
+    function validateThresholdOrdering(thresholds) {
+      const order = ['white', 'green', 'yellow', 'red', 'darkRed'];
+      const validated = { ...thresholds };
+
+      for (let i = 1; i < order.length; i++) {
+        const prev = order[i - 1];
+        const curr = order[i];
+        if (validated[curr] <= validated[prev]) {
+          validated[curr] = Math.min(validated[prev] + 1, 200);
+        }
+      }
+      return validated;
     }
 
     // Populate settings inputs with current config values
@@ -237,6 +273,17 @@ def generate_js_settings():
       document.getElementById('setting-threshold-yellow').value = AWARENESS_CONFIG.thresholds.yellow;
       document.getElementById('setting-threshold-red').value = AWARENESS_CONFIG.thresholds.red;
       document.getElementById('setting-threshold-darkRed').value = AWARENESS_CONFIG.thresholds.darkRed;
+
+      // Refresh settings
+      const refreshSelect = document.getElementById('setting-refreshInterval');
+      const refreshValue = String(AWARENESS_CONFIG.refreshInterval);
+      for (let i = 0; i < refreshSelect.options.length; i++) {
+        if (refreshSelect.options[i].value === refreshValue) {
+          refreshSelect.selectedIndex = i;
+          break;
+        }
+      }
+      document.getElementById('setting-refreshOnFocus').checked = AWARENESS_CONFIG.refreshOnFocus;
     }
 
     // Read settings from inputs and update config
@@ -297,26 +344,28 @@ def generate_js_settings():
       });
 
       // Thresholds (clamp 1 - 200)
-      AWARENESS_CONFIG.thresholds.white = clampValue(
-        parseInt(document.getElementById('setting-threshold-white').value),
-        1, 200, 10
-      );
-      AWARENESS_CONFIG.thresholds.green = clampValue(
-        parseInt(document.getElementById('setting-threshold-green').value),
-        1, 200, 30
-      );
-      AWARENESS_CONFIG.thresholds.yellow = clampValue(
-        parseInt(document.getElementById('setting-threshold-yellow').value),
-        1, 200, 50
-      );
-      AWARENESS_CONFIG.thresholds.red = clampValue(
-        parseInt(document.getElementById('setting-threshold-red').value),
-        1, 200, 70
-      );
-      AWARENESS_CONFIG.thresholds.darkRed = clampValue(
-        parseInt(document.getElementById('setting-threshold-darkRed').value),
-        1, 200, 90
-      );
+      let rawThresholds = {
+        white: clampValue(parseInt(document.getElementById('setting-threshold-white').value), 1, 200, 10),
+        green: clampValue(parseInt(document.getElementById('setting-threshold-green').value), 1, 200, 30),
+        yellow: clampValue(parseInt(document.getElementById('setting-threshold-yellow').value), 1, 200, 50),
+        red: clampValue(parseInt(document.getElementById('setting-threshold-red').value), 1, 200, 70),
+        darkRed: clampValue(parseInt(document.getElementById('setting-threshold-darkRed').value), 1, 200, 90)
+      };
+
+      // Validate ordering (white < green < yellow < red < darkRed)
+      const validatedThresholds = validateThresholdOrdering(rawThresholds);
+      AWARENESS_CONFIG.thresholds = validatedThresholds;
+
+      // Update input fields to reflect validated values
+      document.getElementById('setting-threshold-white').value = validatedThresholds.white;
+      document.getElementById('setting-threshold-green').value = validatedThresholds.green;
+      document.getElementById('setting-threshold-yellow').value = validatedThresholds.yellow;
+      document.getElementById('setting-threshold-red').value = validatedThresholds.red;
+      document.getElementById('setting-threshold-darkRed').value = validatedThresholds.darkRed;
+
+      // Refresh settings
+      AWARENESS_CONFIG.refreshInterval = parseInt(document.getElementById('setting-refreshInterval').value) || 86400000;
+      AWARENESS_CONFIG.refreshOnFocus = document.getElementById('setting-refreshOnFocus').checked;
     }
 
     // Setup real-time preview on input change
@@ -360,6 +409,7 @@ def generate_js_settings():
       readSettingsFromInputs();
       saveAwarenessConfig();
       updateAwarenessColors();
+      setupAwarenessRefresh();  // Re-setup with new interval
       const overlay = document.getElementById('settings-overlay');
       if (overlay) {
         overlay.classList.remove('visible');

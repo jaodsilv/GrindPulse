@@ -108,7 +108,8 @@ def generate_html_structure(file_list):
       <div class="overall-progress">
         <div class="progress-text" id="overall-progress-text">Overall: 0 / 0 unique problems (0%)</div>
       </div>
-          <button id="settings-btn" class="settings-btn" title="Awareness Settings">&#9881;</button>
+          <button id="refresh-btn" class="refresh-btn" title="Refresh Awareness Colors" aria-label="Refresh Awareness Colors" onclick="manualRefreshAwareness()">&#8635;</button>
+          <button id="settings-btn" class="settings-btn" title="Awareness Settings" aria-label="Awareness Settings">&#9881;</button>
     </header>
 
     <div class="tab-container">

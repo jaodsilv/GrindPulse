@@ -8,6 +8,18 @@ def generate_css():
     """Generate CSS styling"""
 
     css = '''
+    :root {
+      /* Awareness color palette */
+      --awareness-white: #ffffff;
+      --awareness-green: #d1fae5;
+      --awareness-yellow: #fef3c7;
+      --awareness-red: #fecaca;
+      --awareness-dark-red: #f87171;
+      --awareness-flashing-primary: #dc2626;
+      --awareness-flashing-secondary: #fca5a5;
+      --awareness-unsolved: #f3f4f6;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -375,23 +387,23 @@ def generate_css():
 
     /* Awareness color classes */
     .awareness-white {
-      background-color: #ffffff !important;
+      background-color: var(--awareness-white) !important;
     }
 
     .awareness-green {
-      background-color: #d1fae5 !important;
+      background-color: var(--awareness-green) !important;
     }
 
     .awareness-yellow {
-      background-color: #fef3c7 !important;
+      background-color: var(--awareness-yellow) !important;
     }
 
     .awareness-red {
-      background-color: #fecaca !important;
+      background-color: var(--awareness-red) !important;
     }
 
     .awareness-dark-red {
-      background-color: #f87171 !important;
+      background-color: var(--awareness-dark-red) !important;
     }
 
     .awareness-flashing {
@@ -399,21 +411,26 @@ def generate_css():
     }
 
     @keyframes flash-urgent {
-      0%, 50% { background-color: #dc2626; }
-      51%, 100% { background-color: #fca5a5; }
+      0%, 50% { background-color: var(--awareness-flashing-primary); }
+      51%, 100% { background-color: var(--awareness-flashing-secondary); }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .awareness-flashing {
         animation: none;
-        background-color: #dc2626 !important;
+        background-color: var(--awareness-flashing-primary) !important;
       }
     }
 
     /* Unsolved problem styling */
     .unsolved-problem {
-      background-color: #f3f4f6 !important;
+      background-color: var(--awareness-unsolved) !important;
       opacity: 0.85;
+    }
+
+    /* Invalid date indicator */
+    .invalid-date {
+      border-left: 4px solid #ef4444 !important;
     }
 
     /* Settings button */
@@ -439,6 +456,34 @@ def generate_css():
       background: rgba(255, 255, 255, 0.3);
       border-color: rgba(255, 255, 255, 0.6);
       transform: rotate(45deg);
+    }
+
+    /* Refresh button */
+    .refresh-btn {
+      position: absolute;
+      right: 84px;
+      top: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .refresh-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .refresh-btn:active {
+      transform: rotate(180deg);
     }
 
     /* Settings overlay */
@@ -725,6 +770,20 @@ def generate_css():
         height: 36px;
         font-size: 1.2rem;
       }
+
+      .refresh-btn {
+        right: 55px;
+        top: 15px;
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Settings form - remove default styling */
+    #settings-form {
+      margin: 0;
+      padding: 0;
     }
     '''
 

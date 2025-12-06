@@ -58,7 +58,11 @@ def generate_js_awareness():
         below: 0                  // Below intermediate doesn't benefit
       },
 
-      flashInterval: 500          // ms for flashing animation
+      flashInterval: 500,         // ms for flashing animation
+
+      // Refresh settings
+      refreshInterval: 86400000,  // 24 hours in milliseconds (default: daily)
+      refreshOnFocus: true        // Refresh when window regains focus
     };
 
     // Current awareness config (loaded from localStorage or defaults)
@@ -172,9 +176,29 @@ def generate_js_awareness():
       return 1 + (baseScaling + tierBonus) * Math.log2(totalSolved + 1);
     }
 
+    // Normalize date to ISO format, returns null if invalid
+    function normalizeDateToISO(dateInput) {
+      if (!dateInput) return null;
+
+      // Already ISO format
+      if (/^\\d{4}-\\d{2}-\\d{2}/.test(dateInput)) {
+        const date = new Date(dateInput);
+        if (!isNaN(date.getTime())) return date.toISOString();
+      }
+
+      // Try parsing other formats
+      const date = new Date(dateInput);
+      if (!isNaN(date.getTime())) {
+        return date.toISOString();
+      }
+
+      return null;
+    }
+
     // Calculate days since completion
+    // Returns: { days: number, valid: boolean }
     function getDaysSinceCompletion(solvedDate) {
-      if (!solvedDate) return -1;
+      if (!solvedDate) return { days: -1, valid: true };  // No date is valid (unsolved)
 
       const now = new Date();
       const date = new Date(solvedDate);
@@ -182,26 +206,30 @@ def generate_js_awareness():
       // Handle invalid dates
       if (isNaN(date.getTime())) {
         console.warn('Invalid date format for solved_date:', solvedDate);
-        return -1;
+        return { days: -1, valid: false };
       }
 
       // Handle future dates (clock skew)
-      if (date > now) return 0;
+      if (date > now) return { days: 0, valid: true };
 
       const diffMs = now - date;
       const diffDays = diffMs / (1000 * 60 * 60 * 24);
-      return diffDays;
+      return { days: diffDays, valid: true };
     }
 
     // Calculate awareness score for a problem
+    // Returns: { score: number, invalidDate: boolean }
     function calculateAwarenessScore(problem) {
       // Not solved - return -1 to indicate no awareness styling
-      if (!problem.solved) return -1;
+      if (!problem.solved) return { score: -1, invalidDate: false };
 
-      const daysSince = getDaysSinceCompletion(problem.solved_date);
+      const dateResult = getDaysSinceCompletion(problem.solved_date);
 
-      // No valid date - return -1
-      if (daysSince < 0) return -1;
+      // Invalid date
+      if (!dateResult.valid) return { score: -1, invalidDate: true };
+
+      // No valid date (unsolved)
+      if (dateResult.days < 0) return { score: -1, invalidDate: false };
 
       const commitmentFactor = getCommitmentFactor();
       const tierDiffMultiplier = getTierDifficultyMultiplier(problem);
@@ -214,9 +242,9 @@ def generate_js_awareness():
       // - Top tier + Easy = 0 multiplier = score stays 0 = always white (mastered)
       // - Top tier: Medium < Hard (inverted - deep mastery of medium decays slower)
       // - Other tiers: Easy > Medium > Hard (standard - easy problems forgotten faster)
-      const score = daysSince * AWARENESS_CONFIG.baseRate * commitmentFactor * tierDiffMultiplier / solvedFactor;
+      const score = dateResult.days * AWARENESS_CONFIG.baseRate * commitmentFactor * tierDiffMultiplier / solvedFactor;
 
-      return score;
+      return { score, invalidDate: false };
     }
 
     // Get CSS class for awareness score
@@ -253,14 +281,20 @@ def generate_js_awareness():
       if (!row) return;
 
       const problem = PROBLEM_DATA.data[fileKey][idx];
-      const score = calculateAwarenessScore(problem);
-      const newClass = getAwarenessClass(score);
+      const result = calculateAwarenessScore(problem);
+      const newClass = getAwarenessClass(result.score);
 
-      // Remove all awareness classes
+      // Remove all awareness classes and invalid-date class
       AWARENESS_CLASSES.forEach(cls => row.classList.remove(cls));
+      row.classList.remove('invalid-date');
 
       // Add the new class
       row.classList.add(newClass);
+
+      // Add invalid-date indicator if needed
+      if (result.invalidDate) {
+        row.classList.add('invalid-date');
+      }
     }
 
     // Update awareness colors for all problems in all tabs
@@ -272,14 +306,42 @@ def generate_js_awareness():
       });
     }
 
+    // Auto-refresh management
+    let awarenessRefreshInterval = null;
+    let focusListenerAdded = false;
+
+    function setupAwarenessRefresh() {
+      // Clear existing interval if any
+      if (awarenessRefreshInterval) {
+        clearInterval(awarenessRefreshInterval);
+        awarenessRefreshInterval = null;
+      }
+
+      // Set up new interval based on config (0 = manual only)
+      if (AWARENESS_CONFIG.refreshInterval > 0) {
+        awarenessRefreshInterval = setInterval(updateAwarenessColors, AWARENESS_CONFIG.refreshInterval);
+      }
+
+      // Set up window focus listener if enabled and not already added
+      if (AWARENESS_CONFIG.refreshOnFocus && !focusListenerAdded) {
+        window.addEventListener('focus', function() {
+          updateAwarenessColors();
+        });
+        focusListenerAdded = true;
+      }
+    }
+
+    // Manual refresh function (can be called from button)
+    function manualRefreshAwareness() {
+      updateAwarenessColors();
+    }
+
     // Initialize awareness on load
     function initAwareness() {
       loadAwarenessConfig();
       updateAwarenessColors();
+      setupAwarenessRefresh();
     }
-
-    // Set up hourly auto-refresh for awareness colors
-    setInterval(updateAwarenessColors, 3600000); // Update every hour
     '''
 
     return js
