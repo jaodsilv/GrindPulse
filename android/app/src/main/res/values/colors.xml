@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="purple_primary">#7C3AED</color>
+    <color name="purple_dark">#5B21B6</color>
+    <color name="blue_accent">#3B82F6</color>
+
+    <!-- Difficulty Colors -->
+    <color name="difficulty_easy">#10B981</color>
+    <color name="difficulty_medium">#F59E0B</color>
+    <color name="difficulty_hard">#EF4444</color>
+
+    <!-- Background Colors -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="background_dark">#121212</color>
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_dark">#1E1E1E</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary_light">#1F2937</color>
+    <color name="text_primary_dark">#F9FAFB</color>
+    <color name="text_secondary_light">#6B7280</color>
+    <color name="text_secondary_dark">#9CA3AF</color>
+
+    <!-- Status Colors -->
+    <color name="solved_color">#10B981</color>
+    <color name="unsolved_color">#9CA3AF</color>
+</resources>

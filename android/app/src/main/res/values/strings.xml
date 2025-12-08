@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Coding Tracker</string>
+
+    <!-- Problem Lists -->
+    <string name="blind75">Blind 75</string>
+    <string name="neetcode150">NeetCode 150</string>
+    <string name="neetcode250">NeetCode 250</string>
+    <string name="salesforce">Salesforce</string>
+
+    <!-- Difficulty -->
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+
+    <!-- Filters -->
+    <string name="search_hint">Search problems...</string>
+    <string name="all_difficulties">All Difficulties</string>
+    <string name="all_patterns">All Patterns</string>
+    <string name="all_status">All Status</string>
+    <string name="solved">Solved</string>
+    <string name="unsolved">Unsolved</string>
+
+    <!-- Progress -->
+    <string name="progress_format">%1$d / %2$d (%3$.1f%%)</string>
+    <string name="overall_progress">Overall Progress</string>
+    <string name="unique_problems">unique problems</string>
+
+    <!-- Problem Detail -->
+    <string name="time_to_solve">Time to Solve (min)</string>
+    <string name="comments">Comments</string>
+    <string name="solved_date">Solved</string>
+    <string name="pattern">Pattern</string>
+    <string name="target_times">Target Times</string>
+    <string name="intermediate">Intermediate</string>
+    <string name="advanced">Advanced</string>
+    <string name="top">Top</string>
+    <string name="minutes_format">%d min</string>
+    <string name="also_in">Also in:</string>
+
+    <!-- Actions -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="export">Export</string>
+    <string name="settings">Settings</string>
+
+    <!-- Settings -->
+    <string name="dark_mode">Dark Mode</string>
+    <string name="export_data">Export Data</string>
+    <string name="about">About</string>
+    <string name="version">Version %s</string>
+</resources>
