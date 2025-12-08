@@ -22,10 +22,10 @@ def generate_js_settings():
       panel.innerHTML = `
         <div class="settings-header">
           <h2>Awareness Settings</h2>
-          <button type="button" class="settings-close" onclick="closeSettingsPanel()">&times;</button>
+          <button type="button" id="settings-close-btn" class="settings-close">&times;</button>
         </div>
 
-        <form id="settings-form" onsubmit="saveAndCloseSettings(); return false;">
+        <form id="settings-form">
         <div class="settings-content">
           <div class="settings-section">
             <h3>Your Commitment</h3>
@@ -88,7 +88,7 @@ def generate_js_settings():
           </div>
 
           <div class="settings-section settings-advanced-toggle">
-            <button type="button" class="settings-toggle-btn" onclick="toggleAdvancedSettings()">
+            <button type="button" id="settings-toggle-advanced" class="settings-toggle-btn">
               <span id="advanced-toggle-icon">&#9654;</span> Show Advanced Settings
             </button>
           </div>
@@ -176,7 +176,7 @@ def generate_js_settings():
         </div>
 
         <div class="settings-buttons">
-          <button type="button" class="settings-btn-secondary" onclick="resetSettingsToDefaults()">Reset to Defaults</button>
+          <button type="button" id="settings-reset-btn" class="settings-btn-secondary">Reset to Defaults</button>
           <button type="submit" class="settings-btn-primary">Save & Close</button>
         </div>
         </form>
@@ -184,6 +184,24 @@ def generate_js_settings():
 
       overlay.appendChild(panel);
       document.body.appendChild(overlay);
+    }
+
+    // Initialize all event listeners for settings panel
+    function initSettingsPanel() {
+      // Close button
+      document.getElementById('settings-close-btn').addEventListener('click', closeSettingsPanel);
+
+      // Form submission
+      document.getElementById('settings-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        saveAndCloseSettings();
+      });
+
+      // Toggle advanced settings
+      document.getElementById('settings-toggle-advanced').addEventListener('click', toggleAdvancedSettings);
+
+      // Reset button
+      document.getElementById('settings-reset-btn').addEventListener('click', resetSettingsToDefaults);
     }
 
     // Handle ESC key to close settings
@@ -385,6 +403,7 @@ def generate_js_settings():
       if (!overlay) {
         createSettingsPanel();
         overlay = document.getElementById('settings-overlay');
+        initSettingsPanel();
         setupSettingsPreview();
       }
       populateSettingsInputs();

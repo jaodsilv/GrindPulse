@@ -1,0 +1,33 @@
+{
+  "name": "awareness-indicator-tests",
+  "version": "1.0.0",
+  "description": "Unit tests for awareness indicator JavaScript functions",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {},
+    "testMatch": [
+      "**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "awareness.js",
+      "!node_modules/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

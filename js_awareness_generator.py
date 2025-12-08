@@ -180,19 +180,10 @@ def generate_js_awareness():
     function normalizeDateToISO(dateInput) {
       if (!dateInput) return null;
 
-      // Already ISO format
-      if (/^\\d{4}-\\d{2}-\\d{2}/.test(dateInput)) {
-        const date = new Date(dateInput);
-        if (!isNaN(date.getTime())) return date.toISOString();
-      }
-
-      // Try parsing other formats
       const date = new Date(dateInput);
-      if (!isNaN(date.getTime())) {
-        return date.toISOString();
-      }
+      if (isNaN(date.getTime())) return null;
 
-      return null;
+      return date.toISOString();
     }
 
     // Calculate days since completion
@@ -272,6 +263,15 @@ def generate_js_awareness():
       'unsolved-problem'
     ];
 
+    // Debounce utility for preventing rapid-fire updates
+    function debounce(func, wait) {
+      let timeout;
+      return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+      };
+    }
+
     // Update awareness color for a single row
     function updateRowAwareness(fileKey, idx) {
       const tbody = document.getElementById(`tbody-${fileKey}`);
@@ -297,18 +297,29 @@ def generate_js_awareness():
       }
     }
 
-    // Update awareness colors for all problems in all tabs
-    function updateAwarenessColors() {
-      PROBLEM_DATA.file_list.forEach(fileKey => {
-        PROBLEM_DATA.data[fileKey].forEach((problem, idx) => {
-          updateRowAwareness(fileKey, idx);
-        });
+    // Update awareness colors for all problems in a specific tab
+    function updateTabAwareness(fileKey) {
+      PROBLEM_DATA.data[fileKey].forEach((problem, idx) => {
+        updateRowAwareness(fileKey, idx);
       });
+    }
+
+    // Update awareness colors for problems
+    // @param {boolean} allTabs - If true, update all tabs; if false, update only current tab
+    function updateAwarenessColors(allTabs = false) {
+      if (allTabs) {
+        PROBLEM_DATA.file_list.forEach(fileKey => {
+          updateTabAwareness(fileKey);
+        });
+      } else {
+        // Only update current visible tab (currentTab is defined in js_core_generator.py)
+        updateTabAwareness(currentTab);
+      }
     }
 
     // Auto-refresh management
     let awarenessRefreshInterval = null;
-    let focusListenerAdded = false;
+    let focusHandler = null;
 
     function setupAwarenessRefresh() {
       // Clear existing interval if any
@@ -319,27 +330,33 @@ def generate_js_awareness():
 
       // Set up new interval based on config (0 = manual only)
       if (AWARENESS_CONFIG.refreshInterval > 0) {
-        awarenessRefreshInterval = setInterval(updateAwarenessColors, AWARENESS_CONFIG.refreshInterval);
+        awarenessRefreshInterval = setInterval(() => updateAwarenessColors(true), AWARENESS_CONFIG.refreshInterval);
       }
 
-      // Set up window focus listener if enabled and not already added
-      if (AWARENESS_CONFIG.refreshOnFocus && !focusListenerAdded) {
-        window.addEventListener('focus', function() {
-          updateAwarenessColors();
-        });
-        focusListenerAdded = true;
+      // Remove existing focus listener if any
+      if (focusHandler) {
+        window.removeEventListener('focus', focusHandler);
+        focusHandler = null;
+      }
+
+      // Add focus listener if enabled (debounced to prevent rapid updates)
+      if (AWARENESS_CONFIG.refreshOnFocus) {
+        focusHandler = debounce(function() {
+          updateAwarenessColors(true);  // Update all tabs on focus since user may have been away
+        }, 300);
+        window.addEventListener('focus', focusHandler);
       }
     }
 
     // Manual refresh function (can be called from button)
     function manualRefreshAwareness() {
-      updateAwarenessColors();
+      updateAwarenessColors(true);  // Update all tabs for manual refresh
     }
 
     // Initialize awareness on load
     function initAwareness() {
       loadAwarenessConfig();
-      updateAwarenessColors();
+      updateAwarenessColors(true);  // Update all tabs on initial load
       setupAwarenessRefresh();
     }
     '''

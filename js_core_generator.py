@@ -21,7 +21,6 @@ def generate_js_core():
       updateAllProgress();
       setupEventListeners();
       initSettingsButton();
-      updateAwarenessColors();
     });
 
     // Setup event listeners
