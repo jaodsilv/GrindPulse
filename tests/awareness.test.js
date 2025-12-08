@@ -623,7 +623,7 @@ describe('Awareness Indicator System', () => {
 
       it('should have higher score for below tier vs top tier (same difficulty)', () => {
         const date = new Date();
-        date.setDate(date.setDate() - 20);
+        date.setDate(date.getDate() - 20);
         const dateStr = date.toISOString();
 
         const topProblem = {

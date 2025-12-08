@@ -4,6 +4,13 @@ Awareness Logic Sub-Agent
 Implements spaced repetition awareness calculations and color management
 """
 
+# SYNCHRONIZATION REQUIREMENT:
+# Core calculation functions in this file are duplicated in tests/awareness.js for testing.
+# When modifying getTierName(), getTierDifficultyMultiplier(), getCommitmentFactor(),
+# getSolvedFactor(), getDaysSinceCompletion(), calculateAwarenessScore(), or getAwarenessClass(),
+# you MUST update both files to keep them in sync.
+# After changes, run tests to verify: cd tests && npm test
+
 def generate_js_awareness():
     """Generate JavaScript awareness logic"""
 
