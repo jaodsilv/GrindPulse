@@ -29,6 +29,9 @@ def generate_js_sync():
 
           // Save to localStorage
           saveToLocalStorage(fileKey);
+
+          // Update awareness color for this row
+          updateRowAwareness(fileKey, problemIdx);
         }
       });
 

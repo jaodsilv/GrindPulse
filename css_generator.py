@@ -8,6 +8,18 @@ def generate_css():
     """Generate CSS styling"""
 
     css = '''
+    :root {
+      /* Awareness color palette */
+      --awareness-white: #ffffff;
+      --awareness-green: #d1fae5;
+      --awareness-yellow: #fef3c7;
+      --awareness-red: #fecaca;
+      --awareness-dark-red: #f87171;
+      --awareness-flashing-primary: #dc2626;
+      --awareness-flashing-secondary: #fca5a5;
+      --awareness-unsolved: #f3f4f6;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -35,6 +47,7 @@ def generate_css():
       color: white;
       padding: 30px;
       text-align: center;
+      position: relative;
     }
 
     header h1 {
@@ -372,6 +385,345 @@ def generate_css():
       text-align: center;
     }
 
+    /* Awareness color classes */
+    .awareness-white {
+      background-color: var(--awareness-white) !important;
+    }
+
+    .awareness-green {
+      background-color: var(--awareness-green) !important;
+    }
+
+    .awareness-yellow {
+      background-color: var(--awareness-yellow) !important;
+    }
+
+    .awareness-red {
+      background-color: var(--awareness-red) !important;
+    }
+
+    .awareness-dark-red {
+      background-color: var(--awareness-dark-red) !important;
+    }
+
+    .awareness-flashing {
+      animation: flash-urgent 0.5s infinite !important;
+    }
+
+    @keyframes flash-urgent {
+      0%, 50% { background-color: var(--awareness-flashing-primary); }
+      51%, 100% { background-color: var(--awareness-flashing-secondary); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .awareness-flashing {
+        animation: none;
+        background-color: var(--awareness-flashing-primary) !important;
+      }
+    }
+
+    /* Unsolved problem styling */
+    .unsolved-problem {
+      background-color: var(--awareness-unsolved) !important;
+      opacity: 0.85;
+    }
+
+    /* Invalid date indicator */
+    .invalid-date {
+      border-left: 4px solid #ef4444 !important;
+    }
+
+    /* Settings button */
+    .settings-btn {
+      position: absolute;
+      right: 30px;
+      top: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .settings-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: rotate(45deg);
+    }
+
+    /* Refresh button */
+    .refresh-btn {
+      position: absolute;
+      right: 84px;
+      top: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .refresh-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .refresh-btn:active {
+      transform: rotate(180deg);
+    }
+
+    /* Settings overlay */
+    .settings-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .settings-overlay.visible {
+      display: flex;
+    }
+
+    /* Settings panel */
+    .settings-panel {
+      background: white;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid #e0e0e0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .settings-header h2 {
+      font-size: 1.3rem;
+      margin: 0;
+    }
+
+    .settings-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .settings-close:hover {
+      opacity: 1;
+    }
+
+    .settings-content {
+      padding: 20px 24px;
+    }
+
+    .settings-section {
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .settings-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .settings-section h3 {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .settings-hint {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .settings-section label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .settings-input {
+      width: 80px;
+      padding: 8px 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .settings-input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .settings-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 24px;
+      background: #f9f9f9;
+      border-top: 1px solid #e0e0e0;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .settings-btn-secondary {
+      padding: 12px 20px;
+      background: #e0e0e0;
+      color: #333;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .settings-btn-secondary:hover {
+      background: #d0d0d0;
+    }
+
+    .settings-btn-primary {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .settings-btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Settings select dropdown */
+    .settings-select {
+      width: 180px;
+      text-align: left;
+      padding: 8px 12px;
+      background: white;
+      cursor: pointer;
+    }
+
+    /* Advanced settings toggle */
+    .settings-advanced-toggle {
+      text-align: center;
+      padding: 10px 0;
+      border-bottom: none !important;
+    }
+
+    .settings-toggle-btn {
+      background: none;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .settings-toggle-btn:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+
+    /* Advanced settings container */
+    .settings-advanced {
+      background: #f9f9f9;
+      border-radius: 8px;
+      margin: 0 -24px;
+      padding: 20px 24px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .settings-advanced .settings-section:first-child {
+      margin-top: 0;
+    }
+
+    /* Settings matrix table */
+    .settings-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .settings-matrix th,
+    .settings-matrix td {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+    }
+
+    .settings-matrix th {
+      background: #f3f4f6;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #444;
+    }
+
+    .settings-matrix-label {
+      font-weight: 600;
+      color: #444;
+      background: #f9f9f9;
+      text-align: left !important;
+      padding-left: 12px !important;
+    }
+
+    .settings-matrix .settings-input {
+      width: 60px;
+      padding: 6px;
+      font-size: 0.85rem;
+    }
+
     @media (max-width: 1200px) {
       .filter-section {
         flex-direction: column;
@@ -410,6 +762,28 @@ def generate_css():
         width: 120px;
         min-height: 40px;
       }
+
+      .settings-btn {
+        right: 15px;
+        top: 15px;
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+      }
+
+      .refresh-btn {
+        right: 55px;
+        top: 15px;
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Settings form - remove default styling */
+    #settings-form {
+      margin: 0;
+      padding: 0;
     }
     '''
 
