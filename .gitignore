@@ -1,0 +1,8 @@
+# IDE
+.idea/
+
+# Android
+android/local.properties
+android/.gradle/
+android/.kotlin/
+android/app/build/
