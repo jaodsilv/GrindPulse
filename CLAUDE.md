@@ -33,10 +33,11 @@ The project uses a multi-agent generation pattern where Python scripts create di
 5. `js_sync_generator.py` - Cross-file synchronization for duplicate problems
 6. `js_awareness_generator.py` - Spaced repetition awareness color indicators
 7. `js_settings_generator.py` - Settings panel UI
-8. `js_import_export_generator.py` - Multi-format import/export (TSV, CSV, JSON, XML, YAML)
-9. `js_conflict_dialog_generator.py` - Import conflict resolution dialog
-10. `js_firebase_generator.py` - Optional Firebase cloud sync (if `firebase_config.json` exists)
-11. `build_tracker.py` - Orchestrates all generators into single `tracker.html`
+8. `js_config_sync_generator.py` - Config sync for filters, export prefs, UI settings (local + cloud)
+9. `js_import_export_generator.py` - Multi-format import/export (TSV, CSV, JSON, XML, YAML)
+10. `js_conflict_dialog_generator.py` - Import conflict resolution dialog
+11. `js_firebase_generator.py` - Optional Firebase cloud sync (if `firebase_config.json` exists)
+12. `build_tracker.py` - Orchestrates all generators into single `tracker.html`
 
 ### Key Design Patterns
 
@@ -52,11 +53,12 @@ Components must be combined in this order (set in `build_tracker.py`):
 1. Data (PROBLEM_DATA, DUPLICATE_MAP)
 2. Awareness algorithm
 3. Settings
-4. Import/Export
-5. Conflict Dialog
-6. Firebase
-7. Core logic
-8. Sync engine
+4. Config Sync (filter/export/UI preferences)
+5. Import/Export
+6. Conflict Dialog
+7. Firebase
+8. Core logic
+9. Sync engine
 
 ## Testing
 

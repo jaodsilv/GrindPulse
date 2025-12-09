@@ -16,6 +16,10 @@ from js_core_generator import generate_js_core
 from js_sync_generator import generate_js_sync
 from js_awareness_generator import generate_js_awareness
 from js_settings_generator import generate_js_settings
+from js_config_sync_generator import generate_js_config_sync
+from js_import_export_generator import generate_js_import_export
+from js_conflict_dialog_generator import generate_js_conflict_dialog
+from js_firebase_generator import generate_js_firebase
 
 def build_tracker():
     """Build the complete tracker.html file"""
@@ -24,6 +28,16 @@ def build_tracker():
     with open('parsed_data.json', 'r', encoding='utf-8') as f:
         parsed_data = json.load(f)
 
+    # Load Firebase config if it exists
+    firebase_config = None
+    firebase_config_path = Path(__file__).parent / 'firebase_config.json'
+    if firebase_config_path.exists():
+        with open(firebase_config_path, 'r', encoding='utf-8') as f:
+            firebase_config = json.load(f)
+        print(f"  Firebase config: loaded from {firebase_config_path.name}")
+    else:
+        print("  Firebase config: not found (cloud sync disabled)")
+
     print("Building tracker.html...")
     print(f"  Files: {len(parsed_data['file_list'])}")
     print(f"  Total problems: {sum(len(parsed_data['data'][f]) for f in parsed_data['file_list'])}")
@@ -31,10 +45,15 @@ def build_tracker():
 
     # Generate components
     print("\nGenerating components...")
-    html_structure = generate_html_structure(parsed_data['file_list'])
+    firebase_enabled = firebase_config is not None
+    html_structure = generate_html_structure(parsed_data['file_list'], firebase_enabled)
     css = generate_css()
     js_awareness = generate_js_awareness()
     js_settings = generate_js_settings()
+    js_config_sync = generate_js_config_sync()
+    js_import_export = generate_js_import_export()
+    js_conflict_dialog = generate_js_conflict_dialog()
+    js_firebase = generate_js_firebase(firebase_config)
     js_core = generate_js_core()
     js_sync = generate_js_sync()
 
@@ -44,8 +63,8 @@ const PROBLEM_DATA = {json.dumps(parsed_data, indent=2)};
 const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
     '''
 
-    # Combine all JavaScript (order matters: data -> awareness -> settings -> core -> sync)
-    full_js = data_js + "\n" + js_awareness + "\n" + js_settings + "\n" + js_core + "\n" + js_sync
+    # Combine all JavaScript (order matters: data -> awareness -> settings -> config_sync -> import_export -> conflict_dialog -> firebase -> core -> sync)
+    full_js = data_js + "\n" + js_awareness + "\n" + js_settings + "\n" + js_config_sync + "\n" + js_import_export + "\n" + js_conflict_dialog + "\n" + js_firebase + "\n" + js_core + "\n" + js_sync
 
     # Replace placeholders
     final_html = html_structure.replace('{CSS_PLACEHOLDER}', css)

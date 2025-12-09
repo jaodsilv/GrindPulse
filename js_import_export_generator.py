@@ -920,6 +920,53 @@ def generate_js_import_export():
     }
 
     /**
+     * Initialize export preference dropdowns with saved values and add event listeners
+     */
+    function initExportPreferences() {
+      // Get saved preferences
+      const savedFormat = typeof getExportFormat === 'function' ? getExportFormat() : 'json';
+      const savedMode = typeof getExportMode === 'function' ? getExportMode() : 'user';
+
+      // Set global dropdowns
+      const globalFormatSelect = document.getElementById('global-format-select');
+      const globalModeSelect = document.getElementById('global-mode-select');
+
+      if (globalFormatSelect) {
+        globalFormatSelect.value = savedFormat;
+        globalFormatSelect.addEventListener('change', function() {
+          if (typeof setExportFormat === 'function') setExportFormat(this.value);
+        });
+      }
+
+      if (globalModeSelect) {
+        globalModeSelect.value = savedMode;
+        globalModeSelect.addEventListener('change', function() {
+          if (typeof setExportMode === 'function') setExportMode(this.value);
+        });
+      }
+
+      // Set per-tab dropdowns
+      PROBLEM_DATA.file_list.forEach(fileKey => {
+        const formatSelect = document.getElementById(`format-select-${fileKey}`);
+        const modeSelect = document.getElementById(`mode-select-${fileKey}`);
+
+        if (formatSelect) {
+          formatSelect.value = savedFormat;
+          formatSelect.addEventListener('change', function() {
+            if (typeof setExportFormat === 'function') setExportFormat(this.value);
+          });
+        }
+
+        if (modeSelect) {
+          modeSelect.value = savedMode;
+          modeSelect.addEventListener('change', function() {
+            if (typeof setExportMode === 'function') setExportMode(this.value);
+          });
+        }
+      });
+    }
+
+    /**
      * Dynamically create tab UI elements
      */
     function createTabUI(fileKey) {

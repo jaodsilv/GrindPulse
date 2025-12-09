@@ -667,6 +667,11 @@ def generate_js_firebase(firebase_config=None):
           updateAllProgress();
           updateSyncStatusUI('synced');
         }
+
+        // Load all config settings from cloud (filter, export, UI preferences)
+        if (typeof loadAllConfigsFromCloud === 'function') {
+          await loadAllConfigsFromCloud();
+        }
       } catch (error) {
         console.error('Pull from cloud failed:', error);
         updateSyncStatusUI('error', error.message);
@@ -730,6 +735,11 @@ def generate_js_firebase(firebase_config=None):
         });
 
       realtimeListeners.push(unsubscribe);
+
+      // Setup config real-time listeners (filter, export, UI preferences)
+      if (typeof setupConfigRealtimeListeners === 'function') {
+        setupConfigRealtimeListeners();
+      }
     }
 
     /**

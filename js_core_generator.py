@@ -14,6 +14,11 @@ def generate_js_core():
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
+      // Initialize config sync first (loads filter/export/UI preferences from localStorage)
+      if (typeof initConfigSync === 'function') {
+        initConfigSync();
+      }
+
       loadFromLocalStorage();
       initAwareness();
       populatePatternFilters();
@@ -21,6 +26,24 @@ def generate_js_core():
       updateAllProgress();
       setupEventListeners();
       initSettingsButton();
+
+      // Restore saved filter states and active tab from config
+      if (typeof restoreFilterStates === 'function') {
+        restoreFilterStates();
+      }
+      if (typeof restoreActiveTab === 'function') {
+        restoreActiveTab();
+      }
+
+      // Initialize export preferences from saved config
+      if (typeof initExportPreferences === 'function') {
+        initExportPreferences();
+      }
+
+      // Initialize Firebase cloud sync (if configured)
+      if (typeof initFirebase === 'function') {
+        initFirebase();
+      }
     });
 
     // Setup event listeners
@@ -40,21 +63,36 @@ def generate_js_core():
         const solvedFilter = document.getElementById(`solved-filter-${fileKey}`);
 
         if (searchBox) {
-          searchBox.addEventListener('input', () => applyFilters(fileKey));
+          searchBox.addEventListener('input', () => {
+            applyFilters(fileKey);
+            if (typeof saveFilterState === 'function') saveFilterState(fileKey);
+          });
         }
         if (difficultyFilter) {
-          difficultyFilter.addEventListener('change', () => applyFilters(fileKey));
+          difficultyFilter.addEventListener('change', () => {
+            applyFilters(fileKey);
+            if (typeof saveFilterState === 'function') saveFilterState(fileKey);
+          });
         }
         if (patternFilter) {
-          patternFilter.addEventListener('change', () => applyFilters(fileKey));
+          patternFilter.addEventListener('change', () => {
+            applyFilters(fileKey);
+            if (typeof saveFilterState === 'function') saveFilterState(fileKey);
+          });
         }
         if (solvedFilter) {
-          solvedFilter.addEventListener('change', () => applyFilters(fileKey));
+          solvedFilter.addEventListener('change', () => {
+            applyFilters(fileKey);
+            if (typeof saveFilterState === 'function') saveFilterState(fileKey);
+          });
         }
 
         const colorFilter = document.getElementById(`color-filter-${fileKey}`);
         if (colorFilter) {
-          colorFilter.addEventListener('change', () => applyFilters(fileKey));
+          colorFilter.addEventListener('change', () => {
+            applyFilters(fileKey);
+            if (typeof saveFilterState === 'function') saveFilterState(fileKey);
+          });
         }
       });
     }
@@ -62,6 +100,11 @@ def generate_js_core():
     // Tab switching
     function switchTab(tabName) {
       currentTab = tabName;
+
+      // Save active tab to config
+      if (typeof saveActiveTab === 'function') {
+        saveActiveTab(tabName);
+      }
 
       // Update tab buttons
       document.querySelectorAll('.tab-button').forEach(btn => {
@@ -111,6 +154,11 @@ def generate_js_core():
         solved_date: p.solved_date
       }));
       localStorage.setItem(`tracker_${fileKey}`, JSON.stringify(data));
+
+      // Trigger cloud sync (debounced) if Firebase is enabled
+      if (typeof syncToCloudDebounced === 'function' && typeof isCloudSyncEnabled === 'function' && isCloudSyncEnabled()) {
+        syncToCloudDebounced(fileKey);
+      }
     }
 
     // Populate pattern filter dropdowns
@@ -414,50 +462,10 @@ def generate_js_core():
       progressText.textContent = `Overall: ${solved} / ${total} unique problems (${percentage}%)`;
     }
 
-    // Export tab to TSV
-    function exportTabTSV(fileKey) {
-      const problems = PROBLEM_DATA.data[fileKey];
-
-      // TSV header
-      let tsv = "Problem Name\\tDifficulty\\tIntermediate Max time\\tAdvanced Max time\\tTop of the crop max time\\tProblem Pattern\\tSolved\\tTime to Solve\\tComments\\tSolved Date\\n";
-
-      problems.forEach(problem => {
-        const row = [
-          escapeTSV(problem.name),
-          escapeTSV(problem.difficulty),
-          escapeTSV(problem.intermediate_time),
-          escapeTSV(problem.advanced_time),
-          escapeTSV(problem.top_time),
-          escapeTSV(problem.pattern),
-          problem.solved ? "true" : "false",
-          escapeTSV(problem.time_to_solve),
-          escapeTSV(problem.comments),
-          escapeTSV(problem.solved_date)
-        ];
-        tsv += row.join('\\t') + '\\n';
-      });
-
-      downloadFile(`${fileKey}.tsv`, tsv);
-    }
-
-    // Export all TSVs
-    function exportAllTSV() {
-      PROBLEM_DATA.file_list.forEach(fileKey => {
-        exportTabTSV(fileKey);
-      });
-    }
-
-    // Escape TSV special characters
-    function escapeTSV(value) {
-      if (value === null || value === undefined) return '';
-      const str = String(value);
-      // Replace tabs with spaces, newlines with spaces
-      return str.replace(/\\t/g, ' ').replace(/\\n/g, ' ').replace(/\\r/g, '');
-    }
-
-    // Download file
-    function downloadFile(filename, content) {
-      const blob = new Blob([content], { type: 'text/tab-separated-values;charset=utf-8;' });
+    // Download file with specified MIME type
+    function downloadFile(filename, content, mimeType) {
+      const type = mimeType || 'text/plain;charset=utf-8;';
+      const blob = new Blob([content], { type: type });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.download = filename;
