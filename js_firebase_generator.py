@@ -45,6 +45,18 @@ def generate_js_firebase(firebase_config=None):
     let syncDebounceTimer = null;
     let syncAllDebounceTimer = null;
 
+    // Sync frequency control - tuned to minimize quota usage
+    let lastPullTime = 0;
+    let lastWriteTime = 0;
+    const FOCUS_PULL_COOLDOWN = 60000; // Only pull on focus if >60s since last pull (was 30s)
+    const WRITE_COOLDOWN = 5000; // Minimum 5s between write operations
+
+    // Unique device ID for this session (to distinguish own echoes from other devices)
+    const DEVICE_ID = 'web_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+    // Track pending changes to batch them
+    let pendingChanges = new Set();
+
     // ============================================
     // INITIALIZATION
     // ============================================
@@ -65,7 +77,18 @@ def generate_js_firebase(firebase_config=None):
         firebaseAuth = firebase.auth();
         firebaseDb = firebase.firestore();
 
-        // Enable offline persistence
+        // Configure Firestore settings for better performance
+        // Note: experimentalAutoDetectLongPolling helps with connectivity issues
+        firebaseDb.settings({
+          cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
+          experimentalAutoDetectLongPolling: true
+        });
+
+        // Enable offline persistence with multi-tab support
+        // NOTE: The deprecation warning about enableMultiTabIndexedDbPersistence
+        // is expected - the compat SDK doesn't support the new localCache API.
+        // Migration to modular SDK (v9+) would be needed to use the new API.
+        // This still works correctly, it's just an informational warning.
         firebaseDb.enablePersistence({ synchronizeTabs: true })
           .catch(err => {
             if (err.code === 'failed-precondition') {
@@ -312,6 +335,7 @@ def generate_js_firebase(firebase_config=None):
       const authAvatar = document.getElementById('auth-avatar');
       const authText = document.getElementById('auth-text');
       const cloudSyncSection = document.getElementById('cloud-sync-section');
+      const syncNowBtn = document.getElementById('sync-now-btn');
 
       if (!authBtn) return;
 
@@ -331,6 +355,11 @@ def generate_js_firebase(firebase_config=None):
         if (cloudSyncSection) {
           cloudSyncSection.style.display = 'block';
         }
+
+        // Show sync now button
+        if (syncNowBtn) {
+          syncNowBtn.style.display = 'block';
+        }
       } else {
         authBtn.onclick = signInWithGoogle;
         authBtn.title = 'Sign in with Google';
@@ -345,6 +374,11 @@ def generate_js_firebase(firebase_config=None):
         // Hide cloud sync section in settings
         if (cloudSyncSection) {
           cloudSyncSection.style.display = 'none';
+        }
+
+        // Hide sync now button
+        if (syncNowBtn) {
+          syncNowBtn.style.display = 'none';
         }
       }
     }
@@ -452,6 +486,13 @@ def generate_js_firebase(firebase_config=None):
           syncText.title = message || '';
           isSyncing = false;
           break;
+        case 'quota-exceeded':
+          syncIcon.classList.add('quota-exceeded');
+          syncIcon.innerHTML = '&#9888;'; // Warning
+          syncText.textContent = 'Quota Exceeded';
+          syncText.title = 'Upload quota reached. Reads from cache still work. Try again later.';
+          isSyncing = false;
+          break;
       }
 
       // Update settings panel if open
@@ -483,7 +524,41 @@ def generate_js_firebase(firebase_config=None):
     }
 
     /**
+     * Check if error is a quota exceeded error
+     */
+    function isQuotaExceededError(error) {
+      return error && (
+        error.code === 'resource-exhausted' ||
+        (error.message && error.message.toLowerCase().includes('quota'))
+      );
+    }
+
+    /**
+     * Show a toast notification for sync status
+     */
+    function showSyncToast(message, type = 'info') {
+      // Remove existing toast if any
+      const existing = document.getElementById('sync-toast');
+      if (existing) existing.remove();
+
+      const icons = { warning: '⚠️', error: '❌', info: 'ℹ️', success: '✓' };
+      const toast = document.createElement('div');
+      toast.id = 'sync-toast';
+      toast.className = 'sync-toast sync-toast-' + type;
+      toast.innerHTML = '<span class="sync-toast-icon">' + (icons[type] || icons.info) + '</span>' +
+                        '<span class="sync-toast-message">' + message + '</span>';
+      document.body.appendChild(toast);
+
+      // Auto-dismiss after 5 seconds
+      setTimeout(() => {
+        toast.classList.add('sync-toast-fade');
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
+    }
+
+    /**
      * Sync a single problem to cloud (debounced)
+     * Uses longer debounce to batch multiple changes and reduce writes
      */
     function syncToCloudDebounced(fileKey) {
       if (!isCloudSyncEnabled()) return;
@@ -491,11 +566,12 @@ def generate_js_firebase(firebase_config=None):
       clearTimeout(syncDebounceTimer);
       syncDebounceTimer = setTimeout(() => {
         syncFileToCloud(fileKey);
-      }, 2000);
+      }, 10000); // 10s debounce to batch multiple changes
     }
 
     /**
      * Sync all data to cloud (debounced)
+     * Uses longer debounce to reduce quota usage
      */
     function syncAllToCloudDebounced() {
       if (!isCloudSyncEnabled()) return;
@@ -503,14 +579,23 @@ def generate_js_firebase(firebase_config=None):
       clearTimeout(syncAllDebounceTimer);
       syncAllDebounceTimer = setTimeout(() => {
         syncAllToCloud();
-      }, 5000);
+      }, 10000); // 10s debounce
     }
 
     /**
      * Sync a specific file's problems to cloud
+     * Includes rate limiting to prevent quota exhaustion
      */
     async function syncFileToCloud(fileKey) {
       if (!isCloudSyncEnabled() || !firebaseDb) return;
+
+      // Rate limiting - skip if we wrote recently
+      const timeSinceLastWrite = Date.now() - lastWriteTime;
+      if (timeSinceLastWrite < WRITE_COOLDOWN && !pendingChanges.has(fileKey)) {
+        pendingChanges.add(fileKey);
+        console.log('Write rate limited, queuing:', fileKey);
+        return;
+      }
 
       updateSyncStatusUI('syncing');
 
@@ -518,6 +603,7 @@ def generate_js_firebase(firebase_config=None):
         const problems = PROBLEM_DATA.data[fileKey];
         const batch = firebaseDb.batch();
         const userRef = firebaseDb.collection('users').doc(currentUser.uid);
+        let writeCount = 0;
 
         for (const problem of problems) {
           if (problem.solved || problem.time_to_solve || problem.comments) {
@@ -531,21 +617,36 @@ def generate_js_firebase(firebase_config=None):
               comments: problem.comments || '',
               solved_date: problem.solved_date || '',
               updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-              updatedFrom: 'web'
+              updatedFrom: 'web',
+              updatedFromDevice: DEVICE_ID
             }, { merge: true });
+            writeCount++;
           }
         }
 
-        await batch.commit();
+        if (writeCount > 0) {
+          await batch.commit();
+          lastWriteTime = Date.now();
+          console.log('Synced', writeCount, 'problems for', fileKey);
+        }
+
+        pendingChanges.delete(fileKey);
         updateSyncStatusUI('synced');
       } catch (error) {
         console.error('Sync to cloud failed:', error);
-        updateSyncStatusUI('error', error.message);
+        if (isQuotaExceededError(error)) {
+          console.warn('Firebase quota exceeded. Uploads paused. Cached reads still work.');
+          showSyncToast('Quota exceeded - uploads paused. Cached reads still work.', 'warning');
+          updateSyncStatusUI('quota-exceeded');
+        } else {
+          updateSyncStatusUI('error', error.message);
+        }
       }
     }
 
     /**
      * Sync all problems to cloud
+     * Uses batching to minimize write operations
      */
     async function syncAllToCloud() {
       if (!isCloudSyncEnabled() || !firebaseDb) return;
@@ -555,37 +656,51 @@ def generate_js_firebase(firebase_config=None):
       try {
         const userRef = firebaseDb.collection('users').doc(currentUser.uid);
 
-        // Process in batches (Firestore limit is 500 per batch)
-        let batch = firebaseDb.batch();
-        let batchCount = 0;
+        // Collect all problems with user data (solved or has time/comments)
+        // Use a Map to deduplicate by problem name (same problem in multiple lists)
+        const problemsToSync = new Map();
 
         for (const fileKey of PROBLEM_DATA.file_list) {
           const problems = PROBLEM_DATA.data[fileKey];
 
           for (const problem of problems) {
             if (problem.solved || problem.time_to_solve || problem.comments) {
-              const docId = sanitizeProblemName(problem.name);
-              const docRef = userRef.collection('progress').doc(docId);
-
-              batch.set(docRef, {
-                name: problem.name,
-                solved: problem.solved || false,
-                time_to_solve: problem.time_to_solve || '',
-                comments: problem.comments || '',
-                solved_date: problem.solved_date || '',
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                updatedFrom: 'web'
-              }, { merge: true });
-
-              batchCount++;
-
-              // Commit batch when reaching limit
-              if (batchCount >= 400) {
-                await batch.commit();
-                batch = firebaseDb.batch();
-                batchCount = 0;
+              // Deduplicate - same problem name = same Firestore doc
+              if (!problemsToSync.has(problem.name)) {
+                problemsToSync.set(problem.name, problem);
               }
             }
+          }
+        }
+
+        // Process in batches (Firestore limit is 500 per batch)
+        let batch = firebaseDb.batch();
+        let batchCount = 0;
+        let totalCount = 0;
+
+        for (const [name, problem] of problemsToSync) {
+          const docId = sanitizeProblemName(name);
+          const docRef = userRef.collection('progress').doc(docId);
+
+          batch.set(docRef, {
+            name: problem.name,
+            solved: problem.solved || false,
+            time_to_solve: problem.time_to_solve || '',
+            comments: problem.comments || '',
+            solved_date: problem.solved_date || '',
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedFrom: 'web',
+            updatedFromDevice: DEVICE_ID
+          }, { merge: true });
+
+          batchCount++;
+          totalCount++;
+
+          // Commit batch when reaching limit
+          if (batchCount >= 400) {
+            await batch.commit();
+            batch = firebaseDb.batch();
+            batchCount = 0;
           }
         }
 
@@ -594,24 +709,51 @@ def generate_js_firebase(firebase_config=None):
           await batch.commit();
         }
 
+        lastWriteTime = Date.now();
+        pendingChanges.clear();
+        console.log('Synced', totalCount, 'unique problems to cloud');
         updateSyncStatusUI('synced');
       } catch (error) {
         console.error('Sync all to cloud failed:', error);
-        updateSyncStatusUI('error', error.message);
+        if (isQuotaExceededError(error)) {
+          console.warn('Firebase quota exceeded. Uploads paused. Cached reads still work.');
+          showSyncToast('Quota exceeded - uploads paused. Cached reads still work.', 'warning');
+          updateSyncStatusUI('quota-exceeded');
+        } else {
+          updateSyncStatusUI('error', error.message);
+        }
       }
     }
 
     /**
      * Pull all data from cloud and merge with local
+     * @param {Object} options - { preferCache: boolean } - if true, read from cache first
      */
-    async function pullFromCloud() {
+    async function pullFromCloud(options = {}) {
       if (!isCloudSyncEnabled() || !firebaseDb) return;
 
       updateSyncStatusUI('syncing', 'Downloading...');
 
       try {
         const userRef = firebaseDb.collection('users').doc(currentUser.uid);
-        const snapshot = await userRef.collection('progress').get();
+
+        // Use cache-first for focus-based pulls to reduce server reads
+        // Manual sync always fetches from server
+        const getOptions = options.preferCache ? { source: 'cache' } : { source: 'server' };
+
+        let snapshot;
+        try {
+          snapshot = await userRef.collection('progress').get(getOptions);
+        } catch (cacheError) {
+          // Cache miss - fall back to server
+          if (options.preferCache) {
+            console.log('Cache miss, fetching from server');
+            snapshot = await userRef.collection('progress').get({ source: 'server' });
+          } else {
+            throw cacheError;
+          }
+        }
+        console.log('Cloud documents found:', snapshot.size, options.preferCache ? '(from cache)' : '(from server)');
 
         if (snapshot.empty) {
           console.log('No cloud data found, uploading local data');
@@ -621,10 +763,13 @@ def generate_js_firebase(firebase_config=None):
 
         // Build map of cloud data by problem name
         const cloudData = {};
+        let solvedCount = 0;
         snapshot.forEach(doc => {
           const data = doc.data();
           cloudData[data.name] = data;
+          if (data.solved) solvedCount++;
         });
+        console.log('Cloud problems with solved=true:', solvedCount);
 
         // Merge with local data
         const conflicts = [];
@@ -650,6 +795,7 @@ def generate_js_firebase(firebase_config=None):
                 });
               } else if (conflict.winner === 'cloud') {
                 // Cloud is newer, update local
+                console.log('Applying cloud data for:', problem.name, '| solved:', cloud.solved);
                 applyCloudData(problem, cloud);
                 saveToLocalStorage(fileKey);
               }
@@ -672,6 +818,8 @@ def generate_js_firebase(firebase_config=None):
         if (typeof loadAllConfigsFromCloud === 'function') {
           await loadAllConfigsFromCloud();
         }
+
+        lastPullTime = Date.now(); // Track pull time for focus-based refresh
       } catch (error) {
         console.error('Pull from cloud failed:', error);
         updateSyncStatusUI('error', error.message);
@@ -690,7 +838,7 @@ def generate_js_firebase(firebase_config=None):
     }
 
     /**
-     * Force sync now
+     * Force sync now (from auth menu)
      */
     async function forceSyncNow() {
       if (!isCloudSyncEnabled()) {
@@ -699,13 +847,40 @@ def generate_js_firebase(firebase_config=None):
       }
 
       hideAuthMenu();
+      await manualSyncNow();
+    }
+
+    /**
+     * Manual sync triggered by button click
+     */
+    async function manualSyncNow() {
+      if (!isCloudSyncEnabled()) {
+        alert('Please sign in to sync');
+        return;
+      }
+
+      const syncBtn = document.getElementById('sync-now-btn');
+      if (syncBtn) {
+        syncBtn.classList.add('syncing');
+      }
 
       try {
         await syncAllToCloud();
         await pullFromCloud();
+        updateSyncStatusUI('synced');
       } catch (error) {
-        console.error('Force sync failed:', error);
-        alert('Sync failed: ' + error.message);
+        console.error('Manual sync failed:', error);
+        if (isQuotaExceededError(error)) {
+          console.warn('Firebase quota exceeded. Uploads paused. Cached reads still work.');
+          showSyncToast('Quota exceeded - uploads paused. Cached reads still work.', 'warning');
+          updateSyncStatusUI('quota-exceeded');
+        } else {
+          updateSyncStatusUI('error', error.message);
+        }
+      } finally {
+        if (syncBtn) {
+          syncBtn.classList.remove('syncing');
+        }
       }
     }
 
@@ -715,40 +890,52 @@ def generate_js_firebase(firebase_config=None):
 
     /**
      * Setup real-time listeners for cloud changes
+     *
+     * NOTE: We intentionally do NOT listen to the progress collection in real-time
+     * because it causes excessive reads (reads ALL docs on ANY change).
+     * Instead, we rely on focus-based pull for cross-device sync.
+     * Config documents (4 docs) use real-time listeners since they're cheap.
      */
     function setupRealtimeListeners() {
       if (!isCloudSyncEnabled() || !firebaseDb) return;
 
-      const userRef = firebaseDb.collection('users').doc(currentUser.uid);
-
-      // Listen for changes to progress collection
-      const unsubscribe = userRef.collection('progress')
-        .onSnapshot(snapshot => {
-          snapshot.docChanges().forEach(change => {
-            if (change.type === 'modified') {
-              handleCloudChange(change.doc.data());
-            }
-          });
-        }, error => {
-          console.error('Realtime listener error:', error);
-          updateSyncStatusUI('error', 'Connection lost');
-        });
-
-      realtimeListeners.push(unsubscribe);
-
-      // Setup config real-time listeners (filter, export, UI preferences)
+      // Setup config real-time listeners (filter, export, UI, awareness)
+      // These are cheap - only 4 single document listeners
       if (typeof setupConfigRealtimeListeners === 'function') {
         setupConfigRealtimeListeners();
       }
+
+      // Setup focus-based pull (refresh data when tab becomes visible)
+      // This is the main cross-device sync mechanism for progress
+      setupFocusBasedPull();
+    }
+
+    /**
+     * Setup visibility change listener for focus-based pull
+     */
+    function setupFocusBasedPull() {
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && isCloudSyncEnabled()) {
+          const timeSinceLastPull = Date.now() - lastPullTime;
+          if (timeSinceLastPull > FOCUS_PULL_COOLDOWN) {
+            console.log('Tab focused - pulling fresh data from cloud');
+            // Use cache-first to reduce server reads, then sync to server in background
+            pullFromCloud({ preferCache: true }).catch(err => {
+              console.error('Focus-based pull failed:', err);
+            });
+          }
+        }
+      });
     }
 
     /**
      * Handle incoming cloud changes
      */
     function handleCloudChange(cloudData) {
-      // Skip if this change originated from this device
-      if (cloudData.updatedFrom === 'web' && !isSyncing) {
-        // Could be from another tab, so we should still apply
+      // Skip echoes from our own device
+      if (cloudData.updatedFromDevice === DEVICE_ID) {
+        console.log('Ignoring cloud change from own device (echo)');
+        return;
       }
 
       const problemName = cloudData.name;
@@ -786,6 +973,7 @@ def generate_js_firebase(firebase_config=None):
       }
 
       updateOverallProgress();
+      updateSyncStatusUI('synced', 'Updated from cloud');
     }
 
     /**
@@ -988,8 +1176,10 @@ def generate_js_firebase(firebase_config=None):
         const userRef = firebaseDb.collection('users').doc(currentUser.uid);
         await userRef.collection('config').doc('awareness').set({
           ...AWARENESS_CONFIG,
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedFrom: 'web'
         });
+        console.log('Awareness config synced to cloud');
       } catch (error) {
         console.error('Failed to sync awareness config:', error);
       }
@@ -1010,6 +1200,11 @@ def generate_js_firebase(firebase_config=None):
           // Merge with local config (cloud takes precedence)
           AWARENESS_CONFIG = deepMerge(AWARENESS_CONFIG, cloudConfig);
           saveAwarenessConfig();
+
+          // Refresh awareness colors to reflect new config
+          if (typeof updateAwarenessColors === 'function') {
+            updateAwarenessColors(true);  // true = update all tabs
+          }
         }
       } catch (error) {
         console.error('Failed to load awareness config from cloud:', error);

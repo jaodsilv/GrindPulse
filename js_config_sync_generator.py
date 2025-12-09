@@ -49,6 +49,7 @@ def generate_js_config_sync():
     let filterConfigSyncTimer = null;
     let exportPrefsSyncTimer = null;
     let uiPrefsSyncTimer = null;
+    let awarenessConfigSyncTimer = null;
 
     // ============================================
     // FILTER CONFIG - LOCAL STORAGE
@@ -351,7 +352,7 @@ def generate_js_config_sync():
     // ============================================
 
     /**
-     * Sync filter config to cloud (debounced - 1 second for tab switch)
+     * Sync filter config to cloud (debounced - 3 seconds)
      */
     function syncFilterConfigToCloudDebounced() {
       if (typeof isCloudSyncEnabled !== 'function' || !isCloudSyncEnabled()) return;
@@ -359,11 +360,11 @@ def generate_js_config_sync():
       clearTimeout(filterConfigSyncTimer);
       filterConfigSyncTimer = setTimeout(() => {
         syncFilterConfigToCloud();
-      }, 1000);
+      }, 3000); // Increased from 1s to reduce sync frequency
     }
 
     /**
-     * Sync export preferences to cloud (debounced - 2 seconds)
+     * Sync export preferences to cloud (debounced - 5 seconds)
      */
     function syncExportPrefsToCloudDebounced() {
       if (typeof isCloudSyncEnabled !== 'function' || !isCloudSyncEnabled()) return;
@@ -371,11 +372,11 @@ def generate_js_config_sync():
       clearTimeout(exportPrefsSyncTimer);
       exportPrefsSyncTimer = setTimeout(() => {
         syncExportPrefsToCloud();
-      }, 2000);
+      }, 5000); // Increased from 2s to reduce sync frequency
     }
 
     /**
-     * Sync UI preferences to cloud (debounced - 2 seconds)
+     * Sync UI preferences to cloud (debounced - 5 seconds)
      */
     function syncUIPrefsToCloudDebounced() {
       if (typeof isCloudSyncEnabled !== 'function' || !isCloudSyncEnabled()) return;
@@ -383,7 +384,19 @@ def generate_js_config_sync():
       clearTimeout(uiPrefsSyncTimer);
       uiPrefsSyncTimer = setTimeout(() => {
         syncUIPrefsToCloud();
-      }, 2000);
+      }, 5000); // Increased from 2s to reduce sync frequency
+    }
+
+    /**
+     * Sync awareness config to cloud (debounced - 5 seconds)
+     */
+    function syncAwarenessConfigToCloudDebounced() {
+      if (typeof isCloudSyncEnabled !== 'function' || !isCloudSyncEnabled()) return;
+
+      clearTimeout(awarenessConfigSyncTimer);
+      awarenessConfigSyncTimer = setTimeout(() => {
+        syncAwarenessConfigToCloud();
+      }, 5000);
     }
 
     // ============================================
@@ -588,9 +601,17 @@ def generate_js_config_sync():
           }
         });
 
+      // Listen for awareness config changes
+      const awarenessUnsubscribe = userRef.collection('config').doc('awareness')
+        .onSnapshot(doc => {
+          if (doc.exists && doc.metadata.hasPendingWrites === false) {
+            handleAwarenessConfigChange(doc.data());
+          }
+        });
+
       // Add to global listeners array for cleanup
       if (typeof realtimeListeners !== 'undefined') {
-        realtimeListeners.push(filterUnsubscribe, exportUnsubscribe, uiUnsubscribe);
+        realtimeListeners.push(filterUnsubscribe, exportUnsubscribe, uiUnsubscribe, awarenessUnsubscribe);
       }
     }
 
@@ -664,6 +685,33 @@ def generate_js_config_sync():
       saveUIPrefs();
     }
 
+    /**
+     * Handle incoming awareness config changes from cloud
+     */
+    function handleAwarenessConfigChange(cloudData) {
+      if (!cloudData) return;
+
+      // Use deepMerge if available, otherwise simple merge
+      if (typeof deepMerge === 'function') {
+        AWARENESS_CONFIG = deepMerge(AWARENESS_CONFIG, cloudData);
+      } else {
+        // Simple merge for top-level properties
+        Object.keys(cloudData).forEach(key => {
+          if (key !== 'updatedAt' && key !== 'updatedFrom') {
+            AWARENESS_CONFIG[key] = cloudData[key];
+          }
+        });
+      }
+
+      // Save to localStorage and refresh UI
+      if (typeof saveAwarenessConfig === 'function') {
+        saveAwarenessConfig();
+      }
+      if (typeof updateAwarenessColors === 'function') {
+        updateAwarenessColors(true);  // true = update all tabs
+      }
+    }
+
     // ============================================
     // INITIALIZATION
     // ============================================
@@ -689,7 +737,8 @@ def generate_js_config_sync():
       await Promise.all([
         loadFilterConfigFromCloud(),
         loadExportPrefsFromCloud(),
-        loadUIPrefsFromCloud()
+        loadUIPrefsFromCloud(),
+        loadAwarenessConfigFromCloud()
       ]);
     }
     '''
