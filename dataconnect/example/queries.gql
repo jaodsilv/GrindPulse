@@ -1,0 +1,22 @@
+mutation AddPlatform($name: String!, $url: String) @auth(level: USER) {
+  platform_insert(data: {name: $name, url: $url, createdAt_expr: "request.time"})
+}
+
+query GetProblemsByDifficulty($difficulty: String!) @auth(level: PUBLIC, insecureReason: "This query is safe to expose to the public") {
+  problems(where: {difficulty: {eq: $difficulty}}) {
+    id
+    title
+    description
+  }
+}
+
+mutation UpdateAttemptNotes($id: UUID!, $notes: String) @auth(level: USER) {
+  attempt_update(key: {id: $id}, data: {notes: $notes})
+}
+
+query GetTagsByType($type: String!) @auth(level: PUBLIC, insecureReason: "This query is safe to expose to the public") {
+  tags(where: {type: {eq: $type}}) {
+    id
+    name
+  }
+}

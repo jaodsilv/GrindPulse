@@ -1,0 +1,67 @@
+mutation CreateSeedData @transaction @auth(level: NO_ACCESS) {
+  platform_insertMany(data: [
+    {
+      id: "11111111-1111-1111-1111-111111111111",
+      name: "LeetCode",
+      createdAt: "2024-04-01T00:00:00Z",
+      url: "https://leetcode.com"
+    },
+    {
+      id: "22222222-2222-2222-2222-222222222222",
+      name: "HackerRank",
+      createdAt: "2024-04-01T00:00:00Z",
+      url: "https://www.hackerrank.com/"
+    }
+  ])
+  tag_insertMany(data: [
+    {
+      id: "33333333-3333-3333-3333-333333333333",
+      name: "Array",
+      createdAt: "2024-04-01T00:00:00Z",
+      type: "Data Structure"
+    },
+    {
+      id: "44444444-4444-4444-4444-444444444444",
+      name: "String",
+      createdAt: "2024-04-01T00:00:00Z",
+      type: "Data Structure"
+    }
+  ])
+  problem_insertMany(data: [
+    {
+      id: "55555555-5555-5555-5555-555555555555",
+      platformId: "11111111-1111-1111-1111-111111111111",
+      title: "Two Sum",
+      createdAt: "2024-04-01T00:00:00Z",
+      description: "Given an array of integers, return indices of the two numbers such that they add up to a specific target.",
+      difficulty: "Easy",
+      url: "https://leetcode.com/problems/two-sum/"
+    },
+    {
+      id: "66666666-6666-6666-6666-666666666666",
+      platformId: "22222222-2222-2222-2222-222222222222",
+      title: "Plus Minus",
+      createdAt: "2024-04-01T00:00:00Z",
+      description: "Given an array of integers, calculate the fractions of its elements that are positive, negative, and are zeros.",
+      difficulty: "Easy",
+      url: "https://www.hackerrank.com/challenges/plus-minus/problem"
+    }
+  ])
+  problemTag_insertMany(data: [
+    {
+      problemId: "55555555-5555-5555-5555-555555555555",
+      tagId: "33333333-3333-3333-3333-333333333333",
+      createdAt: "2024-04-01T00:00:00Z"
+    },
+    {
+      problemId: "66666666-6666-6666-6666-666666666666",
+      tagId: "33333333-3333-3333-3333-333333333333",
+      createdAt: "2024-04-01T00:00:00Z"
+    },
+    {
+      problemId: "55555555-5555-5555-5555-555555555555",
+      tagId: "44444444-4444-4444-4444-444444444444",
+      createdAt: "2024-04-01T00:00:00Z"
+    }
+  ])
+}
