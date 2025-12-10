@@ -69,22 +69,37 @@ def generate_html_structure(file_list, firebase_enabled=False):
           <option value="unsolved-problem">Unsolved</option>
         </select>
 
-        <div class="import-export-controls">
-          <select id="format-select-{file_name}" class="filter-dropdown format-select">
-            <option value="json">JSON</option>
-            <option value="csv">CSV</option>
-            <option value="tsv">TSV</option>
-            <option value="xml">XML</option>
-            <option value="yaml">YAML</option>
-          </select>
-          <select id="mode-select-{file_name}" class="filter-dropdown mode-select">
-            <option value="full">Full Data</option>
-            <option value="user">User Progress</option>
-            <option value="problems">Problem Set</option>
-          </select>
-          <button class="export-btn" onclick="exportTab('{file_name}')">Export</button>
-          <button class="import-btn" onclick="triggerImport('{file_name}')">Import</button>
-          <input type="file" id="import-file-{file_name}" style="display:none" accept=".tsv,.csv,.json,.xml,.yaml,.yml" onchange="handleFileImport(event, '{file_name}')">
+        <div class="import-export-wrapper">
+          <button class="hamburger-btn" onclick="toggleImportExportMenu('{file_name}')" aria-label="Import/Export Menu" aria-expanded="false">
+            <span aria-hidden="true">&#9776;</span>
+          </button>
+          <div class="import-export-menu" id="import-export-menu-{file_name}" style="display:none;">
+            <div class="import-export-menu-header">Import / Export</div>
+            <div class="import-export-menu-content">
+              <label class="import-export-menu-label">Format:</label>
+              <select id="format-select-{file_name}" class="filter-dropdown format-select">
+                <option value="json">JSON</option>
+                <option value="csv">CSV</option>
+                <option value="tsv">TSV</option>
+                <option value="xml">XML</option>
+                <option value="yaml">YAML</option>
+              </select>
+              <label class="import-export-menu-label">Mode:</label>
+              <select id="mode-select-{file_name}" class="filter-dropdown mode-select">
+                <option value="full">Full Data</option>
+                <option value="user">User Progress</option>
+                <option value="problems">Problem Set</option>
+              </select>
+              <div class="import-export-menu-divider"></div>
+              <button class="import-export-menu-item export-action" onclick="exportTab('{file_name}'); hideImportExportMenu('{file_name}');">
+                <span>&#8681;</span> Export Tab
+              </button>
+              <button class="import-export-menu-item import-action" onclick="triggerImport('{file_name}'); hideImportExportMenu('{file_name}');">
+                <span>&#8679;</span> Import to Tab
+              </button>
+            </div>
+            <input type="file" id="import-file-{file_name}" style="display:none" accept=".tsv,.csv,.json,.xml,.yaml,.yml" onchange="handleFileImport(event, '{file_name}')">
+          </div>
         </div>
       </div>
 
@@ -124,7 +139,8 @@ def generate_html_structure(file_list, firebase_enabled=False):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Challenges Tracker</title>{firebase_scripts}
+  <title>Coding Challenges Tracker</title>
+  <link rel="icon" href="data:,">{firebase_scripts}
   <style>
     /* CSS will be inserted here */
     {{CSS_PLACEHOLDER}}
@@ -163,21 +179,38 @@ def generate_html_structure(file_list, firebase_enabled=False):
     <div class="import-export-section">
       <div class="global-import-export">
         <span class="import-export-label">All Tabs:</span>
-        <select id="global-format-select" class="filter-dropdown format-select">
-          <option value="json">JSON</option>
-          <option value="csv">CSV</option>
-          <option value="tsv">TSV</option>
-          <option value="xml">XML</option>
-          <option value="yaml">YAML</option>
-        </select>
-        <select id="global-mode-select" class="filter-dropdown mode-select">
-          <option value="full">Full Data</option>
-          <option value="user">User Progress</option>
-          <option value="problems">Problem Set</option>
-        </select>
-        <button class="export-all-btn" onclick="exportAll()">Export All</button>
-        <button class="import-all-btn" onclick="triggerImportAll()">Import</button>
-        <input type="file" id="import-file-all" style="display:none" accept=".tsv,.csv,.json,.xml,.yaml,.yml" multiple onchange="handleMultiFileImport(event)">
+        <div class="import-export-wrapper">
+          <button class="hamburger-btn" onclick="toggleImportExportMenu('global')" aria-label="Global Import/Export Menu" aria-expanded="false">
+            <span aria-hidden="true">&#9776;</span>
+          </button>
+          <div class="import-export-menu" id="import-export-menu-global" style="display:none;">
+            <div class="import-export-menu-header">Global Import / Export</div>
+            <div class="import-export-menu-content">
+              <label class="import-export-menu-label">Format:</label>
+              <select id="global-format-select" class="filter-dropdown format-select">
+                <option value="json">JSON</option>
+                <option value="csv">CSV</option>
+                <option value="tsv">TSV</option>
+                <option value="xml">XML</option>
+                <option value="yaml">YAML</option>
+              </select>
+              <label class="import-export-menu-label">Mode:</label>
+              <select id="global-mode-select" class="filter-dropdown mode-select">
+                <option value="full">Full Data</option>
+                <option value="user">User Progress</option>
+                <option value="problems">Problem Set</option>
+              </select>
+              <div class="import-export-menu-divider"></div>
+              <button class="import-export-menu-item export-action" onclick="exportAll(); hideImportExportMenu('global');">
+                <span>&#8681;</span> Export All Tabs
+              </button>
+              <button class="import-export-menu-item import-action" onclick="triggerImportAll(); hideImportExportMenu('global');">
+                <span>&#8679;</span> Import Files
+              </button>
+            </div>
+            <input type="file" id="import-file-all" style="display:none" accept=".tsv,.csv,.json,.xml,.yaml,.yml" multiple onchange="handleMultiFileImport(event)">
+          </div>
+        </div>
       </div>
     </div>
 

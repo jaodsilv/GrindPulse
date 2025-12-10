@@ -13,6 +13,114 @@ def generate_js_import_export():
     // IMPORT/EXPORT FUNCTIONALITY
     // ============================================
 
+    // ============================================
+    // HAMBURGER MENU FUNCTIONS
+    // ============================================
+
+    // Track currently open menu
+    let activeImportExportMenu = null;
+
+    /**
+     * Toggle import/export menu visibility
+     * @param {string} menuId - Either a fileKey or 'global'
+     */
+    function toggleImportExportMenu(menuId) {
+      const menu = document.getElementById(`import-export-menu-${menuId}`);
+      if (!menu) return;
+
+      const isCurrentlyOpen = menu.style.display === 'block';
+
+      // Close any other open menu
+      if (activeImportExportMenu && activeImportExportMenu !== menuId) {
+        hideImportExportMenu(activeImportExportMenu);
+      }
+
+      if (isCurrentlyOpen) {
+        hideImportExportMenu(menuId);
+      } else {
+        showImportExportMenu(menuId);
+      }
+    }
+
+    /**
+     * Show import/export menu
+     * @param {string} menuId - Either a fileKey or 'global'
+     */
+    function showImportExportMenu(menuId) {
+      const menu = document.getElementById(`import-export-menu-${menuId}`);
+      const btn = menu ? menu.parentElement.querySelector('.hamburger-btn') : null;
+
+      if (!menu) return;
+
+      menu.style.display = 'block';
+      activeImportExportMenu = menuId;
+
+      if (btn) {
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
+      // Add click-outside listener after a small delay (to avoid immediate close)
+      setTimeout(() => {
+        document.addEventListener('click', handleImportExportClickOutside);
+      }, 0);
+    }
+
+    /**
+     * Hide import/export menu
+     * @param {string} menuId - Either a fileKey or 'global'
+     */
+    function hideImportExportMenu(menuId) {
+      const menu = document.getElementById(`import-export-menu-${menuId}`);
+      const btn = menu ? menu.parentElement.querySelector('.hamburger-btn') : null;
+
+      if (!menu) return;
+
+      menu.style.display = 'none';
+
+      if (btn) {
+        btn.setAttribute('aria-expanded', 'false');
+      }
+
+      if (activeImportExportMenu === menuId) {
+        activeImportExportMenu = null;
+        document.removeEventListener('click', handleImportExportClickOutside);
+      }
+    }
+
+    /**
+     * Handle click outside to close menu
+     */
+    function handleImportExportClickOutside(e) {
+      if (!activeImportExportMenu) return;
+
+      const menu = document.getElementById(`import-export-menu-${activeImportExportMenu}`);
+      const wrapper = menu ? menu.parentElement : null;
+
+      if (wrapper && !wrapper.contains(e.target)) {
+        hideImportExportMenu(activeImportExportMenu);
+      }
+    }
+
+    /**
+     * Close all import/export menus (utility function)
+     */
+    function closeAllImportExportMenus() {
+      if (activeImportExportMenu) {
+        hideImportExportMenu(activeImportExportMenu);
+      }
+    }
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && activeImportExportMenu) {
+        hideImportExportMenu(activeImportExportMenu);
+      }
+    });
+
+    // ============================================
+    // IMPORT STATE
+    // ============================================
+
     // Current import state (used during conflict resolution)
     let pendingImport = {
       fileKey: null,
@@ -1021,22 +1129,37 @@ def generate_js_import_export():
             <option value="awareness-flashing">Flashing (Urgent)</option>
             <option value="unsolved-problem">Unsolved</option>
           </select>
-          <div class="import-export-controls">
-            <select id="format-select-${fileKey}" class="filter-dropdown">
-              <option value="json">JSON</option>
-              <option value="csv">CSV</option>
-              <option value="tsv">TSV</option>
-              <option value="xml">XML</option>
-              <option value="yaml">YAML</option>
-            </select>
-            <select id="mode-select-${fileKey}" class="filter-dropdown">
-              <option value="full">Full Data</option>
-              <option value="user">User Progress</option>
-              <option value="problems">Problem Set</option>
-            </select>
-            <button class="export-btn" onclick="exportTab('${fileKey}')">Export</button>
-            <button class="import-btn" onclick="triggerImport('${fileKey}')">Import</button>
-            <input type="file" id="import-file-${fileKey}" style="display:none" accept=".tsv,.csv,.json,.xml,.yaml,.yml" onchange="handleFileImport(event, '${fileKey}')">
+          <div class="import-export-wrapper">
+            <button class="hamburger-btn" onclick="toggleImportExportMenu('${fileKey}')" aria-label="Import/Export Menu" aria-expanded="false">
+              <span aria-hidden="true">&#9776;</span>
+            </button>
+            <div class="import-export-menu" id="import-export-menu-${fileKey}" style="display:none;">
+              <div class="import-export-menu-header">Import / Export</div>
+              <div class="import-export-menu-content">
+                <label class="import-export-menu-label">Format:</label>
+                <select id="format-select-${fileKey}" class="filter-dropdown format-select">
+                  <option value="json">JSON</option>
+                  <option value="csv">CSV</option>
+                  <option value="tsv">TSV</option>
+                  <option value="xml">XML</option>
+                  <option value="yaml">YAML</option>
+                </select>
+                <label class="import-export-menu-label">Mode:</label>
+                <select id="mode-select-${fileKey}" class="filter-dropdown mode-select">
+                  <option value="full">Full Data</option>
+                  <option value="user">User Progress</option>
+                  <option value="problems">Problem Set</option>
+                </select>
+                <div class="import-export-menu-divider"></div>
+                <button class="import-export-menu-item export-action" onclick="exportTab('${fileKey}'); hideImportExportMenu('${fileKey}');">
+                  <span>&#8681;</span> Export Tab
+                </button>
+                <button class="import-export-menu-item import-action" onclick="triggerImport('${fileKey}'); hideImportExportMenu('${fileKey}');">
+                  <span>&#8679;</span> Import to Tab
+                </button>
+              </div>
+              <input type="file" id="import-file-${fileKey}" style="display:none" accept=".tsv,.csv,.json,.xml,.yaml,.yml" onchange="handleFileImport(event, '${fileKey}')">
+            </div>
           </div>
         </div>
         <div class="table-container">

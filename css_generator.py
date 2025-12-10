@@ -137,18 +137,140 @@ def generate_css():
       box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
     }
 
-    /* Import/Export Controls */
-    .import-export-controls {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
+    /* ============================================
+       HAMBURGER MENU STYLES
+       ============================================ */
+
+    /* Wrapper to position menu relative to button */
+    .import-export-wrapper {
+      position: relative;
+      display: inline-block;
       margin-left: auto;
     }
 
-    .import-export-controls .format-select,
-    .import-export-controls .mode-select {
-      min-width: 110px;
+    /* Hamburger button */
+    .hamburger-btn {
+      background: #667eea;
+      border: none;
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hamburger-btn:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .hamburger-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Dropdown menu */
+    .import-export-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      min-width: 280px;
+      z-index: 1001;
+      overflow: hidden;
+    }
+
+    .import-export-menu-header {
+      padding: 16px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .import-export-menu-content {
+      padding: 16px 20px;
+    }
+
+    .import-export-menu-label {
+      display: block;
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 6px;
+      margin-top: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .import-export-menu-label:first-child {
+      margin-top: 0;
+    }
+
+    .import-export-menu-content .filter-dropdown {
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    .import-export-menu-divider {
+      height: 1px;
+      background: #e0e0e0;
+      margin: 16px -20px;
+      width: calc(100% + 40px);
+    }
+
+    .import-export-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px 0;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      color: #374151;
+      cursor: pointer;
+      text-align: left;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+
+    .import-export-menu-item:hover {
+      color: #667eea;
+    }
+
+    .import-export-menu-item span {
+      font-size: 1.2rem;
+    }
+
+    .import-export-menu-item.export-action span {
+      color: #667eea;
+    }
+
+    .import-export-menu-item.import-action span {
+      color: #10b981;
+    }
+
+    /* Responsive adjustments for hamburger menu */
+    @media (max-width: 768px) {
+      .import-export-menu {
+        min-width: 250px;
+        right: -10px;
+      }
+
+      .hamburger-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+      }
     }
 
     .import-btn {
