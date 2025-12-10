@@ -10,3 +10,16 @@ __pycache__/
 # IDE
 .vscode/
 .idea/
+
+# Local development
+.claude/
+.thoughts/
+
+# Firebase secrets
+firebase_config.json
+
+# Dependencies (root level)
+node_modules/
+
+# Generated DataConnect SDK
+src/dataconnect-generated/
