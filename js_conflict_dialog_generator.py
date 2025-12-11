@@ -175,19 +175,6 @@ def generate_js_conflict_dialog():
     }
 
     /**
-     * Escape HTML to prevent XSS
-     */
-    function escapeHTML(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    /**
      * Truncate text with ellipsis
      */
     function truncateText(text, maxLength) {

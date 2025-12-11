@@ -19,6 +19,7 @@ from js_settings_generator import generate_js_settings
 from js_config_sync_generator import generate_js_config_sync
 from js_import_export_generator import generate_js_import_export
 from js_conflict_dialog_generator import generate_js_conflict_dialog
+from js_shared_generator import generate_js_shared
 from js_firebase_generator import generate_js_firebase
 
 def build_tracker():
@@ -53,6 +54,7 @@ def build_tracker():
     js_config_sync = generate_js_config_sync()
     js_import_export = generate_js_import_export()
     js_conflict_dialog = generate_js_conflict_dialog()
+    js_shared = generate_js_shared()
     js_firebase = generate_js_firebase(firebase_config)
     js_core = generate_js_core()
     js_sync = generate_js_sync()
@@ -63,8 +65,8 @@ const PROBLEM_DATA = {json.dumps(parsed_data, indent=2)};
 const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
     '''
 
-    # Combine all JavaScript (order matters: data -> awareness -> settings -> config_sync -> import_export -> conflict_dialog -> firebase -> core -> sync)
-    full_js = data_js + "\n" + js_awareness + "\n" + js_settings + "\n" + js_config_sync + "\n" + js_import_export + "\n" + js_conflict_dialog + "\n" + js_firebase + "\n" + js_core + "\n" + js_sync
+    # Combine all JavaScript (order matters: data -> shared -> awareness -> settings -> config_sync -> import_export -> conflict_dialog -> firebase -> core -> sync)
+    full_js = data_js + "\n" + js_shared + "\n" + js_awareness + "\n" + js_settings + "\n" + js_config_sync + "\n" + js_import_export + "\n" + js_conflict_dialog + "\n" + js_firebase + "\n" + js_core + "\n" + js_sync
 
     # Replace placeholders
     final_html = html_structure.replace('{CSS_PLACEHOLDER}', css)
