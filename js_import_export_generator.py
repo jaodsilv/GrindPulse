@@ -1000,6 +1000,27 @@ def generate_js_import_export():
      * Create a new tab from imported problem set
      */
     function createNewTab(fileKey, problems) {
+      // Validate fileKey
+      if (!fileKey || typeof fileKey !== 'string') {
+        console.error('createNewTab: Invalid fileKey provided:', fileKey);
+        return false;
+      }
+
+      // Sanitize fileKey for safe use as object key and DOM ID
+      fileKey = fileKey.toLowerCase().replace(/[^a-z0-9_]/g, '_');
+
+      // Check for duplicate
+      if (PROBLEM_DATA.file_list.includes(fileKey)) {
+        console.warn('createNewTab: Tab already exists:', fileKey);
+        return false;
+      }
+
+      // Validate problems array
+      if (!Array.isArray(problems) || problems.length === 0) {
+        console.error('createNewTab: Invalid problems array');
+        return false;
+      }
+
       // Add to PROBLEM_DATA
       PROBLEM_DATA.data[fileKey] = problems.map(p => ({
         name: p.name,
