@@ -630,7 +630,7 @@ def generate_js_import_export():
       const format = formatSelect ? formatSelect.value : 'json';
       const mode = modeSelect ? modeSelect.value : 'full';
 
-      PROBLEM_DATA.file_list.forEach(fileKey => {
+      PROBLEM_DATA.file_list.forEach((fileKey, index) => {
         const problems = filterByMode(PROBLEM_DATA.data[fileKey], mode);
         const content = serializeData(problems, format, mode, fileKey);
         const filename = `${fileKey}_${mode}${ImportExport.FILE_EXTENSIONS[format]}`;
@@ -638,7 +638,7 @@ def generate_js_import_export():
         // Small delay between downloads to avoid browser blocking
         setTimeout(() => {
           downloadFile(filename, content, ImportExport.MIME_TYPES[format]);
-        }, 100 * PROBLEM_DATA.file_list.indexOf(fileKey));
+        }, 100 * index);
       });
     }
 

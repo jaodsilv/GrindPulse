@@ -4,6 +4,8 @@ JavaScript Firebase Cloud Sync Generator
 Implements Firebase Firestore sync with Google Sign-In
 """
 
+import json
+
 
 def generate_js_firebase(firebase_config=None):
     """Generate JavaScript for Firebase cloud sync
@@ -16,7 +18,7 @@ def generate_js_firebase(firebase_config=None):
     if firebase_config:
         config_js = f'''
     // Firebase Configuration (embedded at build time)
-    const FIREBASE_CONFIG = {repr(firebase_config).replace("'", '"')};
+    const FIREBASE_CONFIG = {json.dumps(firebase_config)};
     const FIREBASE_ENABLED = true;
 '''
     else:
@@ -50,6 +52,10 @@ def generate_js_firebase(firebase_config=None):
     let lastWriteTime = 0;
     const FOCUS_PULL_COOLDOWN = 60000; // Only pull on focus if >60s since last pull (was 30s)
     const WRITE_COOLDOWN = 5000; // Minimum 5s between write operations
+    const SYNC_DEBOUNCE_DELAY = 10000; // 10s debounce to batch multiple changes before syncing
+    const TOAST_DISMISS_DELAY = 5000; // Auto-dismiss toast notifications after 5s
+    const TOAST_FADE_DURATION = 300; // Toast fade-out animation duration in ms
+    const CONFLICT_TIMESTAMP_TOLERANCE = 5000; // 5s tolerance window for conflict detection
 
     // Unique device ID for this session (to distinguish own echoes from other devices)
     const DEVICE_ID = 'web_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
@@ -549,11 +555,11 @@ def generate_js_firebase(firebase_config=None):
                         '<span class="sync-toast-message">' + escapeHTML(message) + '</span>';
       document.body.appendChild(toast);
 
-      // Auto-dismiss after 5 seconds
+      // Auto-dismiss toast
       setTimeout(() => {
         toast.classList.add('sync-toast-fade');
-        setTimeout(() => toast.remove(), 300);
-      }, 5000);
+        setTimeout(() => toast.remove(), TOAST_FADE_DURATION);
+      }, TOAST_DISMISS_DELAY);
     }
 
     /**
@@ -566,7 +572,7 @@ def generate_js_firebase(firebase_config=None):
       clearTimeout(syncDebounceTimer);
       syncDebounceTimer = setTimeout(() => {
         syncFileToCloud(fileKey);
-      }, 10000); // 10s debounce to batch multiple changes
+      }, SYNC_DEBOUNCE_DELAY);
     }
 
     /**
@@ -579,7 +585,7 @@ def generate_js_firebase(firebase_config=None):
       clearTimeout(syncAllDebounceTimer);
       syncAllDebounceTimer = setTimeout(() => {
         syncAllToCloud();
-      }, 10000); // 10s debounce
+      }, SYNC_DEBOUNCE_DELAY);
     }
 
     /**
@@ -1008,13 +1014,11 @@ def generate_js_firebase(firebase_config=None):
       const cloudTime = cloud.updatedAt ? cloud.updatedAt.toDate().getTime() :
                        (cloud.solved_date ? new Date(cloud.solved_date).getTime() : 0);
 
-      const TOLERANCE = 5000; // 5 seconds
-
       // Clear winner if timestamps differ significantly
-      if (cloudTime > localTime + TOLERANCE) {
+      if (cloudTime > localTime + CONFLICT_TIMESTAMP_TOLERANCE) {
         return { hasConflict: false, winner: 'cloud' };
       }
-      if (localTime > cloudTime + TOLERANCE) {
+      if (localTime > cloudTime + CONFLICT_TIMESTAMP_TOLERANCE) {
         return { hasConflict: false, winner: 'local' };
       }
 

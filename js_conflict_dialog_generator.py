@@ -14,6 +14,19 @@ def generate_js_conflict_dialog():
     // ============================================
 
     /**
+     * Handle Escape key to close conflict dialog
+     * Named function to allow proper removal with removeEventListener
+     */
+    function handleConflictDialogEscape(e) {
+      if (e.key === 'Escape') {
+        const overlay = document.getElementById('conflict-overlay');
+        if (overlay && overlay.style.display === 'flex') {
+          hideConflictDialog();
+        }
+      }
+    }
+
+    /**
      * Show the conflict resolution dialog
      */
     function showConflictDialog() {
@@ -24,6 +37,9 @@ def generate_js_conflict_dialog():
 
       renderConflictList();
       document.getElementById('conflict-overlay').style.display = 'flex';
+
+      // Add Escape key listener
+      document.addEventListener('keydown', handleConflictDialogEscape);
 
       // Focus management
       const firstInput = document.querySelector('.conflict-option input');
@@ -38,6 +54,10 @@ def generate_js_conflict_dialog():
       if (overlay) {
         overlay.style.display = 'none';
       }
+
+      // Remove Escape key listener to prevent memory leak
+      document.removeEventListener('keydown', handleConflictDialogEscape);
+
       // Clear pending import
       ImportExport.pendingImport = {
         fileKey: null,
@@ -92,12 +112,8 @@ def generate_js_conflict_dialog():
         }
       });
 
-      // Close on Escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && overlay.style.display === 'flex') {
-          hideConflictDialog();
-        }
-      });
+      // Note: Escape key listener is added in showConflictDialog() and removed in hideConflictDialog()
+      // to prevent memory leaks from accumulating listeners
     }
 
     /**
