@@ -546,7 +546,7 @@ def generate_js_firebase(firebase_config=None):
       toast.id = 'sync-toast';
       toast.className = 'sync-toast sync-toast-' + type;
       toast.innerHTML = '<span class="sync-toast-icon">' + (icons[type] || icons.info) + '</span>' +
-                        '<span class="sync-toast-message">' + message + '</span>';
+                        '<span class="sync-toast-message">' + escapeHTML(message) + '</span>';
       document.body.appendChild(toast);
 
       // Auto-dismiss after 5 seconds

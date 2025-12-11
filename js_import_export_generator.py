@@ -13,12 +13,34 @@ def generate_js_import_export():
     // IMPORT/EXPORT FUNCTIONALITY
     // ============================================
 
+    // Namespace for import/export module to avoid global pollution
+    const ImportExport = {
+      activeMenu: null,
+      pendingImport: {
+        fileKey: null,
+        data: null,
+        mode: null,
+        conflicts: []
+      },
+      MIME_TYPES: {
+        tsv: 'text/tab-separated-values;charset=utf-8;',
+        csv: 'text/csv;charset=utf-8;',
+        json: 'application/json;charset=utf-8;',
+        xml: 'application/xml;charset=utf-8;',
+        yaml: 'text/yaml;charset=utf-8;'
+      },
+      FILE_EXTENSIONS: {
+        tsv: '.tsv',
+        csv: '.csv',
+        json: '.json',
+        xml: '.xml',
+        yaml: '.yaml'
+      }
+    };
+
     // ============================================
     // HAMBURGER MENU FUNCTIONS
     // ============================================
-
-    // Track currently open menu
-    let activeImportExportMenu = null;
 
     /**
      * Toggle import/export menu visibility
@@ -31,8 +53,8 @@ def generate_js_import_export():
       const isCurrentlyOpen = menu.style.display === 'block';
 
       // Close any other open menu
-      if (activeImportExportMenu && activeImportExportMenu !== menuId) {
-        hideImportExportMenu(activeImportExportMenu);
+      if (ImportExport.activeMenu && ImportExport.activeMenu !== menuId) {
+        hideImportExportMenu(ImportExport.activeMenu);
       }
 
       if (isCurrentlyOpen) {
@@ -53,7 +75,7 @@ def generate_js_import_export():
       if (!menu) return;
 
       menu.style.display = 'block';
-      activeImportExportMenu = menuId;
+      ImportExport.activeMenu = menuId;
 
       if (btn) {
         btn.setAttribute('aria-expanded', 'true');
@@ -81,8 +103,8 @@ def generate_js_import_export():
         btn.setAttribute('aria-expanded', 'false');
       }
 
-      if (activeImportExportMenu === menuId) {
-        activeImportExportMenu = null;
+      if (ImportExport.activeMenu === menuId) {
+        ImportExport.activeMenu = null;
         document.removeEventListener('click', handleImportExportClickOutside);
       }
     }
@@ -91,13 +113,13 @@ def generate_js_import_export():
      * Handle click outside to close menu
      */
     function handleImportExportClickOutside(e) {
-      if (!activeImportExportMenu) return;
+      if (!ImportExport.activeMenu) return;
 
-      const menu = document.getElementById(`import-export-menu-${activeImportExportMenu}`);
+      const menu = document.getElementById(`import-export-menu-${ImportExport.activeMenu}`);
       const wrapper = menu ? menu.parentElement : null;
 
       if (wrapper && !wrapper.contains(e.target)) {
-        hideImportExportMenu(activeImportExportMenu);
+        hideImportExportMenu(ImportExport.activeMenu);
       }
     }
 
@@ -105,48 +127,17 @@ def generate_js_import_export():
      * Close all import/export menus (utility function)
      */
     function closeAllImportExportMenus() {
-      if (activeImportExportMenu) {
-        hideImportExportMenu(activeImportExportMenu);
+      if (ImportExport.activeMenu) {
+        hideImportExportMenu(ImportExport.activeMenu);
       }
     }
 
     // Close menu on Escape key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && activeImportExportMenu) {
-        hideImportExportMenu(activeImportExportMenu);
+      if (e.key === 'Escape' && ImportExport.activeMenu) {
+        hideImportExportMenu(ImportExport.activeMenu);
       }
     });
-
-    // ============================================
-    // IMPORT STATE
-    // ============================================
-
-    // Current import state (used during conflict resolution)
-    let pendingImport = {
-      fileKey: null,
-      data: null,
-      mode: null,
-      conflicts: []
-    };
-
-    // ============================================
-    // MIME TYPES
-    // ============================================
-    const MIME_TYPES = {
-      tsv: 'text/tab-separated-values;charset=utf-8;',
-      csv: 'text/csv;charset=utf-8;',
-      json: 'application/json;charset=utf-8;',
-      xml: 'application/xml;charset=utf-8;',
-      yaml: 'text/yaml;charset=utf-8;'
-    };
-
-    const FILE_EXTENSIONS = {
-      tsv: '.tsv',
-      csv: '.csv',
-      json: '.json',
-      xml: '.xml',
-      yaml: '.yaml'
-    };
 
     // ============================================
     // MODE FILTERING
@@ -624,9 +615,9 @@ def generate_js_import_export():
 
       const problems = filterByMode(PROBLEM_DATA.data[fileKey], mode);
       const content = serializeData(problems, format, mode, fileKey);
-      const filename = `${fileKey}_${mode}${FILE_EXTENSIONS[format]}`;
+      const filename = `${fileKey}_${mode}${ImportExport.FILE_EXTENSIONS[format]}`;
 
-      downloadFile(filename, content, MIME_TYPES[format]);
+      downloadFile(filename, content, ImportExport.MIME_TYPES[format]);
     }
 
     /**
@@ -642,11 +633,11 @@ def generate_js_import_export():
       PROBLEM_DATA.file_list.forEach(fileKey => {
         const problems = filterByMode(PROBLEM_DATA.data[fileKey], mode);
         const content = serializeData(problems, format, mode, fileKey);
-        const filename = `${fileKey}_${mode}${FILE_EXTENSIONS[format]}`;
+        const filename = `${fileKey}_${mode}${ImportExport.FILE_EXTENSIONS[format]}`;
 
         // Small delay between downloads to avoid browser blocking
         setTimeout(() => {
-          downloadFile(filename, content, MIME_TYPES[format]);
+          downloadFile(filename, content, ImportExport.MIME_TYPES[format]);
         }, 100 * PROBLEM_DATA.file_list.indexOf(fileKey));
       });
     }
@@ -719,7 +710,7 @@ def generate_js_import_export():
 
         if (conflicts.length > 0) {
           // Show conflict dialog
-          pendingImport = {
+          ImportExport.pendingImport = {
             fileKey: fileKey,
             data: parsed.problems,
             mode: mode,
@@ -734,8 +725,8 @@ def generate_js_import_export():
       };
 
       reader.onerror = function(e) {
-        console.error('File read error:', e.target.error);
-        alert('Error reading file: ' + (e.target.error?.message || 'Unknown error') + '. Please try again.');
+        console.error('File read error for "' + file.name + '":', e.target.error);
+        alert('Error reading file "' + file.name + '": ' + (e.target.error?.message || 'Unknown error') + '. Please try again.');
       };
 
       reader.readAsText(file);
@@ -757,6 +748,7 @@ def generate_js_import_export():
       let processedCount = 0;
       const totalFiles = files.length;
       const allConflicts = [];
+      const failedFiles = [];
 
       Array.from(files).forEach(file => {
         const reader = new FileReader();
@@ -790,7 +782,7 @@ def generate_js_import_export():
           if (processedCount === totalFiles) {
             if (allConflicts.length > 0) {
               // Handle first conflict set (can be improved to handle all)
-              pendingImport = allConflicts[0];
+              ImportExport.pendingImport = allConflicts[0];
               showConflictDialog();
             } else {
               alert(`Successfully processed ${totalFiles} file(s).`);
@@ -798,14 +790,17 @@ def generate_js_import_export():
           }
         };
         reader.onerror = function(e) {
-          console.error('Error reading file:', file.name, e.target.error);
+          console.error('Error reading file "' + file.name + '":', e.target.error);
+          failedFiles.push(file.name);
           processedCount++;
           if (processedCount === totalFiles) {
             if (allConflicts.length > 0) {
-              pendingImport = allConflicts[0];
+              ImportExport.pendingImport = allConflicts[0];
               showConflictDialog();
+            } else if (failedFiles.length > 0) {
+              alert('Import complete. Failed to read: ' + failedFiles.join(', '));
             } else {
-              alert('Import complete. Some files may have failed.');
+              alert(`Successfully processed ${totalFiles} file(s).`);
             }
           }
         };
@@ -1009,6 +1004,11 @@ def generate_js_import_export():
       // Sanitize fileKey for safe use as object key and DOM ID
       fileKey = fileKey.toLowerCase().replace(/[^a-z0-9_]/g, '_');
 
+      // Limit fileKey length to prevent excessively long DOM IDs
+      if (fileKey.length > 50) {
+        fileKey = fileKey.substring(0, 50);
+      }
+
       // Check for duplicate
       if (PROBLEM_DATA.file_list.includes(fileKey)) {
         console.warn('createNewTab: Tab already exists:', fileKey);
@@ -1021,9 +1021,23 @@ def generate_js_import_export():
         return false;
       }
 
+      // Filter out problems with invalid names and log warnings
+      const validProblems = problems.filter(p => {
+        if (!p.name || typeof p.name !== 'string' || p.name.trim() === '') {
+          console.warn('createNewTab: Skipping problem with invalid name:', p);
+          return false;
+        }
+        return true;
+      });
+
+      if (validProblems.length === 0) {
+        console.error('createNewTab: No valid problems after filtering');
+        return false;
+      }
+
       // Add to PROBLEM_DATA
-      PROBLEM_DATA.data[fileKey] = problems.map(p => ({
-        name: p.name,
+      PROBLEM_DATA.data[fileKey] = validProblems.map(p => ({
+        name: p.name.trim(),
         difficulty: p.difficulty || 'Medium',
         intermediate_time: p.intermediate_time || '',
         advanced_time: p.advanced_time || '',
@@ -1037,7 +1051,7 @@ def generate_js_import_export():
       PROBLEM_DATA.file_list.push(fileKey);
 
       // Update duplicate map
-      problems.forEach(p => {
+      validProblems.forEach(p => {
         const existingFiles = [];
         PROBLEM_DATA.file_list.forEach(fk => {
           if (PROBLEM_DATA.data[fk].some(prob => prob.name === p.name)) {
@@ -1058,7 +1072,7 @@ def generate_js_import_export():
       updateProgress(fileKey);
       updateOverallProgress();
 
-      alert(`Created new tab "${fileKey}" with ${problems.length} problem(s).`);
+      alert(`Created new tab "${fileKey}" with ${validProblems.length} problem(s).`);
     }
 
     /**

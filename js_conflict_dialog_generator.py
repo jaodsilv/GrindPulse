@@ -39,7 +39,7 @@ def generate_js_conflict_dialog():
         overlay.style.display = 'none';
       }
       // Clear pending import
-      pendingImport = {
+      ImportExport.pendingImport = {
         fileKey: null,
         data: null,
         mode: null,
@@ -109,7 +109,7 @@ def generate_js_conflict_dialog():
 
       listContainer.innerHTML = '';
 
-      pendingImport.conflicts.forEach((conflict, idx) => {
+      ImportExport.pendingImport.conflicts.forEach((conflict, idx) => {
         const item = document.createElement('div');
         item.className = 'conflict-item';
         item.dataset.name = conflict.name;
@@ -119,12 +119,12 @@ def generate_js_conflict_dialog():
           <div class="conflict-comparison">
             <div class="conflict-existing">
               <h4>Current Data</h4>
-              <div class="conflict-data">${formatConflictData(conflict.existing, pendingImport.mode)}</div>
+              <div class="conflict-data">${formatConflictData(conflict.existing, ImportExport.pendingImport.mode)}</div>
             </div>
             <div class="conflict-arrow">&#8594;</div>
             <div class="conflict-imported">
               <h4>Imported Data</h4>
-              <div class="conflict-data">${formatConflictData(conflict.imported, pendingImport.mode)}</div>
+              <div class="conflict-data">${formatConflictData(conflict.imported, ImportExport.pendingImport.mode)}</div>
             </div>
           </div>
           <div class="conflict-options">
@@ -201,7 +201,7 @@ def generate_js_conflict_dialog():
      * Apply resolution to all conflicts
      */
     function applyToAllConflicts(resolution) {
-      pendingImport.conflicts.forEach((conflict, idx) => {
+      ImportExport.pendingImport.conflicts.forEach((conflict, idx) => {
         const radio = document.querySelector(`input[name="conflict-${idx}"][value="${resolution}"]`);
         if (radio) radio.checked = true;
       });
@@ -218,7 +218,7 @@ def generate_js_conflict_dialog():
      * Confirm import with selected resolutions
      */
     function confirmImport() {
-      if (!pendingImport.fileKey || !pendingImport.data) {
+      if (!ImportExport.pendingImport.fileKey || !ImportExport.pendingImport.data) {
         alert('No import data available.');
         hideConflictDialog();
         return;
@@ -226,16 +226,16 @@ def generate_js_conflict_dialog():
 
       // Gather resolutions
       const resolutions = {};
-      pendingImport.conflicts.forEach((conflict, idx) => {
+      ImportExport.pendingImport.conflicts.forEach((conflict, idx) => {
         const selected = document.querySelector(`input[name="conflict-${idx}"]:checked`);
         resolutions[conflict.name] = selected ? selected.value : 'overwrite';
       });
 
       // Apply import
       const result = applyImport(
-        pendingImport.fileKey,
-        pendingImport.data,
-        pendingImport.mode,
+        ImportExport.pendingImport.fileKey,
+        ImportExport.pendingImport.data,
+        ImportExport.pendingImport.mode,
         resolutions
       );
 
