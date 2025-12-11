@@ -733,8 +733,9 @@ def generate_js_import_export():
         }
       };
 
-      reader.onerror = function() {
-        alert('Error reading file. Please try again.');
+      reader.onerror = function(e) {
+        console.error('File read error:', e.target.error);
+        alert('Error reading file: ' + (e.target.error?.message || 'Unknown error') + '. Please try again.');
       };
 
       reader.readAsText(file);
@@ -793,6 +794,18 @@ def generate_js_import_export():
               showConflictDialog();
             } else {
               alert(`Successfully processed ${totalFiles} file(s).`);
+            }
+          }
+        };
+        reader.onerror = function(e) {
+          console.error('Error reading file:', file.name, e.target.error);
+          processedCount++;
+          if (processedCount === totalFiles) {
+            if (allConflicts.length > 0) {
+              pendingImport = allConflicts[0];
+              showConflictDialog();
+            } else {
+              alert('Import complete. Some files may have failed.');
             }
           }
         };
