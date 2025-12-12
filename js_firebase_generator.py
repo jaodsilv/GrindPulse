@@ -388,8 +388,9 @@ def generate_js_firebase(firebase_config=None):
         authBtn.title = user.email;
 
         if (authAvatar) {
-          authAvatar.src = user.photoURL || '';
-          authAvatar.style.display = user.photoURL ? 'block' : 'none';
+          const validPhotoUrl = isValidImageUrl(user.photoURL) ? user.photoURL : '';
+          authAvatar.src = validPhotoUrl;
+          authAvatar.style.display = validPhotoUrl ? 'block' : 'none';
         }
         if (authText) {
           authText.textContent = user.displayName || user.email.split('@')[0];
@@ -431,10 +432,10 @@ def generate_js_firebase(firebase_config=None):
      * Show auth dropdown menu
      */
     function showAuthMenu() {
-      // Remove existing menu if any
+      // Remove existing menu if any (also removes event listener to prevent memory leak)
       const existing = document.getElementById('auth-menu');
       if (existing) {
-        existing.remove();
+        hideAuthMenu();
         return;
       }
 
@@ -444,12 +445,13 @@ def generate_js_firebase(firebase_config=None):
       const menu = document.createElement('div');
       menu.id = 'auth-menu';
       menu.className = 'auth-menu';
+      const safePhotoUrl = isValidImageUrl(currentUser.photoURL) ? currentUser.photoURL : '';
       menu.innerHTML = `
         <div class="auth-menu-header">
-          <img src="${currentUser.photoURL || ''}" alt="" class="auth-menu-avatar">
+          <img src="${safePhotoUrl}" alt="" class="auth-menu-avatar">
           <div class="auth-menu-info">
-            <div class="auth-menu-name">${currentUser.displayName || ''}</div>
-            <div class="auth-menu-email">${currentUser.email}</div>
+            <div class="auth-menu-name">${escapeHTML(currentUser.displayName || '')}</div>
+            <div class="auth-menu-email">${escapeHTML(currentUser.email)}</div>
           </div>
         </div>
         <div class="auth-menu-divider"></div>
@@ -580,6 +582,20 @@ def generate_js_firebase(firebase_config=None):
         error.code === 'resource-exhausted' ||
         (error.message && error.message.toLowerCase().includes('quota'))
       );
+    }
+
+    /**
+     * Validate image URL to prevent XSS attacks via javascript: or other dangerous protocols
+     */
+    function isValidImageUrl(url) {
+      if (!url || typeof url !== 'string') return false;
+      try {
+        const urlObj = new URL(url);
+        // Only allow http and https protocols for images
+        return ['http:', 'https:'].includes(urlObj.protocol);
+      } catch {
+        return false;
+      }
     }
 
     /**

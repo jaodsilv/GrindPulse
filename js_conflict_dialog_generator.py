@@ -180,17 +180,17 @@ def generate_js_conflict_dialog():
 
       if (mode === 'user' || mode === 'full') {
         html += `<li><strong>Solved:</strong> ${data.solved ? 'Yes' : 'No'}</li>`;
-        if (data.time_to_solve) html += `<li><strong>Time:</strong> ${data.time_to_solve} min</li>`;
+        if (data.time_to_solve) html += `<li><strong>Time:</strong> ${escapeHTML(String(data.time_to_solve))} min</li>`;
         if (data.comments) html += `<li><strong>Comments:</strong> ${truncateText(data.comments, 50)}</li>`;
         if (data.solved_date) html += `<li><strong>Date:</strong> ${formatDate(data.solved_date)}</li>`;
       }
 
       if (mode === 'problems' || mode === 'full') {
-        if (data.difficulty) html += `<li><strong>Difficulty:</strong> ${data.difficulty}</li>`;
-        if (data.pattern) html += `<li><strong>Pattern:</strong> ${data.pattern}</li>`;
-        if (data.intermediate_time) html += `<li><strong>Int. Time:</strong> ${data.intermediate_time}</li>`;
-        if (data.advanced_time) html += `<li><strong>Adv. Time:</strong> ${data.advanced_time}</li>`;
-        if (data.top_time) html += `<li><strong>Top Time:</strong> ${data.top_time}</li>`;
+        if (data.difficulty) html += `<li><strong>Difficulty:</strong> ${escapeHTML(String(data.difficulty))}</li>`;
+        if (data.pattern) html += `<li><strong>Pattern:</strong> ${escapeHTML(String(data.pattern))}</li>`;
+        if (data.intermediate_time) html += `<li><strong>Int. Time:</strong> ${escapeHTML(String(data.intermediate_time))}</li>`;
+        if (data.advanced_time) html += `<li><strong>Adv. Time:</strong> ${escapeHTML(String(data.advanced_time))}</li>`;
+        if (data.top_time) html += `<li><strong>Top Time:</strong> ${escapeHTML(String(data.top_time))}</li>`;
       }
 
       html += '</ul>';
@@ -214,9 +214,13 @@ def generate_js_conflict_dialog():
       if (!isoDate) return 'N/A';
       try {
         const date = new Date(isoDate);
+        if (isNaN(date.getTime())) {
+          // Invalid date - escape the raw value as fallback
+          return escapeHTML(String(isoDate));
+        }
         return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
       } catch (e) {
-        return isoDate;
+        return escapeHTML(String(isoDate));
       }
     }
 
