@@ -13,6 +13,9 @@ def generate_js_import_export():
     // IMPORT/EXPORT FUNCTIONALITY
     // ============================================
 
+    // File size limit for imports (10MB)
+    const MAX_IMPORT_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
     // Namespace for import/export module to avoid global pollution
     const ImportExport = {
       activeMenu: null,
@@ -357,12 +360,57 @@ def generate_js_import_export():
     }
 
     /**
+     * Validate XML structure and return validation errors
+     */
+    function validateXMLStructure(doc) {
+      const errors = [];
+
+      // Check for parser errors
+      const parserError = doc.querySelector('parsererror');
+      if (parserError) {
+        errors.push('Invalid XML syntax: ' + parserError.textContent.substring(0, 100));
+        return errors;
+      }
+
+      // Check root element
+      const exportEl = doc.querySelector('export');
+      if (!exportEl) {
+        errors.push('Missing root <export> element');
+        return errors;
+      }
+
+      // Check for problems
+      const problems = doc.querySelectorAll('problem');
+      if (problems.length === 0) {
+        errors.push('No <problem> elements found');
+      }
+
+      // Validate each problem has a name
+      problems.forEach((p, i) => {
+        const name = p.querySelector('name');
+        if (!name || !name.textContent.trim()) {
+          errors.push('Problem ' + (i+1) + ' is missing required <name> element');
+        }
+      });
+
+      return errors;
+    }
+
+    /**
      * Parse XML content to problems array
      */
     function parseFromXML(content) {
       try {
         const parser = new DOMParser();
         const doc = parser.parseFromString(content, 'application/xml');
+
+        // Validate XML structure
+        const validationErrors = validateXMLStructure(doc);
+        if (validationErrors.length > 0) {
+          console.error('XML validation errors:', validationErrors);
+          alert('XML validation failed:\\n' + validationErrors.join('\\n'));
+          return { problems: [], fileKey: null, mode: null };
+        }
 
         const exportEl = doc.querySelector('export');
         const fileKey = exportEl ? exportEl.getAttribute('fileKey') : null;
@@ -688,6 +736,13 @@ def generate_js_import_export():
       const file = event.target.files[0];
       if (!file) return;
 
+      // Validate file size
+      if (file.size > MAX_IMPORT_FILE_SIZE) {
+        alert('File "' + file.name + '" is too large (' + Math.round(file.size / 1024 / 1024) + 'MB). Maximum allowed size is 10MB.');
+        event.target.value = '';
+        return;
+      }
+
       const modeSelect = document.getElementById(`mode-select-${fileKey}`);
       const selectedMode = modeSelect ? modeSelect.value : 'full';
 
@@ -751,6 +806,23 @@ def generate_js_import_export():
       const failedFiles = [];
 
       Array.from(files).forEach(file => {
+        // Validate file size
+        if (file.size > MAX_IMPORT_FILE_SIZE) {
+          failedFiles.push(file.name + ' (too large: ' + Math.round(file.size / 1024 / 1024) + 'MB)');
+          processedCount++;
+          if (processedCount === totalFiles) {
+            if (allConflicts.length > 0) {
+              ImportExport.pendingImport = allConflicts[0];
+              showConflictDialog();
+            } else if (failedFiles.length > 0) {
+              alert('Import complete. Failed to read: ' + failedFiles.join(', '));
+            } else {
+              alert(`Successfully processed ${totalFiles} file(s).`);
+            }
+          }
+          return;
+        }
+
         const reader = new FileReader();
         reader.onload = function(e) {
           const content = e.target.result;

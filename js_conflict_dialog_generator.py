@@ -169,6 +169,13 @@ def generate_js_conflict_dialog():
     function formatConflictData(data, mode) {
       if (!data) return '<em>No data</em>';
 
+      // Validate mode parameter
+      const validModes = ['full', 'problems', 'user'];
+      if (!validModes.includes(mode)) {
+        console.warn('formatConflictData: Invalid mode "' + mode + '", defaulting to "full"');
+        mode = 'full';
+      }
+
       let html = '<ul class="conflict-data-list">';
 
       if (mode === 'user' || mode === 'full') {
@@ -214,9 +221,58 @@ def generate_js_conflict_dialog():
     }
 
     /**
+     * Backup current state before bulk operations
+     */
+    function backupBeforeImport(fileKey) {
+      const backup = {
+        timestamp: Date.now(),
+        fileKey: fileKey,
+        data: JSON.parse(localStorage.getItem('progress_' + fileKey) || '{}')
+      };
+      localStorage.setItem('import_backup', JSON.stringify(backup));
+    }
+
+    /**
+     * Undo last import operation (within 1 hour)
+     */
+    function undoLastImport() {
+      const backup = JSON.parse(localStorage.getItem('import_backup') || 'null');
+      if (!backup) {
+        alert('No import backup available to restore.');
+        return false;
+      }
+      if (Date.now() - backup.timestamp > 3600000) { // 1 hour expiry
+        alert('Import backup has expired (older than 1 hour).');
+        localStorage.removeItem('import_backup');
+        return false;
+      }
+      localStorage.setItem('progress_' + backup.fileKey, JSON.stringify(backup.data));
+      localStorage.removeItem('import_backup');
+      alert('Successfully restored data from before last import.');
+      location.reload();
+      return true;
+    }
+
+    /**
+     * Check if undo is available
+     */
+    function isUndoAvailable() {
+      const backup = JSON.parse(localStorage.getItem('import_backup') || 'null');
+      return backup && (Date.now() - backup.timestamp < 3600000);
+    }
+
+    /**
      * Apply resolution to all conflicts
      */
     function applyToAllConflicts(resolution) {
+      // Add confirmation for destructive "overwrite" operations
+      if (resolution === 'overwrite') {
+        if (!confirm('WARNING: This will overwrite all conflicting data. This action can be undone within 1 hour. Continue?')) {
+          return;
+        }
+        backupBeforeImport(ImportExport.pendingImport.fileKey);
+      }
+
       ImportExport.pendingImport.conflicts.forEach((conflict, idx) => {
         const radio = document.querySelector(`input[name="conflict-${idx}"][value="${resolution}"]`);
         if (radio) radio.checked = true;
@@ -246,6 +302,12 @@ def generate_js_conflict_dialog():
         const selected = document.querySelector(`input[name="conflict-${idx}"]:checked`);
         resolutions[conflict.name] = selected ? selected.value : 'overwrite';
       });
+
+      // Check if any overwrite resolutions exist - if so, create backup
+      const hasOverwrites = Object.values(resolutions).some(r => r === 'overwrite');
+      if (hasOverwrites) {
+        backupBeforeImport(ImportExport.pendingImport.fileKey);
+      }
 
       // Apply import
       const result = applyImport(

@@ -5,6 +5,7 @@
 
 import {
   setMockProblemData,
+  getMockProblemData,
   resetMockProblemData,
   MIME_TYPES,
   FILE_EXTENSIONS,
@@ -28,6 +29,7 @@ import {
   parseFromTSV,
   parseFromCSV,
   parseFromJSON,
+  parseFromXML,
   parseFromYAML,
   detectFormat,
   detectConflicts
@@ -63,6 +65,29 @@ const sampleProblems = [
 
 beforeEach(() => {
   resetMockProblemData();
+});
+
+// ============================================
+// MOCK DATA TESTS
+// ============================================
+
+describe('Mock Problem Data', () => {
+  it('should get and set mock problem data', () => {
+    const testData = {
+      file_list: ['test'],
+      data: { test: [{ name: 'Test Problem' }] }
+    };
+    setMockProblemData(testData);
+    expect(getMockProblemData()).toEqual(testData);
+  });
+
+  it('should reset mock problem data', () => {
+    setMockProblemData({ file_list: ['test'], data: {} });
+    resetMockProblemData();
+    const data = getMockProblemData();
+    expect(data.file_list).toHaveLength(0);
+    expect(data.data).toEqual({});
+  });
 });
 
 // ============================================
@@ -476,6 +501,253 @@ describe('parseFromJSON', () => {
   });
 });
 
+// ============================================
+// MOCK DOMPARSER FOR XML TESTS
+// ============================================
+
+/**
+ * Mock DOMParser for Node.js environment
+ * Simulates browser DOMParser API for testing XML parsing
+ */
+class MockDOMParser {
+  parseFromString(content, mimeType) {
+    // Create mock document object
+    const doc = {
+      _content: content,
+      querySelector: (selector) => {
+        if (selector === 'export') {
+          // Extract export element attributes
+          const exportMatch = content.match(/<export\s+([^>]+)>/);
+          if (!exportMatch) return null;
+
+          const attrs = exportMatch[1];
+          const fileKeyMatch = attrs.match(/fileKey="([^"]*)"/);
+          const modeMatch = attrs.match(/mode="([^"]*)"/);
+
+          return {
+            getAttribute: (name) => {
+              if (name === 'fileKey' && fileKeyMatch) return fileKeyMatch[1];
+              if (name === 'mode' && modeMatch) return modeMatch[1];
+              return null;
+            }
+          };
+        }
+
+        if (selector === 'parsererror') {
+          // Check for basic XML errors
+          if (!content.includes('<export') || !content.includes('</export>')) {
+            return { _error: true };
+          }
+          return null;
+        }
+
+        return null;
+      },
+      querySelectorAll: (selector) => {
+        if (selector === 'problem') {
+          // Extract all problem elements
+          const problemMatches = content.matchAll(/<problem>([\s\S]*?)<\/problem>/g);
+          const problems = [];
+
+          for (const match of problemMatches) {
+            const problemContent = match[1];
+            const element = {
+              children: []
+            };
+
+            // Extract all child elements
+            const childMatches = problemContent.matchAll(/<(\w+)>(.*?)<\/\1>/g);
+            for (const childMatch of childMatches) {
+              element.children.push({
+                tagName: childMatch[1],
+                textContent: childMatch[2]
+                  .replace(/&lt;/g, '<')
+                  .replace(/&gt;/g, '>')
+                  .replace(/&quot;/g, '"')
+                  .replace(/&amp;/g, '&')
+              });
+            }
+
+            problems.push(element);
+          }
+
+          return problems;
+        }
+
+        return [];
+      }
+    };
+
+    return doc;
+  }
+}
+
+describe('parseFromXML', () => {
+  const mockParser = new MockDOMParser();
+
+  it('should parse valid XML correctly', () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<export fileKey="test" mode="full" exportDate="2024-01-01T00:00:00Z" version="1.0">
+  <problems>
+    <problem>
+      <name>Two Sum</name>
+      <difficulty>Easy</difficulty>
+      <pattern>Hash Table</pattern>
+    </problem>
+  </problems>
+</export>`;
+
+    const result = parseFromXML(xml, mockParser);
+    expect(result.fileKey).toBe('test');
+    expect(result.mode).toBe('full');
+    expect(result.problems).toHaveLength(1);
+    expect(result.problems[0].name).toBe('Two Sum');
+    expect(result.problems[0].difficulty).toBe('Easy');
+    expect(result.problems[0].pattern).toBe('Hash Table');
+  });
+
+  it('should handle XML with multiple problems', () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<export fileKey="test" mode="problems" exportDate="2024-01-01T00:00:00Z" version="1.0">
+  <problems>
+    <problem>
+      <name>Two Sum</name>
+      <difficulty>Easy</difficulty>
+    </problem>
+    <problem>
+      <name>Valid Parentheses</name>
+      <difficulty>Easy</difficulty>
+    </problem>
+  </problems>
+</export>`;
+
+    const result = parseFromXML(xml, mockParser);
+    expect(result.problems).toHaveLength(2);
+    expect(result.problems[0].name).toBe('Two Sum');
+    expect(result.problems[1].name).toBe('Valid Parentheses');
+  });
+
+  it('should extract fileKey and mode attributes', () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<export fileKey="blind75" mode="user" exportDate="2024-01-01T00:00:00Z" version="1.0">
+  <problems>
+    <problem>
+      <name>Two Sum</name>
+      <solved>true</solved>
+    </problem>
+  </problems>
+</export>`;
+
+    const result = parseFromXML(xml, mockParser);
+    expect(result.fileKey).toBe('blind75');
+    expect(result.mode).toBe('user');
+  });
+
+  it('should handle XML with escaped characters', () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<export fileKey="test" mode="full" exportDate="2024-01-01T00:00:00Z" version="1.0">
+  <problems>
+    <problem>
+      <name>Test Problem</name>
+      <comments>a &lt; b &amp; c &gt; d</comments>
+    </problem>
+  </problems>
+</export>`;
+
+    const result = parseFromXML(xml, mockParser);
+    expect(result.problems[0].comments).toBe('a < b & c > d');
+  });
+
+  it('should handle XML with missing export element', () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <name>Two Sum</name>
+    <difficulty>Easy</difficulty>
+  </problem>
+</problems>`;
+
+    const result = parseFromXML(xml, mockParser);
+    expect(result.fileKey).toBeNull();
+    expect(result.mode).toBe('problems'); // Should auto-detect mode
+    expect(result.problems).toHaveLength(1);
+  });
+
+  it('should handle empty XML content', () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<export fileKey="test" mode="full" exportDate="2024-01-01T00:00:00Z" version="1.0">
+  <problems>
+  </problems>
+</export>`;
+
+    const result = parseFromXML(xml, mockParser);
+    expect(result.problems).toHaveLength(0);
+    expect(result.fileKey).toBe('test');
+  });
+
+  it('should return empty array when DOMParser is not available', () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<export fileKey="test" mode="full">
+  <problems>
+    <problem>
+      <name>Two Sum</name>
+    </problem>
+  </problems>
+</export>`;
+
+    const result = parseFromXML(xml, null);
+    expect(result.problems).toHaveLength(0);
+    expect(result.fileKey).toBeNull();
+    expect(result.mode).toBeNull();
+  });
+
+  it('should handle boolean fields correctly', () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<export fileKey="test" mode="user" exportDate="2024-01-01T00:00:00Z" version="1.0">
+  <problems>
+    <problem>
+      <name>Two Sum</name>
+      <solved>true</solved>
+    </problem>
+  </problems>
+</export>`;
+
+    const result = parseFromXML(xml, mockParser);
+    expect(result.problems[0].solved).toBe(true);
+  });
+
+  it('should detect mode from fields when mode attribute is missing', () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<export fileKey="test" exportDate="2024-01-01T00:00:00Z" version="1.0">
+  <problems>
+    <problem>
+      <name>Two Sum</name>
+      <difficulty>Easy</difficulty>
+      <pattern>Hash Table</pattern>
+    </problem>
+  </problems>
+</export>`;
+
+    const result = parseFromXML(xml, mockParser);
+    expect(result.mode).toBe('problems'); // Auto-detected
+  });
+
+  it('should handle parsing errors gracefully', () => {
+    // Create a mock parser that throws an error
+    const errorParser = {
+      parseFromString: () => {
+        throw new Error('Parse error');
+      }
+    };
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?><export></export>`;
+    const result = parseFromXML(xml, errorParser);
+    expect(result.problems).toHaveLength(0);
+    expect(result.fileKey).toBeNull();
+    expect(result.mode).toBeNull();
+  });
+});
+
 describe('parseFromYAML', () => {
   it('should parse valid YAML', () => {
     const yaml = `fileKey: test
@@ -494,6 +766,53 @@ problems:
     difficulty: Easy`;
     const result = parseFromYAML(yaml);
     expect(result.problems[0].difficulty).toBe('Easy');
+  });
+
+  it('should handle multiple problems in YAML', () => {
+    const yaml = `fileKey: test
+mode: problems
+problems:
+  - name: Two Sum
+    difficulty: Easy
+  - name: Valid Parentheses
+    difficulty: Easy`;
+    const result = parseFromYAML(yaml);
+    expect(result.problems).toHaveLength(2);
+    expect(result.problems[0].name).toBe('Two Sum');
+    expect(result.problems[1].name).toBe('Valid Parentheses');
+  });
+
+  it('should handle YAML with comments', () => {
+    const yaml = `# This is a comment
+fileKey: test
+# Another comment
+problems:
+  - name: Two Sum`;
+    const result = parseFromYAML(yaml);
+    expect(result.fileKey).toBe('test');
+    expect(result.problems[0].name).toBe('Two Sum');
+  });
+
+  it('should handle dash without value on same line', () => {
+    const yaml = `problems:
+  - name: Two Sum`;
+    const result = parseFromYAML(yaml);
+    expect(result.problems).toHaveLength(1);
+    expect(result.problems[0].name).toBe('Two Sum');
+  });
+
+  it('should handle empty YAML', () => {
+    const result = parseFromYAML('');
+    expect(result.problems).toHaveLength(0);
+  });
+
+  it('should handle YAML with only fileKey', () => {
+    const yaml = `fileKey: test
+mode: full`;
+    const result = parseFromYAML(yaml);
+    expect(result.fileKey).toBe('test');
+    expect(result.mode).toBe('full');
+    expect(result.problems).toHaveLength(0);
   });
 });
 
@@ -545,7 +864,18 @@ describe('detectConflicts', () => {
       file_list: ['test'],
       data: {
         test: [
-          { name: 'Two Sum', difficulty: 'Easy', solved: false, comments: '' }
+          {
+            name: 'Two Sum',
+            difficulty: 'Easy',
+            pattern: 'Hash Table',
+            intermediate_time: '15',
+            advanced_time: '10',
+            top_time: '5',
+            solved: false,
+            time_to_solve: '',
+            comments: '',
+            solved_date: ''
+          }
         ]
       }
     });
@@ -561,6 +891,60 @@ describe('detectConflicts', () => {
   it('should detect problem data conflict', () => {
     const imported = [{ name: 'Two Sum', difficulty: 'Medium' }];
     const conflicts = detectConflicts('test', imported, 'problems');
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('should detect conflict in time_to_solve field', () => {
+    const imported = [{ name: 'Two Sum', time_to_solve: '20' }];
+    const conflicts = detectConflicts('test', imported, 'user');
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('should detect conflict in comments field', () => {
+    const imported = [{ name: 'Two Sum', comments: 'New comment' }];
+    const conflicts = detectConflicts('test', imported, 'user');
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('should detect conflict in solved_date field', () => {
+    const imported = [{ name: 'Two Sum', solved_date: '2024-01-15T10:30:00Z' }];
+    const conflicts = detectConflicts('test', imported, 'user');
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('should detect conflict in pattern field', () => {
+    const imported = [{ name: 'Two Sum', pattern: 'Array' }];
+    const conflicts = detectConflicts('test', imported, 'problems');
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('should detect conflict in intermediate_time field', () => {
+    const imported = [{ name: 'Two Sum', intermediate_time: '20' }];
+    const conflicts = detectConflicts('test', imported, 'problems');
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('should detect conflict in advanced_time field', () => {
+    const imported = [{ name: 'Two Sum', advanced_time: '15' }];
+    const conflicts = detectConflicts('test', imported, 'problems');
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('should detect conflict in top_time field', () => {
+    const imported = [{ name: 'Two Sum', top_time: '3' }];
+    const conflicts = detectConflicts('test', imported, 'problems');
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('should detect conflicts in full mode for user fields', () => {
+    const imported = [{ name: 'Two Sum', solved: true, difficulty: 'Easy' }];
+    const conflicts = detectConflicts('test', imported, 'full');
+    expect(conflicts).toHaveLength(1);
+  });
+
+  it('should detect conflicts in full mode for problem fields', () => {
+    const imported = [{ name: 'Two Sum', difficulty: 'Medium', solved: false }];
+    const conflicts = detectConflicts('test', imported, 'full');
     expect(conflicts).toHaveLength(1);
   });
 
@@ -606,6 +990,16 @@ describe('Round-trip serialization', () => {
     const json = serializeToJSON(sampleProblems, 'full', 'test');
     const result = parseFromJSON(json);
     expect(result.problems[0].name).toBe(sampleProblems[0].name);
+    expect(result.fileKey).toBe('test');
+    expect(result.mode).toBe('full');
+  });
+
+  it('should round-trip XML data', () => {
+    const mockParser = new MockDOMParser();
+    const xml = serializeToXML(sampleProblems, 'full', 'test');
+    const result = parseFromXML(xml, mockParser);
+    expect(result.problems[0].name).toBe(sampleProblems[0].name);
+    expect(result.problems[0].difficulty).toBe(sampleProblems[0].difficulty);
     expect(result.fileKey).toBe('test');
     expect(result.mode).toBe('full');
   });

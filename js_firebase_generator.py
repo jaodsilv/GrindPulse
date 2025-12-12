@@ -63,6 +63,11 @@ def generate_js_firebase(firebase_config=None):
     // Track pending changes to batch them
     let pendingChanges = new Set();
 
+    // Exponential backoff for quota handling
+    const INITIAL_RETRY_DELAY = 1000;
+    const MAX_RETRY_DELAY = 60000;
+    let currentRetryDelay = INITIAL_RETRY_DELAY;
+
     // ============================================
     // INITIALIZATION
     // ============================================
@@ -134,6 +139,34 @@ def generate_js_firebase(firebase_config=None):
     }
 
     /**
+     * Sync with exponential backoff retry for quota handling
+     */
+    async function syncWithRetry(operation) {
+      try {
+        await operation();
+        currentRetryDelay = INITIAL_RETRY_DELAY; // Reset on success
+      } catch (error) {
+        if (isQuotaExceededError(error)) {
+          updateSyncStatusUI('syncing', 'Retrying in ' + (currentRetryDelay/1000) + 's...');
+          setTimeout(() => syncWithRetry(operation), currentRetryDelay);
+          currentRetryDelay = Math.min(currentRetryDelay * 2, MAX_RETRY_DELAY);
+        } else {
+          throw error;
+        }
+      }
+    }
+
+    /**
+     * Update offline indicator visibility
+     */
+    function updateOfflineIndicator() {
+      const indicator = document.getElementById('offline-indicator');
+      if (indicator) {
+        indicator.style.display = navigator.onLine ? 'none' : 'block';
+      }
+    }
+
+    /**
      * Show auth UI elements
      */
     function showAuthUI() {
@@ -144,6 +177,11 @@ def generate_js_firebase(firebase_config=None):
       if (syncStatus) syncStatus.style.display = 'flex';
 
       updateSyncStatusUI('offline');
+
+      // Setup offline/online listeners
+      window.addEventListener('online', updateOfflineIndicator);
+      window.addEventListener('offline', updateOfflineIndicator);
+      updateOfflineIndicator();
     }
 
     // ============================================
@@ -526,7 +564,12 @@ def generate_js_firebase(firebase_config=None):
      * Sanitize problem name for Firestore document ID
      */
     function sanitizeProblemName(name) {
-      return name.replace(/[\\/\\\\#$\\[\\]]/g, '_').substring(0, 100);
+      if (!name) return '_unnamed_';
+      // Sanitize characters disallowed in Firestore document IDs: / \\ # $ [ ] .
+      return String(name)
+        .trim()
+        .replace(/[/\\\\#$\\[\\].]/g, '_')
+        .substring(0, 100) || '_unnamed_';
     }
 
     /**
