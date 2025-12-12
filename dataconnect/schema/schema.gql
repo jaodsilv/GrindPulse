@@ -1,0 +1,45 @@
+type User @table {
+  displayName: String!
+  email: String!
+  createdAt: Timestamp!
+  photoUrl: String
+}
+
+type Platform @table {
+  name: String!
+  createdAt: Timestamp!
+  url: String
+}
+
+type Problem @table {
+  platform: Platform!
+  title: String!
+  difficulty: String!
+  url: String!
+  createdAt: Timestamp!
+  description: String
+}
+
+type Attempt @table {
+  user: User!
+  problem: Problem!
+  attemptDate: Timestamp!
+  solved: Boolean!
+  createdAt: Timestamp!
+  solutionCode: String
+  timeComplexity: String
+  spaceComplexity: String
+  notes: String
+}
+
+type Tag @table {
+  name: String!
+  type: String!
+  createdAt: Timestamp!
+}
+
+type ProblemTag @table(key: ["problem", "tag"]) {
+  problem: Problem!
+  tag: Tag!
+  createdAt: Timestamp!
+}

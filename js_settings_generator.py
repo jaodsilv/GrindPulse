@@ -87,6 +87,23 @@ def generate_js_settings():
             </label>
           </div>
 
+          <div class="settings-section" id="cloud-sync-section" style="display: none;">
+            <h3>Cloud Sync</h3>
+            <p class="settings-hint">Sync your progress across devices with Google account</p>
+            <div class="settings-row">
+              <span>Status:</span>
+              <span id="settings-sync-status">Not signed in</span>
+            </div>
+            <div class="settings-row">
+              <span>Last sync:</span>
+              <span id="settings-last-sync">Never</span>
+            </div>
+            <div>
+              <button type="button" onclick="forceSyncNow()">Sync Now</button>
+              <button type="button" onclick="clearCloudData()">Clear Cloud Data</button>
+            </div>
+          </div>
+
           <div class="settings-section settings-advanced-toggle">
             <button type="button" id="settings-toggle-advanced" class="settings-toggle-btn">
               <span id="advanced-toggle-icon">&#9654;</span> Show Advanced Settings
@@ -427,6 +444,12 @@ def generate_js_settings():
     function saveAndCloseSettings() {
       readSettingsFromInputs();
       saveAwarenessConfig();
+
+      // Sync awareness config to cloud if Firebase is enabled
+      if (typeof syncAwarenessConfigToCloud === 'function' && typeof isCloudSyncEnabled === 'function' && isCloudSyncEnabled()) {
+        syncAwarenessConfigToCloud();
+      }
+
       updateAwarenessColors();
       setupAwarenessRefresh();  // Re-setup with new interval
       const overlay = document.getElementById('settings-overlay');

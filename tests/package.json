@@ -16,6 +16,7 @@
     ],
     "collectCoverageFrom": [
       "awareness.js",
+      "import-export.js",
       "!node_modules/**"
     ],
     "coverageThreshold": {
