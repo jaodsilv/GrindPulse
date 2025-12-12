@@ -13,6 +13,11 @@ def generate_js_conflict_dialog():
     // CONFLICT RESOLUTION DIALOG
     // ============================================
 
+    // Constants for import backup functionality
+    const IMPORT_BACKUP_EXPIRY_MS = 3600000; // 1 hour - backups older than this cannot be restored
+    const IMPORT_BACKUP_KEY = 'tracker_import_backup';
+    const TRACKER_DATA_PREFIX = 'tracker_'; // Consistent with js_core_generator.py
+
     /**
      * Handle Escape key to close conflict dialog
      * Named function to allow proper removal with removeEventListener
@@ -231,27 +236,27 @@ def generate_js_conflict_dialog():
       const backup = {
         timestamp: Date.now(),
         fileKey: fileKey,
-        data: JSON.parse(localStorage.getItem('progress_' + fileKey) || '{}')
+        data: JSON.parse(localStorage.getItem(TRACKER_DATA_PREFIX + fileKey) || '{}')
       };
-      localStorage.setItem('import_backup', JSON.stringify(backup));
+      localStorage.setItem(IMPORT_BACKUP_KEY, JSON.stringify(backup));
     }
 
     /**
-     * Undo last import operation (within 1 hour)
+     * Undo last import operation (within expiry time)
      */
     function undoLastImport() {
-      const backup = JSON.parse(localStorage.getItem('import_backup') || 'null');
+      const backup = JSON.parse(localStorage.getItem(IMPORT_BACKUP_KEY) || 'null');
       if (!backup) {
         alert('No import backup available to restore.');
         return false;
       }
-      if (Date.now() - backup.timestamp > 3600000) { // 1 hour expiry
+      if (Date.now() - backup.timestamp > IMPORT_BACKUP_EXPIRY_MS) {
         alert('Import backup has expired (older than 1 hour).');
-        localStorage.removeItem('import_backup');
+        localStorage.removeItem(IMPORT_BACKUP_KEY);
         return false;
       }
-      localStorage.setItem('progress_' + backup.fileKey, JSON.stringify(backup.data));
-      localStorage.removeItem('import_backup');
+      localStorage.setItem(TRACKER_DATA_PREFIX + backup.fileKey, JSON.stringify(backup.data));
+      localStorage.removeItem(IMPORT_BACKUP_KEY);
       alert('Successfully restored data from before last import.');
       location.reload();
       return true;
@@ -261,8 +266,8 @@ def generate_js_conflict_dialog():
      * Check if undo is available
      */
     function isUndoAvailable() {
-      const backup = JSON.parse(localStorage.getItem('import_backup') || 'null');
-      return backup && (Date.now() - backup.timestamp < 3600000);
+      const backup = JSON.parse(localStorage.getItem(IMPORT_BACKUP_KEY) || 'null');
+      return backup && (Date.now() - backup.timestamp < IMPORT_BACKUP_EXPIRY_MS);
     }
 
     /**

@@ -436,6 +436,16 @@ def generate_js_import_export():
 
     /**
      * Parse YAML content to problems array
+     *
+     * LIMITATIONS (by design - this is a simplified YAML parser for app-specific format):
+     * - Only supports the flat structure exported by this app
+     * - Does not support multi-line strings (use JSON or TSV for complex comments)
+     * - Does not support nested objects or complex arrays
+     * - Comments (#) are stripped but must be on their own line
+     * - For full YAML support, use a dedicated YAML library
+     *
+     * The exported YAML format is intentionally simple for human readability
+     * and can be edited in a text editor without full YAML knowledge.
      */
     function parseFromYAML(content) {
       try {

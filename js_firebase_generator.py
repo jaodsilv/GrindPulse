@@ -57,6 +57,10 @@ def generate_js_firebase(firebase_config=None):
     const TOAST_FADE_DURATION = 300; // Toast fade-out animation duration in ms
     const CONFLICT_TIMESTAMP_TOLERANCE = 5000; // 5s tolerance window for conflict detection
 
+    // Firestore limits and constraints
+    const FIRESTORE_DOC_ID_MAX_LENGTH = 100; // Firestore document ID max length
+    const FIRESTORE_BATCH_SIZE_LIMIT = 400; // Conservative limit (Firestore max is 500, we use 400 for safety)
+
     // Unique device ID for this session (to distinguish own echoes from other devices)
     const DEVICE_ID = 'web_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 
@@ -571,7 +575,7 @@ def generate_js_firebase(firebase_config=None):
       return String(name)
         .trim()
         .replace(/[/\\\\#$\\[\\].]/g, '_')
-        .substring(0, 100) || '_unnamed_';
+        .substring(0, FIRESTORE_DOC_ID_MAX_LENGTH) || '_unnamed_';
     }
 
     /**
@@ -762,7 +766,7 @@ def generate_js_firebase(firebase_config=None):
           totalCount++;
 
           // Commit batch when reaching limit
-          if (batchCount >= 400) {
+          if (batchCount >= FIRESTORE_BATCH_SIZE_LIMIT) {
             await batch.commit();
             batch = firebaseDb.batch();
             batchCount = 0;
