@@ -1,16 +1,16 @@
-# Coding Challenges Tracker - Build Summary
+# GrindPulse - Build Summary
 
 ## Project Completion Report
 
 **Date**: October 20, 2025
-**Output File**: `D:\src\interview-prep\problems-tracker\tracker.html`
+**Output File**: `D:\src\GrindPulse\tracker.html`
 **File Size**: 207.58 KB
 
 ---
 
 ## Overview
 
-Successfully created a single, self-contained HTML file that dynamically loads and tracks progress across ALL TSV files found in the `problems-tracker/raw/` folder. The tracker is fully functional, works offline, and requires no external dependencies.
+Successfully created a single, self-contained HTML file that dynamically loads and tracks progress across ALL TSV files found in the `GrindPulse/raw/` folder. The tracker is fully functional, works offline, and requires no external dependencies.
 
 ---
 
@@ -33,7 +33,7 @@ Successfully created a single, self-contained HTML file that dynamically loads a
 **Script**: `data_parser.py`
 
 **Deliverables**:
-- Dynamically discovered all 4 TSV files in `problems-tracker/raw/`
+- Dynamically discovered all 4 TSV files in `GrindPulse/raw/`
 - Parsed each file according to the 6-column schema:
   1. Problem Name
   2. Difficulty (Easy/Medium/Hard)
@@ -260,7 +260,7 @@ Successfully created a single, self-contained HTML file that dynamically loads a
 ## How to Use
 
 ### Opening the Tracker
-1. Navigate to: `D:\src\interview-prep\problems-tracker\`
+1. Navigate to: `D:\src\GrindPulse\`
 2. Double-click `tracker.html`
 3. Opens in default browser (Chrome, Edge, Firefox, etc.)
 
@@ -282,7 +282,7 @@ Successfully created a single, self-contained HTML file that dynamically loads a
 1. Click **"Export [filename].tsv"** to download current tab
 2. Click **"Export All TSVs"** to download all files
 3. Exported files include all 10 columns (original 6 + new 4)
-4. Can be re-imported by replacing files in `problems-tracker/raw/`
+4. Can be re-imported by replacing files in `GrindPulse/raw/`
 
 ### Data Persistence
 - All changes auto-save to browser localStorage
@@ -356,7 +356,7 @@ Successfully created a single, self-contained HTML file that dynamically loads a
 
 ### Adding New TSV Files
 To add more problem lists:
-1. Add new `.tsv` file to `problems-tracker/raw/`
+1. Add new `.tsv` file to `GrindPulse/raw/`
 2. Follow the 6-column schema
 3. Rerun `python3 build_tracker.py`
 4. New tab appears automatically
@@ -436,8 +436,8 @@ Not implemented (manual testing sufficient for this project)
 
 ## Conclusion
 
-The Coding Challenges Tracker has been successfully built and delivered. All requirements have been implemented, all sub-agents completed their tasks, and the final HTML file is fully functional. The tracker is ready for immediate use.
+GrindPulse has been successfully built and delivered. All requirements have been implemented, all sub-agents completed their tasks, and the final HTML file is fully functional. The tracker is ready for immediate use.
 
-**Final Output Location**: `D:\src\interview-prep\problems-tracker\tracker.html`
+**Final Output Location**: `D:\src\GrindPulse\tracker.html`
 
 To use: Simply open `tracker.html` in any modern web browser.

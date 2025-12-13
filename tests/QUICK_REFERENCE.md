@@ -5,7 +5,7 @@ One-page reference for testing the awareness indicator system.
 ## Installation & Running
 
 ```bash
-cd D:\src\neetcode-coding-challenges-tracker\awareness-indicator\tests
+cd D:\src\GrindPulse\tests
 npm install        # First time only
 npm test          # Run all tests
 npm run test:watch     # Watch mode

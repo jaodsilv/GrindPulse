@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Offline-first web application for tracking coding interview preparation progress across multiple problem lists (Blind 75, NeetCode 150/250, Salesforce). Generates a single self-contained HTML file with embedded CSS/JS from Python scripts.
+**GrindPulse** - Offline-first web application for tracking coding interview preparation progress across multiple problem lists (Blind 75, NeetCode 150/250, Salesforce). Generates a single self-contained HTML file with embedded CSS/JS from Python scripts.
 
 ## Build Commands
 

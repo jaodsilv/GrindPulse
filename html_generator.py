@@ -139,7 +139,7 @@ def generate_html_structure(file_list, firebase_enabled=False):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Challenges Tracker</title>
+  <title>GrindPulse</title>
   <link rel="icon" href="data:,">{firebase_scripts}
   <style>
     /* CSS will be inserted here */
@@ -151,7 +151,7 @@ def generate_html_structure(file_list, firebase_enabled=False):
     <header>
       <div class="header-content">
         <div class="header-title">
-          <h1>Coding Challenges Tracker</h1>
+          <h1>GrindPulse</h1>
           <div class="overall-progress">
             <div class="progress-text" id="overall-progress-text">Overall: 0 / 0 unique problems (0%)</div>
           </div>

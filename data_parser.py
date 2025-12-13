@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Data Parser Sub-Agent
-Reads and parses all TSV files dynamically from problems-tracker/raw/
+Reads and parses all TSV files dynamically from GrindPulse/raw/
 """
 
 import os
