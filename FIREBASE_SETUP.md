@@ -93,6 +93,8 @@ service cloud.firestore {
    }
    ```
 
+   > **Note:** Older Firebase projects may show `your-project-id.appspot.com` for the storage bucket - this is also valid.
+
 ### 7. Rebuild the Tracker
 
 Run the build script to generate `tracker.html` with Firebase enabled:
@@ -143,7 +145,7 @@ Then open the URL shown in the terminal.
    2. If timestamps differ, the newer data wins (with 5-second tolerance)
    3. True conflicts show a resolution dialog
 
-2. **Ongoing Sync**: Changes are batched and synced every 2 seconds
+2. **Ongoing Sync**: Changes are batched and synced every 10 seconds
 
 3. **Cross-Device**: When you switch devices, the tracker pulls the latest data on focus
 
