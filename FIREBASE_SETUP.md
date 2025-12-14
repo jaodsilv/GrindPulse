@@ -1,6 +1,6 @@
 # Firebase Cloud Sync Setup Guide
 
-This guide walks you through setting up Firebase cloud sync for the NeetCode Coding Challenges Tracker.
+This guide walks you through setting up Firebase cloud sync for GrindPulse.
 
 ## Overview
 
@@ -22,7 +22,7 @@ Firebase sync enables:
 
 1. Go to the [Firebase Console](https://console.firebase.google.com/)
 2. Click **Add project**
-3. Enter a project name (e.g., "neetcode-tracker")
+3. Enter a project name (e.g., "grindpulse")
 4. Disable Google Analytics (optional, not needed for this project)
 5. Click **Create project**
 
@@ -49,7 +49,7 @@ Firebase sync enables:
 1. In Firestore, go to the **Rules** tab
 2. Replace the default rules with:
 
-```
+```javascript
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -68,7 +68,7 @@ service cloud.firestore {
 1. In your Firebase project, click the gear icon > **Project settings**
 2. Scroll down to **Your apps**
 3. Click the web icon (`</>`) to add a web app
-4. Enter an app nickname (e.g., "NeetCode Tracker Web")
+4. Enter an app nickname (e.g., "GrindPulse Web")
 5. Do NOT check "Firebase Hosting"
 6. Click **Register app**
 7. You'll see your Firebase configuration - copy these values
@@ -94,6 +94,8 @@ service cloud.firestore {
    ```
 
    > **Note:** Older Firebase projects may show `your-project-id.appspot.com` for the storage bucket - this is also valid.
+
+   > **Security Note:** Firebase API keys in web applications are exposed in client-side code. This is by design - your security relies on properly configured Firestore rules (Step 4), not on keeping the API key secret. Never commit `firebase_config.json` to version control (it's already in `.gitignore`).
 
 ### 7. Rebuild the Tracker
 
