@@ -14,7 +14,7 @@
 
 ### First Time Setup
 ```bash
-cd D:\src\neetcode-coding-challenges-tracker\awareness-indicator\tests
+cd D:\src\GrindPulse\tests
 npm install
 npm test
 ```

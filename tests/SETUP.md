@@ -11,7 +11,7 @@ Quick guide to get the awareness indicator tests up and running.
 
 ```bash
 # Navigate to tests directory
-cd D:\src\neetcode-coding-challenges-tracker\awareness-indicator\tests
+cd D:\src\GrindPulse\tests
 
 # Install dependencies
 npm install
@@ -142,7 +142,7 @@ Coverage report will be in `coverage/lcov-report/index.html`
 These tests are standalone and don't affect the main build process:
 
 ```
-awareness-indicator/
+GrindPulse/
 ├── build_tracker.py          # Main build (generates tracker.html)
 ├── js_awareness_generator.py # Generates awareness JS code
 └── tests/                    # Standalone test suite

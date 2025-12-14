@@ -1,4 +1,4 @@
-# Coding Challenges Tracker
+# GrindPulse
 
 A dynamic, interactive HTML-based tracker for coding interview preparation problems across multiple curated lists.
 
@@ -86,7 +86,7 @@ Yellow badges like "Also in: NeetCode150, Blind75" indicate the problem appears 
 ## File Structure
 
 ```
-neetcode-coding-challenges-tracker/
+GrindPulse/
 ├── tracker.html          # Main tracker (OPEN THIS FILE)
 ├── raw/                  # Source TSV files (problem templates)
 │   ├── blind75.tsv
@@ -145,7 +145,7 @@ Exported TSV files include 10 columns:
 
 This tracker has a companion private repository for storing your personal progress data:
 
-**Repository**: `neetcode-coding-challenges-tracker-data` (private, encrypted with git-crypt)
+**Repository**: `GrindPulse-data` (private, encrypted with git-crypt)
 
 ### Why Use a Separate Data Repo?
 
@@ -158,14 +158,14 @@ This tracker has a companion private repository for storing your personal progre
 
 1. Use `tracker.html` to track your progress
 2. Export your progress using "Export All TSVs" button
-3. Save exported files to `neetcode-coding-challenges-tracker-data/exports/`
+3. Save exported files to `GrindPulse-data/exports/`
 4. Commit and push to backup your progress
 
 ### Setting Up the Data Repo
 
 ```bash
 # Clone the data repo (requires git-crypt key)
-git clone https://github.com/jaodsilv/neetcode-coding-challenges-tracker-data.git ../data
+git clone https://github.com/jaodsilv/GrindPulse-data.git ../data
 
 # Unlock encryption (one-time setup)
 cd ../data
