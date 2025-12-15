@@ -151,12 +151,48 @@ Then open the URL shown in the terminal.
 
 3. **Cross-Device**: When you switch devices, the tracker pulls the latest data on focus
 
+## Browser Compatibility
+
+### Tested Browsers
+
+| Browser | Default Settings | Notes |
+|---------|------------------|-------|
+| Chrome | ✅ Works | Including Incognito and third-party cookie blocking |
+| Edge | ✅ Works | Including InPrivate mode |
+| Firefox | ✅ Works | Standard, Strict, and Private modes all work |
+| Brave | ⚠️ Requires config | Shields block scripts by default |
+
+### Brave Browser
+
+Brave's Shields block scripts by default, which prevents the tracker from loading entirely (not just authentication).
+
+**To use GrindPulse with Brave:**
+
+1. Click the Brave lion icon in the address bar
+2. Either:
+   - Toggle "Shields" to **Down** (disables all protection for this site), OR
+   - Keep Shields up but set "Block Scripts" to **Allow**
+3. Refresh the page
+
+### Firefox with All Cookies Blocked
+
+If you've configured Firefox to block **all** cookies (not just third-party):
+
+1. Go to `about:preferences#privacy`
+2. Under "Custom" settings, change "Cookies" from "All cookies" to "Cross-site tracking cookies"
+3. Or add an exception for `localhost`
+
+### Safari (macOS only)
+
+Not tested on Windows. If using Safari on macOS, ensure third-party cookies are not completely blocked in Safari Preferences > Privacy.
+
 ## Troubleshooting
 
 ### "Sign-in popup was blocked"
 
 1. Allow popups for `localhost` in your browser settings
 2. Click the Sign In button again
+3. **Brave users**: See [Browser Compatibility](#browser-compatibility) - you may need to disable Shields or allow scripts
 
 ### "Error: auth/unauthorized-domain"
 
@@ -182,6 +218,16 @@ Free tier limits:
 3. 20,000 deletes/day
 
 The tracker batches writes to minimize quota usage. If exceeded, wait 24 hours.
+
+### Console warning about enableMultiTabIndexedDbPersistence
+
+You may see this warning in the browser console:
+
+```
+@firebase/firestore: Firestore (10.7.0): enableMultiTabIndexedDbPersistence() will be deprecated in the future
+```
+
+This is a non-blocking warning from Firebase. The tracker will continue to work normally. A future update will migrate to the new API.
 
 ## Related Documentation
 
