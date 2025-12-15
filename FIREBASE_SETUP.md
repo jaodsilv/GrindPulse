@@ -153,6 +153,8 @@ Then open the URL shown in the terminal.
 
 ## Browser Compatibility
 
+> **Last tested**: December 2025
+
 ### Tested Browsers
 
 | Browser | Default Settings | Notes |
@@ -160,31 +162,31 @@ Then open the URL shown in the terminal.
 | Chrome | ✅ Works | Including Incognito and third-party cookie blocking |
 | Edge | ✅ Works | Including InPrivate mode |
 | Firefox | ✅ Works | Standard, Strict, and Private modes all work |
-| Brave | ⚠️ Requires config | Shields block scripts by default |
+| Brave | ✅ Works | Standard Shields settings work; see note below if scripts are blocked |
 
-### Brave Browser
+### Brave Browser (Script Blocking Enabled)
 
-Brave's Shields block scripts by default, which prevents the tracker from loading entirely (not just authentication).
+Brave works with GrindPulse using default (Standard) Shields settings. However, if you have enabled the "Block Scripts" option in Shields (which is off by default), the tracker will not load.
 
-**To use GrindPulse with Brave:**
+**If you have script blocking enabled:**
 
 1. Click the Brave lion icon in the address bar
 2. Either:
-   - Toggle "Shields" to **Down** (disables all protection for this site), OR
-   - Keep Shields up but set "Block Scripts" to **Allow**
+   - Set "Block Scripts" to **Allow** for this site, OR
+   - Toggle "Shields" to **Down** temporarily (disables all protection for this site)
 3. Refresh the page
 
-### Firefox with All Cookies Blocked
+### Firefox (Edge Case: All Cookies Blocked)
 
-If you've configured Firefox to block **all** cookies (not just third-party):
+If you have manually configured Firefox to block **all** cookies (this is not a default setting):
 
 1. Go to `about:preferences#privacy`
 2. Under "Custom" settings, change "Cookies" from "All cookies" to "Cross-site tracking cookies"
 3. Or add an exception for `localhost`
 
-### Safari (macOS only)
+### Safari
 
-Not tested on Windows. If using Safari on macOS, ensure third-party cookies are not completely blocked in Safari Preferences > Privacy.
+Safari is available on macOS and iOS only. If using Safari, ensure third-party cookies are not completely blocked in Safari Preferences > Privacy. Testing was performed on macOS; iOS behavior may vary.
 
 ## Troubleshooting
 
@@ -192,7 +194,7 @@ Not tested on Windows. If using Safari on macOS, ensure third-party cookies are 
 
 1. Allow popups for `localhost` in your browser settings
 2. Click the Sign In button again
-3. **Brave users**: See [Browser Compatibility](#browser-compatibility) - you may need to disable Shields or allow scripts
+3. **If using non-default privacy settings**: See [Browser Compatibility](#browser-compatibility) for browser-specific notes on Brave (script blocking) and Firefox (all cookies blocked)
 
 ### "Error: auth/unauthorized-domain"
 
@@ -227,7 +229,7 @@ You may see this warning in the browser console:
 @firebase/firestore: Firestore (10.7.0): enableMultiTabIndexedDbPersistence() will be deprecated in the future
 ```
 
-This is a non-blocking warning from Firebase. The tracker will continue to work normally. A future update will migrate to the new API.
+This is a non-blocking warning from Firebase. The tracker will continue to work normally. The compat SDK used by GrindPulse does not support the new localCache API; migrating to the modular SDK (v9+) would be required to eliminate this warning.
 
 ## Related Documentation
 
