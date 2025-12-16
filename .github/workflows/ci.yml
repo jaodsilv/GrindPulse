@@ -19,6 +19,8 @@ jobs:
     strategy:
       matrix:
         node-version: ['18.x', '20.x']
+      # fail-fast: false ensures we see test results for ALL Node versions,
+      # not just the first one that fails. This helps identify version-specific issues.
       fail-fast: false
 
     steps:
@@ -94,6 +96,8 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.10', '3.11', '3.12']
+      # fail-fast: false ensures we see build results for ALL Python versions,
+      # not just the first one that fails. This helps identify version-specific issues.
       fail-fast: false
 
     steps:
@@ -243,6 +247,9 @@ jobs:
           echo "| Build | ${{ needs.build.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Firebase Config | ${{ needs.validate-firebase-config.result }} |" >> $GITHUB_STEP_SUMMARY
 
+          # NOTE: Firebase validation failures don't fail CI because Firebase is optional.
+          # The validate-firebase-config job is informational only - it helps catch
+          # config issues but doesn't block PRs since the app works without Firebase.
           if [[ "${{ needs.test.result }}" == "failure" ]] || \
              [[ "${{ needs.build.result }}" == "failure" ]]; then
             echo ""

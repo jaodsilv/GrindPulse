@@ -133,9 +133,13 @@ def generate_html_structure(file_list, firebase_enabled=False):
 """
 
     # Firebase SDK scripts (only if enabled)
+    # NOTE: Firebase SDK version is pinned (10.7.0) for stability. To update:
+    # 1. Check https://firebase.google.com/docs/web/learn-more#available-libraries for latest
+    # 2. Test locally before updating version
+    # 3. Dependabot will not auto-update CDN links - manual process required
     firebase_scripts = (
         """
-  <!-- Firebase SDK -->
+  <!-- Firebase SDK (pinned version for stability - update manually after testing) -->
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>

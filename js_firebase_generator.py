@@ -15,9 +15,13 @@ def generate_js_firebase(firebase_config=None):
     """
 
     # Generate config embedding
+    # NOTE: Both firebase_config.json and tracker.html are gitignored,
+    # so embedding config here is safe for version control.
+    # The config is intentionally embedded to support single-file offline deployment.
     if firebase_config:
         config_js = f"""
     // Firebase Configuration (embedded at build time)
+    // NOTE: Both source (firebase_config.json) and output (tracker.html) are gitignored
     const FIREBASE_CONFIG = {json.dumps(firebase_config)};
     const FIREBASE_ENABLED = true;
 """
@@ -106,6 +110,9 @@ def generate_js_firebase(firebase_config=None):
         // is expected - the compat SDK doesn't support the new localCache API.
         // Migration to modular SDK (v9+) would be needed to use the new API.
         // This still works correctly, it's just an informational warning.
+        // NOTE: Persistence failures are silently logged (not shown to user) because
+        // offline persistence is an enhancement, not a requirement. The app works
+        // without it - users just won't have offline caching for cloud data.
         firebaseDb.enablePersistence({ synchronizeTabs: true })
           .catch(err => {
             if (err.code === 'failed-precondition') {

@@ -92,6 +92,9 @@ const DUPLICATE_MAP = PROBLEM_DATA.duplicate_map;
     )
 
     # Replace placeholders
+    # NOTE: DATA_PLACEHOLDER is replaced with empty string because data is now
+    # embedded directly in full_js as the data_js component. The placeholder
+    # remains in html_generator.py for backward compatibility and clarity.
     final_html = html_structure.replace("{CSS_PLACEHOLDER}", css)
     final_html = final_html.replace("{DATA_PLACEHOLDER}", "")
     final_html = final_html.replace("{JS_PLACEHOLDER}", full_js)

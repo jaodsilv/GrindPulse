@@ -45,6 +45,10 @@ jobs:
           python-version: '3.12'
 
       - name: Cache pip
+        # NOTE: Cache key uses OS only because ruff is unpinned (gets latest).
+        # Pip cache stores downloads, not installed packages, so version mismatch
+        # just causes re-download (not stale package usage). Pin ruff version
+        # in requirements.txt to include version in key for deterministic builds.
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip

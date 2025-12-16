@@ -6,6 +6,13 @@ Implements spaced repetition awareness calculations and color management
 
 # SYNCHRONIZATION REQUIREMENT:
 # Core calculation functions in this file are duplicated in tests/awareness.js for testing.
+#
+# WHY DUPLICATION EXISTS:
+# - The JavaScript generated here is embedded in tracker.html as a string
+# - Jest cannot directly test functions inside a Python-generated string
+# - tests/awareness.js contains identical functions as a testable ES module
+# - This allows comprehensive unit testing of the awareness algorithm
+#
 # When modifying getTierName(), getTierDifficultyMultiplier(), getCommitmentFactor(),
 # getSolvedFactor(), getDaysSinceCompletion(), calculateAwarenessScore(), or getAwarenessClass(),
 # you MUST update both files to keep them in sync.

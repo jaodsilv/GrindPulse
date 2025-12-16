@@ -15,6 +15,21 @@ updates:
     reviewers:
       - "jaodsilv"
 
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "python"
+    commit-message:
+      prefix: "chore(deps)"
+    reviewers:
+      - "jaodsilv"
+
   # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"

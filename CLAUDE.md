@@ -51,14 +51,15 @@ The project uses a multi-agent generation pattern where Python scripts create di
 
 Components must be combined in this order (set in `build_tracker.py`):
 1. Data (PROBLEM_DATA, DUPLICATE_MAP)
-2. Awareness algorithm
-3. Settings
-4. Config Sync (filter/export/UI preferences)
-5. Import/Export
-6. Conflict Dialog
-7. Firebase
-8. Core logic
-9. Sync engine
+2. Shared utilities (escapeHTML, truncateText, etc.)
+3. Awareness algorithm
+4. Settings
+5. Config Sync (filter/export/UI preferences)
+6. Import/Export
+7. Conflict Dialog
+8. Firebase
+9. Core logic
+10. Sync engine
 
 ## Testing
 

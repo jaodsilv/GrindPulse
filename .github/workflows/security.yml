@@ -50,9 +50,13 @@ jobs:
 
       - name: Run npm audit
         working-directory: tests
+        # NOTE: || true is intentional - npm audit failures are tracked via artifacts
+        # and GitHub Security tab (via SARIF), not workflow failures.
+        # This allows security scanning without blocking all PRs.
+        # Critical issues (secrets) are still caught by secret-scan job which does fail.
         run: |
           npm audit --audit-level=moderate --json > ../npm-audit.json || true
-          npm audit --audit-level=moderate || echo "Vulnerabilities found - see report"
+          npm audit --audit-level=moderate || echo "::warning::npm audit found vulnerabilities - see artifacts and Security tab"
 
       - name: Upload npm audit report
         uses: actions/upload-artifact@v4
@@ -79,6 +83,9 @@ jobs:
         run: pip install bandit[toml]
 
       - name: Run Bandit
+        # NOTE: || true is intentional - Bandit findings are tracked via SARIF upload
+        # to GitHub Security tab, not workflow failures. This allows security scanning
+        # without blocking PRs. Critical issues (secrets) are caught by secret-scan job.
         run: |
           # Check if there are Python files to scan
           if find . -name "*.py" -not -path "./tests/*" -not -path "./.git/*" -not -path "./node_modules/*" | grep -q .; then

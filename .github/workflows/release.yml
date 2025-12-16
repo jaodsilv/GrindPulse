@@ -24,6 +24,11 @@ on:
 permissions:
   contents: write
 
+# Ensure only one release workflow runs at a time to prevent race conditions
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
   validate:
     name: Validate Release
@@ -106,7 +111,10 @@ jobs:
           SIZE_KB=$(echo "scale=2; $SIZE / 1024" | bc)
           echo "tracker.html size: ${SIZE_KB}KB ($SIZE bytes)"
 
-          # Size sanity check (should be between 100KB and 2MB)
+          # Size sanity check: tracker.html should be between 100KB and 2MB
+          # - Under 100KB: Likely missing embedded data/JS (build failure)
+          # - Over 2MB: Likely bloated or includes unexpected content
+          # Current expected size: ~150-300KB based on problem list sizes
           if [ $SIZE -lt 100000 ] || [ $SIZE -gt 2000000 ]; then
             echo "Warning: Unusual file size detected"
           fi
