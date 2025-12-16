@@ -16,19 +16,21 @@ def generate_js_firebase(firebase_config=None):
 
     # Generate config embedding
     if firebase_config:
-        config_js = f'''
+        config_js = f"""
     // Firebase Configuration (embedded at build time)
     const FIREBASE_CONFIG = {json.dumps(firebase_config)};
     const FIREBASE_ENABLED = true;
-'''
+"""
     else:
-        config_js = '''
+        config_js = """
     // Firebase not configured
     const FIREBASE_CONFIG = null;
     const FIREBASE_ENABLED = false;
-'''
+"""
 
-    js = config_js + '''
+    js = (
+        config_js
+        + """
     // ============================================
     // FIREBASE CLOUD SYNC
     // ============================================
@@ -1310,7 +1312,8 @@ def generate_js_firebase(firebase_config=None):
         alert('Failed to clear cloud data: ' + error.message);
       }
     }
-    '''
+    """
+    )
 
     return js
 
@@ -1320,6 +1323,6 @@ if __name__ == "__main__":
     sample_config = {
         "apiKey": "test-api-key",
         "authDomain": "test-project.firebaseapp.com",
-        "projectId": "test-project"
+        "projectId": "test-project",
     }
     print(generate_js_firebase(sample_config))

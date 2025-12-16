@@ -4,10 +4,11 @@ Cross-File Sync Engine Sub-Agent
 Synchronizes edits across duplicate problems
 """
 
+
 def generate_js_sync():
     """Generate JavaScript sync logic"""
 
-    js = '''
+    js = """
     // Sync duplicate problems across all files
     function syncDuplicates(problemName, field, value) {
       // Check if this problem appears in multiple files
@@ -77,9 +78,10 @@ def generate_js_sync():
           break;
       }
     }
-    '''
+    """
 
     return js
+
 
 if __name__ == "__main__":
     print(generate_js_sync())

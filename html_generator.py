@@ -4,6 +4,7 @@ HTML Structure Generator Sub-Agent
 Creates the HTML skeleton and table structure
 """
 
+
 def generate_html_structure(file_list, firebase_enabled=False):
     """Generate HTML structure with dynamic tabs
 
@@ -18,9 +19,14 @@ def generate_html_structure(file_list, firebase_enabled=False):
         # Convert filename to display name
         display_name = file_name.replace("_", " ").title()
         if "neetcode" in file_name.lower():
-            display_name = "NeetCode " + file_name.replace("neetcode", "").replace("_", " ").strip()
+            display_name = (
+                "NeetCode "
+                + file_name.replace("neetcode", "").replace("_", " ").strip()
+            )
         elif "blind" in file_name.lower():
-            display_name = "Blind " + file_name.replace("blind", "").replace("_", " ").strip()
+            display_name = (
+                "Blind " + file_name.replace("blind", "").replace("_", " ").strip()
+            )
 
         active_class = "active" if idx == 0 else ""
         tabs_html += f'        <button class="tab-button {active_class}" data-tab="{file_name}">{display_name}</button>\n'
@@ -29,7 +35,7 @@ def generate_html_structure(file_list, firebase_enabled=False):
     tab_contents_html = ""
     for idx, file_name in enumerate(file_list):
         active_class = "active" if idx == 0 else ""
-        tab_contents_html += f'''
+        tab_contents_html += f"""
     <div id="tab-{file_name}" class="tab-content {active_class}">
       <div class="progress-section">
         <div class="progress-bar-container">
@@ -124,17 +130,21 @@ def generate_html_structure(file_list, firebase_enabled=False):
         </table>
       </div>
     </div>
-'''
+"""
 
     # Firebase SDK scripts (only if enabled)
-    firebase_scripts = '''
+    firebase_scripts = (
+        """
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-''' if firebase_enabled else ''
+"""
+        if firebase_enabled
+        else ""
+    )
 
-    html = f'''<!DOCTYPE html>
+    html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -226,17 +236,17 @@ def generate_html_structure(file_list, firebase_enabled=False):
   </script>
 </body>
 </html>
-'''
+"""
 
     return html
 
+
 if __name__ == "__main__":
     import json
-    import sys
 
     # Read parsed data
-    with open('parsed_data.json', 'r') as f:
+    with open("parsed_data.json", "r") as f:
         data = json.load(f)
 
-    html = generate_html_structure(data['file_list'])
+    html = generate_html_structure(data["file_list"])
     print(html)

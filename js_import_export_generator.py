@@ -8,7 +8,7 @@ Implements multi-format import/export functionality for TSV, CSV, JSON, XML, and
 def generate_js_import_export():
     """Generate JavaScript import/export logic"""
 
-    js = '''
+    js = """
     // ============================================
     // IMPORT/EXPORT FUNCTIONALITY
     // ============================================
@@ -1341,7 +1341,7 @@ def generate_js_import_export():
         patternSelect.appendChild(option);
       });
     }
-    '''
+    """
 
     return js
 

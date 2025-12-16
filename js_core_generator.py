@@ -4,10 +4,11 @@ JavaScript Core Logic Sub-Agent
 Implements tab switching, filtering, localStorage, and validation
 """
 
+
 def generate_js_core():
     """Generate JavaScript core logic"""
 
-    js = '''
+    js = """
     // Global state
     let currentTab = PROBLEM_DATA.file_list[0];
     let allPatterns = new Set();
@@ -483,9 +484,10 @@ def generate_js_core():
         });
       });
     }, 60000); // Update every minute
-    '''
+    """
 
     return js
+
 
 if __name__ == "__main__":
     print(generate_js_core())

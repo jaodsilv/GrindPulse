@@ -11,7 +11,7 @@ Implements local storage and cloud sync for user configurations:
 def generate_js_config_sync():
     """Generate JavaScript for configuration sync"""
 
-    js = '''
+    js = """
     // ============================================
     // CONFIG SYNC - LOCAL STORAGE & CLOUD SYNC
     // ============================================
@@ -741,7 +741,7 @@ def generate_js_config_sync():
         loadAwarenessConfigFromCloud()
       ]);
     }
-    '''
+    """
 
     return js
 

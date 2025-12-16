@@ -4,11 +4,11 @@ Data Parser Sub-Agent
 Reads and parses all TSV files dynamically from GrindPulse/raw/
 """
 
-import os
 import csv
 import json
 from pathlib import Path
 from collections import defaultdict
+
 
 def parse_tsv_files(raw_folder):
     """Parse all TSV files in the raw folder"""
@@ -23,8 +23,8 @@ def parse_tsv_files(raw_folder):
         file_key = tsv_file.stem  # e.g., "blind75"
         problems = []
 
-        with open(tsv_file, 'r', encoding='utf-8') as f:
-            reader = csv.reader(f, delimiter='\t')
+        with open(tsv_file, "r", encoding="utf-8") as f:
+            reader = csv.reader(f, delimiter="\t")
 
             for idx, row in enumerate(reader):
                 if idx == 0 or len(row) < 6:  # Skip header row and malformed rows
@@ -41,7 +41,7 @@ def parse_tsv_files(raw_folder):
                     "solved": False,
                     "time_to_solve": "",
                     "comments": "",
-                    "solved_date": ""
+                    "solved_date": "",
                 }
 
                 problems.append(problem)
@@ -53,15 +53,15 @@ def parse_tsv_files(raw_folder):
 
     # Build duplicate mapping (only include problems that appear in multiple files)
     duplicate_map = {
-        name: files for name, files in all_problems.items()
-        if len(files) > 1
+        name: files for name, files in all_problems.items() if len(files) > 1
     }
 
     return {
         "data": all_data,
         "duplicate_map": duplicate_map,
-        "file_list": [f.stem for f in tsv_files]
+        "file_list": [f.stem for f in tsv_files],
     }
+
 
 if __name__ == "__main__":
     raw_folder = Path(__file__).parent / "raw"

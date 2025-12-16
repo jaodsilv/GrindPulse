@@ -4,10 +4,11 @@ Settings Panel Sub-Agent
 Implements awareness settings panel UI and configuration management
 """
 
+
 def generate_js_settings():
     """Generate JavaScript settings panel logic"""
 
-    js = '''
+    js = """
     // Create and inject settings panel HTML into DOM
     function createSettingsPanel() {
       const overlay = document.createElement('div');
@@ -472,9 +473,10 @@ def generate_js_settings():
         settingsBtn.addEventListener('click', openSettingsPanel);
       }
     }
-    '''
+    """
 
     return js
+
 
 if __name__ == "__main__":
     print(generate_js_settings())

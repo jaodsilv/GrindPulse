@@ -4,10 +4,11 @@ CSS Styling Sub-Agent
 Creates modern, clean styling
 """
 
+
 def generate_css():
     """Generate CSS styling"""
 
-    css = '''
+    css = """
     :root {
       /* Awareness color palette */
       --awareness-white: #ffffff;
@@ -1817,9 +1818,10 @@ def generate_css():
         gap: 8px;
       }
     }
-    '''
+    """
 
     return css
+
 
 if __name__ == "__main__":
     print(generate_css())

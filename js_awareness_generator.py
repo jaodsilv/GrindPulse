@@ -11,10 +11,11 @@ Implements spaced repetition awareness calculations and color management
 # you MUST update both files to keep them in sync.
 # After changes, run tests to verify: cd tests && npm test
 
+
 def generate_js_awareness():
     """Generate JavaScript awareness logic"""
 
-    js = '''
+    js = """
     // Default awareness configuration
     const DEFAULT_AWARENESS_CONFIG = {
       // === USER-FACING SETTINGS ===
@@ -366,9 +367,10 @@ def generate_js_awareness():
       updateAwarenessColors(true);  // Update all tabs on initial load
       setupAwarenessRefresh();
     }
-    '''
+    """
 
     return js
+
 
 if __name__ == "__main__":
     print(generate_js_awareness())
