@@ -1,0 +1,19 @@
+# Gitleaks configuration for GrindPulse
+# https://github.com/gitleaks/gitleaks
+
+title = "GrindPulse Gitleaks Config"
+
+[allowlist]
+description = "Allowlist for example and template files"
+paths = [
+  '''firebase_config\.example\.json''',
+  '''firebase_config\.template\.json''',
+]
+
+# Allowlist specific patterns that are not secrets
+regexTarget = "match"
+regexes = [
+  # Example/placeholder API keys in documentation
+  '''YOUR_API_KEY_HERE''',
+  '''REPLACE_WITH_YOUR''',
+]

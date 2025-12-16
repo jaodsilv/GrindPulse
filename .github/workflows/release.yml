@@ -1,0 +1,287 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      dry_run:
+        description: 'Dry run (no actual release)'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    name: Validate Release
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            # Tag push - extract version from tag
+            VERSION="${GITHUB_REF#refs/tags/v}"
+            TAG="${GITHUB_REF#refs/tags/}"
+          else
+            # Manual trigger - calculate new version
+            if [ -f version.txt ]; then
+              CURRENT=$(cat version.txt | tr -d '[:space:]')
+            else
+              CURRENT="0.0.0"
+            fi
+
+            IFS='.' read -ra PARTS <<< "$CURRENT"
+            MAJOR=${PARTS[0]:-0}
+            MINOR=${PARTS[1]:-0}
+            PATCH=${PARTS[2]:-0}
+
+            case "${{ inputs.version_bump }}" in
+              major)
+                MAJOR=$((MAJOR + 1))
+                MINOR=0
+                PATCH=0
+                ;;
+              minor)
+                MINOR=$((MINOR + 1))
+                PATCH=0
+                ;;
+              patch)
+                PATCH=$((PATCH + 1))
+                ;;
+            esac
+
+            VERSION="${MAJOR}.${MINOR}.${PATCH}"
+            TAG="v${VERSION}"
+          fi
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "## Release: $TAG" >> $GITHUB_STEP_SUMMARY
+
+  build:
+    name: Build Release Artifact
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build tracker.html
+        run: python build_tracker.py
+
+      - name: Verify build
+        run: |
+          if [ ! -f tracker.html ]; then
+            echo "Error: tracker.html was not generated"
+            exit 1
+          fi
+          SIZE=$(stat -c%s tracker.html)
+          SIZE_KB=$(echo "scale=2; $SIZE / 1024" | bc)
+          echo "tracker.html size: ${SIZE_KB}KB ($SIZE bytes)"
+
+          # Size sanity check (should be between 100KB and 2MB)
+          if [ $SIZE -lt 100000 ] || [ $SIZE -gt 2000000 ]; then
+            echo "Warning: Unusual file size detected"
+          fi
+
+          echo "## Build Artifact" >> $GITHUB_STEP_SUMMARY
+          echo "- **File:** tracker.html" >> $GITHUB_STEP_SUMMARY
+          echo "- **Size:** ${SIZE_KB}KB" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-tracker-${{ needs.validate.outputs.version }}
+          path: tracker.html
+          retention-days: 90
+
+  test:
+    name: Release Validation Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: tests/package-lock.json
+
+      - name: Install dependencies
+        working-directory: tests
+        run: npm ci
+
+      - name: Run tests
+        working-directory: tests
+        run: npm run test:coverage
+
+  changelog:
+    name: Generate Changelog
+    runs-on: ubuntu-latest
+    needs: validate
+    outputs:
+      changelog: ${{ steps.changelog.outputs.changelog }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Find previous tag
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+
+          if [ -z "$PREV_TAG" ]; then
+            # First release - get all commits
+            COMMITS=$(git log --pretty=format:"- %s (%h)" --no-merges)
+          else
+            COMMITS=$(git log ${PREV_TAG}..HEAD --pretty=format:"- %s (%h)" --no-merges)
+          fi
+
+          # Categorize commits
+          FEATURES=$(echo "$COMMITS" | grep -E "^- feat" || true)
+          FIXES=$(echo "$COMMITS" | grep -E "^- fix" || true)
+          DOCS=$(echo "$COMMITS" | grep -E "^- docs" || true)
+          CHORES=$(echo "$COMMITS" | grep -E "^- (chore|ci|build|refactor)" || true)
+          OTHER=$(echo "$COMMITS" | grep -vE "^- (feat|fix|docs|chore|ci|build|refactor)" || true)
+
+          # Build changelog
+          {
+            echo "## What's Changed"
+            echo ""
+            if [ -n "$FEATURES" ]; then
+              echo "### Features"
+              echo "$FEATURES"
+              echo ""
+            fi
+            if [ -n "$FIXES" ]; then
+              echo "### Bug Fixes"
+              echo "$FIXES"
+              echo ""
+            fi
+            if [ -n "$DOCS" ]; then
+              echo "### Documentation"
+              echo "$DOCS"
+              echo ""
+            fi
+            if [ -n "$CHORES" ]; then
+              echo "### Maintenance"
+              echo "$CHORES"
+              echo ""
+            fi
+            if [ -n "$OTHER" ]; then
+              echo "### Other Changes"
+              echo "$OTHER"
+              echo ""
+            fi
+          } > changelog.md
+
+          # Store for output using delimiter
+          echo "changelog<<CHANGELOG_EOF" >> $GITHUB_OUTPUT
+          cat changelog.md >> $GITHUB_OUTPUT
+          echo "CHANGELOG_EOF" >> $GITHUB_OUTPUT
+
+      - name: Upload changelog
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog
+          path: changelog.md
+          retention-days: 7
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [validate, build, test, changelog]
+    if: ${{ !inputs.dry_run }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-tracker-${{ needs.validate.outputs.version }}
+
+      - name: Create/Update version file and tag
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "${{ needs.validate.outputs.version }}" > version.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add version.txt
+          git commit -m "chore: bump version to ${{ needs.validate.outputs.version }}"
+          git tag ${{ needs.validate.outputs.tag }}
+          git push origin HEAD:main --tags
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.validate.outputs.tag }}
+          name: GrindPulse ${{ needs.validate.outputs.tag }}
+          body: |
+            # GrindPulse ${{ needs.validate.outputs.tag }}
+
+            ${{ needs.changelog.outputs.changelog }}
+
+            ## Installation
+
+            Download `tracker.html` and open it in your browser. No server required!
+
+            ## Features
+
+            - Offline-first interview prep tracking
+            - Cross-device sync with Firebase (optional)
+            - Multiple problem lists (Blind 75, NeetCode 150/250, Salesforce)
+            - Spaced repetition awareness indicators
+            - Import/Export in multiple formats
+
+            ## Assets
+
+            - `tracker.html` - Self-contained interview prep tracker
+          files: |
+            tracker.html
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+
+      - name: Release Summary
+        run: |
+          echo "## Release Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** ${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Release URL:** https://github.com/${{ github.repository }}/releases/tag/${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,125 @@
+name: Deploy to GitHub Pages
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Source for deployment'
+        required: true
+        default: 'main-branch'
+        type: choice
+        options:
+          - main-branch
+          - latest-release
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-pages:
+    name: Build Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build tracker.html
+        run: python build_tracker.py
+
+      - name: Verify build
+        run: |
+          if [ ! -f tracker.html ]; then
+            echo "Error: tracker.html was not generated"
+            exit 1
+          fi
+          SIZE=$(stat -c%s tracker.html)
+          SIZE_KB=$(echo "scale=2; $SIZE / 1024" | bc)
+          echo "tracker.html size: ${SIZE_KB}KB"
+
+      - name: Prepare pages content
+        run: |
+          mkdir -p _site
+
+          # Copy tracker.html as index.html
+          cp tracker.html _site/index.html
+
+          # Create 404 redirect page
+          cat > _site/404.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta http-equiv="refresh" content="0; url=/" />
+            <title>Redirecting...</title>
+          </head>
+          <body>
+            <p>Redirecting to <a href="/">GrindPulse</a>...</p>
+          </body>
+          </html>
+          EOF
+
+          # Add version info
+          VERSION=$(cat version.txt 2>/dev/null || echo "dev")
+          {
+            echo "Version: $VERSION"
+            echo "Built: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "Commit: ${GITHUB_SHA::8}"
+          } > _site/version.txt
+
+          # Create a simple manifest for PWA support (future enhancement)
+          cat > _site/manifest.json << 'EOF'
+          {
+            "name": "GrindPulse",
+            "short_name": "GrindPulse",
+            "description": "Interview prep tracking for coding problems",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#ffffff",
+            "theme_color": "#4a90d9"
+          }
+          EOF
+
+          echo "## Pages Content" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          ls -la _site/ >> $GITHUB_STEP_SUMMARY
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy to Pages
+    runs-on: ubuntu-latest
+    needs: build-pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Deployment Summary
+        run: |
+          echo "## Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Live URL:** ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The GrindPulse tracker is now available at:" >> $GITHUB_STEP_SUMMARY
+          echo "- ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
