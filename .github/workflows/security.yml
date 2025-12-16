@@ -80,9 +80,19 @@ jobs:
 
       - name: Run Bandit
         run: |
-          bandit -r . -f sarif -o bandit-results.sarif \
-            --exclude ./tests,./node_modules,./__pycache__,./.git \
-            --severity-level medium || true
+          # Check if there are Python files to scan
+          if find . -name "*.py" -not -path "./tests/*" -not -path "./.git/*" -not -path "./node_modules/*" | grep -q .; then
+            bandit -r . -f sarif -o bandit-results.sarif \
+              --exclude ./tests,./node_modules,./__pycache__,./.git \
+              --severity-level medium || true
+          else
+            echo "No Python files found to scan"
+          fi
+
+          # Create empty SARIF file if it doesn't exist (no findings or no files)
+          if [ ! -f bandit-results.sarif ]; then
+            echo '{"version":"2.1.0","$schema":"https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json","runs":[{"tool":{"driver":{"name":"Bandit","version":"1.7.0"}},"results":[]}]}' > bandit-results.sarif
+          fi
 
       - name: Upload SARIF results
         uses: github/codeql-action/upload-sarif@v3
