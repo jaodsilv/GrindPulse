@@ -6,15 +6,23 @@ Implements spaced repetition awareness calculations and color management
 
 # SYNCHRONIZATION REQUIREMENT:
 # Core calculation functions in this file are duplicated in tests/awareness.js for testing.
+#
+# WHY DUPLICATION EXISTS:
+# - The JavaScript generated here is embedded in tracker.html as a string
+# - Jest cannot directly test functions inside a Python-generated string
+# - tests/awareness.js contains identical functions as a testable ES module
+# - This allows comprehensive unit testing of the awareness algorithm
+#
 # When modifying getTierName(), getTierDifficultyMultiplier(), getCommitmentFactor(),
 # getSolvedFactor(), getDaysSinceCompletion(), calculateAwarenessScore(), or getAwarenessClass(),
 # you MUST update both files to keep them in sync.
 # After changes, run tests to verify: cd tests && npm test
 
+
 def generate_js_awareness():
     """Generate JavaScript awareness logic"""
 
-    js = '''
+    js = """
     // Default awareness configuration
     const DEFAULT_AWARENESS_CONFIG = {
       // === USER-FACING SETTINGS ===
@@ -366,9 +374,10 @@ def generate_js_awareness():
       updateAwarenessColors(true);  // Update all tabs on initial load
       setupAwarenessRefresh();
     }
-    '''
+    """
 
     return js
+
 
 if __name__ == "__main__":
     print(generate_js_awareness())

@@ -4,9 +4,10 @@ Shared Utility Functions Generator
 Contains utility functions used across multiple JavaScript modules.
 """
 
+
 def generate_js_shared():
     """Generate shared utility functions used across multiple generators."""
-    return '''
+    return """
 // === Shared Utility Functions ===
 
 function escapeHTML(str) {
@@ -18,4 +19,4 @@ function escapeHTML(str) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
-'''
+"""

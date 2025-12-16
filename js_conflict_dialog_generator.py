@@ -8,7 +8,7 @@ Implements the conflict resolution dialog for import operations
 def generate_js_conflict_dialog():
     """Generate JavaScript conflict dialog logic"""
 
-    js = '''
+    js = """
     // ============================================
     // CONFLICT RESOLUTION DIALOG
     // ============================================
@@ -330,7 +330,7 @@ def generate_js_conflict_dialog():
 
       alert(`Import complete! Updated: ${result.updated}, Added: ${result.added}`);
     }
-    '''
+    """
 
     return js
 

@@ -1,0 +1,15 @@
+# GrindPulse Build Requirements
+#
+# The build scripts (build_tracker.py, data_parser.py, *_generator.py)
+# use only Python standard library modules:
+#   - json
+#   - sys
+#   - pathlib
+#   - os
+#   - csv
+#   - collections
+#
+# No external dependencies are required for building.
+#
+# Development dependencies (optional, used in CI):
+# ruff>=0.8.0  # Python linter/formatter
