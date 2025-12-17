@@ -11,5 +11,7 @@
 #
 # No external dependencies are required for building.
 #
-# Development dependencies (optional, used in CI):
-# ruff>=0.8.0  # Python linter/formatter
+# Development dependencies (used in CI):
+pytest>=8.0.0
+pytest-cov>=4.0.0
+ruff>=0.8.0
