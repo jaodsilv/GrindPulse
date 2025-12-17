@@ -19,14 +19,9 @@ def generate_html_structure(file_list, firebase_enabled=False):
         # Convert filename to display name
         display_name = file_name.replace("_", " ").title()
         if "neetcode" in file_name.lower():
-            display_name = (
-                "NeetCode "
-                + file_name.replace("neetcode", "").replace("_", " ").strip()
-            )
+            display_name = "NeetCode " + file_name.replace("neetcode", "").replace("_", " ").strip()
         elif "blind" in file_name.lower():
-            display_name = (
-                "Blind " + file_name.replace("blind", "").replace("_", " ").strip()
-            )
+            display_name = "Blind " + file_name.replace("blind", "").replace("_", " ").strip()
 
         active_class = "active" if idx == 0 else ""
         tabs_html += f'        <button class="tab-button {active_class}" data-tab="{file_name}">{display_name}</button>\n'
@@ -249,7 +244,7 @@ if __name__ == "__main__":
     import json
 
     # Read parsed data
-    with open("parsed_data.json", "r") as f:
+    with open("parsed_data.json") as f:
         data = json.load(f)
 
     html = generate_html_structure(data["file_list"])
