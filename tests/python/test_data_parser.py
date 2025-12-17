@@ -1,8 +1,12 @@
 """Tests for data_parser.py error handling."""
 
+import sys
+from io import StringIO
+from unittest.mock import patch
+
 import pytest
 
-from data_parser import parse_tsv_files
+from data_parser import main, parse_tsv_files
 from exceptions import (
     DataFileEmptyError,
     DataFileNotFoundError,
@@ -274,3 +278,66 @@ class TestValidationErrors:
             parse_tsv_files(temp_dir / "raw")
 
         assert "no problems parsed" in str(exc_info.value).lower()
+
+
+class TestMainFunction:
+    """Tests for main() entry point."""
+
+    def test_returns_zero_on_success(self, valid_parsed_data):
+        """Should return 0 on successful parsing."""
+        with patch("data_parser.parse_tsv_files") as mock_parse:
+            mock_parse.return_value = valid_parsed_data
+            stdout = StringIO()
+            with patch.object(sys, "stdout", stdout):
+                result = main()
+
+        assert result == 0
+        # Should have printed JSON output
+        assert "Two Sum" in stdout.getvalue()
+
+    def test_returns_one_on_grindpulse_error(self):
+        """Should return 1 when GrindPulseError is raised."""
+        with patch("data_parser.parse_tsv_files") as mock_parse:
+            mock_parse.side_effect = DataFileNotFoundError("Test error", file_path="/test/path")
+
+            result = main()
+
+        assert result == 1
+
+    def test_returns_130_on_keyboard_interrupt(self):
+        """Should return 130 when KeyboardInterrupt is raised."""
+        with patch("data_parser.parse_tsv_files") as mock_parse:
+            mock_parse.side_effect = KeyboardInterrupt()
+
+            result = main()
+
+        assert result == 130
+
+    def test_returns_one_on_unexpected_error(self):
+        """Should return 1 on unexpected exceptions."""
+        with patch("data_parser.parse_tsv_files") as mock_parse:
+            mock_parse.side_effect = RuntimeError("Unexpected!")
+
+            result = main()
+
+        assert result == 1
+
+    def test_error_message_goes_to_stderr(self):
+        """Should print error messages to stderr."""
+        with patch("data_parser.parse_tsv_files") as mock_parse:
+            mock_parse.side_effect = DataFileNotFoundError("Test error", file_path="/test/path")
+            stderr = StringIO()
+            with patch.object(sys, "stderr", stderr):
+                main()
+
+        assert "error" in stderr.getvalue().lower()
+
+    def test_unexpected_error_includes_type(self):
+        """Should include exception type in unexpected error message."""
+        with patch("data_parser.parse_tsv_files") as mock_parse:
+            mock_parse.side_effect = RuntimeError("Unexpected!")
+            stderr = StringIO()
+            with patch.object(sys, "stderr", stderr):
+                main()
+
+        assert "RuntimeError" in stderr.getvalue()
