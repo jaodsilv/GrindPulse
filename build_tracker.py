@@ -39,6 +39,7 @@ def load_parsed_data() -> dict:
 
     Raises:
         DataFileNotFoundError: If file is missing or empty
+        FileIOError: If file cannot be read (permission denied, I/O error)
         JSONParseError: If JSON is invalid or missing required keys
     """
     parsed_data_path = Path(__file__).parent / "parsed_data.json"
@@ -58,6 +59,12 @@ def load_parsed_data() -> dict:
             "Permission denied reading parsed_data.json",
             file_path=str(parsed_data_path),
             suggestion="Check file permissions",
+        ) from err
+    except OSError as err:
+        raise FileIOError(
+            f"I/O error reading parsed_data.json: {err}",
+            file_path=str(parsed_data_path),
+            suggestion="Check file accessibility and system resources",
         ) from err
 
     if not content.strip():
@@ -92,11 +99,20 @@ def load_parsed_data() -> dict:
 def load_firebase_config() -> dict | None:
     """Load Firebase config if it exists.
 
+    This function implements graceful degradation for optional Firebase cloud sync:
+    - Missing file: Returns None (feature not configured - normal case)
+    - Permission error: Prints warning, returns None (user sees warning, app continues offline)
+    - Empty file: Prints warning, returns None (likely incomplete setup)
+    - Invalid JSON: Raises error (user intended to configure but config is broken)
+
+    This behavior is intentional: Firebase is an optional enhancement, not a required
+    feature. Users should be able to use the tracker offline without any Firebase setup.
+
     Returns:
-        Firebase config dictionary, or None if not configured
+        Firebase config dictionary, or None if not configured/accessible
 
     Raises:
-        JSONParseError: If file exists but contains invalid JSON
+        JSONParseError: If file exists with content but contains invalid JSON
     """
     firebase_config_path = Path(__file__).parent / "firebase_config.json"
 
@@ -131,6 +147,17 @@ def load_firebase_config() -> dict | None:
 def run_generator(name: str, func, *args, **kwargs):
     """Run a generator function with error handling.
 
+    This function intentionally catches all exceptions (not just specific types)
+    to provide consistent error handling for the 10+ generator functions in the
+    build pipeline. By wrapping ANY exception in GeneratorError, we ensure:
+
+    1. Consistent error formatting with generator name context
+    2. Programming errors (AttributeError, NameError, etc.) are properly reported
+    3. The full exception chain is preserved via 'from e' for debugging
+
+    Narrowing the catch would defeat the purpose - generator bugs are exactly
+    what this wrapper should catch and report with context.
+
     Args:
         name: Name of the generator (for error messages)
         func: Generator function to call
@@ -141,7 +168,7 @@ def run_generator(name: str, func, *args, **kwargs):
         Result from the generator function
 
     Raises:
-        GeneratorError: If the generator fails
+        GeneratorError: Wraps any exception from the generator function
     """
     try:
         return func(*args, **kwargs)
@@ -277,7 +304,7 @@ def main() -> int:
         print("\nBuild interrupted by user", file=sys.stderr)
         return 130
     except Exception as e:
-        print(f"\nUnexpected error: {e}", file=sys.stderr)
+        print(f"\nUnexpected error ({type(e).__name__}): {e}", file=sys.stderr)
         return 1
 
 

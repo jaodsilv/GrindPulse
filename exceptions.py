@@ -9,7 +9,9 @@ Provides clear, actionable error messages for common failure modes.
 class GrindPulseError(Exception):
     """Base exception for all GrindPulse build errors."""
 
-    def __init__(self, message: str, file_path: str = None, suggestion: str = None) -> None:
+    def __init__(
+        self, message: str, file_path: str | None = None, suggestion: str | None = None
+    ) -> None:
         self.file_path = file_path
         self.suggestion = suggestion
         full_message = message
@@ -57,8 +59,8 @@ class TSVParseError(ParseError):
         self,
         message: str,
         file_path: str,
-        line_number: int = None,
-        suggestion: str = None,
+        line_number: int | None = None,
+        suggestion: str | None = None,
     ) -> None:
         self.line_number = line_number
         if line_number:

@@ -6,6 +6,7 @@ Reads and parses all TSV files dynamically from GrindPulse/raw/
 
 import csv
 import json
+import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -13,6 +14,7 @@ from exceptions import (
     DataFileEmptyError,
     DataFileNotFoundError,
     FileIOError,
+    GrindPulseError,
     TSVParseError,
     ValidationError,
 )
@@ -174,7 +176,27 @@ def parse_tsv_files(raw_folder):
     }
 
 
+def main() -> int:
+    """Main entry point with exit code handling.
+
+    Returns:
+        Exit code: 0 for success, 1 for error, 130 for interrupt
+    """
+    try:
+        raw_folder = Path(__file__).parent / "raw"
+        result = parse_tsv_files(raw_folder)
+        print(json.dumps(result, indent=2))
+        return 0
+    except GrindPulseError as e:
+        print(f"\nError: {e}", file=sys.stderr)
+        return 1
+    except KeyboardInterrupt:
+        print("\nParsing interrupted by user", file=sys.stderr)
+        return 130
+    except Exception as e:
+        print(f"\nUnexpected error ({type(e).__name__}): {e}", file=sys.stderr)
+        return 1
+
+
 if __name__ == "__main__":
-    raw_folder = Path(__file__).parent / "raw"
-    result = parse_tsv_files(raw_folder)
-    print(json.dumps(result, indent=2))
+    sys.exit(main())
