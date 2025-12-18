@@ -20,6 +20,40 @@ cd tests && npm run test:watch    # Watch mode
 cd tests && npm run test:coverage # With coverage report (90% threshold)
 ```
 
+## Release Process
+
+The release workflow uses a PR-based approach to respect branch protection rules on main.
+
+### How Releases Work
+
+When triggered via `workflow_dispatch`:
+
+1. **Validation**: Calculates the new version based on bump type (patch/minor/major)
+2. **Build**: Creates the `tracker.html` artifact
+3. **Test**: Runs the test suite to validate the build
+4. **Changelog**: Generates changelog from commits since last tag
+5. **Release**:
+   - Creates a `release/version-bump-X.Y.Z` branch with updated `version.txt`
+   - Opens a PR for manual approval (respects branch protection)
+   - Creates the git tag via GitHub API (immediate)
+   - Creates the GitHub Release with attached `tracker.html`
+
+### Post-Release Steps
+
+After the release workflow completes:
+
+1. Review and merge the version bump PR to update `version.txt` on main
+2. The release and tag are already created and available
+
+### Design Decision (Issue #12)
+
+The PR-based approach was chosen over direct push to main because:
+
+1. Respects existing branch protection rules
+2. Maintains audit trail through PR history
+3. Does not require additional PAT secrets
+4. Tags are created via GitHub API (not affected by branch protection)
+
 ## Architecture
 
 ### Build Pipeline (Python → HTML)
