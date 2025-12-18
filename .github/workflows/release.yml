@@ -261,6 +261,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Check for pre-existing branch (from failed previous run)
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            echo "::error::Branch $BRANCH already exists on remote. Delete it first: git push origin --delete $BRANCH"
+            exit 1
+          fi
+
           # Create and switch to release branch
           git checkout -b "$BRANCH"
 
@@ -303,11 +309,18 @@ jobs:
             exit 1
           fi
 
+          # Validate PR URL format
+          if ! echo "$PR_URL" | grep -qE '^https://github\.com/.*/pull/[0-9]+$'; then
+            echo "::error::Invalid PR URL format: $PR_URL"
+            exit 1
+          fi
+
           echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
 
       - name: Create tag via GitHub API
         if: github.event_name == 'workflow_dispatch'
+        id: create-tag
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -320,10 +333,23 @@ jobs:
           SHA=$(git rev-parse origin/main)
 
           # Idempotency check: skip if tag already exists (handles workflow retries)
-          if gh api "/repos/${{ github.repository }}/git/refs/tags/$TAG" --silent 2>/dev/null; then
-            echo "::notice::Tag $TAG already exists, skipping creation (workflow retry detected)"
-            exit 0
-          fi
+          # Use HTTP status codes to distinguish "not found" from real errors
+          HTTP_CODE=$(gh api "/repos/${{ github.repository }}/git/refs/tags/$TAG" \
+            --silent -w '%{http_code}' -o /dev/null 2>&1) || HTTP_CODE=$?
+
+          case "$HTTP_CODE" in
+            200)
+              echo "::notice::Tag $TAG already exists, skipping creation (workflow retry detected)"
+              exit 0
+              ;;
+            404)
+              echo "Tag does not exist, proceeding with creation"
+              ;;
+            *)
+              echo "::error::Unexpected response checking tag existence: HTTP $HTTP_CODE"
+              exit 1
+              ;;
+          esac
 
           # Create tag via GitHub API (bypasses branch protection for tags)
           if ! gh api \
@@ -338,6 +364,17 @@ jobs:
           fi
 
           echo "Created tag $TAG pointing to $SHA"
+
+      - name: Cleanup on tag creation failure
+        if: failure() && steps.create-tag.outcome == 'failure' && steps.version-pr.outputs.pr_url
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eo pipefail
+          echo "::warning::Tag creation failed, cleaning up orphan PR"
+          PR_URL="${{ steps.version-pr.outputs.pr_url }}"
+          PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
+          gh pr close "$PR_NUMBER" --delete-branch || echo "::warning::Failed to close PR $PR_NUMBER"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -378,7 +415,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Version:** ${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Release URL:** https://github.com/${{ github.repository }}/releases/tag/${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             PR_URL="${{ steps.version-pr.outputs.pr_url }}"
             if [ -n "$PR_URL" ]; then
               echo "- **Version Bump PR:** $PR_URL" >> $GITHUB_STEP_SUMMARY

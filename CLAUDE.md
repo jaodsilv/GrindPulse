@@ -32,6 +32,9 @@ The release can be triggered in two ways:
    - Choose bump type: `patch`, `minor`, or `major`
    - Optional `dry_run` mode to validate without creating releases
 2. **Tag Push**: Push a tag matching `v*.*.*` pattern (e.g., `git tag v1.2.3 && git push --tags`)
+   - Skips version bump PR creation (tag already exists)
+   - Only runs build, test, and GitHub Release creation
+   - Useful for manual releases or re-releasing existing tags
 
 ### How Releases Work
 
@@ -64,6 +67,8 @@ Use `dry_run: true` to validate the release process without:
 - Publishing GitHub Releases
 
 Useful for testing version calculations and build/test pipelines.
+
+**Note:** Build artifacts are still uploaded during dry runs (consumes storage with 7-day retention).
 
 ### Tag Semantics
 
