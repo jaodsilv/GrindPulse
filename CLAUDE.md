@@ -24,6 +24,15 @@ cd tests && npm run test:coverage # With coverage report (90% threshold)
 
 The release workflow uses a PR-based approach to respect branch protection rules on main.
 
+### Trigger Options
+
+The release can be triggered in two ways:
+
+1. **Manual (`workflow_dispatch`)**: Run from GitHub Actions UI with version bump type selection
+   - Choose bump type: `patch`, `minor`, or `major`
+   - Optional `dry_run` mode to validate without creating releases
+2. **Tag Push**: Push a tag matching `v*.*.*` pattern (e.g., `git tag v1.2.3 && git push --tags`)
+
 ### How Releases Work
 
 When triggered via `workflow_dispatch`:
@@ -45,6 +54,24 @@ After the release workflow completes:
 1. Review and merge the version bump PR to update `version.txt` on main
 2. The release and tag are already created and available
 
+**Note:** There is a brief period where the tag exists but `version.txt` on main still shows the previous version. This is expected and resolves once the version bump PR is merged.
+
+### Dry Run Mode
+
+Use `dry_run: true` to validate the release process without:
+- Creating branches or PRs
+- Creating tags
+- Publishing GitHub Releases
+
+Useful for testing version calculations and build/test pipelines.
+
+### Tag Semantics
+
+The release tag points to the main branch HEAD at the time of release (before the version bump commit). This is intentional:
+- The tag represents the exact code that was built and tested
+- The version bump PR is a metadata-only change that follows the release
+- This ensures the tagged commit matches what users download
+
 ### Design Decision (Issue #12)
 
 The PR-based approach was chosen over direct push to main because:
@@ -53,6 +80,10 @@ The PR-based approach was chosen over direct push to main because:
 2. Maintains audit trail through PR history
 3. Does not require additional PAT secrets
 4. Tags are created via GitHub API (not affected by branch protection)
+
+### Branch Cleanup
+
+After merging version bump PRs, the `release/version-bump-X.Y.Z` branches remain. To automatically clean up merged branches, enable "Automatically delete head branches" in repository settings (Settings > General > Pull Requests).
 
 ## Architecture
 

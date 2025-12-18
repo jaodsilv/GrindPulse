@@ -251,6 +251,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -eo pipefail
+
           VERSION="${{ needs.validate.outputs.version }}"
           TAG="${{ needs.validate.outputs.tag }}"
           BRANCH="release/version-bump-${VERSION}"
@@ -267,8 +269,11 @@ jobs:
           git add version.txt
           git commit -m "chore: bump version to $VERSION"
 
-          # Push branch
-          git push origin "$BRANCH"
+          # Push branch with error handling
+          if ! git push origin "$BRANCH"; then
+            echo "::error::Failed to push branch $BRANCH to origin"
+            exit 1
+          fi
 
           # Create PR (requires manual approval per branch protection)
           PR_URL=$(gh pr create \
@@ -288,7 +293,15 @@ jobs:
           ---
           *Created by release workflow*" \
             --base main \
-            --head "$BRANCH")
+            --head "$BRANCH") || {
+            echo "::error::Failed to create PR for version bump"
+            exit 1
+          }
+
+          if [ -z "$PR_URL" ]; then
+            echo "::error::PR creation returned empty URL"
+            exit 1
+          fi
 
           echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
@@ -298,18 +311,31 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -eo pipefail
+
           TAG="${{ needs.validate.outputs.tag }}"
           # Use the main branch HEAD SHA (before version bump commit)
+          # This is intentional: the tag points to the tested code state,
+          # not the version.txt bump commit (which is a metadata-only change)
           SHA=$(git rev-parse origin/main)
 
+          # Idempotency check: skip if tag already exists (handles workflow retries)
+          if gh api "/repos/${{ github.repository }}/git/refs/tags/$TAG" --silent 2>/dev/null; then
+            echo "::notice::Tag $TAG already exists, skipping creation (workflow retry detected)"
+            exit 0
+          fi
+
           # Create tag via GitHub API (bypasses branch protection for tags)
-          gh api \
+          if ! gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/${{ github.repository }}/git/refs \
+            "/repos/${{ github.repository }}/git/refs" \
             -f ref="refs/tags/$TAG" \
-            -f sha="$SHA"
+            -f sha="$SHA"; then
+            echo "::error::Failed to create tag $TAG via GitHub API"
+            exit 1
+          fi
 
           echo "Created tag $TAG pointing to $SHA"
 
@@ -346,12 +372,19 @@ jobs:
 
       - name: Release Summary
         run: |
+          set -eo pipefail
+
           echo "## Release Created" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Version:** ${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Release URL:** https://github.com/${{ github.repository }}/releases/tag/${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "- **Version Bump PR:** ${{ steps.version-pr.outputs.pr_url }}" >> $GITHUB_STEP_SUMMARY
+            PR_URL="${{ steps.version-pr.outputs.pr_url }}"
+            if [ -n "$PR_URL" ]; then
+              echo "- **Version Bump PR:** $PR_URL" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- **Version Bump PR:** _(PR creation may have failed - check workflow logs)_" >> $GITHUB_STEP_SUMMARY
+            fi
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
             echo "1. Review and merge the version bump PR to update \`version.txt\` on main" >> $GITHUB_STEP_SUMMARY
