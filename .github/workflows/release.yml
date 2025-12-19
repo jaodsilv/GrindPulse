@@ -269,6 +269,12 @@ jobs:
             exit 1
           fi
 
+          # Verify file ends with closing HTML tag (truncation check)
+          if ! tail -c 50 tracker.html | grep -qi '</html>'; then
+            echo "::error::tracker.html appears to be truncated (missing </html> closing tag)"
+            exit 1
+          fi
+
           echo "Artifact verified: tracker.html ($SIZE bytes)"
 
       - name: Create version bump branch and PR
@@ -390,7 +396,13 @@ jobs:
           set -e
 
           if [ $TAG_CHECK_EXIT -eq 0 ]; then
-            echo "::notice::Tag $TAG already exists, skipping creation (workflow retry detected)"
+            # Tag exists - verify it points to the expected SHA (safety check)
+            EXISTING_SHA=$(echo "$TAG_CHECK_OUTPUT" | jq -r '.object.sha')
+            if [ "$EXISTING_SHA" != "$SHA" ]; then
+              echo "::error::Tag $TAG already exists but points to $EXISTING_SHA instead of expected $SHA. Manual intervention required."
+              exit 1
+            fi
+            echo "::notice::Tag $TAG already exists and points to correct SHA, skipping creation (workflow retry detected)"
             exit 0
           elif echo "$TAG_CHECK_OUTPUT" | grep -q "Not Found"; then
             echo "Tag does not exist, proceeding with creation"
@@ -440,6 +452,9 @@ jobs:
           # Attempt cleanup with error capture
           if ! CLOSE_OUTPUT=$(gh pr close "$PR_NUMBER" --delete-branch 2>&1); then
             echo "::warning::Failed to close PR $PR_NUMBER: $CLOSE_OUTPUT"
+            echo "## Cleanup Warning" >> $GITHUB_STEP_SUMMARY
+            echo "Failed to close orphan PR #$PR_NUMBER after tag creation failure." >> $GITHUB_STEP_SUMMARY
+            echo "Manual cleanup may be required: $PR_URL" >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Create GitHub Release
@@ -488,15 +503,17 @@ jobs:
             exit 1
           fi
 
-          # Verify tracker.html asset was attached
-          ASSET_COUNT=$(echo "$RELEASE_INFO" | jq '.assets | length')
-          if [ "$ASSET_COUNT" -eq 0 ]; then
-            echo "::error::Release created but tracker.html asset was not attached"
+          # Verify tracker.html asset was attached (check by name, not just count)
+          TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name == "tracker.html") | .name')
+          if [ -z "$TRACKER_ASSET" ]; then
+            ASSET_NAMES=$(echo "$RELEASE_INFO" | jq -r '.assets[].name // "none"')
+            echo "::error::Release created but tracker.html asset was not attached. Found assets: $ASSET_NAMES"
             exit 1
           fi
 
           RELEASE_URL=$(echo "$RELEASE_INFO" | jq -r '.html_url')
-          echo "Release verified: $RELEASE_URL with $ASSET_COUNT asset(s)"
+          ASSET_COUNT=$(echo "$RELEASE_INFO" | jq '.assets | length')
+          echo "Release verified: $RELEASE_URL with tracker.html and $ASSET_COUNT total asset(s)"
 
       - name: Release Summary
         run: |
