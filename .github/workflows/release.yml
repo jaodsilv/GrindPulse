@@ -297,7 +297,8 @@ jobs:
           fi
 
           # Create PR (requires manual approval per branch protection)
-          PR_URL=$(gh pr create \
+          set +e
+          PR_OUTPUT=$(gh pr create \
             --title "chore: bump version to $VERSION" \
             --body "## Automated Version Bump
 
@@ -314,11 +315,16 @@ jobs:
           ---
           *Created by release workflow*" \
             --base main \
-            --head "$BRANCH") || {
-            echo "::error::Failed to create PR for version bump"
-            exit 1
-          }
+            --head "$BRANCH" 2>&1)
+          PR_EXIT=$?
+          set -e
 
+          if [ $PR_EXIT -ne 0 ]; then
+            echo "::error::Failed to create PR for version bump: $PR_OUTPUT"
+            exit 1
+          fi
+
+          PR_URL="$PR_OUTPUT"
           if [ -z "$PR_URL" ]; then
             echo "::error::PR creation returned empty URL"
             exit 1
@@ -365,14 +371,19 @@ jobs:
           fi
 
           # Create tag via GitHub API (bypasses branch protection for tags)
-          if ! gh api \
+          set +e
+          TAG_CREATE_OUTPUT=$(gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "/repos/${{ github.repository }}/git/refs" \
             -f ref="refs/tags/$TAG" \
-            -f sha="$SHA"; then
-            echo "::error::Failed to create tag $TAG via GitHub API"
+            -f sha="$SHA" 2>&1)
+          TAG_CREATE_EXIT=$?
+          set -e
+
+          if [ $TAG_CREATE_EXIT -ne 0 ]; then
+            echo "::error::Failed to create tag $TAG via GitHub API: $TAG_CREATE_OUTPUT"
             exit 1
           fi
 
