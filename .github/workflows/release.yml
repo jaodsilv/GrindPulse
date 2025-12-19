@@ -46,6 +46,8 @@ jobs:
       - name: Determine version
         id: version
         run: |
+          set -eo pipefail
+
           if [[ "${{ github.event_name }}" == "push" ]]; then
             # Tag push - extract version from tag
             VERSION="${GITHUB_REF#refs/tags/v}"
@@ -58,10 +60,16 @@ jobs:
               CURRENT="0.0.0"
             fi
 
+            # Validate version.txt format (must be X.Y.Z where X, Y, Z are non-negative integers)
+            if ! echo "$CURRENT" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+              echo "::error::Invalid version format in version.txt: '$CURRENT'. Expected format: X.Y.Z (e.g., 1.2.3)"
+              exit 1
+            fi
+
             IFS='.' read -ra PARTS <<< "$CURRENT"
-            MAJOR=${PARTS[0]:-0}
-            MINOR=${PARTS[1]:-0}
-            PATCH=${PARTS[2]:-0}
+            MAJOR=${PARTS[0]}
+            MINOR=${PARTS[1]}
+            PATCH=${PARTS[2]}
 
             case "${{ inputs.version_bump }}" in
               major)
@@ -176,6 +184,8 @@ jobs:
       - name: Generate changelog
         id: changelog
         run: |
+          set -eo pipefail
+
           # Find previous tag
           PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
 
@@ -406,7 +416,24 @@ jobs:
 
           if [ $TAG_CHECK_EXIT -eq 0 ]; then
             # Tag exists - verify it points to the expected SHA (safety check)
-            EXISTING_SHA=$(echo "$TAG_CHECK_OUTPUT" | jq -r '.object.sha')
+            # Use jq with explicit error handling to detect parse failures
+            set +e
+            EXISTING_SHA=$(echo "$TAG_CHECK_OUTPUT" | jq -re '.object.sha' 2>&1)
+            JQ_EXIT=$?
+            set -e
+
+            if [ $JQ_EXIT -ne 0 ]; then
+              echo "::error::Failed to parse tag SHA from GitHub API response: $EXISTING_SHA"
+              echo "::error::Raw API response: $TAG_CHECK_OUTPUT"
+              exit 1
+            fi
+
+            if [ -z "$EXISTING_SHA" ] || [ "$EXISTING_SHA" = "null" ]; then
+              echo "::error::Tag $TAG exists but SHA could not be extracted from API response"
+              echo "::error::Raw API response: $TAG_CHECK_OUTPUT"
+              exit 1
+            fi
+
             if [ "$EXISTING_SHA" != "$SHA" ]; then
               echo "::error::Tag $TAG already exists but points to $EXISTING_SHA instead of expected $SHA. Manual intervention required."
               exit 1
@@ -527,15 +554,128 @@ jobs:
           ASSET_COUNT=$(echo "$RELEASE_INFO" | jq '.assets | length')
           echo "Release verified: $RELEASE_URL with tracker.html and $ASSET_COUNT total asset(s)"
 
-      - name: Release Summary (skipped - tag already existed)
+      - name: Verify or create release for existing tag
+        if: steps.create-tag.outputs.tag_existed == 'true'
+        id: verify-existing-release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eo pipefail
+
+          TAG="${{ needs.validate.outputs.tag }}"
+
+          # Check if release exists for the existing tag
+          set +e
+          RELEASE_INFO=$(gh api "/repos/${{ github.repository }}/releases/tags/$TAG" 2>&1)
+          RELEASE_CHECK_EXIT=$?
+          set -e
+
+          if [ $RELEASE_CHECK_EXIT -eq 0 ]; then
+            # Release exists - verify it has the tracker.html asset
+            TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name == "tracker.html") | .name')
+            if [ -n "$TRACKER_ASSET" ]; then
+              RELEASE_URL=$(echo "$RELEASE_INFO" | jq -r '.html_url')
+              echo "Release already exists with tracker.html: $RELEASE_URL"
+              echo "release_existed=true" >> $GITHUB_OUTPUT
+              echo "release_url=$RELEASE_URL" >> $GITHUB_OUTPUT
+            else
+              echo "::warning::Release exists but is missing tracker.html asset - will recreate"
+              RELEASE_ID=$(echo "$RELEASE_INFO" | jq -r '.id')
+              if ! gh api --method DELETE "/repos/${{ github.repository }}/releases/$RELEASE_ID"; then
+                echo "::error::Failed to delete incomplete release"
+                exit 1
+              fi
+              echo "Deleted incomplete release, will create new one"
+              echo "release_existed=false" >> $GITHUB_OUTPUT
+            fi
+          elif echo "$RELEASE_INFO" | grep -q "Not Found"; then
+            echo "::notice::Tag exists but release was deleted - will create new release"
+            echo "release_existed=false" >> $GITHUB_OUTPUT
+          else
+            echo "::error::Unexpected error checking release existence: $RELEASE_INFO"
+            exit 1
+          fi
+
+      - name: Create GitHub Release for existing tag
+        if: steps.create-tag.outputs.tag_existed == 'true' && steps.verify-existing-release.outputs.release_existed != 'true'
+        id: create-release-existing-tag
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.validate.outputs.tag }}
+          name: GrindPulse ${{ needs.validate.outputs.tag }}
+          body: |
+            # GrindPulse ${{ needs.validate.outputs.tag }}
+
+            ${{ needs.changelog.outputs.changelog }}
+
+            ## Installation
+
+            Download `tracker.html` and open it in your browser. No server required!
+
+            ## Features
+
+            - Offline-first interview prep tracking
+            - Cross-device sync with Firebase (optional)
+            - Multiple problem lists (Blind 75, NeetCode 150/250, Salesforce)
+            - Spaced repetition awareness indicators
+            - Import/Export in multiple formats
+
+            ## Assets
+
+            - `tracker.html` - Self-contained interview prep tracker
+          files: |
+            tracker.html
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+
+      - name: Verify release for existing tag
+        if: steps.create-tag.outputs.tag_existed == 'true' && steps.verify-existing-release.outputs.release_existed != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eo pipefail
+
+          TAG="${{ needs.validate.outputs.tag }}"
+
+          # Verify release exists via GitHub API
+          if ! RELEASE_INFO=$(gh api "/repos/${{ github.repository }}/releases/tags/$TAG" 2>&1); then
+            echo "::error::Release verification failed - release not found for tag $TAG: $RELEASE_INFO"
+            exit 1
+          fi
+
+          # Verify tracker.html asset was attached
+          TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name == "tracker.html") | .name')
+          if [ -z "$TRACKER_ASSET" ]; then
+            ASSET_NAMES=$(echo "$RELEASE_INFO" | jq -r '.assets[].name // "none"')
+            echo "::error::Release created but tracker.html asset was not attached. Found assets: $ASSET_NAMES"
+            exit 1
+          fi
+
+          RELEASE_URL=$(echo "$RELEASE_INFO" | jq -r '.html_url')
+          echo "Release verified: $RELEASE_URL with tracker.html"
+
+      - name: Release Summary (tag existed - release verified/created)
         if: steps.create-tag.outputs.tag_existed == 'true'
         run: |
-          echo "## Workflow Retry Detected" >> $GITHUB_STEP_SUMMARY
+          set -eo pipefail
+
+          TAG="${{ needs.validate.outputs.tag }}"
+          RELEASE_URL="https://github.com/${{ github.repository }}/releases/tag/$TAG"
+
+          if [ "${{ steps.verify-existing-release.outputs.release_existed }}" = "true" ]; then
+            echo "## Workflow Retry Detected" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Tag $TAG already exists with correct SHA." >> $GITHUB_STEP_SUMMARY
+            echo "Release already exists - no action needed." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## Release Recovered" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Tag $TAG already existed but release was missing." >> $GITHUB_STEP_SUMMARY
+            echo "A new release has been created." >> $GITHUB_STEP_SUMMARY
+          fi
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Tag ${{ needs.validate.outputs.tag }} already exists with correct SHA." >> $GITHUB_STEP_SUMMARY
-          echo "Release creation was skipped to avoid duplicates." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Existing Release:** https://github.com/${{ github.repository }}/releases/tag/${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Release:** $RELEASE_URL" >> $GITHUB_STEP_SUMMARY
 
       - name: Release Summary
         if: steps.create-tag.outputs.tag_existed != 'true'
