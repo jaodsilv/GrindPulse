@@ -117,6 +117,16 @@ Common failure scenarios and recovery steps:
    - The workflow distinguishes between "branch not found" and actual errors
    - Check GitHub Actions runner connectivity and token permissions
 
+5. **Workflow retry detected (tag already exists)**
+   - The workflow detects when a tag already exists pointing to the correct SHA
+   - Release creation is automatically skipped to prevent duplicates
+   - A summary indicates the existing release URL
+
+6. **Build artifact size validation fails**
+   - Under 100KB: tracker.html is likely missing embedded content (build failure)
+   - Over 2MB: tracker.html may contain unexpected content (investigate build)
+   - Both cases fail the build step immediately to prevent releasing corrupted artifacts
+
 ## Architecture
 
 ### Build Pipeline (Python → HTML)

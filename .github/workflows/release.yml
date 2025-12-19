@@ -118,8 +118,13 @@ jobs:
           # - Under 100KB: Likely missing embedded data/JS (build failure)
           # - Over 2MB: Likely bloated or includes unexpected content
           # Current expected size: ~150-300KB based on problem list sizes
-          if [ $SIZE -lt 100000 ] || [ $SIZE -gt 2000000 ]; then
-            echo "Warning: Unusual file size detected"
+          if [ $SIZE -lt 100000 ]; then
+            echo "::error::tracker.html is too small ($SIZE bytes), likely missing embedded content"
+            exit 1
+          fi
+          if [ $SIZE -gt 2000000 ]; then
+            echo "::error::tracker.html is too large ($SIZE bytes), may contain unexpected content"
+            exit 1
           fi
 
           echo "## Build Artifact" >> $GITHUB_STEP_SUMMARY
@@ -179,6 +184,10 @@ jobs:
             COMMITS=$(git log --pretty=format:"- %s (%h)" --no-merges)
           else
             COMMITS=$(git log ${PREV_TAG}..HEAD --pretty=format:"- %s (%h)" --no-merges)
+          fi
+
+          if [ -z "$COMMITS" ]; then
+            echo "::warning::No commits found between ${PREV_TAG:-initial commit} and HEAD - changelog will be empty"
           fi
 
           # Categorize commits
@@ -403,6 +412,7 @@ jobs:
               exit 1
             fi
             echo "::notice::Tag $TAG already exists and points to correct SHA, skipping creation (workflow retry detected)"
+            echo "tag_existed=true" >> $GITHUB_OUTPUT
             exit 0
           elif echo "$TAG_CHECK_OUTPUT" | grep -q "Not Found"; then
             echo "Tag does not exist, proceeding with creation"
@@ -458,6 +468,7 @@ jobs:
           fi
 
       - name: Create GitHub Release
+        if: steps.create-tag.outputs.tag_existed != 'true'
         id: create-release
         uses: softprops/action-gh-release@v2
         with:
@@ -490,6 +501,7 @@ jobs:
           generate_release_notes: false
 
       - name: Verify release creation
+        if: steps.create-tag.outputs.tag_existed != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -515,7 +527,18 @@ jobs:
           ASSET_COUNT=$(echo "$RELEASE_INFO" | jq '.assets | length')
           echo "Release verified: $RELEASE_URL with tracker.html and $ASSET_COUNT total asset(s)"
 
+      - name: Release Summary (skipped - tag already existed)
+        if: steps.create-tag.outputs.tag_existed == 'true'
+        run: |
+          echo "## Workflow Retry Detected" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Tag ${{ needs.validate.outputs.tag }} already exists with correct SHA." >> $GITHUB_STEP_SUMMARY
+          echo "Release creation was skipped to avoid duplicates." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Existing Release:** https://github.com/${{ github.repository }}/releases/tag/${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+
       - name: Release Summary
+        if: steps.create-tag.outputs.tag_existed != 'true'
         run: |
           set -eo pipefail
 
