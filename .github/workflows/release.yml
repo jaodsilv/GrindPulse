@@ -114,6 +114,8 @@ jobs:
 
       - name: Verify build
         run: |
+          set -eo pipefail
+
           if [ ! -f tracker.html ]; then
             echo "Error: tracker.html was not generated"
             exit 1
