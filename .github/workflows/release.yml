@@ -108,7 +108,9 @@ jobs:
           python-version: '3.12'
 
       - name: Build tracker.html
-        run: python build_tracker.py
+        run: |
+          set -eo pipefail
+          python build_tracker.py
 
       - name: Verify build
         run: |
@@ -163,11 +165,15 @@ jobs:
 
       - name: Install dependencies
         working-directory: tests
-        run: npm ci
+        run: |
+          set -eo pipefail
+          npm ci
 
       - name: Run tests
         working-directory: tests
-        run: npm run test:coverage
+        run: |
+          set -eo pipefail
+          npm run test:coverage
 
   changelog:
     name: Generate Changelog
@@ -187,7 +193,22 @@ jobs:
           set -eo pipefail
 
           # Find previous tag
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          # git describe exits: 0=found, 128=no tags found, other=real error
+          set +e
+          PREV_TAG_OUTPUT=$(git describe --tags --abbrev=0 HEAD^ 2>&1)
+          DESCRIBE_EXIT=$?
+          set -e
+
+          if [ $DESCRIBE_EXIT -eq 0 ]; then
+            PREV_TAG="$PREV_TAG_OUTPUT"
+          elif [ $DESCRIBE_EXIT -eq 128 ]; then
+            # No tags found - this is expected for first release
+            PREV_TAG=""
+          else
+            # Real error (corruption, fetch-depth issues, etc.)
+            echo "::error::git describe failed unexpectedly (exit $DESCRIBE_EXIT): $PREV_TAG_OUTPUT"
+            exit 1
+          fi
 
           if [ -z "$PREV_TAG" ]; then
             # First release - get all commits
@@ -480,9 +501,15 @@ jobs:
           PR_URL="${{ steps.version-pr.outputs.pr_url }}"
           PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
 
-          # Validate PR number was extracted successfully
+          # Validate PR number was extracted successfully and is a reasonable number
           if [ -z "$PR_NUMBER" ]; then
             echo "::error::Failed to extract PR number from URL: $PR_URL"
+            exit 1
+          fi
+
+          # Validate PR number is numeric and reasonable (1 to 999999)
+          if ! echo "$PR_NUMBER" | grep -qE '^[1-9][0-9]{0,5}$'; then
+            echo "::error::Invalid PR number extracted: '$PR_NUMBER' (expected 1-999999)"
             exit 1
           fi
 
@@ -523,6 +550,7 @@ jobs:
             - `tracker.html` - Self-contained interview prep tracker
           files: |
             tracker.html
+          fail_on_unmatched_files: true
           draft: false
           prerelease: false
           generate_release_notes: false
@@ -543,15 +571,40 @@ jobs:
           fi
 
           # Verify tracker.html asset was attached (check by name, not just count)
-          TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name == "tracker.html") | .name')
-          if [ -z "$TRACKER_ASSET" ]; then
-            ASSET_NAMES=$(echo "$RELEASE_INFO" | jq -r '.assets[].name // "none"')
+          # Use jq -e to fail on null/false and capture parse errors
+          set +e
+          TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -re '.assets[] | select(.name == "tracker.html") | .name' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ] || [ -z "$TRACKER_ASSET" ]; then
+            set +e
+            ASSET_NAMES=$(echo "$RELEASE_INFO" | jq -re '[.assets[].name] | if length == 0 then "none" else join(", ") end' 2>&1)
+            set -e
             echo "::error::Release created but tracker.html asset was not attached. Found assets: $ASSET_NAMES"
             exit 1
           fi
 
-          RELEASE_URL=$(echo "$RELEASE_INFO" | jq -r '.html_url')
-          ASSET_COUNT=$(echo "$RELEASE_INFO" | jq '.assets | length')
+          set +e
+          RELEASE_URL=$(echo "$RELEASE_INFO" | jq -re '.html_url' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ]; then
+            echo "::error::Failed to parse release URL from API response"
+            exit 1
+          fi
+
+          set +e
+          ASSET_COUNT=$(echo "$RELEASE_INFO" | jq -e '.assets | length' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ]; then
+            echo "::error::Failed to parse asset count from API response"
+            exit 1
+          fi
+
           echo "Release verified: $RELEASE_URL with tracker.html and $ASSET_COUNT total asset(s)"
 
       - name: Verify or create release for existing tag
@@ -572,15 +625,38 @@ jobs:
 
           if [ $RELEASE_CHECK_EXIT -eq 0 ]; then
             # Release exists - verify it has the tracker.html asset
-            TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name == "tracker.html") | .name')
-            if [ -n "$TRACKER_ASSET" ]; then
-              RELEASE_URL=$(echo "$RELEASE_INFO" | jq -r '.html_url')
+            # Use jq -e to properly detect missing assets
+            set +e
+            TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -re '.assets[] | select(.name == "tracker.html") | .name' 2>&1)
+            JQ_EXIT=$?
+            set -e
+
+            if [ $JQ_EXIT -eq 0 ] && [ -n "$TRACKER_ASSET" ]; then
+              set +e
+              RELEASE_URL=$(echo "$RELEASE_INFO" | jq -re '.html_url' 2>&1)
+              JQ_EXIT=$?
+              set -e
+
+              if [ $JQ_EXIT -ne 0 ]; then
+                echo "::error::Failed to parse release URL from API response"
+                exit 1
+              fi
+
               echo "Release already exists with tracker.html: $RELEASE_URL"
               echo "release_existed=true" >> $GITHUB_OUTPUT
               echo "release_url=$RELEASE_URL" >> $GITHUB_OUTPUT
             else
               echo "::warning::Release exists but is missing tracker.html asset - will recreate"
-              RELEASE_ID=$(echo "$RELEASE_INFO" | jq -r '.id')
+              set +e
+              RELEASE_ID=$(echo "$RELEASE_INFO" | jq -re '.id' 2>&1)
+              JQ_EXIT=$?
+              set -e
+
+              if [ $JQ_EXIT -ne 0 ]; then
+                echo "::error::Failed to parse release ID from API response: $RELEASE_ID"
+                exit 1
+              fi
+
               if ! gh api --method DELETE "/repos/${{ github.repository }}/releases/$RELEASE_ID"; then
                 echo "::error::Failed to delete incomplete release"
                 exit 1
@@ -625,6 +701,7 @@ jobs:
             - `tracker.html` - Self-contained interview prep tracker
           files: |
             tracker.html
+          fail_on_unmatched_files: true
           draft: false
           prerelease: false
           generate_release_notes: false
@@ -645,14 +722,30 @@ jobs:
           fi
 
           # Verify tracker.html asset was attached
-          TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -r '.assets[] | select(.name == "tracker.html") | .name')
-          if [ -z "$TRACKER_ASSET" ]; then
-            ASSET_NAMES=$(echo "$RELEASE_INFO" | jq -r '.assets[].name // "none"')
+          # Use jq -e to fail on null/false and capture parse errors
+          set +e
+          TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -re '.assets[] | select(.name == "tracker.html") | .name' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ] || [ -z "$TRACKER_ASSET" ]; then
+            set +e
+            ASSET_NAMES=$(echo "$RELEASE_INFO" | jq -re '[.assets[].name] | if length == 0 then "none" else join(", ") end' 2>&1)
+            set -e
             echo "::error::Release created but tracker.html asset was not attached. Found assets: $ASSET_NAMES"
             exit 1
           fi
 
-          RELEASE_URL=$(echo "$RELEASE_INFO" | jq -r '.html_url')
+          set +e
+          RELEASE_URL=$(echo "$RELEASE_INFO" | jq -re '.html_url' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ]; then
+            echo "::error::Failed to parse release URL from API response"
+            exit 1
+          fi
+
           echo "Release verified: $RELEASE_URL with tracker.html"
 
       - name: Release Summary (tag existed - release verified/created)
