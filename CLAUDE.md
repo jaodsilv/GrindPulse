@@ -68,7 +68,7 @@ Use `dry_run: true` to validate the release process without:
 
 Useful for testing version calculations and build/test pipelines.
 
-**Note:** Build artifacts are still uploaded during dry runs (consumes storage with 7-day retention).
+**Note:** Build artifacts are still uploaded during dry runs (consumes storage with 90-day retention).
 
 ### Tag Semantics
 
@@ -89,6 +89,33 @@ The PR-based approach was chosen over direct push to main because:
 ### Branch Cleanup
 
 After merging version bump PRs, the `release/version-bump-X.Y.Z` branches remain. To automatically clean up merged branches, enable "Automatically delete head branches" in repository settings (Settings > General > Pull Requests).
+
+### Required Permissions
+
+The release workflow requires these GitHub token permissions:
+
+- `contents: write` - Create tags, push branches, upload release assets
+- `pull-requests: write` - Create and manage version bump PRs
+
+### Troubleshooting
+
+Common failure scenarios and recovery steps:
+
+1. **Branch already exists error**
+   - Cause: Previous workflow run failed after creating branch but before completing
+   - Fix: Delete the orphan branch manually: `git push origin --delete release/version-bump-X.Y.Z`
+
+2. **Tag creation failed but PR was created**
+   - The workflow automatically attempts cleanup by closing the PR and deleting the branch
+   - If cleanup fails, manually close the PR and delete the branch before retrying
+
+3. **Release created but version bump PR failed**
+   - The release and tag are valid; manually create a PR to update version.txt
+   - Or delete the release/tag and retry the workflow
+
+4. **Network/authentication errors during branch check**
+   - The workflow distinguishes between "branch not found" and actual errors
+   - Check GitHub Actions runner connectivity and token permissions
 
 ## Architecture
 

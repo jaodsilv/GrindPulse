@@ -262,10 +262,25 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # Check for pre-existing branch (from failed previous run)
-          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
-            echo "::error::Branch $BRANCH already exists on remote. Delete it first: git push origin --delete $BRANCH"
-            exit 1
-          fi
+          # git ls-remote --exit-code returns: 0=exists, 2=not found, other=error
+          set +e
+          git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1
+          LS_REMOTE_EXIT=$?
+          set -e
+
+          case $LS_REMOTE_EXIT in
+            0)
+              echo "::error::Branch $BRANCH already exists on remote. Delete it first: git push origin --delete $BRANCH"
+              exit 1
+              ;;
+            2)
+              # Branch doesn't exist, proceed
+              ;;
+            *)
+              echo "::error::Failed to check if branch exists (exit code $LS_REMOTE_EXIT). Check network/auth."
+              exit 1
+              ;;
+          esac
 
           # Create and switch to release branch
           git checkout -b "$BRANCH"
@@ -333,23 +348,21 @@ jobs:
           SHA=$(git rev-parse origin/main)
 
           # Idempotency check: skip if tag already exists (handles workflow retries)
-          # Use HTTP status codes to distinguish "not found" from real errors
-          HTTP_CODE=$(gh api "/repos/${{ github.repository }}/git/refs/tags/$TAG" \
-            --silent -w '%{http_code}' -o /dev/null 2>&1) || HTTP_CODE=$?
+          # gh api exits 0 on success (2xx), non-zero on errors (including 404)
+          set +e
+          TAG_CHECK_OUTPUT=$(gh api "/repos/${{ github.repository }}/git/refs/tags/$TAG" 2>&1)
+          TAG_CHECK_EXIT=$?
+          set -e
 
-          case "$HTTP_CODE" in
-            200)
-              echo "::notice::Tag $TAG already exists, skipping creation (workflow retry detected)"
-              exit 0
-              ;;
-            404)
-              echo "Tag does not exist, proceeding with creation"
-              ;;
-            *)
-              echo "::error::Unexpected response checking tag existence: HTTP $HTTP_CODE"
-              exit 1
-              ;;
-          esac
+          if [ $TAG_CHECK_EXIT -eq 0 ]; then
+            echo "::notice::Tag $TAG already exists, skipping creation (workflow retry detected)"
+            exit 0
+          elif echo "$TAG_CHECK_OUTPUT" | grep -q "Not Found"; then
+            echo "Tag does not exist, proceeding with creation"
+          else
+            echo "::error::Unexpected error checking tag existence: $TAG_CHECK_OUTPUT"
+            exit 1
+          fi
 
           # Create tag via GitHub API (bypasses branch protection for tags)
           if ! gh api \
@@ -374,7 +387,17 @@ jobs:
           echo "::warning::Tag creation failed, cleaning up orphan PR"
           PR_URL="${{ steps.version-pr.outputs.pr_url }}"
           PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
-          gh pr close "$PR_NUMBER" --delete-branch || echo "::warning::Failed to close PR $PR_NUMBER"
+
+          # Validate PR number was extracted successfully
+          if [ -z "$PR_NUMBER" ]; then
+            echo "::error::Failed to extract PR number from URL: $PR_URL"
+            exit 1
+          fi
+
+          # Attempt cleanup with error capture
+          if ! CLOSE_OUTPUT=$(gh pr close "$PR_NUMBER" --delete-branch 2>&1); then
+            echo "::warning::Failed to close PR $PR_NUMBER: $CLOSE_OUTPUT"
+          fi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
