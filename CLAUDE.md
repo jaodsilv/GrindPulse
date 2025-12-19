@@ -20,6 +20,113 @@ cd tests && npm run test:watch    # Watch mode
 cd tests && npm run test:coverage # With coverage report (90% threshold)
 ```
 
+## Release Process
+
+The release workflow uses a PR-based approach to respect branch protection rules on main.
+
+### Trigger Options
+
+The release can be triggered in two ways:
+
+1. **Manual (`workflow_dispatch`)**: Run from GitHub Actions UI with version bump type selection
+   - Choose bump type: `patch`, `minor`, or `major`
+   - Optional `dry_run` mode to validate without creating releases
+2. **Tag Push**: Push a tag matching `v*.*.*` pattern (e.g., `git tag v1.2.3 && git push --tags`)
+   - Skips version bump PR creation (tag already exists)
+   - Only runs build, test, and GitHub Release creation
+   - Useful for manual releases or re-releasing existing tags
+
+### How Releases Work
+
+When triggered via `workflow_dispatch`:
+
+1. **Validation**: Calculates the new version based on bump type (patch/minor/major)
+2. **Build**: Creates the `tracker.html` artifact
+3. **Test**: Runs the test suite to validate the build
+4. **Changelog**: Generates changelog from commits since last tag
+5. **Release**:
+   - Creates a `release/version-bump-X.Y.Z` branch with updated `version.txt`
+   - Opens a PR for manual approval (respects branch protection)
+   - Creates the git tag via GitHub API (immediate)
+   - Creates the GitHub Release with attached `tracker.html`
+
+### Post-Release Steps
+
+After the release workflow completes:
+
+1. Review and merge the version bump PR to update `version.txt` on main
+2. The release and tag are already created and available
+
+**Note:** There is a brief period where the tag exists but `version.txt` on main still shows the previous version. This is expected and resolves once the version bump PR is merged.
+
+### Dry Run Mode
+
+Use `dry_run: true` to validate the release process without:
+- Creating branches or PRs
+- Creating tags
+- Publishing GitHub Releases
+
+Useful for testing version calculations and build/test pipelines.
+
+**Note:** Build artifacts are still uploaded during dry runs (consumes storage with 90-day retention).
+
+### Tag Semantics
+
+The release tag points to the main branch HEAD at the time of release (before the version bump commit). This is intentional:
+- The tag represents the exact code that was built and tested
+- The version bump PR is a metadata-only change that follows the release
+- This ensures the tagged commit matches what users download
+
+### Design Decision (Issue #12)
+
+The PR-based approach was chosen over direct push to main because:
+
+1. Respects existing branch protection rules
+2. Maintains audit trail through PR history
+3. Does not require additional PAT secrets
+4. Tags are created via GitHub API (not affected by branch protection)
+
+### Branch Cleanup
+
+After merging version bump PRs, the `release/version-bump-X.Y.Z` branches remain. To automatically clean up merged branches, enable "Automatically delete head branches" in repository settings (Settings > General > Pull Requests).
+
+### Required Permissions
+
+The release workflow requires these GitHub token permissions:
+
+- `contents: write` - Create tags, push branches, upload release assets
+- `pull-requests: write` - Create and manage version bump PRs
+
+### Troubleshooting
+
+Common failure scenarios and recovery steps:
+
+1. **Branch already exists error**
+   - Cause: Previous workflow run failed after creating branch but before completing
+   - Fix: Delete the orphan branch manually: `git push origin --delete release/version-bump-X.Y.Z`
+
+2. **Tag creation failed but PR was created**
+   - The workflow automatically attempts cleanup by closing the PR and deleting the branch
+   - If cleanup fails, manually close the PR and delete the branch before retrying
+
+3. **Release created but version bump PR failed**
+   - The release and tag are valid; manually create a PR to update version.txt
+   - Or delete the release/tag and retry the workflow
+
+4. **Network/authentication errors during branch check**
+   - The workflow distinguishes between "branch not found" and actual errors
+   - Check GitHub Actions runner connectivity and token permissions
+
+5. **Workflow retry detected (tag already exists)**
+   - The workflow detects when a tag already exists pointing to the correct SHA
+   - Release creation is automatically skipped to prevent duplicates
+   - A summary indicates the existing release URL
+
+6. **Build artifact size validation fails**
+   - Under 100KB: tracker.html is likely missing embedded content (build failure)
+   - Over 2MB: tracker.html may contain unexpected content (investigate build)
+   - Both cases fail the build step immediately to prevent releasing corrupted artifacts
+
 ## Architecture
 
 ### Build Pipeline (Python → HTML)

@@ -23,6 +23,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 # Ensure only one release workflow runs at a time to prevent race conditions
 concurrency:
@@ -45,6 +46,8 @@ jobs:
       - name: Determine version
         id: version
         run: |
+          set -eo pipefail
+
           if [[ "${{ github.event_name }}" == "push" ]]; then
             # Tag push - extract version from tag
             VERSION="${GITHUB_REF#refs/tags/v}"
@@ -57,10 +60,16 @@ jobs:
               CURRENT="0.0.0"
             fi
 
+            # Validate version.txt format (must be X.Y.Z where X, Y, Z are non-negative integers)
+            if ! echo "$CURRENT" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+              echo "::error::Invalid version format in version.txt: '$CURRENT'. Expected format: X.Y.Z (e.g., 1.2.3)"
+              exit 1
+            fi
+
             IFS='.' read -ra PARTS <<< "$CURRENT"
-            MAJOR=${PARTS[0]:-0}
-            MINOR=${PARTS[1]:-0}
-            PATCH=${PARTS[2]:-0}
+            MAJOR=${PARTS[0]}
+            MINOR=${PARTS[1]}
+            PATCH=${PARTS[2]}
 
             case "${{ inputs.version_bump }}" in
               major)
@@ -99,29 +108,40 @@ jobs:
           python-version: '3.12'
 
       - name: Build tracker.html
-        run: python build_tracker.py
+        run: |
+          set -eo pipefail
+          python build_tracker.py
 
       - name: Verify build
         run: |
+          set -eo pipefail
+
           if [ ! -f tracker.html ]; then
             echo "Error: tracker.html was not generated"
             exit 1
           fi
           SIZE=$(stat -c%s tracker.html)
-          SIZE_KB=$(echo "scale=2; $SIZE / 1024" | bc)
-          echo "tracker.html size: ${SIZE_KB}KB ($SIZE bytes)"
+          # Use POSIX-compliant arithmetic (no bc dependency)
+          SIZE_KB=$((SIZE / 1024))
+          SIZE_KB_FRAC=$(( (SIZE % 1024) * 100 / 1024 ))
+          echo "tracker.html size: ${SIZE_KB}.${SIZE_KB_FRAC}KB ($SIZE bytes)"
 
           # Size sanity check: tracker.html should be between 100KB and 2MB
           # - Under 100KB: Likely missing embedded data/JS (build failure)
           # - Over 2MB: Likely bloated or includes unexpected content
           # Current expected size: ~150-300KB based on problem list sizes
-          if [ $SIZE -lt 100000 ] || [ $SIZE -gt 2000000 ]; then
-            echo "Warning: Unusual file size detected"
+          if [ $SIZE -lt 100000 ]; then
+            echo "::error::tracker.html is too small ($SIZE bytes), likely missing embedded content"
+            exit 1
+          fi
+          if [ $SIZE -gt 2000000 ]; then
+            echo "::error::tracker.html is too large ($SIZE bytes), may contain unexpected content"
+            exit 1
           fi
 
           echo "## Build Artifact" >> $GITHUB_STEP_SUMMARY
           echo "- **File:** tracker.html" >> $GITHUB_STEP_SUMMARY
-          echo "- **Size:** ${SIZE_KB}KB" >> $GITHUB_STEP_SUMMARY
+          echo "- **Size:** ${SIZE_KB}.${SIZE_KB_FRAC}KB" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -147,11 +167,15 @@ jobs:
 
       - name: Install dependencies
         working-directory: tests
-        run: npm ci
+        run: |
+          set -eo pipefail
+          npm ci
 
       - name: Run tests
         working-directory: tests
-        run: npm run test:coverage
+        run: |
+          set -eo pipefail
+          npm run test:coverage
 
   changelog:
     name: Generate Changelog
@@ -168,14 +192,35 @@ jobs:
       - name: Generate changelog
         id: changelog
         run: |
+          set -eo pipefail
+
           # Find previous tag
-          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          # git describe exits: 0=found, 128=no tags found, other=real error
+          set +e
+          PREV_TAG_OUTPUT=$(git describe --tags --abbrev=0 HEAD^ 2>&1)
+          DESCRIBE_EXIT=$?
+          set -e
+
+          if [ $DESCRIBE_EXIT -eq 0 ]; then
+            PREV_TAG="$PREV_TAG_OUTPUT"
+          elif [ $DESCRIBE_EXIT -eq 128 ]; then
+            # No tags found - this is expected for first release
+            PREV_TAG=""
+          else
+            # Real error (corruption, fetch-depth issues, etc.)
+            echo "::error::git describe failed unexpectedly (exit $DESCRIBE_EXIT): $PREV_TAG_OUTPUT"
+            exit 1
+          fi
 
           if [ -z "$PREV_TAG" ]; then
             # First release - get all commits
             COMMITS=$(git log --pretty=format:"- %s (%h)" --no-merges)
           else
             COMMITS=$(git log ${PREV_TAG}..HEAD --pretty=format:"- %s (%h)" --no-merges)
+          fi
+
+          if [ -z "$COMMITS" ]; then
+            echo "::warning::No commits found between ${PREV_TAG:-initial commit} and HEAD - changelog will be empty"
           fi
 
           # Categorize commits
@@ -238,25 +283,249 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: release-tracker-${{ needs.validate.outputs.version }}
 
-      - name: Create/Update version file and tag
-        if: github.event_name == 'workflow_dispatch'
+      - name: Verify downloaded artifact
         run: |
-          echo "${{ needs.validate.outputs.version }}" > version.txt
+          set -eo pipefail
+
+          if [ ! -f tracker.html ]; then
+            echo "::error::tracker.html not found after artifact download"
+            exit 1
+          fi
+
+          # Basic integrity check: file should have content and valid HTML structure
+          SIZE=$(stat -c%s tracker.html)
+          if [ "$SIZE" -lt 100000 ]; then
+            echo "::error::tracker.html is suspiciously small ($SIZE bytes), may be corrupted"
+            exit 1
+          fi
+
+          # Verify file starts with HTML doctype (basic corruption check)
+          if ! head -c 100 tracker.html | grep -qi '<!DOCTYPE html'; then
+            echo "::error::tracker.html does not appear to be valid HTML"
+            exit 1
+          fi
+
+          # Verify file ends with closing HTML tag (truncation check)
+          if ! tail -c 50 tracker.html | grep -qi '</html>'; then
+            echo "::error::tracker.html appears to be truncated (missing </html> closing tag)"
+            exit 1
+          fi
+
+          echo "Artifact verified: tracker.html ($SIZE bytes)"
+
+      - name: Create version bump branch and PR
+        if: github.event_name == 'workflow_dispatch'
+        id: version-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eo pipefail
+
+          VERSION="${{ needs.validate.outputs.version }}"
+          TAG="${{ needs.validate.outputs.tag }}"
+          BRANCH="release/version-bump-${VERSION}"
+
+          # Configure git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Check for pre-existing branch (from failed previous run)
+          # git ls-remote --exit-code returns: 0=exists, 2=not found, other=error
+          set +e
+          git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1
+          LS_REMOTE_EXIT=$?
+          set -e
+
+          case $LS_REMOTE_EXIT in
+            0)
+              echo "::error::Branch $BRANCH already exists on remote. Delete it first: git push origin --delete $BRANCH"
+              exit 1
+              ;;
+            2)
+              # Branch doesn't exist, proceed
+              ;;
+            *)
+              echo "::error::Failed to check if branch exists (exit code $LS_REMOTE_EXIT). Check network/auth."
+              exit 1
+              ;;
+          esac
+
+          # Create and switch to release branch
+          git checkout -b "$BRANCH"
+
+          # Update version file
+          echo "$VERSION" > version.txt
           git add version.txt
-          git commit -m "chore: bump version to ${{ needs.validate.outputs.version }}"
-          git tag ${{ needs.validate.outputs.tag }}
-          git push origin HEAD:main --tags
+          git commit -m "chore: bump version to $VERSION"
+
+          # Push branch with error handling
+          if ! git push origin "$BRANCH"; then
+            echo "::error::Failed to push branch $BRANCH to origin"
+            exit 1
+          fi
+
+          # Create PR (requires manual approval per branch protection)
+          set +e
+          PR_OUTPUT=$(gh pr create \
+            --title "chore: bump version to $VERSION" \
+            --body "## Automated Version Bump
+
+          **Version:** ${VERSION}
+          **Tag:** ${TAG}
+
+          This PR was created automatically by the release workflow.
+
+          ### Next Steps
+          1. The GitHub Release has been created with tag \`${TAG}\`
+          2. Review and merge this PR to update \`version.txt\` on main
+          3. The release artifact is already attached to the release
+
+          ---
+          *Created by release workflow*" \
+            --base main \
+            --head "$BRANCH" 2>&1)
+          PR_EXIT=$?
+          set -e
+
+          if [ $PR_EXIT -ne 0 ]; then
+            echo "::error::Failed to create PR for version bump: $PR_OUTPUT"
+            exit 1
+          fi
+
+          PR_URL="$PR_OUTPUT"
+          if [ -z "$PR_URL" ]; then
+            echo "::error::PR creation returned empty URL"
+            exit 1
+          fi
+
+          # Validate PR URL format
+          if ! echo "$PR_URL" | grep -qE '^https://github\.com/.*/pull/[0-9]+$'; then
+            echo "::error::Invalid PR URL format: $PR_URL"
+            exit 1
+          fi
+
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+
+      - name: Create tag via GitHub API
+        if: github.event_name == 'workflow_dispatch'
+        id: create-tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eo pipefail
+
+          TAG="${{ needs.validate.outputs.tag }}"
+          # Use the main branch HEAD SHA (before version bump commit)
+          # This is intentional: the tag points to the tested code state,
+          # not the version.txt bump commit (which is a metadata-only change)
+          if ! SHA=$(git rev-parse origin/main 2>&1); then
+            echo "::error::Failed to resolve origin/main SHA. Ensure fetch-depth: 0 and remote is accessible: $SHA"
+            exit 1
+          fi
+
+          # Idempotency check: skip if tag already exists (handles workflow retries)
+          # gh api exits 0 on success (2xx), non-zero on errors (including 404)
+          set +e
+          TAG_CHECK_OUTPUT=$(gh api "/repos/${{ github.repository }}/git/refs/tags/$TAG" 2>&1)
+          TAG_CHECK_EXIT=$?
+          set -e
+
+          if [ $TAG_CHECK_EXIT -eq 0 ]; then
+            # Tag exists - verify it points to the expected SHA (safety check)
+            # Use jq with explicit error handling to detect parse failures
+            set +e
+            EXISTING_SHA=$(echo "$TAG_CHECK_OUTPUT" | jq -re '.object.sha' 2>&1)
+            JQ_EXIT=$?
+            set -e
+
+            if [ $JQ_EXIT -ne 0 ]; then
+              echo "::error::Failed to parse tag SHA from GitHub API response: $EXISTING_SHA"
+              echo "::error::Raw API response: $TAG_CHECK_OUTPUT"
+              exit 1
+            fi
+
+            if [ -z "$EXISTING_SHA" ] || [ "$EXISTING_SHA" = "null" ]; then
+              echo "::error::Tag $TAG exists but SHA could not be extracted from API response"
+              echo "::error::Raw API response: $TAG_CHECK_OUTPUT"
+              exit 1
+            fi
+
+            if [ "$EXISTING_SHA" != "$SHA" ]; then
+              echo "::error::Tag $TAG already exists but points to $EXISTING_SHA instead of expected $SHA. Manual intervention required."
+              exit 1
+            fi
+            echo "::notice::Tag $TAG already exists and points to correct SHA, skipping creation (workflow retry detected)"
+            echo "tag_existed=true" >> $GITHUB_OUTPUT
+            exit 0
+          elif echo "$TAG_CHECK_OUTPUT" | grep -q "Not Found"; then
+            echo "Tag does not exist, proceeding with creation"
+          else
+            echo "::error::Unexpected error checking tag existence: $TAG_CHECK_OUTPUT"
+            exit 1
+          fi
+
+          # Create tag via GitHub API (bypasses branch protection for tags)
+          set +e
+          TAG_CREATE_OUTPUT=$(gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${{ github.repository }}/git/refs" \
+            -f ref="refs/tags/$TAG" \
+            -f sha="$SHA" 2>&1)
+          TAG_CREATE_EXIT=$?
+          set -e
+
+          if [ $TAG_CREATE_EXIT -ne 0 ]; then
+            echo "::error::Failed to create tag $TAG via GitHub API: $TAG_CREATE_OUTPUT"
+            exit 1
+          fi
+
+          echo "Created tag $TAG pointing to $SHA"
+
+      # Design note: This cleanup step runs AFTER the tag creation failure is logged.
+      # The root cause error is already captured by the create-tag step's ::error:: output.
+      # This step provides cleanup of orphan resources, not diagnosis of the failure.
+      - name: Cleanup on tag creation failure
+        if: failure() && steps.create-tag.outcome == 'failure' && steps.version-pr.outputs.pr_url
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eo pipefail
+          echo "::warning::Tag creation failed (see above for root cause), cleaning up orphan PR"
+          PR_URL="${{ steps.version-pr.outputs.pr_url }}"
+          PR_NUMBER=$(echo "$PR_URL" | grep -oE '[0-9]+$')
+
+          # Validate PR number was extracted successfully and is a reasonable number
+          if [ -z "$PR_NUMBER" ]; then
+            echo "::error::Failed to extract PR number from URL: $PR_URL"
+            exit 1
+          fi
+
+          # Validate PR number is numeric and reasonable (1 to 999999)
+          if ! echo "$PR_NUMBER" | grep -qE '^[1-9][0-9]{0,5}$'; then
+            echo "::error::Invalid PR number extracted: '$PR_NUMBER' (expected 1-999999)"
+            exit 1
+          fi
+
+          # Attempt cleanup with error capture
+          if ! CLOSE_OUTPUT=$(gh pr close "$PR_NUMBER" --delete-branch 2>&1); then
+            echo "::warning::Failed to close PR $PR_NUMBER: $CLOSE_OUTPUT"
+            echo "## Cleanup Warning" >> $GITHUB_STEP_SUMMARY
+            echo "Failed to close orphan PR #$PR_NUMBER after tag creation failure." >> $GITHUB_STEP_SUMMARY
+            echo "Manual cleanup may be required: $PR_URL" >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Create GitHub Release
+        if: steps.create-tag.outputs.tag_existed != 'true'
+        id: create-release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.validate.outputs.tag }}
@@ -283,13 +552,243 @@ jobs:
             - `tracker.html` - Self-contained interview prep tracker
           files: |
             tracker.html
+          fail_on_unmatched_files: true
           draft: false
           prerelease: false
           generate_release_notes: false
 
-      - name: Release Summary
+      - name: Verify release creation
+        if: steps.create-tag.outputs.tag_existed != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -eo pipefail
+
+          TAG="${{ needs.validate.outputs.tag }}"
+
+          # Verify release exists via GitHub API
+          if ! RELEASE_INFO=$(gh api "/repos/${{ github.repository }}/releases/tags/$TAG" 2>&1); then
+            echo "::error::Release verification failed - release not found for tag $TAG: $RELEASE_INFO"
+            exit 1
+          fi
+
+          # Verify tracker.html asset was attached (check by name, not just count)
+          # Use jq -e to fail on null/false and capture parse errors
+          set +e
+          TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -re '.assets[] | select(.name == "tracker.html") | .name' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ] || [ -z "$TRACKER_ASSET" ]; then
+            set +e
+            ASSET_NAMES=$(echo "$RELEASE_INFO" | jq -re '[.assets[].name] | if length == 0 then "none" else join(", ") end' 2>&1)
+            set -e
+            echo "::error::Release created but tracker.html asset was not attached. Found assets: $ASSET_NAMES"
+            exit 1
+          fi
+
+          set +e
+          RELEASE_URL=$(echo "$RELEASE_INFO" | jq -re '.html_url' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ]; then
+            echo "::error::Failed to parse release URL from API response"
+            exit 1
+          fi
+
+          set +e
+          ASSET_COUNT=$(echo "$RELEASE_INFO" | jq -e '.assets | length' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ]; then
+            echo "::error::Failed to parse asset count from API response"
+            exit 1
+          fi
+
+          echo "Release verified: $RELEASE_URL with tracker.html and $ASSET_COUNT total asset(s)"
+
+      - name: Verify or create release for existing tag
+        if: steps.create-tag.outputs.tag_existed == 'true'
+        id: verify-existing-release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eo pipefail
+
+          TAG="${{ needs.validate.outputs.tag }}"
+
+          # Check if release exists for the existing tag
+          set +e
+          RELEASE_INFO=$(gh api "/repos/${{ github.repository }}/releases/tags/$TAG" 2>&1)
+          RELEASE_CHECK_EXIT=$?
+          set -e
+
+          if [ $RELEASE_CHECK_EXIT -eq 0 ]; then
+            # Release exists - verify it has the tracker.html asset
+            # Use jq -e to properly detect missing assets
+            set +e
+            TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -re '.assets[] | select(.name == "tracker.html") | .name' 2>&1)
+            JQ_EXIT=$?
+            set -e
+
+            if [ $JQ_EXIT -eq 0 ] && [ -n "$TRACKER_ASSET" ]; then
+              set +e
+              RELEASE_URL=$(echo "$RELEASE_INFO" | jq -re '.html_url' 2>&1)
+              JQ_EXIT=$?
+              set -e
+
+              if [ $JQ_EXIT -ne 0 ]; then
+                echo "::error::Failed to parse release URL from API response"
+                exit 1
+              fi
+
+              echo "Release already exists with tracker.html: $RELEASE_URL"
+              echo "release_existed=true" >> $GITHUB_OUTPUT
+              echo "release_url=$RELEASE_URL" >> $GITHUB_OUTPUT
+            else
+              echo "::warning::Release exists but is missing tracker.html asset - will recreate"
+              set +e
+              RELEASE_ID=$(echo "$RELEASE_INFO" | jq -re '.id' 2>&1)
+              JQ_EXIT=$?
+              set -e
+
+              if [ $JQ_EXIT -ne 0 ]; then
+                echo "::error::Failed to parse release ID from API response: $RELEASE_ID"
+                exit 1
+              fi
+
+              if ! gh api --method DELETE "/repos/${{ github.repository }}/releases/$RELEASE_ID"; then
+                echo "::error::Failed to delete incomplete release"
+                exit 1
+              fi
+              echo "Deleted incomplete release, will create new one"
+              echo "release_existed=false" >> $GITHUB_OUTPUT
+            fi
+          elif echo "$RELEASE_INFO" | grep -q "Not Found"; then
+            echo "::notice::Tag exists but release was deleted - will create new release"
+            echo "release_existed=false" >> $GITHUB_OUTPUT
+          else
+            echo "::error::Unexpected error checking release existence: $RELEASE_INFO"
+            exit 1
+          fi
+
+      - name: Create GitHub Release for existing tag
+        if: steps.create-tag.outputs.tag_existed == 'true' && steps.verify-existing-release.outputs.release_existed != 'true'
+        id: create-release-existing-tag
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.validate.outputs.tag }}
+          name: GrindPulse ${{ needs.validate.outputs.tag }}
+          body: |
+            # GrindPulse ${{ needs.validate.outputs.tag }}
+
+            ${{ needs.changelog.outputs.changelog }}
+
+            ## Installation
+
+            Download `tracker.html` and open it in your browser. No server required!
+
+            ## Features
+
+            - Offline-first interview prep tracking
+            - Cross-device sync with Firebase (optional)
+            - Multiple problem lists (Blind 75, NeetCode 150/250, Salesforce)
+            - Spaced repetition awareness indicators
+            - Import/Export in multiple formats
+
+            ## Assets
+
+            - `tracker.html` - Self-contained interview prep tracker
+          files: |
+            tracker.html
+          fail_on_unmatched_files: true
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+
+      - name: Verify release for existing tag
+        if: steps.create-tag.outputs.tag_existed == 'true' && steps.verify-existing-release.outputs.release_existed != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eo pipefail
+
+          TAG="${{ needs.validate.outputs.tag }}"
+
+          # Verify release exists via GitHub API
+          if ! RELEASE_INFO=$(gh api "/repos/${{ github.repository }}/releases/tags/$TAG" 2>&1); then
+            echo "::error::Release verification failed - release not found for tag $TAG: $RELEASE_INFO"
+            exit 1
+          fi
+
+          # Verify tracker.html asset was attached
+          # Use jq -e to fail on null/false and capture parse errors
+          set +e
+          TRACKER_ASSET=$(echo "$RELEASE_INFO" | jq -re '.assets[] | select(.name == "tracker.html") | .name' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ] || [ -z "$TRACKER_ASSET" ]; then
+            set +e
+            ASSET_NAMES=$(echo "$RELEASE_INFO" | jq -re '[.assets[].name] | if length == 0 then "none" else join(", ") end' 2>&1)
+            set -e
+            echo "::error::Release created but tracker.html asset was not attached. Found assets: $ASSET_NAMES"
+            exit 1
+          fi
+
+          set +e
+          RELEASE_URL=$(echo "$RELEASE_INFO" | jq -re '.html_url' 2>&1)
+          JQ_EXIT=$?
+          set -e
+
+          if [ $JQ_EXIT -ne 0 ]; then
+            echo "::error::Failed to parse release URL from API response"
+            exit 1
+          fi
+
+          echo "Release verified: $RELEASE_URL with tracker.html"
+
+      - name: Release Summary (tag existed - release verified/created)
+        if: steps.create-tag.outputs.tag_existed == 'true'
+        run: |
+          set -eo pipefail
+
+          TAG="${{ needs.validate.outputs.tag }}"
+          RELEASE_URL="https://github.com/${{ github.repository }}/releases/tag/$TAG"
+
+          if [ "${{ steps.verify-existing-release.outputs.release_existed }}" = "true" ]; then
+            echo "## Workflow Retry Detected" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Tag $TAG already exists with correct SHA." >> $GITHUB_STEP_SUMMARY
+            echo "Release already exists - no action needed." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## Release Recovered" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Tag $TAG already existed but release was missing." >> $GITHUB_STEP_SUMMARY
+            echo "A new release has been created." >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Release:** $RELEASE_URL" >> $GITHUB_STEP_SUMMARY
+
+      - name: Release Summary
+        if: steps.create-tag.outputs.tag_existed != 'true'
+        run: |
+          set -eo pipefail
+
           echo "## Release Created" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Version:** ${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Release URL:** https://github.com/${{ github.repository }}/releases/tag/${{ needs.validate.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            PR_URL="${{ steps.version-pr.outputs.pr_url }}"
+            if [ -n "$PR_URL" ]; then
+              echo "- **Version Bump PR:** $PR_URL" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- **Version Bump PR:** _(PR creation may have failed - check workflow logs)_" >> $GITHUB_STEP_SUMMARY
+            fi
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
+            echo "1. Review and merge the version bump PR to update \`version.txt\` on main" >> $GITHUB_STEP_SUMMARY
+          fi
