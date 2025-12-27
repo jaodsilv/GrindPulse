@@ -144,7 +144,7 @@ jobs:
           echo "- **Size:** ${SIZE_KB}.${SIZE_KB_FRAC}KB" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: release-tracker-${{ needs.validate.outputs.version }}
           path: tracker.html
@@ -267,7 +267,7 @@ jobs:
           echo "CHANGELOG_EOF" >> $GITHUB_OUTPUT
 
       - name: Upload changelog
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: changelog
           path: changelog.md
