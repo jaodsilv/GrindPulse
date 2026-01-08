@@ -144,6 +144,7 @@ def parse_tsv_files(raw_folder):
                 "advanced_time": row[3].strip() or "0",
                 "top_time": row[4].strip() or "0",
                 "pattern": row[5].strip() or "Unknown",
+                "link": row[6].strip() if len(row) > 6 else "",
                 # These columns will be added by the tracker
                 "solved": False,
                 "time_to_solve": "",

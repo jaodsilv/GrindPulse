@@ -833,6 +833,33 @@ def generate_css():
       cursor: help;
     }
 
+    /* Problem name links */
+    .problem-link {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .problem-link:hover {
+      text-decoration: underline;
+      color: #667eea;
+    }
+
+    .problem-link:focus {
+      outline: 2px solid #667eea;
+      outline-offset: 2px;
+    }
+
+    .external-link-icon {
+      font-size: 0.8em;
+      opacity: 0.6;
+      margin-left: 2px;
+    }
+
+    .problem-link:hover + .external-link-icon {
+      opacity: 1;
+    }
+
     .time-col {
       font-size: 0.9rem;
       color: #666;
