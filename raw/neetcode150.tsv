@@ -1,151 +1,151 @@
-Problem Name	Difficulty	Intermediate Max time	Advanced Max time	Top of the crop max time	Problem Pattern
-Contains Duplicate	Easy	30	20	10	Arrays & Hashing
-Valid Anagram	Easy	30	20	10	Arrays & Hashing
-Two Sum	Easy	30	20	10	Arrays & Hashing
-Group Anagrams	Medium	45	35	20	Arrays & Hashing
-Top K Frequent Elements	Medium	45	35	20	Arrays & Hashing
-Product of Array Except Self	Medium	45	35	20	Arrays & Hashing
-Valid Sudoku	Medium	45	35	20	Arrays & Hashing
-Encode and Decode Strings	Medium	45	35	20	Arrays & Hashing
-Longest Consecutive Sequence	Medium	45	35	20	Arrays & Hashing
-Valid Palindrome	Easy	30	20	10	Two Pointers
-Two Sum II - Input Array Is Sorted	Medium	45	35	20	Two Pointers
-3Sum	Medium	45	35	20	Two Pointers
-Container With Most Water	Medium	45	35	20	Two Pointers
-Trapping Rain Water	Hard	60	45	30	Two Pointers
-Best Time to Buy and Sell Stock	Easy	30	20	10	Sliding Window
-Longest Substring Without Repeating Characters	Medium	45	35	20	Sliding Window
-Longest Repeating Character Replacement	Medium	45	35	20	Sliding Window
-Permutation in String	Medium	45	35	20	Sliding Window
-Minimum Window Substring	Hard	60	45	30	Sliding Window
-Sliding Window Maximum	Hard	60	45	30	Sliding Window
-Valid Parentheses	Easy	30	20	10	Stack
-Min Stack	Medium	45	35	20	Stack
-Evaluate Reverse Polish Notation	Medium	45	35	20	Stack
-Generate Parentheses	Medium	45	35	20	Stack
-Daily Temperatures	Medium	45	35	20	Stack
-Car Fleet	Medium	45	35	20	Stack
-Largest Rectangle in Histogram	Hard	60	45	30	Stack
-Binary Search	Easy	30	20	10	Binary Search
-Search a 2D Matrix	Medium	45	35	20	Binary Search
-Koko Eating Bananas	Medium	45	35	20	Binary Search
-Find Minimum in Rotated Sorted Array	Medium	45	35	20	Binary Search
-Search in Rotated Sorted Array	Medium	45	35	20	Binary Search
-Time Based Key-Value Store	Medium	45	35	20	Binary Search
-Median of Two Sorted Arrays	Hard	60	45	30	Binary Search
-Reverse Linked List	Easy	30	20	10	Linked List
-Merge Two Sorted Lists	Easy	30	20	10	Linked List
-Reorder List	Medium	45	35	20	Linked List
-Remove Nth Node From End of List	Medium	45	35	20	Linked List
-Copy List with Random Pointer	Medium	45	35	20	Linked List
-Add Two Numbers	Medium	45	35	20	Linked List
-Linked List Cycle	Easy	30	20	10	Linked List
-Find the Duplicate Number	Medium	45	35	20	Linked List
-LRU Cache	Medium	45	35	20	Linked List
-Merge k Sorted Lists	Hard	60	45	30	Linked List
-Reverse Nodes in k-Group	Hard	60	45	30	Linked List
-Invert Binary Tree	Easy	30	20	10	Trees
-Maximum Depth of Binary Tree	Easy	30	20	10	Trees
-Diameter of Binary Tree	Easy	30	20	10	Trees
-Balanced Binary Tree	Easy	30	20	10	Trees
-Same Tree	Easy	30	20	10	Trees
-Subtree of Another Tree	Easy	30	20	10	Trees
-Lowest Common Ancestor of a Binary Search Tree	Medium	45	35	20	Trees
-Binary Tree Level Order Traversal	Medium	45	35	20	Trees
-Binary Tree Right Side View	Medium	45	35	20	Trees
-Count Good Nodes in Binary Tree	Medium	45	35	20	Trees
-Validate Binary Search Tree	Medium	45	35	20	Trees
-Kth Smallest Element in a BST	Medium	45	35	20	Trees
-Construct Binary Tree from Preorder and Inorder Traversal	Medium	45	35	20	Trees
-Binary Tree Maximum Path Sum	Hard	60	45	30	Trees
-Serialize and Deserialize Binary Tree	Hard	60	45	30	Trees
-Implement Trie (Prefix Tree)	Medium	45	35	20	Tries
-Design Add and Search Words Data Structure	Medium	45	35	20	Tries
-Word Search II	Hard	60	45	30	Tries
-Kth Largest Element in a Stream	Easy	30	20	10	Heap / Priority Queue
-Last Stone Weight	Easy	30	20	10	Heap / Priority Queue
-K Closest Points to Origin	Medium	45	35	20	Heap / Priority Queue
-Kth Largest Element in an Array	Medium	45	35	20	Heap / Priority Queue
-Task Scheduler	Medium	45	35	20	Heap / Priority Queue
-Design Twitter	Medium	45	35	20	Heap / Priority Queue
-Find Median from Data Stream	Hard	60	45	30	Heap / Priority Queue
-Subsets	Medium	45	35	20	Backtracking
-Combination Sum	Medium	45	35	20	Backtracking
-Permutations	Medium	45	35	20	Backtracking
-Subsets II	Medium	45	35	20	Backtracking
-Combination Sum II	Medium	45	35	20	Backtracking
-Word Search	Medium	45	35	20	Backtracking
-Palindrome Partitioning	Medium	45	35	20	Backtracking
-Letter Combinations of a Phone Number	Medium	45	35	20	Backtracking
-N-Queens	Hard	60	45	30	Backtracking
-Number of Islands	Medium	45	35	20	Graphs
-Clone Graph	Medium	45	35	20	Graphs
-Max Area of Island	Medium	45	35	20	Graphs
-Pacific Atlantic Water Flow	Medium	45	35	20	Graphs
-Surrounded Regions	Medium	45	35	20	Graphs
-Rotting Oranges	Medium	45	35	20	Graphs
-Walls and Gates	Medium	45	35	20	Graphs
-Course Schedule	Medium	45	35	20	Graphs
-Course Schedule II	Medium	45	35	20	Graphs
-Redundant Connection	Medium	45	35	20	Graphs
-Number of Connected Components in an Undirected Graph	Medium	45	35	20	Graphs
-Graph Valid Tree	Medium	45	35	20	Graphs
-Word Ladder	Hard	60	45	30	Graphs
-Reconstruct Itinerary	Hard	60	45	30	Advanced Graphs
-Min Cost to Connect All Points	Medium	45	35	20	Advanced Graphs
-Network Delay Time	Medium	45	35	20	Advanced Graphs
-Swim in Rising Water	Hard	60	45	30	Advanced Graphs
-Alien Dictionary	Hard	60	45	30	Advanced Graphs
-Cheapest Flights Within K Stops	Medium	45	35	20	Advanced Graphs
-Climbing Stairs	Easy	30	20	10	1-D Dynamic Programming
-Min Cost Climbing Stairs	Easy	30	20	10	1-D Dynamic Programming
-House Robber	Medium	45	35	20	1-D Dynamic Programming
-House Robber II	Medium	45	35	20	1-D Dynamic Programming
-Longest Palindromic Substring	Medium	45	35	20	1-D Dynamic Programming
-Palindromic Substrings	Medium	45	35	20	1-D Dynamic Programming
-Decode Ways	Medium	45	35	20	1-D Dynamic Programming
-Coin Change	Medium	45	35	20	1-D Dynamic Programming
-Maximum Product Subarray	Medium	45	35	20	1-D Dynamic Programming
-Word Break	Medium	45	35	20	1-D Dynamic Programming
-Longest Increasing Subsequence	Medium	45	35	20	1-D Dynamic Programming
-Partition Equal Subset Sum	Medium	45	35	20	1-D Dynamic Programming
-Unique Paths	Medium	45	35	20	2-D Dynamic Programming
-Longest Common Subsequence	Medium	45	35	20	2-D Dynamic Programming
-Best Time to Buy and Sell Stock with Cooldown	Medium	45	35	20	2-D Dynamic Programming
-Coin Change II	Medium	45	35	20	2-D Dynamic Programming
-Target Sum	Medium	45	35	20	2-D Dynamic Programming
-Interleaving String	Medium	45	35	20	2-D Dynamic Programming
-Longest Increasing Path in a Matrix	Hard	60	45	30	2-D Dynamic Programming
-Distinct Subsequences	Hard	60	45	30	2-D Dynamic Programming
-Edit Distance	Hard	60	45	30	2-D Dynamic Programming
-Burst Balloons	Hard	60	45	30	2-D Dynamic Programming
-Regular Expression Matching	Hard	60	45	30	2-D Dynamic Programming
-Maximum Subarray	Medium	45	35	20	Greedy
-Jump Game	Medium	45	35	20	Greedy
-Jump Game II	Medium	45	35	20	Greedy
-Gas Station	Medium	45	35	20	Greedy
-Hand of Straights	Medium	45	35	20	Greedy
-Merge Triplets to Form Target Triplet	Medium	45	35	20	Greedy
-Partition Labels	Medium	45	35	20	Greedy
-Valid Parenthesis String	Medium	45	35	20	Greedy
-Insert Interval	Medium	45	35	20	Intervals
-Merge Intervals	Medium	45	35	20	Intervals
-Non-overlapping Intervals	Medium	45	35	20	Intervals
-Meeting Rooms	Easy	30	20	10	Intervals
-Meeting Rooms II	Medium	45	35	20	Intervals
-Minimum Interval to Include Each Query	Hard	60	45	30	Intervals
-Rotate Image	Medium	45	35	20	Math & Geometry
-Spiral Matrix	Medium	45	35	20	Math & Geometry
-Set Matrix Zeroes	Medium	45	35	20	Math & Geometry
-Happy Number	Easy	30	20	10	Math & Geometry
-Plus One	Easy	30	20	10	Math & Geometry
-Pow(x, n)	Medium	45	35	20	Math & Geometry
-Multiply Strings	Medium	45	35	20	Math & Geometry
-Detect Squares	Medium	45	35	20	Math & Geometry
-Single Number	Easy	30	20	10	Bit Manipulation
-Number of 1 Bits	Easy	30	20	10	Bit Manipulation
-Counting Bits	Easy	30	20	10	Bit Manipulation
-Reverse Bits	Easy	30	20	10	Bit Manipulation
-Missing Number	Easy	30	20	10	Bit Manipulation
-Sum of Two Integers	Medium	45	35	20	Bit Manipulation
-Reverse Integer	Medium	45	35	20	Bit Manipulation
+Problem Name	Difficulty	Intermediate Max Time	Advanced Max Time	Top of the Crop Max Time	Problem Pattern	Link
+Contains Duplicate	Easy	15	10	5	Arrays & Hashing	https://neetcode.io/problems/duplicate-integer?list=neetcode150
+Valid Anagram	Easy	18	10	6	Arrays & Hashing	https://neetcode.io/problems/is-anagram?list=neetcode150
+Two Sum	Easy	25	15	8	Arrays & Hashing	https://neetcode.io/problems/two-integer-sum?list=neetcode150
+Group Anagrams	Medium	40	28	18	Arrays & Hashing	https://neetcode.io/problems/anagram-groups?list=neetcode150
+Top K Frequent Elements	Medium	38	28	18	Arrays & Hashing	https://neetcode.io/problems/top-k-elements-in-list?list=neetcode150
+Encode and Decode Strings	Medium	40	28	20	Arrays & Hashing	https://neetcode.io/problems/string-encode-and-decode?list=neetcode150
+Product of Array Except Self	Medium	45	30	20	Arrays & Hashing	https://neetcode.io/problems/products-of-array-discluding-self?list=neetcode150
+Valid Sudoku	Medium	45	35	20	Arrays & Hashing	https://neetcode.io/problems/valid-sudoku?list=neetcode150
+Longest Consecutive Sequence	Medium	40	28	20	Arrays & Hashing	https://neetcode.io/problems/longest-consecutive-sequence?list=neetcode150
+Valid Palindrome	Easy	20	12	8	Two Pointers	https://neetcode.io/problems/is-palindrome?list=neetcode150
+Two Sum II Input Array Is Sorted	Medium	45	35	20	Two Pointers	https://neetcode.io/problems/two-integer-sum-ii?list=neetcode150
+3Sum	Medium	55	40	28	Two Pointers	https://neetcode.io/problems/three-integer-sum?list=neetcode150
+Container With Most Water	Medium	35	20	15	Two Pointers	https://neetcode.io/problems/max-water-container?list=neetcode150
+Trapping Rain Water	Hard	60	45	30	Two Pointers	https://neetcode.io/problems/trapping-rain-water?list=neetcode150
+Best Time to Buy And Sell Stock	Easy	20	12	7	Sliding Window	https://neetcode.io/problems/buy-and-sell-crypto?list=neetcode150
+Longest Substring Without Repeating Characters	Medium	40	28	20	Sliding Window	https://neetcode.io/problems/longest-substring-without-duplicates?list=neetcode150
+Longest Repeating Character Replacement	Medium	50	35	25	Sliding Window	https://neetcode.io/problems/longest-repeating-substring-with-replacement?list=neetcode150
+Permutation In String	Medium	45	35	20	Sliding Window	https://neetcode.io/problems/permutation-string?list=neetcode150
+Minimum Window Substring	Hard	70	50	38	Sliding Window	https://neetcode.io/problems/minimum-window-with-characters?list=neetcode150
+Sliding Window Maximum	Hard	60	45	30	Sliding Window	https://neetcode.io/problems/sliding-window-maximum?list=neetcode150
+Valid Parentheses	Easy	20	12	8	Stack	https://neetcode.io/problems/validate-parentheses?list=neetcode150
+Min Stack	Medium	45	35	20	Stack	https://neetcode.io/problems/minimum-stack?list=neetcode150
+Evaluate Reverse Polish Notation	Medium	45	35	20	Stack	https://neetcode.io/problems/evaluate-reverse-polish-notation?list=neetcode150
+Daily Temperatures	Medium	45	35	20	Stack	https://neetcode.io/problems/daily-temperatures?list=neetcode150
+Car Fleet	Medium	45	35	20	Stack	https://neetcode.io/problems/car-fleet?list=neetcode150
+Largest Rectangle In Histogram	Hard	60	45	30	Stack	https://neetcode.io/problems/largest-rectangle-in-histogram?list=neetcode150
+Binary Search	Easy	30	20	10	Binary Search	https://neetcode.io/problems/binary-search?list=neetcode150
+Search a 2D Matrix	Medium	45	35	20	Binary Search	https://neetcode.io/problems/search-2d-matrix?list=neetcode150
+Koko Eating Bananas	Medium	45	35	20	Binary Search	https://neetcode.io/problems/eating-bananas?list=neetcode150
+Find Minimum In Rotated Sorted Array	Medium	40	25	18	Binary Search	https://neetcode.io/problems/find-minimum-in-rotated-sorted-array?list=neetcode150
+Search In Rotated Sorted Array	Medium	50	35	25	Binary Search	https://neetcode.io/problems/find-target-in-rotated-sorted-array?list=neetcode150
+Time Based Key Value Store	Medium	45	35	20	Binary Search	https://neetcode.io/problems/time-based-key-value-store?list=neetcode150
+Median of Two Sorted Arrays	Hard	60	45	30	Binary Search	https://neetcode.io/problems/median-of-two-sorted-arrays?list=neetcode150
+Reverse Linked List	Easy	20	12	8	Linked List	https://neetcode.io/problems/reverse-a-linked-list?list=neetcode150
+Merge Two Sorted Lists	Easy	25	18	12	Linked List	https://neetcode.io/problems/merge-two-sorted-linked-lists?list=neetcode150
+Linked List Cycle	Easy	22	15	10	Linked List	https://neetcode.io/problems/linked-list-cycle-detection?list=neetcode150
+Reorder List	Medium	50	35	25	Linked List	https://neetcode.io/problems/reorder-linked-list?list=neetcode150
+Remove Nth Node From End of List	Medium	35	25	18	Linked List	https://neetcode.io/problems/remove-node-from-end-of-linked-list?list=neetcode150
+Copy List With Random Pointer	Medium	45	35	20	Linked List	https://neetcode.io/problems/copy-linked-list-with-random-pointer?list=neetcode150
+Add Two Numbers	Medium	45	35	20	Linked List	https://neetcode.io/problems/add-two-numbers?list=neetcode150
+Find The Duplicate Number	Medium	45	35	20	Linked List	https://neetcode.io/problems/find-duplicate-integer?list=neetcode150
+LRU Cache	Medium	45	35	20	Linked List	https://neetcode.io/problems/lru-cache?list=neetcode150
+Merge K Sorted Lists	Hard	65	45	32	Linked List	https://neetcode.io/problems/merge-k-sorted-linked-lists?list=neetcode150
+Reverse Nodes In K Group	Hard	60	45	30	Linked List	https://neetcode.io/problems/reverse-nodes-in-k-group?list=neetcode150
+Invert Binary Tree	Easy	18	10	6	Trees	https://neetcode.io/problems/invert-a-binary-tree?list=neetcode150
+Maximum Depth of Binary Tree	Easy	18	10	6	Trees	https://neetcode.io/problems/depth-of-binary-tree?list=neetcode150
+Diameter of Binary Tree	Easy	30	20	10	Trees	https://neetcode.io/problems/binary-tree-diameter?list=neetcode150
+Balanced Binary Tree	Easy	30	20	10	Trees	https://neetcode.io/problems/balanced-binary-tree?list=neetcode150
+Same Tree	Easy	20	12	8	Trees	https://neetcode.io/problems/same-binary-tree?list=neetcode150
+Subtree of Another Tree	Easy	30	20	15	Trees	https://neetcode.io/problems/subtree-of-a-binary-tree?list=neetcode150
+Lowest Common Ancestor of a Binary Search Tree	Medium	35	25	18	Trees	https://neetcode.io/problems/lowest-common-ancestor-in-binary-search-tree?list=neetcode150
+Binary Tree Level Order Traversal	Medium	35	25	18	Trees	https://neetcode.io/problems/level-order-traversal-of-binary-tree?list=neetcode150
+Binary Tree Right Side View	Medium	45	35	20	Trees	https://neetcode.io/problems/binary-tree-right-side-view?list=neetcode150
+Count Good Nodes In Binary Tree	Medium	45	35	20	Trees	https://neetcode.io/problems/count-good-nodes-in-binary-tree?list=neetcode150
+Validate Binary Search Tree	Medium	40	28	20	Trees	https://neetcode.io/problems/valid-binary-search-tree?list=neetcode150
+Kth Smallest Element In a Bst	Medium	35	25	18	Trees	https://neetcode.io/problems/kth-smallest-integer-in-bst?list=neetcode150
+Construct Binary Tree From Preorder And Inorder Traversal	Medium	50	35	25	Trees	https://neetcode.io/problems/binary-tree-from-preorder-and-inorder-traversal?list=neetcode150
+Binary Tree Maximum Path Sum	Hard	65	48	35	Trees	https://neetcode.io/problems/binary-tree-maximum-path-sum?list=neetcode150
+Serialize And Deserialize Binary Tree	Hard	70	50	38	Trees	https://neetcode.io/problems/serialize-and-deserialize-binary-tree?list=neetcode150
+Kth Largest Element In a Stream	Easy	30	20	10	Heap / Priority Queue	https://neetcode.io/problems/kth-largest-integer-in-a-stream?list=neetcode150
+Last Stone Weight	Easy	30	20	10	Heap / Priority Queue	https://neetcode.io/problems/last-stone-weight?list=neetcode150
+K Closest Points to Origin	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/k-closest-points-to-origin?list=neetcode150
+Kth Largest Element In An Array	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/kth-largest-element-in-an-array?list=neetcode150
+Task Scheduler	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/task-scheduling?list=neetcode150
+Design Twitter	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/design-twitter-feed?list=neetcode150
+Find Median From Data Stream	Hard	65	48	35	Heap / Priority Queue	https://neetcode.io/problems/find-median-in-a-data-stream?list=neetcode150
+Subsets	Medium	45	35	20	Backtracking	https://neetcode.io/problems/subsets?list=neetcode150
+Combination Sum	Medium	45	35	20	Backtracking	https://neetcode.io/problems/combination-target-sum?list=neetcode150
+Combination Sum II	Medium	45	35	20	Backtracking	https://neetcode.io/problems/combination-target-sum-ii?list=neetcode150
+Permutations	Medium	45	35	20	Backtracking	https://neetcode.io/problems/permutations?list=neetcode150
+Subsets II	Medium	45	35	20	Backtracking	https://neetcode.io/problems/subsets-ii?list=neetcode150
+Generate Parentheses	Medium	45	35	20	Backtracking	https://neetcode.io/problems/generate-parentheses?list=neetcode150
+Word Search	Medium	55	40	28	Backtracking	https://neetcode.io/problems/search-for-word?list=neetcode150
+Palindrome Partitioning	Medium	45	35	20	Backtracking	https://neetcode.io/problems/palindrome-partitioning?list=neetcode150
+Letter Combinations of a Phone Number	Medium	45	35	20	Backtracking	https://neetcode.io/problems/combinations-of-a-phone-number?list=neetcode150
+N Queens	Hard	60	45	30	Backtracking	https://neetcode.io/problems/n-queens?list=neetcode150
+Implement Trie Prefix Tree	Medium	45	32	22	Tries	https://neetcode.io/problems/implement-prefix-tree?list=neetcode150
+Design Add And Search Words Data Structure	Medium	50	35	25	Tries	https://neetcode.io/problems/design-word-search-data-structure?list=neetcode150
+Word Search II	Hard	75	55	40	Tries	https://neetcode.io/problems/search-for-word-ii?list=neetcode150
+Number of Islands	Medium	35	25	18	Graphs	https://neetcode.io/problems/count-number-of-islands?list=neetcode150
+Max Area of Island	Medium	45	35	20	Graphs	https://neetcode.io/problems/max-area-of-island?list=neetcode150
+Clone Graph	Medium	40	28	20	Graphs	https://neetcode.io/problems/clone-graph?list=neetcode150
+Walls And Gates	Medium	45	35	20	Graphs	https://neetcode.io/problems/islands-and-treasure?list=neetcode150
+Rotting Oranges	Medium	45	35	20	Graphs	https://neetcode.io/problems/rotting-fruit?list=neetcode150
+Pacific Atlantic Water Flow	Medium	55	40	30	Graphs	https://neetcode.io/problems/pacific-atlantic-water-flow?list=neetcode150
+Surrounded Regions	Medium	45	35	20	Graphs	https://neetcode.io/problems/surrounded-regions?list=neetcode150
+Course Schedule	Medium	45	32	22	Graphs	https://neetcode.io/problems/course-schedule?list=neetcode150
+Course Schedule II	Medium	45	35	20	Graphs	https://neetcode.io/problems/course-schedule-ii?list=neetcode150
+Graph Valid Tree	Medium	40	28	20	Graphs	https://neetcode.io/problems/valid-tree?list=neetcode150
+Number of Connected Components In An Undirected Graph	Medium	35	25	18	Graphs	https://neetcode.io/problems/count-connected-components?list=neetcode150
+Redundant Connection	Medium	45	35	20	Graphs	https://neetcode.io/problems/redundant-connection?list=neetcode150
+Word Ladder	Hard	60	45	30	Graphs	https://neetcode.io/problems/word-ladder?list=neetcode150
+Network Delay Time	Medium	45	35	20	Advanced Graphs	https://neetcode.io/problems/network-delay-time?list=neetcode150
+Reconstruct Itinerary	Hard	60	45	30	Advanced Graphs	https://neetcode.io/problems/reconstruct-flight-path?list=neetcode150
+Min Cost to Connect All Points	Medium	45	35	20	Advanced Graphs	https://neetcode.io/problems/min-cost-to-connect-points?list=neetcode150
+Swim In Rising Water	Hard	60	45	30	Advanced Graphs	https://neetcode.io/problems/swim-in-rising-water?list=neetcode150
+Alien Dictionary	Hard	70	50	35	Advanced Graphs	https://neetcode.io/problems/foreign-dictionary?list=neetcode150
+Cheapest Flights Within K Stops	Medium	45	35	20	Advanced Graphs	https://neetcode.io/problems/cheapest-flight-path?list=neetcode150
+Climbing Stairs	Easy	20	12	8	1-D Dynamic Programming	https://neetcode.io/problems/climbing-stairs?list=neetcode150
+Min Cost Climbing Stairs	Easy	30	20	10	1-D Dynamic Programming	https://neetcode.io/problems/min-cost-climbing-stairs?list=neetcode150
+House Robber	Medium	30	20	12	1-D Dynamic Programming	https://neetcode.io/problems/house-robber?list=neetcode150
+House Robber II	Medium	45	30	20	1-D Dynamic Programming	https://neetcode.io/problems/house-robber-ii?list=neetcode150
+Longest Palindromic Substring	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/longest-palindromic-substring?list=neetcode150
+Palindromic Substrings	Medium	45	32	22	1-D Dynamic Programming	https://neetcode.io/problems/palindromic-substrings?list=neetcode150
+Decode Ways	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/decode-ways?list=neetcode150
+Coin Change	Medium	40	28	18	1-D Dynamic Programming	https://neetcode.io/problems/coin-change?list=neetcode150
+Maximum Product Subarray	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/maximum-product-subarray?list=neetcode150
+Word Break	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/word-break?list=neetcode150
+Longest Increasing Subsequence	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/longest-increasing-subsequence?list=neetcode150
+Partition Equal Subset Sum	Medium	45	35	20	1-D Dynamic Programming	https://neetcode.io/problems/partition-equal-subset-sum?list=neetcode150
+Unique Paths	Medium	35	22	15	2-D Dynamic Programming	https://neetcode.io/problems/count-paths?list=neetcode150
+Longest Common Subsequence	Medium	45	30	20	2-D Dynamic Programming	https://neetcode.io/problems/longest-common-subsequence?list=neetcode150
+Best Time to Buy And Sell Stock With Cooldown	Medium	45	35	20	2-D Dynamic Programming	https://neetcode.io/problems/buy-and-sell-crypto-with-cooldown?list=neetcode150
+Coin Change II	Medium	45	35	20	2-D Dynamic Programming	https://neetcode.io/problems/coin-change-ii?list=neetcode150
+Target Sum	Medium	45	35	20	2-D Dynamic Programming	https://neetcode.io/problems/target-sum?list=neetcode150
+Interleaving String	Medium	45	35	20	2-D Dynamic Programming	https://neetcode.io/problems/interleaving-string?list=neetcode150
+Longest Increasing Path In a Matrix	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/longest-increasing-path-in-matrix?list=neetcode150
+Distinct Subsequences	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/count-subsequences?list=neetcode150
+Edit Distance	Medium	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/edit-distance?list=neetcode150
+Burst Balloons	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/burst-balloons?list=neetcode150
+Regular Expression Matching	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/regular-expression-matching?list=neetcode150
+Maximum Subarray	Medium	35	25	15	Greedy	https://neetcode.io/problems/maximum-subarray?list=neetcode150
+Jump Game	Medium	35	25	18	Greedy	https://neetcode.io/problems/jump-game?list=neetcode150
+Jump Game II	Medium	45	35	20	Greedy	https://neetcode.io/problems/jump-game-ii?list=neetcode150
+Gas Station	Medium	45	35	20	Greedy	https://neetcode.io/problems/gas-station?list=neetcode150
+Hand of Straights	Medium	45	35	20	Greedy	https://neetcode.io/problems/hand-of-straights?list=neetcode150
+Merge Triplets to Form Target Triplet	Medium	45	35	20	Greedy	https://neetcode.io/problems/merge-triplets-to-form-target?list=neetcode150
+Partition Labels	Medium	45	35	20	Greedy	https://neetcode.io/problems/partition-labels?list=neetcode150
+Valid Parenthesis String	Medium	45	35	20	Greedy	https://neetcode.io/problems/valid-parenthesis-string?list=neetcode150
+Insert Interval	Medium	45	30	22	Intervals	https://neetcode.io/problems/insert-new-interval?list=neetcode150
+Merge Intervals	Medium	35	25	18	Intervals	https://neetcode.io/problems/merge-intervals?list=neetcode150
+Non Overlapping Intervals	Medium	45	32	22	Intervals	https://neetcode.io/problems/non-overlapping-intervals?list=neetcode150
+Meeting Rooms	Easy	20	12	8	Intervals	https://neetcode.io/problems/meeting-schedule?list=neetcode150
+Meeting Rooms II	Medium	45	32	22	Intervals	https://neetcode.io/problems/meeting-schedule-ii?list=neetcode150
+Minimum Interval to Include Each Query	Hard	60	45	30	Intervals	https://neetcode.io/problems/minimum-interval-including-query?list=neetcode150
+Rotate Image	Medium	40	28	20	Math & Geometry	https://neetcode.io/problems/rotate-matrix?list=neetcode150
+Spiral Matrix	Medium	50	35	25	Math & Geometry	https://neetcode.io/problems/spiral-matrix?list=neetcode150
+Set Matrix Zeroes	Medium	45	30	22	Math & Geometry	https://neetcode.io/problems/set-zeroes-in-matrix?list=neetcode150
+Happy Number	Easy	30	20	10	Math & Geometry	https://neetcode.io/problems/non-cyclical-number?list=neetcode150
+Plus One	Easy	30	20	10	Math & Geometry	https://neetcode.io/problems/plus-one?list=neetcode150
+Pow(x, n)	Medium	45	35	20	Math & Geometry	https://neetcode.io/problems/pow-x-n?list=neetcode150
+Multiply Strings	Medium	45	35	20	Math & Geometry	https://neetcode.io/problems/multiply-strings?list=neetcode150
+Detect Squares	Medium	45	35	20	Math & Geometry	https://neetcode.io/problems/count-squares?list=neetcode150
+Single Number	Easy	30	20	10	Bit Manipulation	https://neetcode.io/problems/single-number?list=neetcode150
+Number of 1 Bits	Easy	18	12	8	Bit Manipulation	https://neetcode.io/problems/number-of-one-bits?list=neetcode150
+Counting Bits	Easy	30	20	15	Bit Manipulation	https://neetcode.io/problems/counting-bits?list=neetcode150
+Reverse Bits	Easy	25	15	10	Bit Manipulation	https://neetcode.io/problems/reverse-bits?list=neetcode150
+Missing Number	Easy	20	12	8	Bit Manipulation	https://neetcode.io/problems/missing-number?list=neetcode150
+Sum of Two Integers	Medium	45	30	22	Bit Manipulation	https://neetcode.io/problems/sum-of-two-integers?list=neetcode150
+Reverse Integer	Medium	45	35	20	Bit Manipulation	https://neetcode.io/problems/reverse-integer?list=neetcode150
