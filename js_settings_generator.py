@@ -405,12 +405,13 @@ def generate_js_settings():
     }
 
     // Setup real-time preview on input change
+    // Uses debounced update (1000ms) since colors are day-based and don't need instant updates
     function setupSettingsPreview() {
       const inputs = document.querySelectorAll('.settings-input');
       inputs.forEach(input => {
         input.addEventListener('input', function() {
           readSettingsFromInputs();
-          updateAwarenessColors();
+          updateAwarenessColorsDebounced();
         });
       });
     }
