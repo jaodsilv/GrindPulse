@@ -328,8 +328,8 @@ def generate_js_firebase(firebase_config=None):
         updateAuthUI(user);
         updateSyncStatusUI('syncing', 'Connecting...');
 
-        // Initial sync from cloud
-        pullFromCloud().then(() => {
+        // Initial sync from cloud (load configs only on sign-in)
+        pullFromCloud({ loadConfigs: true }).then(() => {
           setupRealtimeListeners();
           updateSyncStatusUI('synced');
         }).catch(err => {
@@ -805,7 +805,9 @@ def generate_js_firebase(firebase_config=None):
 
     /**
      * Pull all data from cloud and merge with local
-     * @param {Object} options - { preferCache: boolean } - if true, read from cache first
+     * @param {Object} options - Pull options
+     * @param {boolean} options.preferCache - if true, read from cache first
+     * @param {boolean} options.loadConfigs - if true, load config settings (filters, prefs)
      */
     async function pullFromCloud(options = {}) {
       if (!isCloudSyncEnabled() || !firebaseDb) return;
@@ -892,8 +894,9 @@ def generate_js_firebase(firebase_config=None):
           updateSyncStatusUI('synced');
         }
 
-        // Load all config settings from cloud (filter, export, UI preferences)
-        if (typeof loadAllConfigsFromCloud === 'function') {
+        // Load all config settings from cloud only when explicitly requested (sign-in)
+        // Configs have real-time listeners for subsequent updates
+        if (options.loadConfigs && typeof loadAllConfigsFromCloud === 'function') {
           await loadAllConfigsFromCloud();
         }
 
