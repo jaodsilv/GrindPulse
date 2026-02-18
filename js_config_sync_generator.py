@@ -742,8 +742,8 @@ def generate_js_config_sync():
     }
 
     /**
-     * Load all configs from cloud after sign-in
-     * Called from Firebase auth state change handler
+     * Load all configs from cloud (filters, exportPrefs, uiPrefs, awareness)
+     * Called from pullFromCloud() when options.loadConfigs is true
      */
     async function loadAllConfigsFromCloud() {
       await Promise.all([

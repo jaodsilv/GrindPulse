@@ -328,7 +328,7 @@ def generate_js_firebase(firebase_config=None):
         updateAuthUI(user);
         updateSyncStatusUI('syncing', 'Connecting...');
 
-        // Initial sync from cloud (load configs only on sign-in)
+        // Initial sync from cloud (load configs on first connection)
         pullFromCloud({ loadConfigs: true }).then(() => {
           setupRealtimeListeners();
           updateSyncStatusUI('synced');
@@ -894,13 +894,17 @@ def generate_js_firebase(firebase_config=None):
           updateSyncStatusUI('synced');
         }
 
-        // Load all config settings from cloud only when explicitly requested (sign-in, manual sync)
+        // Load all config settings from cloud only when explicitly requested via options.loadConfigs
         // Configs have real-time listeners for subsequent updates (see setupConfigRealtimeListeners)
-        if (options.loadConfigs && typeof loadAllConfigsFromCloud === 'function') {
-          console.log('Loading config settings from cloud');
-          await loadAllConfigsFromCloud();
+        if (options.loadConfigs) {
+          if (typeof loadAllConfigsFromCloud === 'function') {
+            console.log('Loading config settings from cloud');
+            await loadAllConfigsFromCloud();
+          } else {
+            console.error('loadAllConfigsFromCloud is not defined - config sync module may not be loaded');
+          }
         } else {
-          console.log('Skipping config settings load (real-time listeners handle updates)');
+          console.debug('Skipping config settings load (real-time listeners handle updates)');
         }
 
         lastPullTime = Date.now(); // Track pull time for focus-based refresh
