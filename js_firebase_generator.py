@@ -807,7 +807,7 @@ def generate_js_firebase(firebase_config=None):
      * Pull all data from cloud and merge with local
      * @param {Object} options - Pull options
      * @param {boolean} options.preferCache - if true, read from cache first
-     * @param {boolean} options.loadConfigs - if true, load config settings (filters, prefs)
+     * @param {boolean} options.loadConfigs - if true, load config settings (filters, exportPrefs, uiPrefs, awareness)
      */
     async function pullFromCloud(options = {}) {
       if (!isCloudSyncEnabled() || !firebaseDb) return;
@@ -894,10 +894,13 @@ def generate_js_firebase(firebase_config=None):
           updateSyncStatusUI('synced');
         }
 
-        // Load all config settings from cloud only when explicitly requested (sign-in)
-        // Configs have real-time listeners for subsequent updates
+        // Load all config settings from cloud only when explicitly requested (sign-in, manual sync)
+        // Configs have real-time listeners for subsequent updates (see setupConfigRealtimeListeners)
         if (options.loadConfigs && typeof loadAllConfigsFromCloud === 'function') {
+          console.log('Loading config settings from cloud');
           await loadAllConfigsFromCloud();
+        } else {
+          console.log('Skipping config settings load (real-time listeners handle updates)');
         }
 
         lastPullTime = Date.now(); // Track pull time for focus-based refresh
@@ -947,7 +950,7 @@ def generate_js_firebase(firebase_config=None):
 
       try {
         await syncAllToCloud();
-        await pullFromCloud();
+        await pullFromCloud({ loadConfigs: true });
         updateSyncStatusUI('synced');
       } catch (error) {
         console.error('Manual sync failed:', error);

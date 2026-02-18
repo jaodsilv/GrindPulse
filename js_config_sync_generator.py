@@ -579,35 +579,47 @@ def generate_js_config_sync():
 
       // Listen for filter config changes
       const filterUnsubscribe = userRef.collection('config').doc('filters')
-        .onSnapshot(doc => {
-          if (doc.exists && doc.metadata.hasPendingWrites === false) {
-            handleFilterConfigChange(doc.data());
-          }
-        });
+        .onSnapshot(
+          doc => {
+            if (doc.exists && doc.metadata.hasPendingWrites === false) {
+              handleFilterConfigChange(doc.data());
+            }
+          },
+          error => { console.error('Config listener failed (filters):', error); }
+        );
 
       // Listen for export prefs changes
       const exportUnsubscribe = userRef.collection('config').doc('exportPrefs')
-        .onSnapshot(doc => {
-          if (doc.exists && doc.metadata.hasPendingWrites === false) {
-            handleExportPrefsChange(doc.data());
-          }
-        });
+        .onSnapshot(
+          doc => {
+            if (doc.exists && doc.metadata.hasPendingWrites === false) {
+              handleExportPrefsChange(doc.data());
+            }
+          },
+          error => { console.error('Config listener failed (exportPrefs):', error); }
+        );
 
       // Listen for UI prefs changes
       const uiUnsubscribe = userRef.collection('config').doc('uiPrefs')
-        .onSnapshot(doc => {
-          if (doc.exists && doc.metadata.hasPendingWrites === false) {
-            handleUIPrefsChange(doc.data());
-          }
-        });
+        .onSnapshot(
+          doc => {
+            if (doc.exists && doc.metadata.hasPendingWrites === false) {
+              handleUIPrefsChange(doc.data());
+            }
+          },
+          error => { console.error('Config listener failed (uiPrefs):', error); }
+        );
 
       // Listen for awareness config changes
       const awarenessUnsubscribe = userRef.collection('config').doc('awareness')
-        .onSnapshot(doc => {
-          if (doc.exists && doc.metadata.hasPendingWrites === false) {
-            handleAwarenessConfigChange(doc.data());
-          }
-        });
+        .onSnapshot(
+          doc => {
+            if (doc.exists && doc.metadata.hasPendingWrites === false) {
+              handleAwarenessConfigChange(doc.data());
+            }
+          },
+          error => { console.error('Config listener failed (awareness):', error); }
+        );
 
       // Add to global listeners array for cleanup
       if (typeof realtimeListeners !== 'undefined') {
