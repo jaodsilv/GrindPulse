@@ -89,6 +89,10 @@ def generate_js_awareness():
       if (saved) {
         try {
           const savedConfig = JSON.parse(saved);
+          // Migrate: refreshOnFocus was changed from true to false in default; force the new default
+          if (savedConfig.refreshOnFocus === true) {
+            savedConfig.refreshOnFocus = false;
+          }
           // Deep merge with defaults to handle missing fields
           AWARENESS_CONFIG = deepMerge(DEFAULT_AWARENESS_CONFIG, savedConfig);
         } catch (e) {
