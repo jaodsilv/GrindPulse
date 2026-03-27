@@ -48,6 +48,7 @@ def generate_js_firebase(firebase_config=None):
     let syncQueue = [];
     let lastSyncTime = null;
     let isSyncing = false;
+    let isImportInProgress = false;  // Blocks pulls during import to prevent overwrites
 
     // Debounce timers
     let syncDebounceTimer = null;
@@ -723,6 +724,94 @@ def generate_js_firebase(firebase_config=None):
     }
 
     /**
+     * Mark import as started - blocks pulls until import sync completes
+     */
+    function startImportMode() {
+      isImportInProgress = true;
+      console.log('Import mode started - pulls blocked');
+    }
+
+    /**
+     * Mark import as complete - allows pulls again
+     */
+    function endImportMode() {
+      isImportInProgress = false;
+      console.log('Import mode ended - pulls allowed');
+    }
+
+    /**
+     * Sync imported problems to cloud (includes unsolved to overwrite cloud data)
+     * @param {Set<string>} importedNames - Names of problems that were imported
+     */
+    async function syncImportedToCloud(importedNames) {
+      if (!isCloudSyncEnabled() || !firebaseDb) return;
+      if (!importedNames || importedNames.size === 0) return;
+
+      updateSyncStatusUI('syncing', 'Uploading imported data...');
+
+      try {
+        const userRef = firebaseDb.collection('users').doc(currentUser.uid);
+
+        // Collect ALL imported problems (including unsolved) to overwrite cloud
+        const problemsToSync = new Map();
+
+        for (const fileKey of PROBLEM_DATA.file_list) {
+          const problems = PROBLEM_DATA.data[fileKey];
+
+          for (const problem of problems) {
+            // Only sync problems that were actually imported
+            if (importedNames.has(problem.name) && !problemsToSync.has(problem.name)) {
+              problemsToSync.set(problem.name, problem);
+            }
+          }
+        }
+
+        // Process in batches
+        let batch = firebaseDb.batch();
+        let batchCount = 0;
+        let totalCount = 0;
+
+        for (const [name, problem] of problemsToSync) {
+          const docId = sanitizeProblemName(name);
+          const docRef = userRef.collection('progress').doc(docId);
+
+          // Push ALL data including unsolved=false to overwrite cloud
+          batch.set(docRef, {
+            name: problem.name,
+            solved: problem.solved || false,
+            time_to_solve: problem.time_to_solve || '',
+            comments: problem.comments || '',
+            solved_date: problem.solved_date || '',
+            importedAt: problem.importedAt || null,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedFrom: 'web-import',
+            updatedFromDevice: DEVICE_ID
+          }, { merge: false });  // merge: false to completely overwrite
+
+          batchCount++;
+          totalCount++;
+
+          if (batchCount >= FIRESTORE_BATCH_SIZE_LIMIT) {
+            await batch.commit();
+            batch = firebaseDb.batch();
+            batchCount = 0;
+          }
+        }
+
+        if (batchCount > 0) {
+          await batch.commit();
+        }
+
+        lastWriteTime = Date.now();
+        console.log('Synced', totalCount, 'imported problems to cloud (including unsolved)');
+        updateSyncStatusUI('synced');
+      } catch (error) {
+        console.error('Sync imported to cloud failed:', error);
+        throw error;
+      }
+    }
+
+    /**
      * Sync all problems to cloud
      * Uses batching to minimize write operations
      */
@@ -812,6 +901,12 @@ def generate_js_firebase(firebase_config=None):
     async function pullFromCloud(options = {}) {
       if (!isCloudSyncEnabled() || !firebaseDb) return;
 
+      // Skip pull if import is in progress to prevent overwriting imported data
+      if (isImportInProgress) {
+        console.log('Skipping pull - import in progress');
+        return;
+      }
+
       updateSyncStatusUI('syncing', 'Downloading...');
 
       try {
@@ -865,6 +960,11 @@ def generate_js_firebase(firebase_config=None):
               // Check for conflicts
               const conflict = detectSyncConflict(problem, cloud);
 
+              if (conflict.cleanupImportedAt) {
+                delete problem.importedAt;
+                saveToLocalStorage(fileKey);
+              }
+
               if (conflict.hasConflict) {
                 conflicts.push({
                   fileKey,
@@ -879,7 +979,7 @@ def generate_js_firebase(firebase_config=None):
                 applyCloudData(problem, cloud);
                 saveToLocalStorage(fileKey);
               }
-              // If winner is 'local', keep local data
+              // If winner is 'local' or no winner, keep local data
             }
           }
         }
@@ -1094,7 +1194,20 @@ def generate_js_firebase(firebase_config=None):
       if (local.solved === cloud.solved &&
           local.time_to_solve === cloud.time_to_solve &&
           local.comments === cloud.comments) {
-        return { hasConflict: false };
+        return { hasConflict: false, reason: 'identical' };
+      }
+
+      // Recently imported data always takes priority (within 5 minutes)
+      const IMPORT_PRIORITY_WINDOW = 5 * 60 * 1000; // 5 minutes
+      if (local.importedAt) {
+        const importTime = new Date(local.importedAt).getTime();
+        const now = Date.now();
+        if (now - importTime < IMPORT_PRIORITY_WINDOW) {
+          console.log('Recently imported data takes priority for:', local.name || 'unknown');
+          return { hasConflict: false, reason: 'import-priority', winner: 'local' };
+        }
+        // Priority window has expired - signal caller to clean up importedAt
+        return { hasConflict: false, reason: 'import-priority-expired', winner: null, cleanupImportedAt: true };
       }
 
       // Get timestamps
@@ -1104,14 +1217,14 @@ def generate_js_firebase(firebase_config=None):
 
       // Clear winner if timestamps differ significantly
       if (cloudTime > localTime + CONFLICT_TIMESTAMP_TOLERANCE) {
-        return { hasConflict: false, winner: 'cloud' };
+        return { hasConflict: false, reason: 'timestamp-winner', winner: 'cloud' };
       }
       if (localTime > cloudTime + CONFLICT_TIMESTAMP_TOLERANCE) {
-        return { hasConflict: false, winner: 'local' };
+        return { hasConflict: false, reason: 'timestamp-winner', winner: 'local' };
       }
 
       // True conflict - timestamps are close but data differs
-      return { hasConflict: true };
+      return { hasConflict: true, reason: 'true-conflict' };
     }
 
     /**

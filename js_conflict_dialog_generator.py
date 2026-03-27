@@ -103,7 +103,7 @@ def generate_js_conflict_dialog():
 
           <div class="conflict-footer">
             <button class="conflict-btn-secondary" onclick="cancelImport()">Cancel</button>
-            <button class="conflict-btn-primary" onclick="confirmImport()">Apply & Import</button>
+            <button class="conflict-btn-primary" onclick="confirmImport().catch(function(err){ console.error('Import failed:', err); alert('Import failed: ' + err.message); })">Apply & Import</button>
           </div>
         </div>
       `;
@@ -298,7 +298,7 @@ def generate_js_conflict_dialog():
     /**
      * Confirm import with selected resolutions
      */
-    function confirmImport() {
+    async function confirmImport() {
       if (!ImportExport.pendingImport.fileKey || !ImportExport.pendingImport.data) {
         alert('No import data available.');
         hideConflictDialog();
@@ -318,8 +318,8 @@ def generate_js_conflict_dialog():
         backupBeforeImport(ImportExport.pendingImport.fileKey);
       }
 
-      // Apply import
-      const result = applyImport(
+      // Apply import and wait for cloud sync
+      const result = await applyImport(
         ImportExport.pendingImport.fileKey,
         ImportExport.pendingImport.data,
         ImportExport.pendingImport.mode,
