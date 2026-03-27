@@ -212,7 +212,29 @@ def generate_js_core():
 
       // Problem Name + Duplicate Badge
       const nameTd = document.createElement('td');
-      nameTd.textContent = problem.name;
+
+      const rawLink = problem.link ? problem.link.trim() : '';
+      const safeLink = rawLink && /^(https?:\\/\\/|\\/|[^:]*$)/.test(rawLink) &&
+        !/^(javascript|data|vbscript):/i.test(rawLink) ? rawLink : '';
+
+      if (safeLink) {
+        const link = document.createElement('a');
+        link.href = safeLink;
+        link.textContent = problem.name;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.className = 'problem-link';
+
+        const icon = document.createElement('span');
+        icon.className = 'external-link-icon';
+        icon.textContent = ' \\u2197';
+        icon.setAttribute('aria-hidden', 'true');
+
+        nameTd.appendChild(link);
+        nameTd.appendChild(icon);
+      } else {
+        nameTd.textContent = problem.name;
+      }
 
       if (DUPLICATE_MAP[problem.name] && DUPLICATE_MAP[problem.name].length > 1) {
         const badge = document.createElement('span');

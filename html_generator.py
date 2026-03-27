@@ -108,7 +108,7 @@ def generate_html_structure(file_list, firebase_enabled=False):
         <table id="table-{file_name}">
           <thead>
             <tr>
-              <th>Problem Name</th>
+              <th data-nosort>Problem Name</th>
               <th>Difficulty</th>
               <th>Intermediate Time</th>
               <th>Advanced Time</th>
