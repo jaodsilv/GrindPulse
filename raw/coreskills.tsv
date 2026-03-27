@@ -1,0 +1,46 @@
+Problem Name	Difficulty	Intermediate Max Time	Advanced Max Time	Top of the Crop Max Time	Problem Pattern	Link
+Design Dynamic Array (Resizable Array)	Easy	0	0	0	Implement Data Structures	https://neetcode.io/problems/dynamicArray
+Design Singly Linked List	Easy	0	0	0	Implement Data Structures	https://neetcode.io/problems/singlyLinkedList
+Design Double-ended Queue	Easy	0	0	0	Implement Data Structures	https://neetcode.io/problems/queue
+Design Binary Search Tree	Medium	0	0	0	Implement Data Structures	https://neetcode.io/problems/binarySearchTree
+Design Hash Table	Medium	0	0	0	Implement Data Structures	https://neetcode.io/problems/hashTable
+Design Heap	Medium	0	0	0	Implement Data Structures	https://neetcode.io/problems/heap
+Design Graph	Medium	0	0	0	Implement Data Structures	https://neetcode.io/problems/graph
+Design Disjoint Set (Union-Find)	Medium	0	0	0	Implement Data Structures	https://neetcode.io/problems/unionFind
+Design Segment Tree	Hard	0	0	0	Implement Data Structures	https://neetcode.io/problems/segmentTree
+Insertion Sort	Easy	0	0	0	Sorting	https://neetcode.io/problems/insertionSort
+Merge Sort	Medium	0	0	0	Sorting	https://neetcode.io/problems/mergeSort
+Quick Sort	Medium	0	0	0	Sorting	https://neetcode.io/problems/quickSort
+Matrix Depth-First Search	Medium	0	0	0	Graphs	https://neetcode.io/problems/matrixDFS
+Matrix Breadth-First Search	Medium	0	0	0	Graphs	https://neetcode.io/problems/matrixBFS
+Dijkstra's Algorithm	Medium	0	0	0	Graphs	https://neetcode.io/problems/dijkstra
+Prim's Algorithm	Hard	0	0	0	Graphs	https://neetcode.io/problems/prim
+Kruskal's Algorithm	Hard	0	0	0	Graphs	https://neetcode.io/problems/kruskal
+Topological Sort	Hard	0	0	0	Graphs	https://neetcode.io/problems/topologicalSort
+0 / 1 Knapsack	Medium	0	0	0	Dynamic Programming	https://neetcode.io/problems/zeroOneKnapsack
+Unbounded Knapsack	Medium	0	0	0	Dynamic Programming	https://neetcode.io/problems/unboundedKnapsack
+Factory Method Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/factory
+Singleton Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/singleton
+Builder Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/builder
+Prototype Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/prototype
+Adapter Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/adapter
+Decorator Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/decorator
+Facade Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/facade
+Strategy Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/strategy
+Observer Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/observer
+State Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/state
+Gradient Descent	Easy	0	0	0	Machine Learning	https://neetcode.io/problems/gradient-descent
+Linear Regression (Forward)	Easy	0	0	0	Machine Learning	https://neetcode.io/problems/linear-regression-forward
+Linear Regression (Training)	Medium	0	0	0	Machine Learning	https://neetcode.io/problems/linear-regression-training
+Neural Networks	Easy	0	0	0	Machine Learning	https://neetcode.io/quiz/neural-networks
+Pytorch Basics	Easy	0	0	0	Machine Learning	https://neetcode.io/problems/basics-of-pytorch
+Digit Classifier	Medium	0	0	0	Machine Learning	https://neetcode.io/problems/handwritten-digit-classifier
+PyTorch Training	Easy	0	0	0	Machine Learning	https://neetcode.io/quiz/pytorch-training
+Intro to Natural Language Processing	Medium	0	0	0	Machine Learning	https://neetcode.io/problems/nlp-intro
+Sentiment Analysis	Medium	0	0	0	Machine Learning	https://neetcode.io/problems/sentiment-analysis
+GPT Dataset	Medium	0	0	0	Machine Learning	https://neetcode.io/problems/gpt-dataset
+Self Attention	Hard	0	0	0	Machine Learning	https://neetcode.io/problems/self-attention
+Multi Headed Self Attention	Medium	0	0	0	Machine Learning	https://neetcode.io/problems/multi-headed-self-attention
+Transformer Block	Medium	0	0	0	Machine Learning	https://neetcode.io/problems/transformer-block
+Code GPT	Medium	0	0	0	Machine Learning	https://neetcode.io/problems/code-gpt
+Make GPT Talk Back	Hard	0	0	0	Machine Learning	https://neetcode.io/problems/make-gpt-talk-back

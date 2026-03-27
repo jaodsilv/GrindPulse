@@ -1,17 +1,17 @@
 Problem Name	Difficulty	Intermediate Max Time	Advanced Max Time	Top of Crop Max Time	Problem Pattern
 String Compression	Medium	35	20	12	Two Pointers
 Subarray Product Less Than K	Medium	30	20	12	Sliding Window
-LFU Cache	Hard	50	35	20	Hash Map + Doubly Linked List
-Distinct Subsequences	Hard	45	25	15	Dynamic Programming
-LRU Cache	Medium	35	20	12	Hash Map + Doubly Linked List
-Course Schedule II	Medium	45	30	18	Topological Sort
+LFU Cache	Hard	85	60	45	Linked List
+Distinct Subsequences	Hard	60	45	30	2-D Dynamic Programming
+LRU Cache	Medium	45	35	20	Linked List
+Course Schedule II	Medium	45	35	20	Graphs
 Zigzag Conversion	Medium	40	25	15	Simulation
-Longest Common Subsequence	Medium	28	15	8	Dynamic Programming
-Longest Palindromic Substring	Medium	40	25	15	Dynamic Programming / Expand Around Center
-Minimum Window Substring	Hard	70	45	30	Sliding Window
-Binary Tree Maximum Path Sum	Hard	60	40	22	DFS / Tree Recursion
-Longest Substring Without Repeating Characters	Medium	30	18	10	Sliding Window
-Merge K Sorted Lists	Hard	55	40	25	Heap / Priority Queue
-Reverse Nodes In K Group	Hard	70	50	35	Linked List Manipulation
-Word Search	Medium	45	28	15	Backtracking
-Validate Binary Search Tree	Medium	40	25	12	DFS / Tree Traversal
+Longest Common Subsequence	Medium	45	30	20	2-D Dynamic Programming
+Longest Palindromic Substring	Medium	50	35	25	1-D Dynamic Programming
+Minimum Window Substring	Hard	70	50	38	Sliding Window
+Binary Tree Maximum Path Sum	Hard	65	48	35	Trees
+Longest Substring Without Repeating Characters	Medium	40	28	20	Sliding Window
+Merge K Sorted Lists	Hard	65	45	32	Linked List
+Reverse Nodes In K Group	Hard	60	45	30	Linked List
+Word Search	Medium	55	40	28	Backtracking
+Validate Binary Search Tree	Medium	40	28	20	Trees
