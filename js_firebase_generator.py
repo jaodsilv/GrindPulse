@@ -782,6 +782,7 @@ def generate_js_firebase(firebase_config=None):
             time_to_solve: problem.time_to_solve || '',
             comments: problem.comments || '',
             solved_date: problem.solved_date || '',
+            importedAt: problem.importedAt || null,
             updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
             updatedFrom: 'web-import',
             updatedFromDevice: DEVICE_ID
@@ -957,6 +958,11 @@ def generate_js_firebase(firebase_config=None):
               // Check for conflicts
               const conflict = detectSyncConflict(problem, cloud);
 
+              if (conflict.cleanupImportedAt) {
+                delete problem.importedAt;
+                saveToLocalStorage(fileKey);
+              }
+
               if (conflict.hasConflict) {
                 conflicts.push({
                   fileKey,
@@ -971,7 +977,7 @@ def generate_js_firebase(firebase_config=None):
                 applyCloudData(problem, cloud);
                 saveToLocalStorage(fileKey);
               }
-              // If winner is 'local', keep local data
+              // If winner is 'local' or no winner, keep local data
             }
           }
         }
@@ -1172,7 +1178,7 @@ def generate_js_firebase(firebase_config=None):
       if (local.solved === cloud.solved &&
           local.time_to_solve === cloud.time_to_solve &&
           local.comments === cloud.comments) {
-        return { hasConflict: false };
+        return { hasConflict: false, reason: 'identical' };
       }
 
       // Recently imported data always takes priority (within 5 minutes)
@@ -1182,8 +1188,10 @@ def generate_js_firebase(firebase_config=None):
         const now = Date.now();
         if (now - importTime < IMPORT_PRIORITY_WINDOW) {
           console.log('Recently imported data takes priority for:', local.name || 'unknown');
-          return { hasConflict: false, winner: 'local' };
+          return { hasConflict: false, reason: 'import-priority', winner: 'local' };
         }
+        // Priority window has expired - signal caller to clean up importedAt
+        return { hasConflict: false, reason: 'import-priority-expired', winner: null, cleanupImportedAt: true };
       }
 
       // Get timestamps
@@ -1193,14 +1201,14 @@ def generate_js_firebase(firebase_config=None):
 
       // Clear winner if timestamps differ significantly
       if (cloudTime > localTime + CONFLICT_TIMESTAMP_TOLERANCE) {
-        return { hasConflict: false, winner: 'cloud' };
+        return { hasConflict: false, reason: 'timestamp-winner', winner: 'cloud' };
       }
       if (localTime > cloudTime + CONFLICT_TIMESTAMP_TOLERANCE) {
-        return { hasConflict: false, winner: 'local' };
+        return { hasConflict: false, reason: 'timestamp-winner', winner: 'local' };
       }
 
       // True conflict - timestamps are close but data differs
-      return { hasConflict: true };
+      return { hasConflict: true, reason: 'true-conflict' };
     }
 
     /**

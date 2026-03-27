@@ -1072,14 +1072,18 @@ def generate_js_import_export():
         try {
           await syncImportedToCloud(importedNames);
           console.log('Import synced to cloud successfully:', importedNames.size, 'problems');
+          if (typeof endImportMode === 'function') {
+            endImportMode();
+          }
         } catch (err) {
           console.error('Import cloud sync failed:', err);
+          alert('Import saved locally but cloud sync failed. Your data is safe. Please check your connection and try syncing again.');
         }
-      }
-
-      // Re-enable cloud pulls now that import is synced
-      if (typeof endImportMode === 'function') {
-        endImportMode();
+      } else {
+        // No cloud sync available - still end import mode
+        if (typeof endImportMode === 'function') {
+          endImportMode();
+        }
       }
 
       return { added: addedCount, updated: updatedCount };

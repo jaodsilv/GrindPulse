@@ -103,7 +103,7 @@ def generate_js_conflict_dialog():
 
           <div class="conflict-footer">
             <button class="conflict-btn-secondary" onclick="cancelImport()">Cancel</button>
-            <button class="conflict-btn-primary" onclick="confirmImport()">Apply & Import</button>
+            <button class="conflict-btn-primary" onclick="confirmImport().catch(function(err){ console.error('Import failed:', err); alert('Import failed: ' + err.message); })">Apply & Import</button>
           </div>
         </div>
       `;
