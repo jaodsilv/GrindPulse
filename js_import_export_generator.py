@@ -757,7 +757,7 @@ def generate_js_import_export():
       const selectedMode = modeSelect ? modeSelect.value : 'full';
 
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = async function(e) {
         const content = e.target.result;
         const format = detectFormat(file.name, content);
         const parsed = parseData(content, format);
@@ -783,8 +783,8 @@ def generate_js_import_export():
           };
           showConflictDialog();
         } else {
-          // Apply import directly
-          applyImport(fileKey, parsed.problems, mode, {});
+          // Apply import directly and wait for cloud sync
+          await applyImport(fileKey, parsed.problems, mode, {});
           alert(`Successfully imported ${parsed.problems.length} problem(s).`);
         }
       };
@@ -834,7 +834,7 @@ def generate_js_import_export():
         }
 
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = async function(e) {
           const content = e.target.result;
           const format = detectFormat(file.name, content);
           const parsed = parseData(content, format);
@@ -855,7 +855,7 @@ def generate_js_import_export():
               if (conflicts.length > 0) {
                 allConflicts.push({ fileKey, data: parsed.problems, mode: selectedMode, conflicts });
               } else {
-                applyImport(fileKey, parsed.problems, selectedMode, {});
+                await applyImport(fileKey, parsed.problems, selectedMode, {});
               }
             }
           }
@@ -984,14 +984,25 @@ def generate_js_import_export():
     /**
      * Apply import with conflict resolutions
      */
-    function applyImport(fileKey, importedData, mode, resolutions) {
+    async function applyImport(fileKey, importedData, mode, resolutions) {
+      // Block cloud pulls during import to prevent overwrites
+      if (typeof startImportMode === 'function') {
+        startImportMode();
+      }
+
       const existingData = PROBLEM_DATA.data[fileKey];
       let addedCount = 0;
       let updatedCount = 0;
 
+      // Track all imported problem names for cloud sync
+      const importedNames = new Set();
+
       importedData.forEach(imported => {
         const existingIdx = existingData.findIndex(e => e.name === imported.name);
         const resolution = resolutions[imported.name] || 'overwrite';
+
+        // Track this problem name for cloud sync (even if skipped, we want to ensure cloud matches)
+        importedNames.add(imported.name);
 
         if (existingIdx !== -1) {
           // Existing problem
@@ -1021,6 +1032,9 @@ def generate_js_import_export():
             if (imported.pattern !== undefined) existing.pattern = imported.pattern;
           }
 
+          // Mark as recently imported so cloud sync respects this data
+          existing.importedAt = new Date().toISOString();
+
           updatedCount++;
         } else if (mode === 'problems' || mode === 'full') {
           // New problem - add to list
@@ -1034,14 +1048,15 @@ def generate_js_import_export():
             solved: imported.solved || false,
             time_to_solve: imported.time_to_solve || '',
             comments: imported.comments || '',
-            solved_date: imported.solved_date || ''
+            solved_date: imported.solved_date || '',
+            importedAt: new Date().toISOString()
           };
           existingData.push(newProblem);
           addedCount++;
         }
       });
 
-      // Save and sync
+      // Save and sync locally
       saveToLocalStorage(fileKey);
       syncAfterImport(fileKey);
       renderTable(fileKey);
@@ -1050,6 +1065,21 @@ def generate_js_import_export():
 
       if (typeof updateAwarenessColors === 'function') {
         updateAwarenessColors();
+      }
+
+      // Push ALL imported problems to cloud (including unsolved) to overwrite cloud data
+      if (typeof syncImportedToCloud === 'function') {
+        try {
+          await syncImportedToCloud(importedNames);
+          console.log('Import synced to cloud successfully:', importedNames.size, 'problems');
+        } catch (err) {
+          console.error('Import cloud sync failed:', err);
+        }
+      }
+
+      // Re-enable cloud pulls now that import is synced
+      if (typeof endImportMode === 'function') {
+        endImportMode();
       }
 
       return { added: addedCount, updated: updatedCount };
@@ -1062,12 +1092,15 @@ def generate_js_import_export():
       const problems = PROBLEM_DATA.data[fileKey];
       problems.forEach(problem => {
         if (DUPLICATE_MAP && DUPLICATE_MAP[problem.name]) {
-          // Sync each user data field
+          // Sync each user data field including importedAt
           if (typeof syncDuplicates === 'function') {
             syncDuplicates(problem.name, 'solved', problem.solved);
             syncDuplicates(problem.name, 'time_to_solve', problem.time_to_solve);
             syncDuplicates(problem.name, 'comments', problem.comments);
             syncDuplicates(problem.name, 'solved_date', problem.solved_date);
+            if (problem.importedAt) {
+              syncDuplicates(problem.name, 'importedAt', problem.importedAt);
+            }
           }
         }
       });
