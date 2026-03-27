@@ -856,7 +856,7 @@ def generate_css():
       margin-left: 2px;
     }
 
-    .problem-link:hover + .external-link-icon {
+    td:hover .external-link-icon {
       opacity: 1;
     }
 
