@@ -17,8 +17,8 @@ Dijkstra's Algorithm	Medium	0	0	0	Graphs	https://neetcode.io/problems/dijkstra
 Prim's Algorithm	Hard	0	0	0	Graphs	https://neetcode.io/problems/prim
 Kruskal's Algorithm	Hard	0	0	0	Graphs	https://neetcode.io/problems/kruskal
 Topological Sort	Hard	0	0	0	Graphs	https://neetcode.io/problems/topologicalSort
-0 / 1 Knapsack	Medium	0	0	0	Dynamic Programming	https://neetcode.io/problems/zeroOneKnapsack
-Unbounded Knapsack	Medium	0	0	0	Dynamic Programming	https://neetcode.io/problems/unboundedKnapsack
+0 / 1 Knapsack	Medium	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/zeroOneKnapsack
+Unbounded Knapsack	Medium	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/unboundedKnapsack
 Factory Method Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/factory
 Singleton Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/singleton
 Builder Pattern	Easy	0	0	0	Design Patterns	https://neetcode.io/problems/builder
