@@ -48,7 +48,7 @@ jobs:
         run: |
           set -eo pipefail
 
-          if [[ "${{ github.event_name }}" == "push" ]]; then
+          if [ "${{ github.event_name }}" = "push" ]; then
             # Tag push - extract version from tag
             VERSION="${GITHUB_REF#refs/tags/v}"
             TAG="${GITHUB_REF#refs/tags/}"
