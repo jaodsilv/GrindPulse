@@ -1,0 +1,900 @@
+Problem Name	Difficulty	Intermediate Max Time	Advanced Max Time	Top of the Crop Max Time	Problem Pattern	Link
+Score of a String	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/score-of-a-string/question?list=allNC
+Concatenation of Array	Easy	15	10	5	Arrays & Hashing	https://neetcode.io/problems/concatenation-of-array/question?list=allNC
+Contains Duplicate	Easy	15	10	5	Arrays & Hashing	https://neetcode.io/problems/duplicate-integer/question?list=allNC
+Valid Anagram	Easy	18	10	6	Arrays & Hashing	https://neetcode.io/problems/is-anagram/question?list=allNC
+Replace Elements With Greatest Element On Right Side	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/replace-elements-with-greatest-element-on-right-side/question?list=allNC
+Is Subsequence	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/is-subsequence/question?list=allNC
+Append Characters to String to Make Subsequence	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/append-characters-to-string-to-make-subsequence/
+Length of Last Word	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/length-of-last-word/question?list=allNC
+Valid Word Square	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/valid-word-square/question?list=allNC
+Number of Senior Citizens	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/number-of-senior-citizens/
+Two Sum	Easy	25	15	8	Arrays & Hashing	https://neetcode.io/problems/two-integer-sum/question?list=allNC
+Max Consecutive Ones	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/max-consecutive-ones/question?list=allNC
+Longest Common Prefix	Easy	20	12	8	Arrays & Hashing	https://neetcode.io/problems/longest-common-prefix/question?list=allNC
+String Matching in an Array	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/string-matching-in-an-array/
+Group Anagrams	Medium	40	28	18	Arrays & Hashing	https://neetcode.io/problems/anagram-groups/question?list=allNC
+Group Shifted Strings	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/group-shifted-strings/question?list=allNC
+Pascals Triangle	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/pascals-triangle/question?list=allNC
+Remove Element	Easy	15	10	5	Arrays & Hashing	https://neetcode.io/problems/remove-element/question?list=allNC
+Unique Email Addresses	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/unique-email-addresses/
+Isomorphic Strings	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/isomorphic-strings/question?list=allNC
+Can Place Flowers	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/can-place-flowers/
+Majority Element	Easy	20	12	8	Arrays & Hashing	https://neetcode.io/problems/majority-element/question?list=allNC
+Maximum Difference Between Even and Odd Frequency I	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/maximum-difference-between-even-and-odd-frequency-i/question?list=allNC
+Next Greater Element I	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/next-greater-element-i/question?list=allNC
+Longest Strictly Increasing or Strictly Decreasing Subarray	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/longest-strictly-increasing-or-strictly-decreasing-subarray/
+Maximum Ascending Subarray Sum	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/maximum-ascending-subarray-sum/
+Find Pivot Index	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/find-pivot-index/question?list=allNC
+Kth Distinct String in an Array	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/kth-distinct-string-in-an-array/
+Range Sum Query - Immutable	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/range-sum-query-immutable/
+Find All Numbers Disappeared in An Array	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/find-all-numbers-disappeared-in-an-array/question?list=allNC
+Find Missing and Repeated Values	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/find-missing-and-repeated-values/
+Maximum Number of Balloons	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/maximum-number-of-balloons/
+Word Pattern	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/word-pattern/
+Design HashSet	Easy	25	15	10	Arrays & Hashing	https://neetcode.io/problems/design-hashset/question?list=allNC
+Design HashMap	Easy	25	15	10	Arrays & Hashing	https://neetcode.io/problems/design-hashmap/question?list=allNC
+Height Checker	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/height-checker/
+Find Lucky Integer in an Array	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/find-lucky-integer-in-an-array/question?list=allNC
+Special Array I	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/special-array-i/
+Check if Array Is Sorted and Rotated	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/
+Monotonic Array	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/monotonic-array/
+Divide Array Into Equal Pairs	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/divide-array-into-equal-pairs/
+Number of Good Pairs	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/number-of-good-pairs/
+Pascal's Triangle II	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/pascals-triangle-ii/
+Find Words That Can Be Formed by Characters	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/
+Count the Number of Consistent Strings	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/count-the-number-of-consistent-strings/
+Ransom Note	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/ransom-note/question?list=allNC
+Largest 3-Same-Digit Number in String	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/largest-3-same-digit-number-in-string/question?list=allNC
+Destination City	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/destination-city/
+Maximum Product Difference Between Two	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/maximum-product-difference-between-two-pairs/
+Circular Sentence	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/circular-sentence/
+Maximum Score After Splitting a String	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/maximum-score-after-splitting-a-string/
+Path Crossing	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/path-crossing/
+Minimum Changes To Make Alternating Binary String	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/minimum-changes-to-make-alternating-binary-string/
+Confusing Number	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/confusing-number/question?list=allNC
+Find Anagram Mappings	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/find-anagram-mappings/question?list=allNC
+Sentence Similarity	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/sentence-similarity/question?list=allNC
+Largest Unique Number	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/largest-unique-number/question?list=allNC
+Single-Row Keyboard	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/single-row-keyboard/question?list=allNC
+Palindrome Permutation	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/palindrome-permutation/question?list=allNC
+Counting Elements	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/counting-elements/question?list=allNC
+Perform String Shifts	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/perform-string-shifts/question?list=allNC
+Redistribute Characters to Make All Strings Equal	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/redistribute-characters-to-make-all-strings-equal/
+Longest Palindrome	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/longest-palindrome/
+Largest Substring Between Two Equal Characters	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/largest-substring-between-two-equal-characters/
+Set Mismatch	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/set-mismatch/
+First Unique Character in a String	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/first-unique-character-in-a-string/question?list=allNC
+Intersection of Two Arrays	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/intersection-of-two-arrays/question?list=allNC
+Find Common Characters	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/find-common-characters/
+Number of Students Unable to Eat Lunch	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/
+Time Needed to Buy Tickets	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/time-needed-to-buy-tickets/
+Special Array with X Elements Greater than or Equal X	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/
+Count Vowel Strings in Ranges	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/count-vowel-strings-in-ranges/
+Average Waiting Time	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/average-waiting-time/
+Sort an Array	Medium	35	25	18	Arrays & Hashing	https://neetcode.io/problems/sort-an-array/question?list=allNC
+Sort Colors	Medium	35	25	18	Arrays & Hashing	https://neetcode.io/problems/sort-colors/question?list=allNC
+Relative Sort Array	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/relative-sort-array/
+Sort the People	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/sort-the-people/
+Sort Array by Increasing Frequency	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/sort-array-by-increasing-frequency/question?list=allNC
+Moving Average from Data Stream	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/moving-average-from-data-stream/question?list=allNC
+Custom Sort String	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/custom-sort-string/question?list=allNC
+Top K Frequent Elements	Medium	38	28	18	Arrays & Hashing	https://neetcode.io/problems/top-k-elements-in-list/question?list=allNC
+Encode and Decode Strings	Medium	40	28	20	Arrays & Hashing	https://neetcode.io/problems/string-encode-and-decode/question?list=allNC
+Maximum Distance in Arrays	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/maximum-distance-in-arrays/question?list=allNC
+Lonely Pixel I	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/lonely-pixel-i/question?list=allNC
+Sparse Matrix Multiplication	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/sparse-matrix-multiplication/question?list=allNC
+Candy Crush	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/candy-crush/question?list=allNC
+Range Sum Query 2D Immutable	Medium	35	25	18	Arrays & Hashing	https://neetcode.io/problems/range-sum-query-2d-immutable/question?list=allNC
+Find Smallest Common Element in All Rows	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/find-smallest-common-element-in-all-rows/question?list=allNC
+Analyze User Website Visit Pattern	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/analyze-user-website-visit-pattern/question?list=allNC
+Product of Array Except Self	Medium	45	30	20	Arrays & Hashing	https://neetcode.io/problems/products-of-array-discluding-self/question?list=allNC
+Minimum Number of Operations to Move All Balls to Each Box	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/
+Valid Sudoku	Medium	45	35	20	Arrays & Hashing	https://neetcode.io/problems/valid-sudoku/question?list=allNC
+Longest Consecutive Sequence	Medium	40	28	20	Arrays & Hashing	https://neetcode.io/problems/longest-consecutive-sequence/question?list=allNC
+Encode and Decode TinyURL	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/encode-and-decode-tinyurl/
+Brick Wall	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/brick-wall/
+Best Time to Buy And Sell Stock II	Medium	30	20	15	Arrays & Hashing	https://neetcode.io/problems/best-time-to-buy-and-sell-stock-ii/question?list=allNC
+Majority Element II	Medium	40	28	20	Arrays & Hashing	https://neetcode.io/problems/majority-element-ii/question?list=allNC
+Minimum Index of a Valid Split	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/minimum-index-of-a-valid-split/
+Subarray Sum Equals K	Medium	45	32	24	Arrays & Hashing	https://neetcode.io/problems/subarray-sum-equals-k/question?list=allNC
+Subarray Sums Divisible by K	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/subarray-sums-divisible-by-k/
+Make Sum Divisible by P	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/make-sum-divisible-by-p/
+Unique Length 3 Palindromic Subsequences	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/unique-length-3-palindromic-subsequences/
+Number of Sub-arrays With Odd Sum	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum/
+Minimum Number of Swaps to Make The String Balanced	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/minimum-number-of-swaps-to-make-the-string-balanced/
+One Edit Distance	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/one-edit-distance/question?list=allNC
+Number of Pairs of Interchangeable Rectangles	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/number-of-pairs-of-interchangeable-rectangles/
+Maximum Product of The Length of Two Palindromic Subsequences	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/maximum-product-of-the-length-of-two-palindromic-subsequences/
+Grid Game	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/grid-game/
+Find All Anagrams in a String	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/find-all-anagrams-in-a-string/
+Find The Index of The First Occurrence in a String	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/find-the-index-of-the-first-occurrence-in-a-string/question?list=allNC
+Wiggle Sort	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/wiggle-sort/question?list=allNC
+Largest Number	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/largest-number/question?list=allNC
+Continuous Subarray Sum	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/continuous-subarray-sum/question?list=allNC
+Push Dominoes	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/push-dominoes/
+Repeated DNA Sequences	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/repeated-dna-sequences/
+Insert Delete Get Random O(1)	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/insert-delete-getrandom-o1/question?list=allNC
+Check if a String Contains all Binary Codes of Size K	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/check-if-a-string-contains-all-binary-codes-of-size-k/
+Non Decreasing Array	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/non-decreasing-array/
+Number of Ways to Split Array	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/number-of-ways-to-split-array/
+Sign of An Array	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/sign-of-the-product-of-an-array/
+Find the Difference of Two Arrays	Easy	0	0	0	Arrays & Hashing	https://neetcode.io/problems/find-the-difference-of-two-arrays/question?list=allNC
+Uncommon Words from Two Sentences	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/uncommon-words-from-two-sentences/
+Design Parking System	Easy	0	0	0	Arrays & Hashing	https://leetcode.com/problems/design-parking-system/
+Shifting Letters II	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/shifting-letters-ii/
+Reverse Words in a String II	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/reverse-words-in-a-string-ii/question?list=allNC
+Shortest Way to Form String	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/shortest-way-to-form-string/question?list=allNC
+Number of Zero-Filled Subarrays	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/number-of-zero-filled-subarrays/
+Word Subsets	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/word-subsets/
+Optimal Partition of String	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/optimal-partition-of-string/
+Design Underground System	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/design-underground-system/
+Minimum Penalty for a Shop	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/minimum-penalty-for-a-shop/
+Champagne Tower	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/champagne-tower/
+Sum of Absolute Differences in a Sorted Array	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/sum-of-absolute-differences-in-a-sorted-array/
+Design a Food Rating System	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/design-a-food-rating-system/
+Convert an Array Into a 2D Array With Conditions	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/convert-an-array-into-a-2d-array-with-conditions/
+Minimum Numbers of Operations to Make Array Empty	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/minimum-number-of-operations-to-make-array-empty/question?list=allNC
+Divide Array Into Arrays With Max Difference	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/divide-array-into-arrays-with-max-difference/
+Sequential Digits	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/sequential-digits/
+Sort Characters By Frequency	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/sort-characters-by-frequency/
+Sort the Jumbled Numbers	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/sort-the-jumbled-numbers/
+Find Polygon with the Largest Perimeter	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/find-polygon-with-the-largest-perimeter/
+Minimum Remove to Make Valid Parentheses	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/minimum-remove-to-make-valid-parentheses/question?list=allNC
+Contiguous Array	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/contiguous-array/
+Count Number of Bad Pairs	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/count-number-of-bad-pairs/
+Find All Duplicates in an Array	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/find-all-duplicates-in-an-array/
+Find the Length of the Longest Common Prefix	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/find-the-length-of-the-longest-common-prefix/
+Count Unguarded Cells in the Grid	Medium	0	0	0	Arrays & Hashing	https://leetcode.com/problems/count-unguarded-cells-in-the-grid/
+First Unique Number	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/first-unique-number/question?list=allNC
+Design Tic-Tac-Toe	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/design-tic-tac-toe/question?list=allNC
+Design Snake Game	Medium	0	0	0	Arrays & Hashing	https://neetcode.io/problems/design-snake-game/question?list=allNC
+Text Justification	Hard	0	0	0	Arrays & Hashing	https://neetcode.io/problems/text-justification/question?list=allNC
+Naming a Company	Hard	0	0	0	Arrays & Hashing	https://leetcode.com/problems/naming-a-company/
+Number of Submatrices that Sum to Target	Hard	0	0	0	Arrays & Hashing	https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/
+First Missing Positive	Hard	75	52	38	Arrays & Hashing	https://neetcode.io/problems/first-missing-positive/question?list=allNC
+Shortest Palindrome	Hard	0	0	0	Arrays & Hashing	https://leetcode.com/problems/shortest-palindrome/
+Reverse String	Easy	15	10	5	Two Pointers	https://neetcode.io/problems/reverse-string/question?list=allNC
+Valid Palindrome	Easy	20	12	8	Two Pointers	https://neetcode.io/problems/is-palindrome/question?list=allNC
+Valid Palindrome II	Easy	22	14	9	Two Pointers	https://neetcode.io/problems/valid-palindrome-ii/question?list=allNC
+Valid Word Abbreviation	Easy	0	0	0	Two Pointers	https://neetcode.io/problems/valid-word-abbreviation/question?list=allNC
+Merge Strings Alternately	Easy	18	12	7	Two Pointers	https://neetcode.io/problems/merge-strings-alternately/question?list=allNC
+Merge Sorted Array	Easy	20	12	8	Two Pointers	https://neetcode.io/problems/merge-sorted-array/question?list=allNC
+Merge Two 2D Arrays by Summing Values	Easy	0	0	0	Two Pointers	https://leetcode.com/problems/merge-two-2d-arrays-by-summing-values/
+Move Zeroes	Easy	0	0	0	Two Pointers	https://neetcode.io/problems/move-zeroes/question?list=allNC
+Remove Duplicates From Sorted Array	Easy	18	12	7	Two Pointers	https://neetcode.io/problems/remove-duplicates-from-sorted-array/question?list=allNC
+Squares of a Sorted Array	Easy	0	0	0	Two Pointers	https://neetcode.io/problems/squares-of-a-sorted-array/question?list=allNC
+Assign Cookies	Easy	0	0	0	Two Pointers	https://neetcode.io/problems/assign-cookies/question?list=allNC
+Find First Palindromic String in the Array	Easy	0	0	0	Two Pointers	https://leetcode.com/problems/find-first-palindromic-string-in-the-array/
+Sort Array by Parity	Easy	0	0	0	Two Pointers	https://neetcode.io/problems/sort-array-by-parity/question?list=allNC
+Reverse Words in a String III	Easy	0	0	0	Two Pointers	https://leetcode.com/problems/reverse-words-in-a-string-iii/
+Backspace String Compare	Easy	0	0	0	Two Pointers	https://leetcode.com/problems/backspace-string-compare/
+Check If Two String Arrays are Equivalent	Easy	0	0	0	Two Pointers	https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent/
+Apply Operations to an Array	Easy	0	0	0	Two Pointers	https://leetcode.com/problems/apply-operations-to-an-array/
+Adding Spaces to a String	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/adding-spaces-to-a-string/
+String Compression	Medium	35	20	12	Two Pointers	https://neetcode.io/problems/string-compression/question?list=allNC
+Remove Duplicates From Sorted Array II	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+Partition Array According to Given Pivot	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/partition-array-according-to-given-pivot/
+Two Sum II Input Array Is Sorted	Medium	45	35	20	Two Pointers	https://neetcode.io/problems/two-integer-sum-ii/question?list=allNC
+3Sum	Medium	55	40	28	Two Pointers	https://neetcode.io/problems/three-integer-sum/question?list=allNC
+4Sum	Medium	55	40	28	Two Pointers	https://neetcode.io/problems/4sum/question?list=allNC
+Rotate Array	Medium	35	25	18	Two Pointers	https://neetcode.io/problems/rotate-array/question?list=allNC
+Container With Most Water	Medium	35	20	15	Two Pointers	https://neetcode.io/problems/max-water-container/question?list=allNC
+Number of Subsequences That Satisfy The Given Sum Condition	Medium	0	0	0	Two Pointers	https://neetcode.io/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/question?list=allNC
+Array With Elements Not Equal to Average of Neighbors	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/array-with-elements-not-equal-to-average-of-neighbors/
+Divide Players Into Teams of Equal Skill	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/divide-players-into-teams-of-equal-skill/
+Boats to Save People	Medium	40	28	20	Two Pointers	https://neetcode.io/problems/boats-to-save-people/question?list=allNC
+K-th Symbol in Grammar	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/k-th-symbol-in-grammar/
+Minimum Time To Make Rope Colorful	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/minimum-time-to-make-rope-colorful/
+Rearrange Array Elements by Sign	Medium	0	0	0	Two Pointers	https://neetcode.io/problems/rearrange-array-elements-by-sign/question?list=allNC
+Bag of Tokens	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/bag-of-tokens/
+Minimum Length of String after Deleting Similar Ends	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/minimum-length-of-string-after-deleting-similar-ends/
+Sentence Similarity III	Medium	0	0	0	Two Pointers	https://leetcode.com/problems/sentence-similarity-iii/
+Trapping Rain Water	Hard	60	45	30	Two Pointers	https://neetcode.io/problems/trapping-rain-water/question?list=allNC
+Contains Duplicate II	Easy	20	12	8	Sliding Window	https://neetcode.io/problems/contains-duplicate-ii/question?list=allNC
+Best Time to Buy And Sell Stock	Easy	20	12	7	Sliding Window	https://neetcode.io/problems/buy-and-sell-crypto/question?list=allNC
+Minimum Recolors to Get K Consecutive Black Blocks	Easy	0	0	0	Sliding Window	https://neetcode.io/problems/minimum-recolors-to-get-k-consecutive-black-blocks/question?list=allNC
+Minimum Difference Between Highest And Lowest of K Scores	Easy	0	0	0	Sliding Window	https://neetcode.io/problems/minimum-difference-between-highest-and-lowest-of-k-scores/question?list=allNC
+Number of Sub Arrays of Size K and Avg Greater than or Equal to Threshold	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/question?list=allNC
+Grumpy Bookstore Owner	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/grumpy-bookstore-owner/question?list=allNC
+Max Consecutive Ones II	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/max-consecutive-ones-ii/question?list=allNC
+Alternating Groups II	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/alternating-groups-ii/
+Longest Substring Without Repeating Characters	Medium	40	28	20	Sliding Window	https://neetcode.io/problems/longest-substring-without-duplicates/question?list=allNC
+Longest Substring with At Most Two Distinct Characters	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/longest-substring-with-at-most-two-distinct-characters/question?list=allNC
+Longest Repeating Character Replacement	Medium	50	35	25	Sliding Window	https://neetcode.io/problems/longest-repeating-substring-with-replacement/question?list=allNC
+Permutation In String	Medium	45	35	20	Sliding Window	https://neetcode.io/problems/permutation-string/question?list=allNC
+Longest Substring with At Most K Distinct Characters	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/longest-substring-with-at-most-k-distinct-characters/question?list=allNC
+Frequency of The Most Frequent Element	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/frequency-of-the-most-frequent-element/question?list=allNC
+Fruits into Basket	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/fruit-into-baskets/question?list=allNC
+Maximum Number of Vowels in a Substring of Given Length	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/
+Minimum Number of Flips to Make The Binary String Alternating	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating/
+Defuse the Bomb	Easy	0	0	0	Sliding Window	https://leetcode.com/problems/defuse-the-bomb/
+Minimum Size Subarray Sum	Medium	40	28	20	Sliding Window	https://neetcode.io/problems/minimum-size-subarray-sum/question?list=allNC
+Find K Closest Elements	Medium	40	28	20	Sliding Window	https://neetcode.io/problems/find-k-closest-elements/question?list=allNC
+Minimum Operations to Reduce X to Zero	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/
+Find K-Length Substrings With No Repeated Characters	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/find-k-length-substrings-with-no-repeated-characters/question?list=allNC
+Get Equal Substrings Within Budget	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/get-equal-substrings-within-budget/
+Number of Substrings Containing All Three Characters	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/
+Binary Subarrays with Sum	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/binary-subarrays-with-sum/question?list=allNC
+Count Number of Nice Subarrays	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/count-number-of-nice-subarrays/
+Subarray Product Less Than K	Medium	30	20	12	Sliding Window	https://neetcode.io/problems/subarray-product-less-than-k/question?list=allNC
+Max Consecutive Ones III	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/max-consecutive-ones-iii/question?list=allNC
+Find the Power of K-Size Subarrays I	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/find-the-power-of-k-size-subarrays-i/
+Maximum Sum of Distinct Subarrays With Length K	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/maximum-sum-of-distinct-subarrays-with-length-k/
+Length of Longest Subarray With at Most K Frequency	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/length-of-longest-subarray-with-at-most-k-frequency/
+Count Subarrays Where Max Element Appears at Least K Times	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/count-subarrays-where-max-element-appears-at-least-k-times/
+Maximum Beauty of an Array After Applying Operation	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/maximum-beauty-of-an-array-after-applying-operation/
+Take K of Each Character From Left and Right	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/take-k-of-each-character-from-left-and-right/
+Count of Substrings Containing Every Vowel and K Consonants II	Medium	0	0	0	Sliding Window	https://leetcode.com/problems/count-of-substrings-containing-every-vowel-and-k-consonants-ii/
+Minimum Window Substring	Hard	70	50	38	Sliding Window	https://neetcode.io/problems/minimum-window-with-characters/question?list=allNC
+Sliding Window Maximum	Hard	60	45	30	Sliding Window	https://neetcode.io/problems/sliding-window-maximum/question?list=allNC
+Subarrays with K Different Integers	Hard	0	0	0	Sliding Window	https://neetcode.io/problems/subarrays-with-k-different-integers/question?list=allNC
+Minimum Number of Operations to Make Array Continuous	Hard	0	0	0	Sliding Window	https://leetcode.com/problems/minimum-number-of-operations-to-make-array-continuous/
+Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit	Medium	0	0	0	Sliding Window	https://neetcode.io/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/question?list=allNC
+Smallest Range Covering Elements from K Lists	Hard	0	0	0	Sliding Window	https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
+Crawler Log Folder	Easy	0	0	0	Stack	https://neetcode.io/problems/crawler-log-folder/question?list=allNC
+Baseball Game	Easy	18	12	7	Stack	https://neetcode.io/problems/baseball-game/question?list=allNC
+Valid Parentheses	Easy	20	12	8	Stack	https://neetcode.io/problems/validate-parentheses/question?list=allNC
+Implement Stack Using Queues	Easy	22	14	9	Stack	https://neetcode.io/problems/implement-stack-using-queues/question?list=allNC
+Implement Queue using Stacks	Easy	22	14	9	Stack	https://neetcode.io/problems/implement-queue-using-stacks/question?list=allNC
+Final Prices With a Special Discount in a Shop	Easy	0	0	0	Stack	https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/
+Make The String Great	Easy	0	0	0	Stack	https://leetcode.com/problems/make-the-string-great/
+Min Stack	Medium	45	35	20	Stack	https://neetcode.io/problems/minimum-stack/question?list=allNC
+Evaluate Reverse Polish Notation	Medium	45	35	20	Stack	https://neetcode.io/problems/evaluate-reverse-polish-notation/question?list=allNC
+Removing Stars From a String	Medium	0	0	0	Stack	https://leetcode.com/problems/removing-stars-from-a-string/
+Validate Stack Sequences	Medium	0	0	0	Stack	https://leetcode.com/problems/validate-stack-sequences/
+Asteroid Collision	Medium	40	28	20	Stack	https://neetcode.io/problems/asteroid-collision/question?list=allNC
+Daily Temperatures	Medium	45	35	20	Stack	https://neetcode.io/problems/daily-temperatures/question?list=allNC
+Online Stock Span	Medium	45	32	24	Stack	https://neetcode.io/problems/online-stock-span/question?list=allNC
+Car Fleet	Medium	45	35	20	Stack	https://neetcode.io/problems/car-fleet/question?list=allNC
+Simplify Path	Medium	40	28	20	Stack	https://neetcode.io/problems/simplify-path/question?list=allNC
+Decode String	Medium	45	32	24	Stack	https://neetcode.io/problems/decode-string/question?list=allNC
+Remove K Digits	Medium	0	0	0	Stack	https://leetcode.com/problems/remove-k-digits/
+Remove All Adjacent Duplicates In String II	Medium	0	0	0	Stack	https://neetcode.io/problems/remove-all-adjacent-duplicates-in-string-ii/question?list=allNC
+Reverse Substrings Between Each Pair of Parentheses	Medium	0	0	0	Stack	https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/
+Ternary Expression Parser	Medium	0	0	0	Stack	https://neetcode.io/problems/ternary-expression-parser/question?list=allNC
+Find Permutation	Medium	0	0	0	Stack	https://neetcode.io/problems/find-permutation/question?list=allNC
+Minimum String Length After Removing Substrings	Easy	0	0	0	Stack	https://leetcode.com/problems/minimum-string-length-after-removing-substrings/
+Clear Digits	Easy	0	0	0	Stack	https://leetcode.com/problems/clear-digits/
+Minimum Add to Make Parentheses Valid	Medium	0	0	0	Stack	https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/
+Maximum Width Ramp	Medium	0	0	0	Stack	https://leetcode.com/problems/maximum-width-ramp/
+Basic Calculator II	Medium	0	0	0	Stack	https://neetcode.io/problems/basic-calculator-ii/question?list=allNC
+132 Pattern	Medium	0	0	0	Stack	https://leetcode.com/problems/132-pattern/
+Flatten Nested List Iterator	Medium	0	0	0	Stack	https://leetcode.com/problems/flatten-nested-list-iterator/
+Sum of Subarray Minimums	Medium	0	0	0	Stack	https://leetcode.com/problems/sum-of-subarray-minimums/
+Maximum Frequency Stack	Hard	80	55	40	Stack	https://neetcode.io/problems/maximum-frequency-stack/question?list=allNC
+Robot Collisions	Hard	0	0	0	Stack	https://leetcode.com/problems/robot-collisions/
+Number of Visible People in a Queue	Hard	0	0	0	Stack	https://neetcode.io/problems/number-of-visible-people-in-a-queue/question?list=allNC
+Largest Rectangle In Histogram	Hard	60	45	30	Stack	https://neetcode.io/problems/largest-rectangle-in-histogram/question?list=allNC
+Shortest Subarray with Sum at Least K	Hard	0	0	0	Stack	https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/
+Parsing A Boolean Expression	Hard	0	0	0	Stack	https://leetcode.com/problems/parsing-a-boolean-expression/
+Number of Atoms	Hard	0	0	0	Stack	https://leetcode.com/problems/number-of-atoms/
+Basic Calculator III	Hard	0	0	0	Stack	https://neetcode.io/problems/basic-calculator-iii/question?list=allNC
+Binary Search	Easy	30	20	10	Binary Search	https://neetcode.io/problems/binary-search/question?list=allNC
+Search Insert Position	Easy	18	12	7	Binary Search	https://neetcode.io/problems/search-insert-position/question?list=allNC
+Guess Number Higher Or Lower	Easy	15	10	5	Binary Search	https://neetcode.io/problems/guess-number-higher-or-lower/question?list=allNC
+Arranging Coins	Easy	0	0	0	Binary Search	https://neetcode.io/problems/arranging-coins/question?list=allNC
+Valid Perfect Square	Easy	0	0	0	Binary Search	https://neetcode.io/problems/valid-perfect-square/question?list=allNC
+Sqrt(x)	Easy	20	12	8	Binary Search	https://neetcode.io/problems/sqrtx/question?list=allNC
+Missing Number In Arithmetic Progression	Easy	0	0	0	Binary Search	https://neetcode.io/problems/missing-number-in-arithmetic-progression/question?list=allNC
+Check If a Number Is Majority Element in a Sorted Array	Easy	0	0	0	Binary Search	https://neetcode.io/problems/check-if-a-number-is-majority-element-in-a-sorted-array/question?list=allNC
+Single Element in a Sorted Array	Medium	0	0	0	Binary Search	https://neetcode.io/problems/single-element-in-a-sorted-array/question?list=allNC
+Find Peak Element	Medium	0	0	0	Binary Search	https://neetcode.io/problems/find-peak-element/question?list=allNC
+Successful Pairs of Spells and Potions	Medium	0	0	0	Binary Search	https://leetcode.com/problems/successful-pairs-of-spells-and-potions/
+Search a 2D Matrix	Medium	45	35	20	Binary Search	https://neetcode.io/problems/search-2d-matrix/question?list=allNC
+Koko Eating Bananas	Medium	45	35	20	Binary Search	https://neetcode.io/problems/eating-bananas/question?list=allNC
+Capacity to Ship Packages Within D Days	Medium	45	32	24	Binary Search	https://neetcode.io/problems/capacity-to-ship-packages-within-d-days/question?list=allNC
+Maximum Candies Allocated to K Children	Medium	0	0	0	Binary Search	https://leetcode.com/problems/maximum-candies-allocated-to-k-children/
+House Robber IV	Medium	0	0	0	Binary Search	https://leetcode.com/problems/house-robber-iv/
+Minimize the Maximum Difference of Pairs	Medium	0	0	0	Binary Search	https://neetcode.io/problems/minimize-the-maximum-difference-of-pairs/question?list=allNC
+Minimized Maximum of Products Distributed to Any Store	Medium	0	0	0	Binary Search	https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/
+Minimum Limit of Balls in a Bag	Medium	0	0	0	Binary Search	https://leetcode.com/problems/minimum-limit-of-balls-in-a-bag/
+Minimum Time to Repair Cars	Medium	0	0	0	Binary Search	https://leetcode.com/problems/minimum-time-to-repair-cars/
+Find Minimum In Rotated Sorted Array	Medium	40	25	18	Binary Search	https://neetcode.io/problems/find-minimum-in-rotated-sorted-array/question?list=allNC
+Search In Rotated Sorted Array	Medium	50	35	25	Binary Search	https://neetcode.io/problems/find-target-in-rotated-sorted-array/question?list=allNC
+Search In Rotated Sorted Array II	Medium	45	32	24	Binary Search	https://neetcode.io/problems/search-in-rotated-sorted-array-ii/question?list=allNC
+Time Based Key Value Store	Medium	45	35	20	Binary Search	https://neetcode.io/problems/time-based-key-value-store/question?list=allNC
+Find First And Last Position of Element In Sorted Array	Medium	0	0	0	Binary Search	https://neetcode.io/problems/find-first-and-last-position-of-element-in-sorted-array/question?list=allNC
+Maximum Number of Removable Characters	Medium	0	0	0	Binary Search	https://leetcode.com/problems/maximum-number-of-removable-characters/
+Most Beautiful Item for Each Query	Medium	0	0	0	Binary Search	https://leetcode.com/problems/most-beautiful-item-for-each-query/
+Random Pick with Weight	Medium	0	0	0	Binary Search	https://neetcode.io/problems/random-pick-with-weight/question?list=allNC
+Search Suggestions System	Medium	0	0	0	Binary Search	https://leetcode.com/problems/search-suggestions-system/
+Count the Number of Fair Pairs	Medium	0	0	0	Binary Search	https://leetcode.com/problems/count-the-number-of-fair-pairs/
+Missing Element in Sorted Array	Medium	0	0	0	Binary Search	https://neetcode.io/problems/missing-element-in-sorted-array/question?list=allNC
+Find the Index of the Large Integer	Medium	0	0	0	Binary Search	https://neetcode.io/problems/find-the-index-of-the-large-integer/question?list=allNC
+Split Array Largest Sum	Hard	80	55	40	Binary Search	https://neetcode.io/problems/split-array-largest-sum/question?list=allNC
+Find K-th Smallest Pair Distance	Hard	0	0	0	Binary Search	https://leetcode.com/problems/find-k-th-smallest-pair-distance/
+Median of Two Sorted Arrays	Hard	60	45	30	Binary Search	https://neetcode.io/problems/median-of-two-sorted-arrays/question?list=allNC
+Find in Mountain Array	Hard	75	52	38	Binary Search	https://neetcode.io/problems/find-in-mountain-array/question?list=allNC
+Kth Smallest Product of Two Sorted Arrays	Hard	0	0	0	Binary Search	https://neetcode.io/problems/kth-smallest-product-of-two-sorted-arrays/question?list=allNC
+Divide Chocolate	Hard	0	0	0	Binary Search	https://neetcode.io/problems/divide-chocolate/question?list=allNC
+Maximum Average Subarray II	Hard	0	0	0	Binary Search	https://neetcode.io/problems/maximum-average-subarray-ii/question?list=allNC
+Reverse Linked List	Easy	20	12	8	Linked List	https://neetcode.io/problems/reverse-a-linked-list/question?list=allNC
+Merge Two Sorted Lists	Easy	25	18	12	Linked List	https://neetcode.io/problems/merge-two-sorted-linked-lists/question?list=allNC
+Linked List Cycle	Easy	22	15	10	Linked List	https://neetcode.io/problems/linked-list-cycle-detection/question?list=allNC
+Palindrome Linked List	Easy	0	0	0	Linked List	https://neetcode.io/problems/palindrome-linked-list/question?list=allNC
+Remove Linked List Elements	Easy	0	0	0	Linked List	https://neetcode.io/problems/remove-linked-list-elements/question?list=allNC
+Remove Duplicates From Sorted List	Easy	0	0	0	Linked List	https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+Middle of the Linked List	Easy	0	0	0	Linked List	https://neetcode.io/problems/middle-of-the-linked-list/question?list=allNC
+Intersection of Two Linked Lists	Easy	0	0	0	Linked List	https://neetcode.io/problems/intersection-of-two-linked-lists/question?list=allNC
+Delete N Nodes After M Nodes of a Linked List	Easy	0	0	0	Linked List	https://neetcode.io/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/question?list=allNC
+Merge in Between Linked Lists	Medium	0	0	0	Linked List	https://leetcode.com/problems/merge-in-between-linked-lists/
+Merge Nodes in Between Zeros	Medium	0	0	0	Linked List	https://leetcode.com/problems/merge-nodes-in-between-zeros/
+Find the Minimum and Maximum Number of Nodes Between Critical Points	Medium	0	0	0	Linked List	https://leetcode.com/problems/find-the-minimum-and-maximum-number-of-nodes-between-critical-points/
+Remove Nodes From Linked List	Medium	0	0	0	Linked List	https://leetcode.com/problems/remove-nodes-from-linked-list/
+Reorder List	Medium	50	35	25	Linked List	https://neetcode.io/problems/reorder-linked-list/question?list=allNC
+Maximum Twin Sum Of A Linked List	Medium	0	0	0	Linked List	https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/
+Remove Nth Node From End of List	Medium	35	25	18	Linked List	https://neetcode.io/problems/remove-node-from-end-of-linked-list/question?list=allNC
+Delete Nodes From Linked List Present in Array	Medium	0	0	0	Linked List	https://leetcode.com/problems/delete-nodes-from-linked-list-present-in-array/
+Swapping Nodes in a Linked List	Medium	0	0	0	Linked List	https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
+Copy List With Random Pointer	Medium	45	35	20	Linked List	https://neetcode.io/problems/copy-linked-list-with-random-pointer/question?list=allNC
+Design Linked List	Medium	0	0	0	Linked List	https://leetcode.com/problems/design-linked-list/
+Design Browser History	Medium	0	0	0	Linked List	https://leetcode.com/problems/design-browser-history/
+Add Two Numbers	Medium	45	35	20	Linked List	https://neetcode.io/problems/add-two-numbers/question?list=allNC
+Add Two Numbers II	Medium	0	0	0	Linked List	https://neetcode.io/problems/add-two-numbers-ii/question?list=allNC
+Find The Duplicate Number	Medium	45	35	20	Linked List	https://neetcode.io/problems/find-duplicate-integer/question?list=allNC
+Swap Nodes In Pairs	Medium	0	0	0	Linked List	https://leetcode.com/problems/swap-nodes-in-pairs/
+Sort List	Medium	0	0	0	Linked List	https://leetcode.com/problems/sort-list/
+Partition List	Medium	0	0	0	Linked List	https://leetcode.com/problems/partition-list/
+Rotate List	Medium	0	0	0	Linked List	https://neetcode.io/problems/rotate-list/question?list=allNC
+Reverse Linked List II	Medium	40	28	20	Linked List	https://neetcode.io/problems/reverse-linked-list-ii/question?list=allNC
+Design Circular Queue	Medium	40	28	20	Linked List	https://neetcode.io/problems/design-circular-queue/question?list=allNC
+Insertion Sort List	Medium	0	0	0	Linked List	https://neetcode.io/problems/insertion-sort-list/question?list=allNC
+Split Linked List in Parts	Medium	0	0	0	Linked List	https://leetcode.com/problems/split-linked-list-in-parts/
+LRU Cache	Medium	45	35	20	Linked List	https://neetcode.io/problems/lru-cache/question?list=allNC
+Insert into a Sorted Circular Linked List	Medium	0	0	0	Linked List	https://neetcode.io/problems/insert-into-a-sorted-circular-linked-list/question?list=allNC
+Plus One Linked List	Medium	0	0	0	Linked List	https://neetcode.io/problems/plus-one-linked-list/question?list=allNC
+Print Immutable Linked List in Reverse	Medium	0	0	0	Linked List	https://neetcode.io/problems/print-immutable-linked-list-in-reverse/question?list=allNC
+LFU Cache	Hard	85	60	45	Linked List	https://neetcode.io/problems/lfu-cache/question?list=allNC
+Merge K Sorted Lists	Hard	65	45	32	Linked List	https://neetcode.io/problems/merge-k-sorted-linked-lists/question?list=allNC
+Reverse Nodes In K Group	Hard	60	45	30	Linked List	https://neetcode.io/problems/reverse-nodes-in-k-group/question?list=allNC
+Binary Tree Inorder Traversal	Easy	18	12	7	Trees	https://neetcode.io/problems/binary-tree-inorder-traversal/question?list=allNC
+Binary Tree Preorder Traversal	Easy	18	12	7	Trees	https://neetcode.io/problems/binary-tree-preorder-traversal/question?list=allNC
+Binary Tree Postorder Traversal	Easy	18	12	7	Trees	https://neetcode.io/problems/binary-tree-postorder-traversal/question?list=allNC
+N-ary Tree Postorder Traversal	Easy	0	0	0	Trees	https://neetcode.io/problems/n-ary-tree-postorder-traversal/question?list=allNC
+Invert Binary Tree	Easy	18	10	6	Trees	https://neetcode.io/problems/invert-a-binary-tree/question?list=allNC
+Maximum Depth of Binary Tree	Easy	18	10	6	Trees	https://neetcode.io/problems/depth-of-binary-tree/question?list=allNC
+Diameter of Binary Tree	Easy	30	20	10	Trees	https://neetcode.io/problems/binary-tree-diameter/question?list=allNC
+Balanced Binary Tree	Easy	30	20	10	Trees	https://neetcode.io/problems/balanced-binary-tree/question?list=allNC
+Same Tree	Easy	20	12	8	Trees	https://neetcode.io/problems/same-binary-tree/question?list=allNC
+Subtree of Another Tree	Easy	30	20	15	Trees	https://neetcode.io/problems/subtree-of-a-binary-tree/question?list=allNC
+Convert Sorted Array to Binary Search Tree	Easy	0	0	0	Trees	https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+Merge Two Binary Trees	Easy	0	0	0	Trees	https://neetcode.io/problems/merge-two-binary-trees/question?list=allNC
+Path Sum	Easy	0	0	0	Trees	https://neetcode.io/problems/path-sum/question?list=allNC
+Range Sum of BST	Easy	0	0	0	Trees	https://neetcode.io/problems/range-sum-of-bst/question?list=allNC
+Leaf-Similar Trees	Easy	0	0	0	Trees	https://leetcode.com/problems/leaf-similar-trees/
+Evaluate Boolean Binary Tree	Easy	0	0	0	Trees	https://leetcode.com/problems/evaluate-boolean-binary-tree/
+Closest Binary Search Tree Value	Easy	0	0	0	Trees	https://neetcode.io/problems/closest-binary-search-tree-value/question?list=allNC
+Create Binary Tree From Descriptions	Medium	0	0	0	Trees	https://leetcode.com/problems/create-binary-tree-from-descriptions/
+Populating Next Right Pointers In Each Node	Medium	0	0	0	Trees	https://neetcode.io/problems/populating-next-right-pointers-in-each-node/question?list=allNC
+Binary Tree Vertical Order Traversal	Medium	0	0	0	Trees	https://neetcode.io/problems/binary-tree-vertical-order-traversal/question?list=allNC
+Construct String From Binary Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/construct-string-from-binary-tree/
+Lowest Common Ancestor of a Binary Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/lowest-common-ancestor-of-a-binary-tree/question?list=allNC
+Lowest Common Ancestor of a Binary Tree III	Medium	0	0	0	Trees	https://neetcode.io/problems/lowest-common-ancestor-of-a-binary-tree-iii/question?list=allNC
+Lowest Common Ancestor of a Binary Search Tree	Medium	35	25	18	Trees	https://neetcode.io/problems/lowest-common-ancestor-in-binary-search-tree/question?list=allNC
+Insert into a Binary Search Tree	Medium	35	25	18	Trees	https://neetcode.io/problems/insert-into-a-binary-search-tree/question?list=allNC
+Delete Node in a BST	Medium	40	28	20	Trees	https://neetcode.io/problems/delete-node-in-a-bst/question?list=allNC
+Binary Tree Level Order Traversal	Medium	35	25	18	Trees	https://neetcode.io/problems/level-order-traversal-of-binary-tree/question?list=allNC
+Binary Tree Right Side View	Medium	45	35	20	Trees	https://neetcode.io/problems/binary-tree-right-side-view/question?list=allNC
+Reverse Odd Levels of Binary Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/
+Minimum Number of Operations to Sort a Binary Tree by Level	Medium	0	0	0	Trees	https://leetcode.com/problems/minimum-number-of-operations-to-sort-a-binary-tree-by-level/
+Kth Largest Sum in a Binary Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/kth-largest-sum-in-a-binary-tree/
+Cousins in Binary Tree II	Medium	0	0	0	Trees	https://leetcode.com/problems/cousins-in-binary-tree-ii/
+Minimum Distance between BST Nodes	Easy	0	0	0	Trees	https://leetcode.com/problems/minimum-distance-between-bst-nodes/
+Symmetric Tree	Easy	0	0	0	Trees	https://leetcode.com/problems/symmetric-tree/
+Linked List in Binary Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/linked-list-in-binary-tree/
+Minimum Time to Collect All Apples in a Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/minimum-time-to-collect-all-apples-in-a-tree/question?list=allNC
+Binary Tree Zigzag Level Order Traversal	Medium	0	0	0	Trees	https://neetcode.io/problems/binary-tree-zigzag-level-order-traversal/question?list=allNC
+Construct Quad Tree	Medium	45	32	24	Trees	https://neetcode.io/problems/construct-quad-tree/question?list=allNC
+Find Duplicate Subtrees	Medium	0	0	0	Trees	https://leetcode.com/problems/find-duplicate-subtrees/
+Check Completeness of a Binary Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/check-completeness-of-a-binary-tree/question?list=allNC
+Construct Binary Tree from Inorder and Postorder Traversal	Medium	0	0	0	Trees	https://neetcode.io/problems/construct-binary-tree-from-inorder-and-postorder-traversal/question?list=allNC
+Maximum Width of Binary Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/maximum-width-of-binary-tree/
+Time Needed to Inform All Employees	Medium	0	0	0	Trees	https://leetcode.com/problems/time-needed-to-inform-all-employees/
+Count Good Nodes In Binary Tree	Medium	45	35	20	Trees	https://neetcode.io/problems/count-good-nodes-in-binary-tree/question?list=allNC
+Validate Binary Search Tree	Medium	40	28	20	Trees	https://neetcode.io/problems/valid-binary-search-tree/question?list=allNC
+Kth Smallest Element In a Bst	Medium	35	25	18	Trees	https://neetcode.io/problems/kth-smallest-integer-in-bst/question?list=allNC
+Recover Binary Search Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/recover-binary-search-tree/question?list=allNC
+Construct Binary Tree From Preorder And Inorder Traversal	Medium	50	35	25	Trees	https://neetcode.io/problems/binary-tree-from-preorder-and-inorder-traversal/question?list=allNC
+Construct Binary Tree from Preorder and Postorder Traversal	Medium	0	0	0	Trees	https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/
+Unique Binary Search Trees	Medium	0	0	0	Trees	https://leetcode.com/problems/unique-binary-search-trees/
+Unique Binary Search Trees II	Medium	0	0	0	Trees	https://leetcode.com/problems/unique-binary-search-trees-ii/
+Number of Good Leaf Nodes Pairs	Medium	0	0	0	Trees	https://leetcode.com/problems/number-of-good-leaf-nodes-pairs/
+Sum Root to Leaf Numbers	Medium	0	0	0	Trees	https://neetcode.io/problems/sum-root-to-leaf-numbers/question?list=allNC
+House Robber III	Medium	50	35	26	Trees	https://neetcode.io/problems/house-robber-iii/question?list=allNC
+Flip Equivalent Binary Trees	Medium	0	0	0	Trees	https://leetcode.com/problems/flip-equivalent-binary-trees/
+Operations On Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/operations-on-tree/
+All Possible Full Binary Trees	Medium	0	0	0	Trees	https://leetcode.com/problems/all-possible-full-binary-trees/
+Find Bottom Left Tree Value	Medium	0	0	0	Trees	https://leetcode.com/problems/find-bottom-left-tree-value/
+Trim a Binary Search Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/trim-a-binary-search-tree/
+Binary Search Tree Iterator	Medium	0	0	0	Trees	https://neetcode.io/problems/binary-search-tree-iterator/question?list=allNC
+Validate Binary Tree Nodes	Medium	0	0	0	Trees	https://leetcode.com/problems/validate-binary-tree-nodes/
+Find Largest Value in Tree Row	Medium	0	0	0	Trees	https://leetcode.com/problems/find-largest-value-in-each-tree-row/
+Pseudo-Palindromic Paths in a Binary Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/
+Even Odd Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/even-odd-tree/
+Smallest String Starting From Leaf	Medium	0	0	0	Trees	https://leetcode.com/problems/smallest-string-starting-from-leaf/
+Delete Leaves With a Given Value	Medium	40	28	20	Trees	https://neetcode.io/problems/delete-leaves-with-a-given-value/question?list=allNC
+Delete Nodes And Return Forest	Medium	0	0	0	Trees	https://leetcode.com/problems/delete-nodes-and-return-forest/
+Distribute Coins in Binary Tree	Medium	0	0	0	Trees	https://leetcode.com/problems/distribute-coins-in-binary-tree/
+Convert Bst to Greater Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/convert-bst-to-greater-tree/question?list=allNC
+Step-By-Step Directions From a Binary Tree Node to Another	Medium	0	0	0	Trees	https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/
+Binary Tree Longest Consecutive Sequence	Medium	0	0	0	Trees	https://neetcode.io/problems/binary-tree-longest-consecutive-sequence/question?list=allNC
+Binary Tree Longest Consecutive Sequence II	Medium	0	0	0	Trees	https://neetcode.io/problems/binary-tree-longest-consecutive-sequence-ii/question?list=allNC
+Count Univalue Subtrees	Medium	0	0	0	Trees	https://neetcode.io/problems/count-univalue-subtrees/question?list=allNC
+Maximum Average Subtree	Medium	0	0	0	Trees	https://neetcode.io/problems/maximum-average-subtree/question?list=allNC
+Boundary of Binary Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/boundary-of-binary-tree/question?list=allNC
+Find Leaves of Binary Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/find-leaves-of-binary-tree/question?list=allNC
+Verify Preorder Sequence in Binary Search Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/verify-preorder-sequence-in-binary-search-tree/question?list=allNC
+Two Sum BSTs	Medium	0	0	0	Trees	https://neetcode.io/problems/two-sum-bsts/question?list=allNC
+Largest BST Subtree	Medium	0	0	0	Trees	https://neetcode.io/problems/largest-bst-subtree/question?list=allNC
+Clone N-ary Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/clone-n-ary-tree/question?list=allNC
+Find Root of N-Ary Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/find-root-of-n-ary-tree/question?list=allNC
+Diameter of N-Ary Tree	Medium	0	0	0	Trees	https://neetcode.io/problems/diameter-of-n-ary-tree/question?list=allNC
+Recover a Tree From Preorder Traversal	Hard	0	0	0	Trees	https://leetcode.com/problems/recover-a-tree-from-preorder-traversal/
+Binary Tree Maximum Path Sum	Hard	65	48	35	Trees	https://neetcode.io/problems/binary-tree-maximum-path-sum/question?list=allNC
+Serialize And Deserialize Binary Tree	Hard	70	50	38	Trees	https://neetcode.io/problems/serialize-and-deserialize-binary-tree/question?list=allNC
+Closest Binary Search Tree Value II	Hard	0	0	0	Trees	https://neetcode.io/problems/closest-binary-search-tree-value-ii/question?list=allNC
+Kth Largest Element In a Stream	Easy	30	20	10	Heap / Priority Queue	https://neetcode.io/problems/kth-largest-integer-in-a-stream/question?list=allNC
+Last Stone Weight	Easy	30	20	10	Heap / Priority Queue	https://neetcode.io/problems/last-stone-weight/question?list=allNC
+Take Gifts From the Richest Pile	Easy	0	0	0	Heap / Priority Queue	https://neetcode.io/problems/take-gifts-from-the-richest-pile/question?list=allNC
+Final Array State After K Multiplication Operations I	Easy	0	0	0	Heap / Priority Queue	https://neetcode.io/problems/final-array-state-after-k-multiplication-operations-i/question?list=allNC
+High Five	Easy	0	0	0	Heap / Priority Queue	https://neetcode.io/problems/high-five/question?list=allNC
+K Closest Points to Origin	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/k-closest-points-to-origin/question?list=allNC
+Kth Largest Element In An Array	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/kth-largest-element-in-an-array/question?list=allNC
+Task Scheduler	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/task-scheduling/question?list=allNC
+Design Twitter	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/design-twitter-feed/question?list=allNC
+Least Number of Unique Integers after K Removal	Medium	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/least-number-of-unique-integers-after-k-removals/
+Furthest Building You Can Reach	Medium	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/furthest-building-you-can-reach/
+Minimize Deviation in Array	Hard	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/minimize-deviation-in-array/
+Maximum Subsequence Score	Medium	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/maximum-subsequence-score/
+Single Threaded CPU	Medium	50	35	26	Heap / Priority Queue	https://neetcode.io/problems/single-threaded-cpu/question?list=allNC
+Seat Reservation Manager	Medium	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/seat-reservation-manager/
+Process Tasks Using Servers	Medium	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/process-tasks-using-servers/
+Find The Kth Largest Integer In The Array	Medium	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/find-the-kth-largest-integer-in-the-array/
+Reorganize String	Medium	42	30	22	Heap / Priority Queue	https://neetcode.io/problems/reorganize-string/question?list=allNC
+Longest Happy String	Medium	45	32	24	Heap / Priority Queue	https://neetcode.io/problems/longest-happy-string/question?list=allNC
+Car Pooling	Medium	40	28	20	Heap / Priority Queue	https://neetcode.io/problems/car-pooling/question?list=allNC
+Range Sum of Sorted Subarray Sums	Medium	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/range-sum-of-sorted-subarray-sums/
+Minimum Cost to Connect Sticks	Medium	0	0	0	Heap / Priority Queue	https://neetcode.io/problems/minimum-cost-to-connect-sticks/question?list=allNC
+Campus Bikes	Medium	0	0	0	Heap / Priority Queue	https://neetcode.io/problems/campus-bikes/question?list=allNC
+Find Median From Data Stream	Hard	65	48	35	Heap / Priority Queue	https://neetcode.io/problems/find-median-in-a-data-stream/question?list=allNC
+Maximum Performance of a Team	Hard	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/maximum-performance-of-a-team/
+IPO	Hard	80	58	42	Heap / Priority Queue	https://neetcode.io/problems/ipo/question?list=allNC
+Minimum Cost to Hire K Workers	Hard	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/minimum-cost-to-hire-k-workers/
+Number of Flowers in Full Bloom	Hard	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/number-of-flowers-in-full-bloom/
+Constrained Subsequence Sum	Hard	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/constrained-subsequence-sum/
+Find Building Where Alice and Bob Can Meet	Hard	0	0	0	Heap / Priority Queue	https://leetcode.com/problems/find-building-where-alice-and-bob-can-meet/
+Rearrange String k Distance Apart	Hard	0	0	0	Heap / Priority Queue	https://neetcode.io/problems/rearrange-string-k-distance-apart/question?list=allNC
+Sum of All Subsets XOR Total	Easy	20	12	8	Backtracking	https://neetcode.io/problems/sum-of-all-subset-xor-totals/question?list=allNC
+Subsets	Medium	45	35	20	Backtracking	https://neetcode.io/problems/subsets/question?list=allNC
+Combination Sum	Medium	45	35	20	Backtracking	https://neetcode.io/problems/combination-target-sum/question?list=allNC
+Combination Sum II	Medium	45	35	20	Backtracking	https://neetcode.io/problems/combination-target-sum-ii/question?list=allNC
+Combinations	Medium	38	26	18	Backtracking	https://neetcode.io/problems/combinations/question?list=allNC
+Permutations	Medium	45	35	20	Backtracking	https://neetcode.io/problems/permutations/question?list=allNC
+Subsets II	Medium	45	35	20	Backtracking	https://neetcode.io/problems/subsets-ii/question?list=allNC
+Permutations II	Medium	45	32	24	Backtracking	https://neetcode.io/problems/permutations-ii/question?list=allNC
+Generate Parentheses	Medium	45	35	20	Backtracking	https://neetcode.io/problems/generate-parentheses/question?list=allNC
+Letter Tile Possibilities	Medium	0	0	0	Backtracking	https://leetcode.com/problems/letter-tile-possibilities/
+Word Search	Medium	55	40	28	Backtracking	https://neetcode.io/problems/search-for-word/question?list=allNC
+Palindrome Partitioning	Medium	45	35	20	Backtracking	https://neetcode.io/problems/palindrome-partitioning/question?list=allNC
+Restore IP Addresses	Medium	0	0	0	Backtracking	https://neetcode.io/problems/restore-ip-addresses/question?list=allNC
+Letter Combinations of a Phone Number	Medium	45	35	20	Backtracking	https://neetcode.io/problems/combinations-of-a-phone-number/question?list=allNC
+The k-th Lexicographical String of All Happy Strings of Length n	Medium	0	0	0	Backtracking	https://leetcode.com/problems/the-k-th-lexicographical-string-of-all-happy-strings-of-length-n/
+Matchsticks to Square	Medium	50	35	26	Backtracking	https://neetcode.io/problems/matchsticks-to-square/question?list=allNC
+Splitting a String Into Descending Consecutive Values	Medium	0	0	0	Backtracking	https://leetcode.com/problems/splitting-a-string-into-descending-consecutive-values/
+Construct Smallest Number From DI String	Medium	0	0	0	Backtracking	https://leetcode.com/problems/construct-smallest-number-from-di-string/
+Find Unique Binary String	Medium	0	0	0	Backtracking	https://leetcode.com/problems/find-unique-binary-string/
+Split a String Into the Max Number of Unique Substrings	Medium	0	0	0	Backtracking	https://leetcode.com/problems/split-a-string-into-the-max-number-of-unique-substrings/
+Maximum Length of a Concatenated String With Unique Characters	Medium	0	0	0	Backtracking	https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/
+Partition to K Equal Sum Subsets	Medium	52	37	28	Backtracking	https://neetcode.io/problems/partition-to-k-equal-sum-subsets/question?list=allNC
+The Number of Beautiful Subsets	Medium	0	0	0	Backtracking	https://leetcode.com/problems/the-number-of-beautiful-subsets/
+Different Ways to Add Parentheses	Medium	0	0	0	Backtracking	https://leetcode.com/problems/different-ways-to-add-parentheses/
+Construct the Lexicographically Largest Valid Sequence	Medium	0	0	0	Backtracking	https://leetcode.com/problems/construct-the-lexicographically-largest-valid-sequence/
+Count Number of Maximum Bitwise-OR Subsets	Medium	0	0	0	Backtracking	https://leetcode.com/problems/count-number-of-maximum-bitwise-or-subsets/
+N Queens	Hard	60	45	30	Backtracking	https://neetcode.io/problems/n-queens/question?list=allNC
+N Queens II	Hard	75	52	38	Backtracking	https://neetcode.io/problems/n-queens-ii/question?list=allNC
+Maximum Score Words Formed By Letters	Hard	0	0	0	Backtracking	https://leetcode.com/problems/maximum-score-words-formed-by-letters/
+Word Break II	Hard	80	55	40	Backtracking	https://neetcode.io/problems/word-break-ii/question?list=allNC
+Count Prefix and Suffix Pairs I	Easy	0	0	0	Tries	https://neetcode.io/problems/count-prefix-and-suffix-pairs-i/question?list=allNC
+Implement Trie Prefix Tree	Medium	45	32	22	Tries	https://neetcode.io/problems/implement-prefix-tree/question?list=allNC
+Design Add And Search Words Data Structure	Medium	50	35	25	Tries	https://neetcode.io/problems/design-word-search-data-structure/question?list=allNC
+Counting Words With a Given Prefix	Easy	0	0	0	Tries	https://neetcode.io/problems/counting-words-with-a-given-prefix/question?list=allNC
+Remove Sub-Folders from the Filesystem	Medium	0	0	0	Tries	https://neetcode.io/problems/remove-sub-folders-from-the-filesystem/question?list=allNC
+Extra Characters in a String	Medium	45	32	24	Tries	https://neetcode.io/problems/extra-characters-in-a-string/question?list=allNC
+Word Search II	Hard	75	55	40	Tries	https://neetcode.io/problems/search-for-word-ii/question?list=allNC
+Sum of Prefix Scores of Strings	Hard	0	0	0	Tries	https://leetcode.com/problems/sum-of-prefix-scores-of-strings/
+Count Prefix and Suffix Pairs II	Hard	0	0	0	Tries	https://leetcode.com/problems/count-prefix-and-suffix-pairs-ii/
+Design In-Memory File System	Hard	0	0	0	Tries	https://neetcode.io/problems/design-in-memory-file-system/question?list=allNC
+Design Search Autocomplete System	Hard	0	0	0	Tries	https://neetcode.io/problems/design-search-autocomplete-system/question?list=allNC
+Island Perimeter	Easy	20	12	8	Graphs	https://neetcode.io/problems/island-perimeter/question?list=allNC
+Verifying An Alien Dictionary	Easy	22	14	9	Graphs	https://neetcode.io/problems/verifying-an-alien-dictionary/question?list=allNC
+Find the Town Judge	Easy	20	12	8	Graphs	https://neetcode.io/problems/find-the-town-judge/question?list=allNC
+Flood Fill	Easy	0	0	0	Graphs	https://neetcode.io/problems/flood-fill/question?list=allNC
+Count Servers that Communicate	Medium	0	0	0	Graphs	https://neetcode.io/problems/count-servers-that-communicate/question?list=allNC
+Find Champion II	Medium	0	0	0	Graphs	https://leetcode.com/problems/find-champion-ii/
+Number of Islands	Medium	35	25	18	Graphs	https://neetcode.io/problems/count-number-of-islands/question?list=allNC
+Max Area of Island	Medium	45	35	20	Graphs	https://neetcode.io/problems/max-area-of-island/question?list=allNC
+Maximum Number of Fish in a Grid	Medium	0	0	0	Graphs	https://leetcode.com/problems/maximum-number-of-fish-in-a-grid/
+Clone Graph	Medium	40	28	20	Graphs	https://neetcode.io/problems/clone-graph/question?list=allNC
+Walls And Gates	Medium	45	35	20	Graphs	https://neetcode.io/problems/islands-and-treasure/question?list=allNC
+Rotting Oranges	Medium	45	35	20	Graphs	https://neetcode.io/problems/rotting-fruit/question?list=allNC
+Count Sub Islands	Medium	0	0	0	Graphs	https://leetcode.com/problems/count-sub-islands/
+Pacific Atlantic Water Flow	Medium	55	40	30	Graphs	https://neetcode.io/problems/pacific-atlantic-water-flow/question?list=allNC
+Surrounded Regions	Medium	45	35	20	Graphs	https://neetcode.io/problems/surrounded-regions/question?list=allNC
+Reorder Routes to Make All Paths Lead to The City Zero	Medium	0	0	0	Graphs	https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/
+Snakes And Ladders	Medium	0	0	0	Graphs	https://leetcode.com/problems/snakes-and-ladders/
+Open The Lock	Medium	45	32	24	Graphs	https://neetcode.io/problems/open-the-lock/question?list=allNC
+Find Eventual Safe States	Medium	0	0	0	Graphs	https://leetcode.com/problems/find-eventual-safe-states/
+Course Schedule	Medium	45	32	22	Graphs	https://neetcode.io/problems/course-schedule/question?list=allNC
+Course Schedule II	Medium	45	35	20	Graphs	https://neetcode.io/problems/course-schedule-ii/question?list=allNC
+Graph Valid Tree	Medium	40	28	20	Graphs	https://neetcode.io/problems/valid-tree/question?list=allNC
+Course Schedule IV	Medium	45	32	24	Graphs	https://neetcode.io/problems/course-schedule-iv/question?list=allNC
+Check if Move Is Legal	Medium	0	0	0	Graphs	https://leetcode.com/problems/check-if-move-is-legal/
+Shortest Bridge	Medium	0	0	0	Graphs	https://neetcode.io/problems/shortest-bridge/question?list=allNC
+Shortest Path in Binary Matrix	Medium	0	0	0	Graphs	https://neetcode.io/problems/shortest-path-in-binary-matrix/question?list=allNC
+Number of Connected Components In An Undirected Graph	Medium	35	25	18	Graphs	https://neetcode.io/problems/count-connected-components/question?list=allNC
+Redundant Connection	Medium	45	35	20	Graphs	https://neetcode.io/problems/redundant-connection/question?list=allNC
+Accounts Merge	Medium	50	35	26	Graphs	https://neetcode.io/problems/accounts-merge/question?list=allNC
+Find Closest Node to Given Two Nodes	Medium	0	0	0	Graphs	https://leetcode.com/problems/find-closest-node-to-given-two-nodes/
+As Far from Land as Possible	Medium	0	0	0	Graphs	https://leetcode.com/problems/as-far-from-land-as-possible/
+Shortest Path with Alternating Colors	Medium	0	0	0	Graphs	https://leetcode.com/problems/shortest-path-with-alternating-colors/
+Minimum Fuel Cost to Report to the Capital	Medium	0	0	0	Graphs	https://leetcode.com/problems/minimum-fuel-cost-to-report-to-the-capital/
+Minimum Score of a Path Between Two Cities	Medium	0	0	0	Graphs	https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities/
+Number of Closed Islands	Medium	0	0	0	Graphs	https://leetcode.com/problems/number-of-closed-islands/
+Number of Enclaves	Medium	0	0	0	Graphs	https://neetcode.io/problems/number-of-enclaves/question?list=allNC
+Number of Provinces	Medium	0	0	0	Graphs	https://neetcode.io/problems/number-of-provinces/question?list=allNC
+Regions Cut By Slashes	Medium	0	0	0	Graphs	https://leetcode.com/problems/regions-cut-by-slashes/
+Minimum Number of Vertices to Reach all Nodes	Medium	0	0	0	Graphs	https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/
+Is Graph Bipartite?	Medium	0	0	0	Graphs	https://leetcode.com/problems/is-graph-bipartite/
+Count the Number of Complete Components	Medium	0	0	0	Graphs	https://leetcode.com/problems/count-the-number-of-complete-components/
+Evaluate Division	Medium	48	34	25	Graphs	https://neetcode.io/problems/evaluate-division/question?list=allNC
+Detonate the Maximum Bombs	Medium	0	0	0	Graphs	https://leetcode.com/problems/detonate-the-maximum-bombs/
+Find All Possible Recipes from Given Supplies	Medium	0	0	0	Graphs	https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/
+Shortest Distance After Road Addition Queries I	Medium	0	0	0	Graphs	https://leetcode.com/problems/shortest-distance-after-road-addition-queries-i/
+Minimum Height Trees	Medium	48	34	25	Graphs	https://neetcode.io/problems/minimum-height-trees/question?list=allNC
+Path with Maximum Gold	Medium	0	0	0	Graphs	https://leetcode.com/problems/path-with-maximum-gold/
+Most Profitable Path in a Tree	Medium	0	0	0	Graphs	https://leetcode.com/problems/most-profitable-path-in-a-tree/
+Find the Celebrity	Medium	0	0	0	Graphs	https://neetcode.io/problems/find-the-celebrity/question?list=allNC
+Kill Process	Medium	0	0	0	Graphs	https://neetcode.io/problems/kill-process/question?list=allNC
+All Paths from Source Lead to Destination	Medium	0	0	0	Graphs	https://neetcode.io/problems/all-paths-from-source-lead-to-destination/question?list=allNC
+Web Crawler	Medium	0	0	0	Graphs	https://neetcode.io/problems/web-crawler/question?list=allNC
+Number of Distinct Islands	Medium	0	0	0	Graphs	https://neetcode.io/problems/number-of-distinct-islands/question?list=allNC
+Parallel Courses	Medium	0	0	0	Graphs	https://neetcode.io/problems/parallel-courses/question?list=allNC
+The Maze	Medium	0	0	0	Graphs	https://neetcode.io/problems/the-maze/question?list=allNC
+The Maze II	Medium	0	0	0	Graphs	https://neetcode.io/problems/the-maze-ii/question?list=allNC
+Minimum Knight Moves	Medium	0	0	0	Graphs	https://neetcode.io/problems/minimum-knight-moves/question?list=allNC
+Maximum Number of Points From Grid Queries	Hard	0	0	0	Graphs	https://leetcode.com/problems/maximum-number-of-points-from-grid-queries/
+Maximum Number of K-Divisible Components	Hard	0	0	0	Graphs	https://leetcode.com/problems/maximum-number-of-k-divisible-components/
+Sliding Puzzle	Hard	0	0	0	Graphs	https://leetcode.com/problems/sliding-puzzle/
+Largest Color Value in a Directed Graph	Hard	0	0	0	Graphs	https://leetcode.com/problems/largest-color-value-in-a-directed-graph/
+Minimum Number of Days to Eat N Oranges	Hard	0	0	0	Graphs	https://leetcode.com/problems/minimum-number-of-days-to-eat-n-oranges/
+Find All People With Secret	Hard	0	0	0	Graphs	https://leetcode.com/problems/find-all-people-with-secret/
+Word Ladder	Hard	60	45	30	Graphs	https://neetcode.io/problems/word-ladder/question?list=allNC
+Parallel Courses III	Hard	0	0	0	Graphs	https://leetcode.com/problems/parallel-courses-iii/
+Number of Islands II	Hard	0	0	0	Graphs	https://neetcode.io/problems/number-of-islands-ii/question?list=allNC
+The Maze III	Hard	0	0	0	Graphs	https://neetcode.io/problems/the-maze-iii/question?list=allNC
+Shortest Distance from All Buildings	Hard	0	0	0	Graphs	https://neetcode.io/problems/shortest-distance-from-all-buildings/question?list=allNC
+Path with Minimum Effort	Medium	50	35	26	Advanced Graphs	https://neetcode.io/problems/path-with-minimum-effort/question?list=allNC
+Network Delay Time	Medium	45	35	20	Advanced Graphs	https://neetcode.io/problems/network-delay-time/question?list=allNC
+Reconstruct Itinerary	Hard	60	45	30	Advanced Graphs	https://neetcode.io/problems/reconstruct-flight-path/question?list=allNC
+Min Cost to Connect All Points	Medium	45	35	20	Advanced Graphs	https://neetcode.io/problems/min-cost-to-connect-points/question?list=allNC
+Path with Maximum Probability	Medium	0	0	0	Advanced Graphs	https://neetcode.io/problems/path-with-maximum-probability/question?list=allNC
+Find the Safest Path in a Grid	Medium	0	0	0	Advanced Graphs	https://leetcode.com/problems/find-the-safest-path-in-a-grid/
+Swim In Rising Water	Hard	60	45	30	Advanced Graphs	https://neetcode.io/problems/swim-in-rising-water/question?list=allNC
+Alien Dictionary	Hard	70	50	35	Advanced Graphs	https://neetcode.io/problems/foreign-dictionary/question?list=allNC
+Trapping Rain Water II	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/trapping-rain-water-ii/
+Minimum Obstacle Removal to Reach Corner	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/
+Minimum Cost to Make at Least One Valid Path in a Grid	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/
+Minimum Time to Visit a Cell In a Grid	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/minimum-time-to-visit-a-cell-in-a-grid/
+Cheapest Flights Within K Stops	Medium	45	35	20	Advanced Graphs	https://neetcode.io/problems/cheapest-flight-path/question?list=allNC
+Find the City With the Smallest Number of Neighbors at a Threshold Distance	Medium	0	0	0	Advanced Graphs	https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/
+Minimum Cost to Convert String I	Medium	0	0	0	Advanced Graphs	https://leetcode.com/problems/minimum-cost-to-convert-string-i/
+Number of Ways to Arrive at Destination	Medium	0	0	0	Advanced Graphs	https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
+Making A Large Island	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/making-a-large-island/
+Minimum Cost Walk in Weighted Graph	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/minimum-cost-walk-in-weighted-graph/
+Number of Good Paths	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/number-of-good-paths/
+Maximum Employees to Be Invited to a Meeting	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/maximum-employees-to-be-invited-to-a-meeting/
+Remove Max Number of Edges to Keep Graph Fully Traversable	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/remove-max-number-of-edges-to-keep-graph-fully-traversable/
+Minimum Number of Days to Disconnect Island	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/minimum-number-of-days-to-disconnect-island/
+Second Minimum Time to Reach Destination	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/second-minimum-time-to-reach-destination/
+Find Minimum Diameter After Merging Two Trees	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/find-minimum-diameter-after-merging-two-trees/
+Find Critical and Pseudo Critical Edges in Minimum Spanning Tree	Hard	85	60	45	Advanced Graphs	https://neetcode.io/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/question?list=allNC
+Bus Routes	Hard	0	0	0	Advanced Graphs	https://neetcode.io/problems/bus-routes/question?list=allNC
+Build a Matrix With Conditions	Hard	85	60	45	Advanced Graphs	https://neetcode.io/problems/build-a-matrix-with-conditions/question?list=allNC
+Greatest Common Divisor Traversal	Hard	90	65	48	Advanced Graphs	https://neetcode.io/problems/greatest-common-divisor-traversal/question?list=allNC
+Divide Nodes Into the Maximum Number of Groups	Hard	0	0	0	Advanced Graphs	https://leetcode.com/problems/divide-nodes-into-the-maximum-number-of-groups/
+Climbing Stairs	Easy	20	12	8	1-D Dynamic Programming	https://neetcode.io/problems/climbing-stairs/question?list=allNC
+Min Cost Climbing Stairs	Easy	30	20	10	1-D Dynamic Programming	https://neetcode.io/problems/min-cost-climbing-stairs/question?list=allNC
+N-th Tribonacci Number	Easy	18	12	7	1-D Dynamic Programming	https://neetcode.io/problems/n-th-tribonacci-number/question?list=allNC
+House Robber	Medium	30	20	12	1-D Dynamic Programming	https://neetcode.io/problems/house-robber/question?list=allNC
+House Robber II	Medium	45	30	20	1-D Dynamic Programming	https://neetcode.io/problems/house-robber-ii/question?list=allNC
+Longest Palindromic Substring	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/longest-palindromic-substring/question?list=allNC
+Palindromic Substrings	Medium	45	32	22	1-D Dynamic Programming	https://neetcode.io/problems/palindromic-substrings/question?list=allNC
+Decode Ways	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/decode-ways/question?list=allNC
+Coin Change	Medium	40	28	18	1-D Dynamic Programming	https://neetcode.io/problems/coin-change/question?list=allNC
+Maximum Product Subarray	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/maximum-product-subarray/question?list=allNC
+Word Break	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/word-break/question?list=allNC
+Longest Increasing Subsequence	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/longest-increasing-subsequence/question?list=allNC
+Partition Equal Subset Sum	Medium	45	35	20	1-D Dynamic Programming	https://neetcode.io/problems/partition-equal-subset-sum/question?list=allNC
+Triangle	Medium	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/triangle/question?list=allNC
+Delete And Earn	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/delete-and-earn/
+Paint House	Medium	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/paint-house/question?list=allNC
+Filling Bookcase Shelves	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/filling-bookcase-shelves/
+Combination Sum IV	Medium	48	34	25	1-D Dynamic Programming	https://neetcode.io/problems/combination-sum-iv/question?list=allNC
+Perfect Squares	Medium	45	32	24	1-D Dynamic Programming	https://neetcode.io/problems/perfect-squares/question?list=allNC
+Check if There is a Valid Partition For The Array	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/check-if-there-is-a-valid-partition-for-the-array/
+Maximum Subarray Min Product	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/maximum-subarray-min-product/
+Minimum Cost For Tickets	Medium	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/minimum-cost-for-tickets/question?list=allNC
+Integer Break	Medium	42	30	22	1-D Dynamic Programming	https://neetcode.io/problems/integer-break/question?list=allNC
+Number of Longest Increasing Subsequence	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/number-of-longest-increasing-subsequence/
+Russian Doll Envelopes	Hard	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/russian-doll-envelopes/question?list=allNC
+Stickers to Spell Word	Hard	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/stickers-to-spell-word/
+Uncrossed Lines	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/uncrossed-lines/
+Solving Questions With Brainpower	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/solving-questions-with-brainpower/
+Count Ways to Build Good Strings	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/count-ways-to-build-good-strings/
+Ugly Number II	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/ugly-number-ii/
+New 21 Game	Medium	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/new-21-game/question?list=allNC
+Best Team with no Conflicts	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/best-team-with-no-conflicts/
+Longest String Chain	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/longest-string-chain/
+Knight Dialer	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/knight-dialer/
+Partition Array for Maximum Sum	Medium	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/partition-array-for-maximum-sum/
+Largest Divisible Subset	Medium	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/largest-divisible-subset/question?list=allNC
+Stone Game III	Hard	80	58	42	1-D Dynamic Programming	https://neetcode.io/problems/stone-game-iii/question?list=allNC
+Concatenated Words	Hard	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/concatenated-words/question?list=allNC
+Maximize Score after N Operations	Hard	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/maximize-score-after-n-operations/
+Find the Longest Valid Obstacle Course at Each Position	Hard	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/find-the-longest-valid-obstacle-course-at-each-position/
+Minimum Number of Removals to Make Mountain Array	Hard	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/
+Count all Valid Pickup and Delivery Options	Hard	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/count-all-valid-pickup-and-delivery-options/
+Number of Ways to Divide a Long Corridor	Hard	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/number-of-ways-to-divide-a-long-corridor/
+Maximum Sum of 3 Non-Overlapping Subarrays	Hard	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays/
+Maximum Profit in Job Scheduling	Hard	0	0	0	1-D Dynamic Programming	https://neetcode.io/problems/maximum-profit-in-job-scheduling/question?list=allNC
+Student Attendance Record II	Hard	0	0	0	1-D Dynamic Programming	https://leetcode.com/problems/student-attendance-record-ii/
+Unique Paths	Medium	35	22	15	2-D Dynamic Programming	https://neetcode.io/problems/count-paths/question?list=allNC
+Unique Paths II	Medium	38	26	18	2-D Dynamic Programming	https://neetcode.io/problems/unique-paths-ii/question?list=allNC
+Minimum Path Sum	Medium	38	26	18	2-D Dynamic Programming	https://neetcode.io/problems/minimum-path-sum/question?list=allNC
+Maximum Number of Points with Cost	Medium	0	0	0	2-D Dynamic Programming	https://neetcode.io/problems/maximum-number-of-points-with-cost/question?list=allNC
+Longest Common Subsequence	Medium	45	30	20	2-D Dynamic Programming	https://neetcode.io/problems/longest-common-subsequence/question?list=allNC
+Longest Palindromic Subsequence	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/longest-palindromic-subsequence/
+Length of Longest Fibonacci Subsequence	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/length-of-longest-fibonacci-subsequence/
+Last Stone Weight II	Medium	48	34	25	2-D Dynamic Programming	https://neetcode.io/problems/last-stone-weight-ii/question?list=allNC
+Best Time to Buy And Sell Stock With Cooldown	Medium	45	35	20	2-D Dynamic Programming	https://neetcode.io/problems/buy-and-sell-crypto-with-cooldown/question?list=allNC
+Coin Change II	Medium	45	35	20	2-D Dynamic Programming	https://neetcode.io/problems/coin-change-ii/question?list=allNC
+Target Sum	Medium	45	35	20	2-D Dynamic Programming	https://neetcode.io/problems/target-sum/question?list=allNC
+Interleaving String	Medium	45	35	20	2-D Dynamic Programming	https://neetcode.io/problems/interleaving-string/question?list=allNC
+Stone Game	Medium	42	30	22	2-D Dynamic Programming	https://neetcode.io/problems/stone-game/question?list=allNC
+Stone Game II	Medium	50	35	26	2-D Dynamic Programming	https://neetcode.io/problems/stone-game-ii/question?list=allNC
+Longest Increasing Path In a Matrix	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/longest-increasing-path-in-matrix/question?list=allNC
+Maximal Square	Medium	0	0	0	2-D Dynamic Programming	https://neetcode.io/problems/maximal-square/question?list=allNC
+Count Square Submatrices with All Ones	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/count-square-submatrices-with-all-ones/
+Ones and Zeroes	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/ones-and-zeroes/
+2 Keys Keyboard	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/2-keys-keyboard/
+Maximum Alternating Subsequence Sum	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/maximum-alternating-subsequence-sum/
+Distinct Subsequences	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/count-subsequences/question?list=allNC
+Edit Distance	Medium	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/edit-distance/question?list=allNC
+Number of Dice Rolls with Target Sum	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/
+Minimum Falling Path Sum	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/minimum-falling-path-sum/
+Out of Boundary Paths	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/out-of-boundary-paths/
+Longest Ideal Subsequence	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/longest-ideal-subsequence/
+Count Number of Teams	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/count-number-of-teams/
+Shortest Common Supersequence	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/shortest-common-supersequence/
+Count Vowels Permutation	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/count-vowels-permutation/
+Burst Balloons	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/burst-balloons/question?list=allNC
+Number of Ways to Rearrange Sticks With K Sticks Visible	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/number-of-ways-to-rearrange-sticks-with-k-sticks-visible/
+Regular Expression Matching	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/regular-expression-matching/question?list=allNC
+Flip String to Monotone Increasing	Medium	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/flip-string-to-monotone-increasing/
+Maximum Value of K Coins from Piles	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/maximum-value-of-k-coins-from-piles/
+Number of Music Playlists	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/number-of-music-playlists/
+Number of Ways to Form a Target String Given a Dictionary	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/number-of-ways-to-form-a-target-string-given-a-dictionary/
+Profitable Schemes	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/profitable-schemes/
+Minimum Cost to Cut a Stick	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/minimum-cost-to-cut-a-stick/
+Painting the Walls	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/painting-the-walls/
+Number of Ways to Stay in the Same Place After Some Steps	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/number-of-ways-to-stay-in-the-same-place-after-some-steps/
+String Compression II	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/string-compression-ii/
+Minimum Difficulty of a Job Schedule	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/
+Arithmetic Slices II	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/arithmetic-slices-ii-subsequence/
+K Inverse Pairs Array	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/k-inverse-pairs-array/
+Cherry Pickup	Hard	0	0	0	2-D Dynamic Programming	https://neetcode.io/problems/cherry-pickup/question?list=allNC
+Cherry Pickup II	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/cherry-pickup-ii/
+Minimum Falling Path Sum II	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/minimum-falling-path-sum-ii/
+Freedom Trail	Hard	0	0	0	2-D Dynamic Programming	https://leetcode.com/problems/freedom-trail/
+Split Array With Same Average	Hard	0	0	0	2-D Dynamic Programming	https://neetcode.io/problems/split-array-with-same-average/question?list=allNC
+Buy Two Chocolates	Easy	0	0	0	Greedy	https://neetcode.io/problems/buy-two-chocolates/question?list=allNC
+Lemonade Change	Easy	18	12	7	Greedy	https://neetcode.io/problems/lemonade-change/question?list=allNC
+Minimum Number of Moves to Seat Everyone	Easy	0	0	0	Greedy	https://neetcode.io/problems/minimum-number-of-moves-to-seat-everyone/question?list=allNC
+Maximum Odd Binary Number	Easy	0	0	0	Greedy	https://neetcode.io/problems/maximum-odd-binary-number/question?list=allNC
+Maximum Nesting Depth of the Parentheses	Easy	0	0	0	Greedy	https://neetcode.io/problems/maximum-nesting-depth-of-the-parentheses/question?list=allNC
+Check if One String Swap Can Make Strings Equal	Easy	0	0	0	Greedy	https://leetcode.com/problems/check-if-one-string-swap-can-make-strings-equal/
+Minimum Operations to Make Binary Array Elements Equal to One I	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimum-operations-to-make-binary-array-elements-equal-to-one-i/
+Buildings With an Ocean View	Medium	0	0	0	Greedy	https://neetcode.io/problems/buildings-with-an-ocean-view/question?list=allNC
+Minimum Length of String After Operations	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimum-length-of-string-after-operations/
+Construct K Palindrome Strings	Medium	0	0	0	Greedy	https://leetcode.com/problems/construct-k-palindrome-strings/
+Separate Black and White Balls	Medium	0	0	0	Greedy	https://leetcode.com/problems/separate-black-and-white-balls/
+Minimum Increment to Make Array Unique	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimum-increment-to-make-array-unique/
+Maximum Subarray	Medium	35	25	15	Greedy	https://neetcode.io/problems/maximum-subarray/question?list=allNC
+Maximum Absolute Sum of Any Subarray	Medium	0	0	0	Greedy	https://leetcode.com/problems/maximum-absolute-sum-of-any-subarray/
+Maximum Sum Circular Subarray	Medium	48	34	25	Greedy	https://neetcode.io/problems/maximum-sum-circular-subarray/question?list=allNC
+Minimum Swaps to Group All 1's Together II	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together-ii/
+Longest Turbulent Subarray	Medium	42	30	22	Greedy	https://neetcode.io/problems/longest-turbulent-subarray/question?list=allNC
+Jump Game	Medium	35	25	18	Greedy	https://neetcode.io/problems/jump-game/question?list=allNC
+Jump Game II	Medium	45	35	20	Greedy	https://neetcode.io/problems/jump-game-ii/question?list=allNC
+Jump Game VII	Medium	50	35	26	Greedy	https://neetcode.io/problems/jump-game-vii/question?list=allNC
+Gas Station	Medium	45	35	20	Greedy	https://neetcode.io/problems/gas-station/question?list=allNC
+Hand of Straights	Medium	45	35	20	Greedy	https://neetcode.io/problems/hand-of-straights/question?list=allNC
+Minimum Number of Changes to Make Binary String Beautiful	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimum-number-of-changes-to-make-binary-string-beautiful/
+Minimize Maximum of Array	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimize-maximum-of-array/
+Maximize Y-Sum by Picking a Triplet of Distinct X-Values	Medium	0	0	0	Greedy	https://neetcode.io/problems/maximize-ysum-by-picking-a-triplet-of-distinct-xvalues/question?list=allNC
+Minimum Difference Between Largest and Smallest Value in Three Moves	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves/
+Maximum Total Importance of Roads	Medium	0	0	0	Greedy	https://leetcode.com/problems/maximum-total-importance-of-roads/
+Minimum Number of Pushes to Type Word II	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimum-number-of-pushes-to-type-word-ii/
+Dota2 Senate	Medium	45	32	24	Greedy	https://neetcode.io/problems/dota2-senate/question?list=allNC
+Maximum Points You Can Obtain From Cards	Medium	0	0	0	Greedy	https://neetcode.io/problems/maximum-points-you-can-obtain-from-cards/question?list=allNC
+Merge Triplets to Form Target Triplet	Medium	45	35	20	Greedy	https://neetcode.io/problems/merge-triplets-to-form-target/question?list=allNC
+Partition Labels	Medium	45	35	20	Greedy	https://neetcode.io/problems/partition-labels/question?list=allNC
+Valid Parenthesis String	Medium	45	35	20	Greedy	https://neetcode.io/problems/valid-parenthesis-string/question?list=allNC
+Check if a Parentheses String Can Be Valid	Medium	0	0	0	Greedy	https://leetcode.com/problems/check-if-a-parentheses-string-can-be-valid/
+Eliminate Maximum Number of Monsters	Medium	0	0	0	Greedy	https://leetcode.com/problems/eliminate-maximum-number-of-monsters/
+Two City Scheduling	Medium	0	0	0	Greedy	https://neetcode.io/problems/two-city-scheduling/question?list=allNC
+Maximum Length of Pair Chain	Medium	0	0	0	Greedy	https://leetcode.com/problems/maximum-length-of-pair-chain/
+Best Sightseeing Pair	Medium	0	0	0	Greedy	https://leetcode.com/problems/best-sightseeing-pair/
+Make Lexicographically Smallest Array by Swapping Elements	Medium	0	0	0	Greedy	https://leetcode.com/problems/make-lexicographically-smallest-array-by-swapping-elements/
+Minimum Deletions to Make Character Frequencies Unique	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/
+Minimum Deletions to Make String Balanced	Medium	0	0	0	Greedy	https://leetcode.com/problems/minimum-deletions-to-make-string-balanced/
+Candy	Hard	75	52	38	Greedy	https://neetcode.io/problems/candy/question?list=allNC
+Remove Colored Pieces if Both Neighbors are the Same Color	Medium	0	0	0	Greedy	https://leetcode.com/problems/remove-colored-pieces-if-both-neighbors-are-the-same-color/
+Maximum Score From Removing Substrings	Medium	0	0	0	Greedy	https://leetcode.com/problems/maximum-score-from-removing-substrings/
+Maximum Element After Decreasing and Rearranging	Medium	0	0	0	Greedy	https://leetcode.com/problems/maximum-element-after-decreasing-and-rearranging/
+Number of Laser Beams in a Bank	Medium	0	0	0	Greedy	https://leetcode.com/problems/number-of-laser-beams-in-a-bank/
+Reveal Cards In Increasing Order	Medium	0	0	0	Greedy	https://leetcode.com/problems/reveal-cards-in-increasing-order/
+Construct String With Repeat Limit	Medium	0	0	0	Greedy	https://leetcode.com/problems/construct-string-with-repeat-limit/
+Find Valid Matrix Given Row and Column Sums	Medium	0	0	0	Greedy	https://leetcode.com/problems/find-valid-matrix-given-row-and-column-sums/
+Score After Flipping Matrix	Medium	0	0	0	Greedy	https://leetcode.com/problems/score-after-flipping-matrix/
+Flip Columns For Maximum Number of Equal Rows	Medium	0	0	0	Greedy	https://leetcode.com/problems/flip-columns-for-maximum-number-of-equal-rows/
+Maximum Matrix Sum	Medium	0	0	0	Greedy	https://leetcode.com/problems/maximum-matrix-sum/
+Make Two Arrays Equal by Reversing Subarrays	Easy	0	0	0	Greedy	https://leetcode.com/problems/make-two-arrays-equal-by-reversing-subarrays/
+Shortest Subarray to be Removed to Make Array Sorted	Medium	0	0	0	Greedy	https://leetcode.com/problems/shortest-subarray-to-be-removed-to-make-array-sorted/
+Max Chunks To Make Sorted	Medium	0	0	0	Greedy	https://leetcode.com/problems/max-chunks-to-make-sorted/
+Next Permutation	Medium	0	0	0	Greedy	https://neetcode.io/problems/next-permutation/question?list=allNC
+Maximum Swap	Medium	0	0	0	Greedy	https://leetcode.com/problems/maximum-swap/
+Maximal Score After Applying K Operations	Medium	0	0	0	Greedy	https://leetcode.com/problems/maximal-score-after-applying-k-operations/
+Maximum Frequency After Subarray Operation	Medium	0	0	0	Greedy	https://neetcode.io/problems/maximum-frequency-after-subarray-operation/question?list=allNC
+Put Marbles in Bags	Hard	0	0	0	Greedy	https://neetcode.io/problems/put-marbles-in-bags/question?list=allNC
+Minimum Number of K Consecutive Bit Flips	Hard	0	0	0	Greedy	https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/
+Maximum Score of a Good Subarray	Hard	0	0	0	Greedy	https://leetcode.com/problems/maximum-score-of-a-good-subarray/
+Find the Maximum Sum of Node Values	Hard	0	0	0	Greedy	https://leetcode.com/problems/find-the-maximum-sum-of-node-values/
+Minimum Number of Increments on Subarrays to Form a Target Array	Hard	0	0	0	Greedy	https://neetcode.io/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/question?list=allNC
+Apply Operations to Maximize Score	Hard	0	0	0	Greedy	https://leetcode.com/problems/apply-operations-to-maximize-score/
+Missing Ranges	Easy	0	0	0	Intervals	https://neetcode.io/problems/missing-ranges/question?list=allNC
+Remove Interval	Medium	0	0	0	Intervals	https://neetcode.io/problems/remove-interval/question?list=allNC
+Add Bold Tag in String	Medium	0	0	0	Intervals	https://neetcode.io/problems/add-bold-tag-in-string/question?list=allNC
+Insert Interval	Medium	45	30	22	Intervals	https://neetcode.io/problems/insert-new-interval/question?list=allNC
+Merge Intervals	Medium	35	25	18	Intervals	https://neetcode.io/problems/merge-intervals/question?list=allNC
+Non Overlapping Intervals	Medium	45	32	22	Intervals	https://neetcode.io/problems/non-overlapping-intervals/question?list=allNC
+Interval List Intersections	Medium	0	0	0	Intervals	https://neetcode.io/problems/interval-list-intersections/question?list=allNC
+Meeting Rooms	Easy	20	12	8	Intervals	https://neetcode.io/problems/meeting-schedule/question?list=allNC
+Meeting Rooms II	Medium	45	32	22	Intervals	https://neetcode.io/problems/meeting-schedule-ii/question?list=allNC
+Meeting Rooms III	Hard	80	58	42	Intervals	https://neetcode.io/problems/meeting-rooms-iii/question?list=allNC
+Divide Intervals Into Minimum Number of Groups	Medium	0	0	0	Intervals	https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/
+Remove Covered Intervals	Medium	0	0	0	Intervals	https://leetcode.com/problems/remove-covered-intervals/
+Minimum Number of Arrows to Burst Balloons	Medium	0	0	0	Intervals	https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/
+The Number of the Smallest Unoccupied Chair	Medium	0	0	0	Intervals	https://leetcode.com/problems/the-number-of-the-smallest-unoccupied-chair/
+Check if Grid can be Cut into Sections	Medium	0	0	0	Intervals	https://leetcode.com/problems/check-if-grid-can-be-cut-into-sections/
+My Calendar I	Medium	0	0	0	Intervals	https://leetcode.com/problems/my-calendar-i/
+My Calendar II	Medium	0	0	0	Intervals	https://leetcode.com/problems/my-calendar-ii/
+Count Days Without Meetings	Medium	0	0	0	Intervals	https://leetcode.com/problems/count-days-without-meetings/
+Minimum Interval to Include Each Query	Hard	60	45	30	Intervals	https://neetcode.io/problems/minimum-interval-including-query/question?list=allNC
+Data Stream as Disjoint Intervals	Hard	0	0	0	Intervals	https://leetcode.com/problems/data-stream-as-disjoint-intervals/
+Excel Sheet Column Title	Easy	20	12	8	Math & Geometry	https://neetcode.io/problems/excel-sheet-column-title/question?list=allNC
+Greatest Common Divisor of Strings	Easy	22	14	9	Math & Geometry	https://neetcode.io/problems/greatest-common-divisor-of-strings/question?list=allNC
+Insert Greatest Common Divisors in Linked List	Medium	22	14	9	Math & Geometry	https://neetcode.io/problems/insert-greatest-common-divisors-in-linked-list/question?list=allNC
+Count Odd Numbers in an Interval Range	Easy	0	0	0	Math & Geometry	https://neetcode.io/problems/count-odd-numbers-in-an-interval-range/question?list=allNC
+Matrix Diagonal Sum	Easy	0	0	0	Math & Geometry	https://neetcode.io/problems/matrix-diagonal-sum/question?list=allNC
+Calculate Money in Leetcode Bank	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/calculate-money-in-leetcode-bank/
+Largest Odd Number in String	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/largest-odd-number-in-string/
+Transpose Matrix	Easy	18	12	7	Math & Geometry	https://neetcode.io/problems/transpose-matrix/question?list=allNC
+Image Smoother	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/image-smoother/
+Count of Matches in Tournament	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/count-of-matches-in-tournament/
+Water Bottles	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/water-bottles/
+Largest Local Values in a Matrix	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/largest-local-values-in-a-matrix/
+Power of Four	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/power-of-four/
+Lucky Numbers in a Matrix	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/lucky-numbers-in-a-matrix/
+Maximum Points on a Line	Hard	0	0	0	Math & Geometry	https://leetcode.com/problems/max-points-on-a-line/
+Magic Squares In Grid	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/magic-squares-in-grid/
+Rotate Image	Medium	40	28	20	Math & Geometry	https://neetcode.io/problems/rotate-matrix/question?list=allNC
+Spiral Matrix	Medium	50	35	25	Math & Geometry	https://neetcode.io/problems/spiral-matrix/question?list=allNC
+Spiral Matrix II	Medium	0	0	0	Math & Geometry	https://neetcode.io/problems/spiral-matrix-ii/question?list=allNC
+Spiral Matrix III	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/spiral-matrix-iii/
+Spiral Matrix IV	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/spiral-matrix-iv/
+Set Matrix Zeroes	Medium	45	30	22	Math & Geometry	https://neetcode.io/problems/set-zeroes-in-matrix/question?list=allNC
+Happy Number	Easy	30	20	10	Math & Geometry	https://neetcode.io/problems/non-cyclical-number/question?list=allNC
+Plus One	Easy	30	20	10	Math & Geometry	https://neetcode.io/problems/plus-one/question?list=allNC
+Palindrome Number	Easy	0	0	0	Math & Geometry	https://neetcode.io/problems/palindrome-number/question?list=allNC
+Ugly Number	Easy	0	0	0	Math & Geometry	https://neetcode.io/problems/ugly-number/question?list=allNC
+Convert 1D Array Into 2D Array	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/convert-1d-array-into-2d-array/
+Shift 2D Grid	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/shift-2d-grid/
+Roman to Integer	Easy	20	12	8	Math & Geometry	https://neetcode.io/problems/roman-to-integer/question?list=allNC
+Integer to Roman	Medium	0	0	0	Math & Geometry	https://neetcode.io/problems/integer-to-roman/question?list=allNC
+Pow(x, n)	Medium	45	35	20	Math & Geometry	https://neetcode.io/problems/pow-x-n/question?list=allNC
+Find the Punishment Number of an Integer	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/find-the-punishment-number-of-an-integer/
+Check if Number is a Sum of Powers of Three	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/check-if-number-is-a-sum-of-powers-of-three/
+Multiply Strings	Medium	45	35	20	Math & Geometry	https://neetcode.io/problems/multiply-strings/question?list=allNC
+Detect Squares	Medium	45	35	20	Math & Geometry	https://neetcode.io/problems/count-squares/question?list=allNC
+Robot Bounded In Circle	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/robot-bounded-in-circle/
+Walking Robot Simulation	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/walking-robot-simulation/
+Zigzag Conversion	Medium	40	25	15	Math & Geometry	https://neetcode.io/problems/zigzag-conversion/question?list=allNC
+Rotating the Box	Medium	0	0	0	Math & Geometry	https://neetcode.io/problems/rotating-the-box/question?list=allNC
+Sum of Square Numbers	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/sum-of-square-numbers/
+Find Missing Observations	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/find-missing-observations/
+Minimum Time Difference	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/minimum-time-difference/
+Minimum Operations to Make a Uni-Value Grid	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/minimum-operations-to-make-a-uni-value-grid/
+Largest Submatrix With Rearrangements	Medium	0	0	0	Math & Geometry	https://neetcode.io/problems/largest-submatrix-with-rearrangements/question?list=allNC
+Wildest Vertical Area Between Two Points Containing No Points	Easy	0	0	0	Math & Geometry	https://leetcode.com/problems/widest-vertical-area-between-two-points-containing-no-points/
+Tuple with Same Product	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/tuple-with-same-product/
+Lexicographical Numbers	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/lexicographical-numbers/
+Find the Winner of the Circular Game	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/find-the-winner-of-the-circular-game/
+Count Total Number of Colored Cells	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/count-total-number-of-colored-cells/
+Prime Subtraction Operation	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/prime-subtraction-operation/
+Closest Prime Numbers in Range	Medium	0	0	0	Math & Geometry	https://leetcode.com/problems/closest-prime-numbers-in-range/
+Count Primes	Medium	0	0	0	Math & Geometry	https://neetcode.io/problems/count-primes/question?list=allNC
+Distribute Candies Among Children II	Medium	0	0	0	Math & Geometry	https://neetcode.io/problems/distribute-candies-among-children-ii/question?list=allNC
+Minimum Number of One Bit Operations to Make Integers Zero	Hard	0	0	0	Math & Geometry	https://leetcode.com/problems/minimum-one-bit-operations-to-make-integers-zero/
+K-th Smallest in Lexicographical Order	Hard	0	0	0	Math & Geometry	https://neetcode.io/problems/k-th-smallest-in-lexicographical-order/question?list=allNC
+Integer to English Words	Hard	0	0	0	Math & Geometry	https://leetcode.com/problems/integer-to-english-words/
+Single Number	Easy	30	20	10	Bit Manipulation	https://neetcode.io/problems/single-number/question?list=allNC
+Single Number III	Medium	0	0	0	Bit Manipulation	https://neetcode.io/problems/single-number-iii/question?list=allNC
+Number of 1 Bits	Easy	18	12	8	Bit Manipulation	https://neetcode.io/problems/number-of-one-bits/question?list=allNC
+Counting Bits	Easy	30	20	15	Bit Manipulation	https://neetcode.io/problems/counting-bits/question?list=allNC
+Add Binary	Easy	20	12	8	Bit Manipulation	https://neetcode.io/problems/add-binary/question?list=allNC
+Minimum Bit Flips to Convert Number	Easy	0	0	0	Bit Manipulation	https://leetcode.com/problems/minimum-bit-flips-to-convert-number/
+Reverse Bits	Easy	25	15	10	Bit Manipulation	https://neetcode.io/problems/reverse-bits/question?list=allNC
+Missing Number	Easy	20	12	8	Bit Manipulation	https://neetcode.io/problems/missing-number/question?list=allNC
+Shuffle the Array	Easy	0	0	0	Bit Manipulation	https://leetcode.com/problems/shuffle-the-array/
+Add to Array-Form of Integer	Easy	0	0	0	Bit Manipulation	https://leetcode.com/problems/add-to-array-form-of-integer/
+Find the Difference	Easy	0	0	0	Bit Manipulation	https://neetcode.io/problems/find-the-difference/question?list=allNC
+Power of Two	Easy	0	0	0	Bit Manipulation	https://neetcode.io/problems/power-of-two/question?list=allNC
+Sum of Two Integers	Medium	45	30	22	Bit Manipulation	https://neetcode.io/problems/sum-of-two-integers/question?list=allNC
+Reverse Integer	Medium	45	35	20	Bit Manipulation	https://neetcode.io/problems/reverse-integer/question?list=allNC
+Bitwise XOR of All Pairings	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/bitwise-xor-of-all-pairings/
+Largest Combination With Bitwise AND Greater Than Zero	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/largest-combination-with-bitwise-and-greater-than-zero/
+XOR Queries of a Subarray	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/xor-queries-of-a-subarray/
+Maximum XOR for Each Query	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/maximum-xor-for-each-query/
+Neighboring Bitwise XOR	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/neighboring-bitwise-xor/
+Shortest Subarray With OR at Least K II	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/shortest-subarray-with-or-at-least-k-ii/
+Bitwise AND of Numbers Range	Medium	42	30	22	Bit Manipulation	https://neetcode.io/problems/bitwise-and-of-numbers-range/question?list=allNC
+Find Kth Bit in Nth Binary String	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/find-kth-bit-in-nth-binary-string/
+Count Triplets That Can Form Two Arrays of Equal XOR	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/
+Minimum Array End	Medium	45	32	24	Bit Manipulation	https://neetcode.io/problems/minimum-array-end/question?list=allNC
+Find if Array Can Be Sorted	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/find-if-array-can-be-sorted/
+Longest Subarray With Maximum Bitwise AND	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/longest-subarray-with-maximum-bitwise-and/
+Longest Nice Subarray	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/longest-nice-subarray/
+Find the Longest Substring Containing Vowels in Even Counts	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/
+Minimize XOR	Medium	0	0	0	Bit Manipulation	https://leetcode.com/problems/minimize-xor/
+Create Hello World Function	Easy	0	0	0	JavaScript	https://leetcode.com/problems/create-hello-world-function/
+Counter	Easy	0	0	0	JavaScript	https://leetcode.com/problems/counter/
+Counter II	Easy	0	0	0	JavaScript	https://leetcode.com/problems/counter-ii/
+Apply Transform over each Element in Array	Easy	0	0	0	JavaScript	https://leetcode.com/problems/apply-transform-over-each-element-in-array/
+Filter Elements from Array	Easy	0	0	0	JavaScript	https://leetcode.com/problems/filter-elements-from-array/
+Array Reduce Transformation	Easy	0	0	0	JavaScript	https://leetcode.com/problems/array-reduce-transformation/
+Function Composition	Easy	0	0	0	JavaScript	https://leetcode.com/problems/function-composition/
+Allow One Function Call	Easy	0	0	0	JavaScript	https://leetcode.com/problems/allow-one-function-call/
+Memoize	Medium	0	0	0	JavaScript	https://leetcode.com/problems/memoize/
+Curry	Medium	0	0	0	JavaScript	https://leetcode.com/problems/curry/
+Sleep	Easy	0	0	0	JavaScript	https://leetcode.com/problems/sleep/
+Promise Time Limit	Easy	0	0	0	JavaScript	https://leetcode.com/problems/promise-time-limit/
+Promise Pool	Medium	0	0	0	JavaScript	https://leetcode.com/problems/promise-pool/
+Cache With Time Limit	Medium	0	0	0	JavaScript	https://leetcode.com/problems/cache-with-time-limit/
+Debounce	Medium	0	0	0	JavaScript	https://leetcode.com/problems/debounce/
+Throttle	Medium	0	0	0	JavaScript	https://leetcode.com/problems/throttle/
+JSON Deep Equal	Medium	0	0	0	JavaScript	https://leetcode.com/problems/json-deep-equal/
+Convert Object to JSON String	Medium	0	0	0	JavaScript	https://leetcode.com/problems/convert-object-to-json-string/
+Array of Objects to Matrix	Medium	0	0	0	JavaScript	https://leetcode.com/problems/array-of-objects-to-matrix/
+Difference Between Two Objects	Medium	0	0	0	JavaScript	https://leetcode.com/problems/differences-between-two-objects/
+Chunk Array	Easy	0	0	0	JavaScript	https://leetcode.com/problems/chunk-array/
+Flatten Deeply Nested Array	Medium	0	0	0	JavaScript	https://leetcode.com/problems/flatten-deeply-nested-array/
+Array Prototype Last	Easy	0	0	0	JavaScript	https://leetcode.com/problems/array-prototype-last/
+Group By	Medium	0	0	0	JavaScript	https://leetcode.com/problems/group-by/
+Check if Object Instance of Class	Medium	0	0	0	JavaScript	https://leetcode.com/problems/check-if-object-instance-of-class/
+Call Function with Custom Context	Medium	0	0	0	JavaScript	https://leetcode.com/problems/call-function-with-custom-context/
+Event Emitter	Medium	0	0	0	JavaScript	https://leetcode.com/problems/event-emitter/
+Array Wrapper	Easy	0	0	0	JavaScript	https://leetcode.com/problems/array-wrapper/
+Generate Fibonacci Sequence	Easy	0	0	0	JavaScript	https://leetcode.com/problems/generate-fibonacci-sequence/
+Nested Array Generator	Medium	0	0	0	JavaScript	https://leetcode.com/problems/nested-array-generator/
