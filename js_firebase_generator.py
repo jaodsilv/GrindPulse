@@ -894,24 +894,30 @@ def generate_js_firebase(firebase_config=None):
           updateSyncStatusUI('synced');
         }
 
-        // Load all config settings from cloud only when explicitly requested via options.loadConfigs
-        // Configs have real-time listeners for subsequent updates (see setupConfigRealtimeListeners)
-        if (options.loadConfigs) {
+        lastPullTime = Date.now(); // Track pull time for focus-based refresh
+      } catch (error) {
+        console.error('Pull from cloud failed:', error);
+        updateSyncStatusUI('error', error.message);
+        throw error;
+      }
+
+      // Load all config settings from cloud only when explicitly requested via options.loadConfigs
+      // Configs have real-time listeners for subsequent updates (see setupConfigRealtimeListeners)
+      // Separate try/catch so config load failure does not overwrite the 'synced' status above
+      if (options.loadConfigs) {
+        try {
           if (typeof loadAllConfigsFromCloud === 'function') {
             console.log('Loading config settings from cloud');
             await loadAllConfigsFromCloud();
           } else {
             console.error('loadAllConfigsFromCloud is not defined - config sync module may not be loaded');
           }
-        } else {
-          console.debug('Skipping config settings load (real-time listeners handle updates)');
+        } catch (configError) {
+          console.error('Config load from cloud failed:', configError);
+          updateSyncStatusUI('error', configError.message);
         }
-
-        lastPullTime = Date.now(); // Track pull time for focus-based refresh
-      } catch (error) {
-        console.error('Pull from cloud failed:', error);
-        updateSyncStatusUI('error', error.message);
-        throw error;
+      } else {
+        console.debug('Skipping config settings load (real-time listeners handle updates)');
       }
     }
 

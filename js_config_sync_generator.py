@@ -585,7 +585,10 @@ def generate_js_config_sync():
               handleFilterConfigChange(doc.data());
             }
           },
-          error => { console.error('Config listener failed (filters):', error); }
+          error => {
+            console.error('Config listener failed (filters):', error);
+            if (typeof updateSyncStatusUI === 'function') updateSyncStatusUI('error', error.message);
+          }
         );
 
       // Listen for export prefs changes
@@ -596,7 +599,10 @@ def generate_js_config_sync():
               handleExportPrefsChange(doc.data());
             }
           },
-          error => { console.error('Config listener failed (exportPrefs):', error); }
+          error => {
+            console.error('Config listener failed (exportPrefs):', error);
+            if (typeof updateSyncStatusUI === 'function') updateSyncStatusUI('error', error.message);
+          }
         );
 
       // Listen for UI prefs changes
@@ -607,7 +613,10 @@ def generate_js_config_sync():
               handleUIPrefsChange(doc.data());
             }
           },
-          error => { console.error('Config listener failed (uiPrefs):', error); }
+          error => {
+            console.error('Config listener failed (uiPrefs):', error);
+            if (typeof updateSyncStatusUI === 'function') updateSyncStatusUI('error', error.message);
+          }
         );
 
       // Listen for awareness config changes
@@ -618,7 +627,10 @@ def generate_js_config_sync():
               handleAwarenessConfigChange(doc.data());
             }
           },
-          error => { console.error('Config listener failed (awareness):', error); }
+          error => {
+            console.error('Config listener failed (awareness):', error);
+            if (typeof updateSyncStatusUI === 'function') updateSyncStatusUI('error', error.message);
+          }
         );
 
       // Add to global listeners array for cleanup
