@@ -77,7 +77,7 @@ def generate_js_awareness():
 
       // Refresh settings
       refreshInterval: 86400000,  // 24 hours in milliseconds (default: daily)
-      refreshOnFocus: true        // Refresh when window regains focus
+      refreshOnFocus: false       // Disabled by default - colors are day-based, no need to update on focus
     };
 
     // Current awareness config (loaded from localStorage or defaults)
@@ -89,6 +89,10 @@ def generate_js_awareness():
       if (saved) {
         try {
           const savedConfig = JSON.parse(saved);
+          // Migrate: refreshOnFocus was changed from true to false in default; force the new default
+          if (savedConfig.refreshOnFocus === true) {
+            savedConfig.refreshOnFocus = false;
+          }
           // Deep merge with defaults to handle missing fields
           AWARENESS_CONFIG = deepMerge(DEFAULT_AWARENESS_CONFIG, savedConfig);
         } catch (e) {
@@ -331,6 +335,12 @@ def generate_js_awareness():
         updateTabAwareness(currentTab);
       }
     }
+
+    // Debounced version for interactive operations like settings preview
+    // Uses aggressive 1000ms debounce since colors are day-based and don't need real-time updates
+    const updateAwarenessColorsDebounced = debounce(function(allTabs = false) {
+      updateAwarenessColors(allTabs);
+    }, 1000);
 
     // Auto-refresh management
     let awarenessRefreshInterval = null;
