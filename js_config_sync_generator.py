@@ -579,35 +579,59 @@ def generate_js_config_sync():
 
       // Listen for filter config changes
       const filterUnsubscribe = userRef.collection('config').doc('filters')
-        .onSnapshot(doc => {
-          if (doc.exists && doc.metadata.hasPendingWrites === false) {
-            handleFilterConfigChange(doc.data());
+        .onSnapshot(
+          doc => {
+            if (doc.exists && doc.metadata.hasPendingWrites === false) {
+              handleFilterConfigChange(doc.data());
+            }
+          },
+          error => {
+            console.error('Config listener failed (filters):', error);
+            if (typeof updateSyncStatusUI === 'function') updateSyncStatusUI('error', error.message);
           }
-        });
+        );
 
       // Listen for export prefs changes
       const exportUnsubscribe = userRef.collection('config').doc('exportPrefs')
-        .onSnapshot(doc => {
-          if (doc.exists && doc.metadata.hasPendingWrites === false) {
-            handleExportPrefsChange(doc.data());
+        .onSnapshot(
+          doc => {
+            if (doc.exists && doc.metadata.hasPendingWrites === false) {
+              handleExportPrefsChange(doc.data());
+            }
+          },
+          error => {
+            console.error('Config listener failed (exportPrefs):', error);
+            if (typeof updateSyncStatusUI === 'function') updateSyncStatusUI('error', error.message);
           }
-        });
+        );
 
       // Listen for UI prefs changes
       const uiUnsubscribe = userRef.collection('config').doc('uiPrefs')
-        .onSnapshot(doc => {
-          if (doc.exists && doc.metadata.hasPendingWrites === false) {
-            handleUIPrefsChange(doc.data());
+        .onSnapshot(
+          doc => {
+            if (doc.exists && doc.metadata.hasPendingWrites === false) {
+              handleUIPrefsChange(doc.data());
+            }
+          },
+          error => {
+            console.error('Config listener failed (uiPrefs):', error);
+            if (typeof updateSyncStatusUI === 'function') updateSyncStatusUI('error', error.message);
           }
-        });
+        );
 
       // Listen for awareness config changes
       const awarenessUnsubscribe = userRef.collection('config').doc('awareness')
-        .onSnapshot(doc => {
-          if (doc.exists && doc.metadata.hasPendingWrites === false) {
-            handleAwarenessConfigChange(doc.data());
+        .onSnapshot(
+          doc => {
+            if (doc.exists && doc.metadata.hasPendingWrites === false) {
+              handleAwarenessConfigChange(doc.data());
+            }
+          },
+          error => {
+            console.error('Config listener failed (awareness):', error);
+            if (typeof updateSyncStatusUI === 'function') updateSyncStatusUI('error', error.message);
           }
-        });
+        );
 
       // Add to global listeners array for cleanup
       if (typeof realtimeListeners !== 'undefined') {
@@ -730,8 +754,8 @@ def generate_js_config_sync():
     }
 
     /**
-     * Load all configs from cloud after sign-in
-     * Called from Firebase auth state change handler
+     * Load all configs from cloud (filters, exportPrefs, uiPrefs, awareness)
+     * Called from pullFromCloud() when options.loadConfigs is true
      */
     async function loadAllConfigsFromCloud() {
       await Promise.all([

@@ -328,8 +328,8 @@ def generate_js_firebase(firebase_config=None):
         updateAuthUI(user);
         updateSyncStatusUI('syncing', 'Connecting...');
 
-        // Initial sync from cloud
-        pullFromCloud().then(() => {
+        // Initial sync from cloud (load configs on first connection)
+        pullFromCloud({ loadConfigs: true }).then(() => {
           setupRealtimeListeners();
           updateSyncStatusUI('synced');
         }).catch(err => {
@@ -805,7 +805,9 @@ def generate_js_firebase(firebase_config=None):
 
     /**
      * Pull all data from cloud and merge with local
-     * @param {Object} options - { preferCache: boolean } - if true, read from cache first
+     * @param {Object} options - Pull options
+     * @param {boolean} options.preferCache - if true, read from cache first
+     * @param {boolean} options.loadConfigs - if true, load config settings (filters, exportPrefs, uiPrefs, awareness)
      */
     async function pullFromCloud(options = {}) {
       if (!isCloudSyncEnabled() || !firebaseDb) return;
@@ -892,16 +894,30 @@ def generate_js_firebase(firebase_config=None):
           updateSyncStatusUI('synced');
         }
 
-        // Load all config settings from cloud (filter, export, UI preferences)
-        if (typeof loadAllConfigsFromCloud === 'function') {
-          await loadAllConfigsFromCloud();
-        }
-
         lastPullTime = Date.now(); // Track pull time for focus-based refresh
       } catch (error) {
         console.error('Pull from cloud failed:', error);
         updateSyncStatusUI('error', error.message);
         throw error;
+      }
+
+      // Load all config settings from cloud only when explicitly requested via options.loadConfigs
+      // Configs have real-time listeners for subsequent updates (see setupConfigRealtimeListeners)
+      // Separate try/catch so config load failure does not overwrite the 'synced' status above
+      if (options.loadConfigs) {
+        try {
+          if (typeof loadAllConfigsFromCloud === 'function') {
+            console.log('Loading config settings from cloud');
+            await loadAllConfigsFromCloud();
+          } else {
+            console.error('loadAllConfigsFromCloud is not defined - config sync module may not be loaded');
+          }
+        } catch (configError) {
+          console.error('Config load from cloud failed:', configError);
+          updateSyncStatusUI('error', configError.message);
+        }
+      } else {
+        console.debug('Skipping config settings load (real-time listeners handle updates)');
       }
     }
 
@@ -944,7 +960,7 @@ def generate_js_firebase(firebase_config=None):
 
       try {
         await syncAllToCloud();
-        await pullFromCloud();
+        await pullFromCloud({ loadConfigs: true });
         updateSyncStatusUI('synced');
       } catch (error) {
         console.error('Manual sync failed:', error);
