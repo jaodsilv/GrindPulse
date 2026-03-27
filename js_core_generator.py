@@ -213,9 +213,13 @@ def generate_js_core():
       // Problem Name + Duplicate Badge
       const nameTd = document.createElement('td');
 
-      if (problem.link && problem.link.trim() !== '') {
+      const rawLink = problem.link ? problem.link.trim() : '';
+      const safeLink = rawLink && /^(https?:\\/\\/|\\/|[^:]*$)/.test(rawLink) &&
+        !/^(javascript|data|vbscript):/i.test(rawLink) ? rawLink : '';
+
+      if (safeLink) {
         const link = document.createElement('a');
-        link.href = problem.link;
+        link.href = safeLink;
         link.textContent = problem.name;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
