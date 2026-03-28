@@ -70,6 +70,8 @@ def generate_html_structure(file_list, firebase_enabled=False):
           <option value="unsolved-problem">Unsolved</option>
         </select>
 
+        <button id="random-btn-{file_name}" class="random-btn" onclick="pickRandomProblem('{file_name}')" aria-label="Pick a random problem from filtered list">&#127922; Random</button>
+
         <div class="import-export-wrapper">
           <button class="hamburger-btn" onclick="toggleImportExportMenu('{file_name}')" aria-label="Import/Export Menu" aria-expanded="false">
             <span aria-hidden="true">&#9776;</span>
