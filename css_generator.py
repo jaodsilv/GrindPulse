@@ -698,6 +698,28 @@ def generate_css():
       cursor: not-allowed;
     }
 
+    .urgent-review-btn {
+      padding: 12px 24px;
+      background: #e53e3e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .urgent-review-btn:hover {
+      background: #c53030;
+    }
+
+    .urgent-review-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     @keyframes random-highlight {
       0%, 100% { background: transparent; }
       50% { background: rgba(102, 126, 234, 0.3); }

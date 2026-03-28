@@ -20,6 +20,7 @@
       "random-selector.js",
       "storage-notify.js",
       "sortable-columns.js",
+      "urgent-review.js",
       "!node_modules/**"
     ],
     "coverageThreshold": {
