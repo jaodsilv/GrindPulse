@@ -699,7 +699,7 @@ def generate_css():
     }
 
     .urgent-review-btn {
-      padding: 12px 24px;
+      padding: 8px 16px;
       background: #e53e3e;
       color: white;
       border: none;
@@ -713,6 +713,11 @@ def generate_css():
 
     .urgent-review-btn:hover {
       background: #c53030;
+    }
+
+    .urgent-review-btn.active {
+      background: #9b2c2c;
+      border: 2px solid #fc8181;
     }
 
     .urgent-review-btn:disabled {

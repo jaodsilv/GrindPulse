@@ -440,6 +440,9 @@ def generate_js_core():
 
     // Apply filters
     function applyFilters(fileKey) {
+      const urgentBtn = document.getElementById(`urgent-review-btn-${fileKey}`);
+      if (urgentBtn) urgentBtn.classList.remove('active');
+
       const searchTerm = document.getElementById(`search-${fileKey}`).value.toLowerCase();
       const difficultyFilter = document.getElementById(`difficulty-filter-${fileKey}`).value;
       const patternFilter = document.getElementById(`pattern-filter-${fileKey}`).value;
@@ -598,6 +601,13 @@ def generate_js_core():
 
     // Apply urgent review filter: show only the most urgently-due solved problems
     function applyUrgentReviewFilter(fileKey) {
+      const btn = document.getElementById(`urgent-review-btn-${fileKey}`);
+      if (btn && btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        applyFilters(fileKey);
+        return;
+      }
+
       const TIER_RANK = { 'awareness-flashing': 5, 'awareness-dark-red': 4, 'awareness-red': 3, 'awareness-yellow': 2, 'awareness-green': 1, 'awareness-white': 0, 'unsolved-problem': -1 };
       const problems = PROBLEM_DATA.data[fileKey];
       const tbody = document.getElementById(`tbody-${fileKey}`);
@@ -627,6 +637,7 @@ def generate_js_core():
         row.style.display = urgentIndices.has(idx) ? '' : 'none';
       });
 
+      if (btn) btn.classList.add('active');
       updateRandomBtnState(fileKey);
       updateUrgentBtnState(fileKey);
 
