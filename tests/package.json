@@ -19,6 +19,7 @@
       "import-export.js",
       "random-selector.js",
       "storage-notify.js",
+      "sortable-columns.js",
       "!node_modules/**"
     ],
     "coverageThreshold": {
