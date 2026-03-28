@@ -25,13 +25,13 @@ def generate_js_core():
         showStorageToast('localStorage is not available. Your progress will not be saved.', 'warning');
       }
       loadFromLocalStorage();
-      initAwareness();
       populatePatternFilters();
       PROBLEM_DATA.file_list.forEach(fileKey => {
         PROBLEM_DATA.data[fileKey].forEach((problem, idx) => { problem._originalIndex = idx; });
         restoreSortStateForTab(fileKey);
       });
       renderAllTabs();
+      initAwareness();
       updateAllProgress();
       PROBLEM_DATA.file_list.forEach(fileKey => {
         updateRandomBtnState(fileKey);
