@@ -35,6 +35,7 @@ def generate_js_core():
       updateAllProgress();
       PROBLEM_DATA.file_list.forEach(fileKey => {
         updateRandomBtnState(fileKey);
+        updateUrgentBtnState(fileKey);
         initSortHeaders(fileKey);
       });
       setupEventListeners();
@@ -351,6 +352,7 @@ def generate_js_core():
         updateProgress(fileKey);
         updateOverallProgress();
         updateRowAwareness(fileKey, idx);
+        updateUrgentBtnState(fileKey);
       };
       solvedTd.appendChild(solvedCheckbox);
 
@@ -485,6 +487,7 @@ def generate_js_core():
       });
 
       updateRandomBtnState(fileKey);
+      updateUrgentBtnState(fileKey);
     }
 
     // Update progress for a tab
@@ -575,6 +578,67 @@ def generate_js_core():
         row => row.style.display !== 'none'
       );
       btn.disabled = visibleRows.length === 0;
+    }
+
+    // Calculate days until a problem starts flashing (awareness-flashing)
+    // Returns 0 if already flashing, Infinity if not solved or no date
+    function calculateDaysUntilFlashing(problem) {
+      if (!problem.solved) return Infinity;
+      const result = calculateAwarenessScore(problem);
+      if (result.score < 0) return Infinity;
+      if (result.score >= AWARENESS_CONFIG.thresholds.darkRed) return 0;
+      const commitmentFactor = getCommitmentFactor();
+      const tierDiffMultiplier = getTierDifficultyMultiplier(problem);
+      const solvedFactor = getSolvedFactor(problem);
+      const dailyRate = AWARENESS_CONFIG.baseRate * commitmentFactor * tierDiffMultiplier / solvedFactor;
+      if (dailyRate <= 0) return Infinity;
+      const daysNeeded = (AWARENESS_CONFIG.thresholds.darkRed - result.score) / dailyRate;
+      return Math.ceil(daysNeeded);
+    }
+
+    // Apply urgent review filter: show only the most urgently-due solved problems
+    function applyUrgentReviewFilter(fileKey) {
+      const problems = PROBLEM_DATA.data[fileKey];
+      const tbody = document.getElementById(`tbody-${fileKey}`);
+      if (!tbody) return;
+
+      const solvedProblems = problems
+        .map((problem, idx) => ({ idx, days: calculateDaysUntilFlashing(problem) }))
+        .filter(item => item.days !== Infinity);
+
+      if (solvedProblems.length === 0) return;
+
+      const minDays = Math.min(...solvedProblems.map(item => item.days));
+      const urgentIndices = new Set(
+        solvedProblems.filter(item => item.days === minDays).map(item => item.idx)
+      );
+
+      const rows = tbody.querySelectorAll('tr');
+      rows.forEach(row => {
+        const idx = parseInt(row.dataset.index);
+        row.style.display = urgentIndices.has(idx) ? '' : 'none';
+      });
+
+      updateRandomBtnState(fileKey);
+      updateUrgentBtnState(fileKey);
+
+      const count = urgentIndices.size;
+      const statusEl = document.getElementById(`progress-text-${fileKey}`);
+      if (statusEl) {
+        const msg = minDays === 0
+          ? `${count} problem(s) flashing NOW`
+          : `${count} problem(s) flashing in ${minDays} day(s)`;
+        statusEl.textContent = msg;
+      }
+    }
+
+    // Enable or disable the urgent-review button based on solved problems in tab
+    function updateUrgentBtnState(fileKey) {
+      const btn = document.getElementById(`urgent-review-btn-${fileKey}`);
+      if (!btn) return;
+      const problems = PROBLEM_DATA.data[fileKey];
+      const hasSolved = problems.some(p => p.solved);
+      btn.disabled = !hasSolved;
     }
 
     // Sort support
