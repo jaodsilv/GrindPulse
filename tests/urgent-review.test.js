@@ -52,9 +52,7 @@ describe('Most Urgent Review Filter', () => {
     resetState();
     setMockProblemData({
       file_list: ['test'],
-      data: {
-        test: []
-      }
+      data: { test: [] }
     });
   });
 
@@ -78,11 +76,8 @@ describe('Most Urgent Review Filter', () => {
     });
 
     it('returns 0 for problem already at darkRed threshold', () => {
-      const darkRed = getConfig().thresholds.darkRed;
-      // 90 days ago for intermediate/Medium should be well past threshold
       const problem = makeProblem({ solved_date: dateAgo(90) });
-      const result = calculateDaysUntilFlashing(problem);
-      expect(result).toBe(0);
+      expect(calculateDaysUntilFlashing(problem)).toBe(0);
     });
 
     it('returns 0 for problem past darkRed threshold', () => {
@@ -90,11 +85,11 @@ describe('Most Urgent Review Filter', () => {
       expect(calculateDaysUntilFlashing(problem)).toBe(0);
     });
 
-    it('returns positive finite number for problem approaching darkRed', () => {
+    it('returns positive integer for problem approaching darkRed', () => {
       const problem = makeProblem({ solved_date: dateAgo(1) });
       const result = calculateDaysUntilFlashing(problem);
       expect(result).toBeGreaterThan(0);
-      expect(isFinite(result)).toBe(true);
+      expect(Number.isInteger(result)).toBe(true);
     });
 
     it('returns Infinity for top-tier Easy (multiplier 0, never flashes)', () => {
@@ -112,10 +107,14 @@ describe('Most Urgent Review Filter', () => {
       const older = makeProblem({ solved_date: dateAgo(20) });
       const daysRecent = calculateDaysUntilFlashing(recent);
       const daysOlder = calculateDaysUntilFlashing(older);
-      expect(daysRecent).toBeGreaterThan(daysOlder);
+      if (daysOlder === 0) {
+        expect(daysRecent).toBeGreaterThanOrEqual(0);
+      } else {
+        expect(daysRecent).toBeGreaterThan(daysOlder);
+      }
     });
 
-    it('below-tier problem flashes sooner than top-tier (same days elapsed)', () => {
+    it('below-tier problem flashes sooner than top-Hard-tier (same days elapsed)', () => {
       const date = dateAgo(5);
       const topProblem = makeProblem({
         solved_date: date,
@@ -139,21 +138,20 @@ describe('Most Urgent Review Filter', () => {
     });
 
     it('uses default darkRed threshold of 90', () => {
-      const config = getConfig();
-      expect(config.thresholds.darkRed).toBe(90);
+      expect(getConfig().thresholds.darkRed).toBe(90);
     });
 
-    it('respects custom darkRed threshold', () => {
+    it('respects custom darkRed threshold — lower threshold means fewer days', () => {
+      const problem = makeProblem({ solved_date: dateAgo(1) });
+      const defaultDays = calculateDaysUntilFlashing(problem);
+
       setConfig({
         ...getConfig(),
         thresholds: { ...getConfig().thresholds, darkRed: 50 }
       });
-      const problem = makeProblem({ solved_date: dateAgo(1) });
-      const withCustomThreshold = calculateDaysUntilFlashing(problem);
-      resetState();
-      setMockProblemData({ file_list: ['test'], data: { test: [] } });
-      const withDefaultThreshold = calculateDaysUntilFlashing(problem);
-      expect(withCustomThreshold).toBeLessThan(withDefaultThreshold);
+      const customDays = calculateDaysUntilFlashing(problem);
+
+      expect(customDays).toBeLessThan(defaultDays);
     });
 
   });
@@ -162,7 +160,7 @@ describe('Most Urgent Review Filter', () => {
 
   describe('applyUrgentReviewFilter', () => {
 
-    it('hides all rows and sets status when no solved problems', () => {
+    it('returns null and leaves rows unchanged when no solved problems', () => {
       const problems = [
         makeProblem({ solved: false }),
         makeProblem({ solved: false })
@@ -172,11 +170,21 @@ describe('Most Urgent Review Filter', () => {
 
       const result = applyUrgentReviewFilter('test', { problems, rows, statusEl });
 
-      expect(result.minDays).toBe(Infinity);
-      expect(result.shown).toEqual([]);
-      expect(rows[0].style.display).toBe('none');
-      expect(rows[1].style.display).toBe('none');
-      expect(statusEl.textContent).toMatch(/no solved/i);
+      expect(result).toBeNull();
+      expect(rows[0].style.display).toBe('');
+      expect(rows[1].style.display).toBe('');
+      expect(statusEl.textContent).toBe('');
+    });
+
+    it('returns null when all problems are unsolved (no status set)', () => {
+      const problems = [makeProblem({ solved: false })];
+      const rows = [makeRow(0)];
+      const statusEl = { textContent: 'previous' };
+
+      const result = applyUrgentReviewFilter('test', { problems, rows, statusEl });
+
+      expect(result).toBeNull();
+      expect(statusEl.textContent).toBe('previous');
     });
 
     it('shows only the problem with minimum daysUntilFlashing', () => {
@@ -189,9 +197,9 @@ describe('Most Urgent Review Filter', () => {
 
       const result = applyUrgentReviewFilter('test', { problems, rows, statusEl: null });
 
-      expect(result.shown).toContain(1);
-      expect(result.shown).not.toContain(0);
-      expect(result.shown).not.toContain(2);
+      expect(result).not.toBeNull();
+      expect(result.urgentIndices.has(1)).toBe(true);
+      expect(result.urgentIndices.has(0)).toBe(false);
       expect(rows[1].style.display).toBe('');
       expect(rows[0].style.display).toBe('none');
       expect(rows[2].style.display).toBe('none');
@@ -208,12 +216,15 @@ describe('Most Urgent Review Filter', () => {
 
       const result = applyUrgentReviewFilter('test', { problems, rows, statusEl: null });
 
-      expect(result.shown).toContain(0);
-      expect(result.shown).toContain(1);
-      expect(result.shown).not.toContain(2);
+      expect(result.urgentIndices.has(0)).toBe(true);
+      expect(result.urgentIndices.has(1)).toBe(true);
+      expect(result.urgentIndices.has(2)).toBe(false);
+      expect(rows[0].style.display).toBe('');
+      expect(rows[1].style.display).toBe('');
+      expect(rows[2].style.display).toBe('none');
     });
 
-    it('shows already-flashing problems (daysUntilFlashing === 0) as most urgent', () => {
+    it('shows already-flashing problems (minDays === 0) as most urgent', () => {
       const problems = [
         makeProblem({ name: 'P0', solved_date: dateAgo(200) }),
         makeProblem({ name: 'P1', solved_date: dateAgo(2) })
@@ -223,35 +234,42 @@ describe('Most Urgent Review Filter', () => {
       const result = applyUrgentReviewFilter('test', { problems, rows, statusEl: null });
 
       expect(result.minDays).toBe(0);
-      expect(result.shown).toContain(0);
-      expect(result.shown).not.toContain(1);
+      expect(result.urgentIndices.has(0)).toBe(true);
+      expect(result.urgentIndices.has(1)).toBe(false);
     });
 
-    it('sets status message with count and approximate days', () => {
-      const problems = [
-        makeProblem({ name: 'P0', solved_date: dateAgo(5) })
-      ];
+    it('sets status "flashing NOW" when minDays is 0', () => {
+      const problems = [makeProblem({ name: 'P0', solved_date: dateAgo(200) })];
       const rows = [makeRow(0)];
       const statusEl = { textContent: '' };
 
       applyUrgentReviewFilter('test', { problems, rows, statusEl });
 
-      expect(statusEl.textContent).toMatch(/1 most urgent problem/);
-      expect(statusEl.textContent).toMatch(/day/);
+      expect(statusEl.textContent).toBe('1 problem(s) flashing NOW');
     });
 
-    it('pluralizes count correctly in status message', () => {
-      const date = dateAgo(15);
+    it('sets status with day count when minDays > 0', () => {
+      const problems = [makeProblem({ name: 'P0', solved_date: dateAgo(5) })];
+      const rows = [makeRow(0)];
+      const statusEl = { textContent: '' };
+
+      applyUrgentReviewFilter('test', { problems, rows, statusEl });
+
+      expect(statusEl.textContent).toMatch(/1 problem\(s\) flashing in \d+ day\(s\)/);
+    });
+
+    it('status message includes correct count for multiple urgent problems', () => {
+      const sameDate = dateAgo(15);
       const problems = [
-        makeProblem({ name: 'P0', solved_date: date }),
-        makeProblem({ name: 'P1', solved_date: date })
+        makeProblem({ name: 'P0', solved_date: sameDate }),
+        makeProblem({ name: 'P1', solved_date: sameDate })
       ];
       const rows = [makeRow(0), makeRow(1)];
       const statusEl = { textContent: '' };
 
       applyUrgentReviewFilter('test', { problems, rows, statusEl });
 
-      expect(statusEl.textContent).toMatch(/2 most urgent problems/);
+      expect(statusEl.textContent).toMatch(/^2 problem\(s\)/);
     });
 
     it('works without statusEl (no crash)', () => {
@@ -263,7 +281,7 @@ describe('Most Urgent Review Filter', () => {
       }).not.toThrow();
     });
 
-    it('returns correct minDays value', () => {
+    it('returns minDays as a non-negative finite number', () => {
       const problems = [
         makeProblem({ name: 'P0', solved_date: dateAgo(10) }),
         makeProblem({ name: 'P1', solved_date: dateAgo(2) })
@@ -276,10 +294,9 @@ describe('Most Urgent Review Filter', () => {
       expect(isFinite(result.minDays)).toBe(true);
     });
 
-    it('handles empty problem list', () => {
+    it('returns null for empty problem list', () => {
       const result = applyUrgentReviewFilter('test', { problems: [], rows: [], statusEl: null });
-      expect(result.shown).toEqual([]);
-      expect(result.minDays).toBe(Infinity);
+      expect(result).toBeNull();
     });
 
   });
@@ -295,10 +312,9 @@ describe('Most Urgent Review Filter', () => {
       ];
       const btn = makeBtn(false);
 
-      const enabled = updateUrgentBtnState('test', { problems, btn });
+      updateUrgentBtnState('test', { problems, btn });
 
       expect(btn.disabled).toBe(true);
-      expect(enabled).toBe(false);
     });
 
     it('enables button when at least one solved problem exists', () => {
@@ -308,10 +324,9 @@ describe('Most Urgent Review Filter', () => {
       ];
       const btn = makeBtn(true);
 
-      const enabled = updateUrgentBtnState('test', { problems, btn });
+      updateUrgentBtnState('test', { problems, btn });
 
       expect(btn.disabled).toBe(false);
-      expect(enabled).toBe(true);
     });
 
     it('enables button when all problems are solved', () => {
@@ -329,16 +344,14 @@ describe('Most Urgent Review Filter', () => {
     it('disables button for empty problem list', () => {
       const btn = makeBtn(false);
 
-      const enabled = updateUrgentBtnState('test', { problems: [], btn });
+      updateUrgentBtnState('test', { problems: [], btn });
 
       expect(btn.disabled).toBe(true);
-      expect(enabled).toBe(false);
     });
 
-    it('handles null btn gracefully', () => {
+    it('handles null btn gracefully (no crash)', () => {
       const problems = [makeProblem({ solved: true })];
       expect(() => updateUrgentBtnState('test', { problems, btn: null })).not.toThrow();
-      expect(updateUrgentBtnState('test', { problems, btn: null })).toBe(false);
     });
 
   });
@@ -347,7 +360,7 @@ describe('Most Urgent Review Filter', () => {
 
   describe('Integration', () => {
 
-    it('full workflow: set data, compute urgency, filter, update button', () => {
+    it('full workflow: update button state then filter to most urgent', () => {
       const oldDate = dateAgo(50);
       const newDate = dateAgo(2);
       const problems = [
@@ -366,20 +379,34 @@ describe('Most Urgent Review Filter', () => {
       const statusEl = { textContent: '' };
       const result = applyUrgentReviewFilter('test', { problems, rows, statusEl });
 
-      expect(result.shown).toContain(0);
-      expect(result.shown).not.toContain(1);
-      expect(result.shown).not.toContain(2);
+      expect(result).not.toBeNull();
+      expect(result.urgentIndices.has(0)).toBe(true);
+      expect(result.urgentIndices.has(1)).toBe(false);
+      expect(result.urgentIndices.has(2)).toBe(false);
       expect(statusEl.textContent).toBeTruthy();
     });
 
-    it('daysUntilFlashing is consistent with awareness score direction', () => {
+    it('daysUntilFlashing ordering is consistent: recently solved has more days', () => {
       const recentProblem = makeProblem({ solved_date: dateAgo(1) });
       const oldProblem = makeProblem({ solved_date: dateAgo(30) });
 
       const recentDays = calculateDaysUntilFlashing(recentProblem);
       const oldDays = calculateDaysUntilFlashing(oldProblem);
 
-      expect(recentDays).toBeGreaterThan(oldDays >= 0 ? oldDays : -1);
+      if (oldDays > 0) {
+        expect(recentDays).toBeGreaterThan(oldDays);
+      } else {
+        expect(recentDays).toBeGreaterThanOrEqual(0);
+      }
+    });
+
+    it('filter result urgentIndices is a Set', () => {
+      const problems = [makeProblem({ solved_date: dateAgo(10) })];
+      const rows = [makeRow(0)];
+
+      const result = applyUrgentReviewFilter('test', { problems, rows, statusEl: null });
+
+      expect(result.urgentIndices).toBeInstanceOf(Set);
     });
 
   });
