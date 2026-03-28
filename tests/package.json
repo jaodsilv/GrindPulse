@@ -18,6 +18,7 @@
       "awareness.js",
       "import-export.js",
       "random-selector.js",
+      "storage-notify.js",
       "!node_modules/**"
     ],
     "coverageThreshold": {
