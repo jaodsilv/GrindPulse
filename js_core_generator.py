@@ -450,7 +450,7 @@ def generate_js_core():
       const rows = tbody.querySelectorAll('tr');
 
       rows.forEach(row => {
-        const idx = parseInt(row.dataset.index);
+        const idx = parseInt(row.dataset.index, 10);
         const problem = PROBLEM_DATA.data[fileKey][idx];
 
         let show = true;
@@ -615,7 +615,7 @@ def generate_js_core():
 
       const rows = tbody.querySelectorAll('tr');
       rows.forEach(row => {
-        const idx = parseInt(row.dataset.index);
+        const idx = parseInt(row.dataset.index, 10);
         row.style.display = urgentIndices.has(idx) ? '' : 'none';
       });
 
