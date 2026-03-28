@@ -72,7 +72,7 @@ def generate_html_structure(file_list, firebase_enabled=False):
 
         <button id="random-btn-{file_name}" class="random-btn" onclick="pickRandomProblem('{file_name}')" aria-label="Pick a random problem from filtered list">&#127922; Random</button>
 
-        <button id="urgent-review-btn-{file_name}" class="urgent-review-btn" onclick="applyUrgentReviewFilter('{file_name}')" aria-label="Most Urgent Review">&#128680; Most Urgent Review</button>
+        <button id="urgent-review-btn-{file_name}" class="urgent-review-btn" onclick="applyUrgentReviewFilter('{file_name}')" aria-label="Most Urgent Review">&#128680; URGENT</button>
 
         <div class="import-export-wrapper">
           <button class="hamburger-btn" onclick="toggleImportExportMenu('{file_name}')" aria-label="Import/Export Menu" aria-expanded="false">
