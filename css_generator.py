@@ -735,6 +735,26 @@ def generate_css():
       white-space: nowrap;
     }
 
+    th[data-sort] {
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+    }
+
+    th[data-sort]:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .sort-indicator {
+      opacity: 0.3;
+      margin-left: 4px;
+    }
+
+    .sort-asc .sort-indicator,
+    .sort-desc .sort-indicator {
+      opacity: 1;
+    }
+
     td {
       padding: 12px;
       border-bottom: 1px solid #f0f0f0;

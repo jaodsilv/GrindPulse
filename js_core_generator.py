@@ -12,6 +12,7 @@ def generate_js_core():
     // Global state
     let currentTab = PROBLEM_DATA.file_list[0];
     let allPatterns = new Set();
+    let sortState = {};
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
@@ -26,9 +27,17 @@ def generate_js_core():
       loadFromLocalStorage();
       initAwareness();
       populatePatternFilters();
+      PROBLEM_DATA.file_list.forEach(fileKey => {
+        problem => { problem._originalIndex = PROBLEM_DATA.data[fileKey].indexOf(problem); };
+        PROBLEM_DATA.data[fileKey].forEach((problem, idx) => { problem._originalIndex = idx; });
+        restoreSortStateForTab(fileKey);
+      });
       renderAllTabs();
       updateAllProgress();
-      PROBLEM_DATA.file_list.forEach(fileKey => updateRandomBtnState(fileKey));
+      PROBLEM_DATA.file_list.forEach(fileKey => {
+        updateRandomBtnState(fileKey);
+        initSortHeaders(fileKey);
+      });
       setupEventListeners();
       initSettingsButton();
 
@@ -233,8 +242,9 @@ def generate_js_core():
       const tbody = document.getElementById(`tbody-${fileKey}`);
       tbody.innerHTML = '';
 
-      PROBLEM_DATA.data[fileKey].forEach((problem, idx) => {
-        const row = createTableRow(problem, idx, fileKey);
+      const sorted = getSortedProblems(fileKey);
+      sorted.forEach((problem) => {
+        const row = createTableRow(problem, problem._originalIndex, fileKey);
         tbody.appendChild(row);
       });
 
@@ -566,6 +576,117 @@ def generate_js_core():
         row => row.style.display !== 'none'
       );
       btn.disabled = visibleRows.length === 0;
+    }
+
+    // Sort support
+
+    function getSortValue(problem, column) {
+      switch (column) {
+        case 'difficulty': {
+          const map = { Easy: 1, Medium: 2, Hard: 3 };
+          return map[problem.difficulty] != null ? map[problem.difficulty] : null;
+        }
+        case 'intermediate_time':
+        case 'advanced_time':
+        case 'top_time':
+        case 'time_to_solve': {
+          const v = parseFloat(problem[column]);
+          return isNaN(v) ? null : v;
+        }
+        case 'solved_date': {
+          if (!problem.solved_date) return null;
+          const d = Date.parse(problem.solved_date);
+          return isNaN(d) ? null : d;
+        }
+        case 'color_points': {
+          if (typeof calculateAwarenessScore === 'function') {
+            const result = calculateAwarenessScore(problem);
+            return result != null ? result.score : null;
+          }
+          return null;
+        }
+        case 'name':
+          return problem.name ? problem.name.toLowerCase() : null;
+        default:
+          return null;
+      }
+    }
+
+    function getSortedProblems(fileKey) {
+      const problems = [...PROBLEM_DATA.data[fileKey]];
+      const state = sortState[fileKey];
+      if (!state || !state.column || state.direction === 'none') return problems;
+      const { column, direction } = state;
+      const asc = direction === 'asc';
+      return problems.sort((a, b) => {
+        const va = getSortValue(a, column);
+        const vb = getSortValue(b, column);
+        if (va === null && vb === null) return 0;
+        if (va === null) return 1;
+        if (vb === null) return -1;
+        if (va < vb) return asc ? -1 : 1;
+        if (va > vb) return asc ? 1 : -1;
+        return 0;
+      });
+    }
+
+    function saveSortStateForTab(fileKey) {
+      try {
+        localStorage.setItem(`tracker_sort_${fileKey}`, JSON.stringify(sortState[fileKey] || {}));
+      } catch (e) {}
+    }
+
+    function restoreSortStateForTab(fileKey) {
+      try {
+        const saved = localStorage.getItem(`tracker_sort_${fileKey}`);
+        if (saved) {
+          sortState[fileKey] = JSON.parse(saved);
+        }
+      } catch (e) {}
+    }
+
+    function initSortHeaders(fileKey) {
+      const table = document.getElementById(`table-${fileKey}`);
+      if (!table) return;
+      table.querySelectorAll('th[data-sort]').forEach(th => {
+        th.addEventListener('click', function() {
+          const col = this.dataset.sort;
+          const current = sortState[fileKey] || { column: null, direction: 'none' };
+          let nextDir;
+          if (current.column !== col || current.direction === 'none') {
+            nextDir = 'asc';
+          } else if (current.direction === 'asc') {
+            nextDir = 'desc';
+          } else {
+            nextDir = 'none';
+          }
+          sortState[fileKey] = { column: col, direction: nextDir };
+          saveSortStateForTab(fileKey);
+          updateSortHeaders(fileKey);
+          renderTable(fileKey);
+        });
+      });
+      updateSortHeaders(fileKey);
+    }
+
+    function updateSortHeaders(fileKey) {
+      const table = document.getElementById(`table-${fileKey}`);
+      if (!table) return;
+      const state = sortState[fileKey] || {};
+      table.querySelectorAll('th[data-sort]').forEach(th => {
+        th.classList.remove('sort-asc', 'sort-desc');
+        const indicator = th.querySelector('.sort-indicator');
+        if (indicator) indicator.textContent = '';
+        if (state.column === th.dataset.sort) {
+          if (state.direction === 'asc') {
+            th.classList.add('sort-asc');
+            if (indicator) indicator.textContent = ' \\u2191';
+          } else if (state.direction === 'desc') {
+            th.classList.add('sort-desc');
+            if (indicator) indicator.textContent = ' \\u2193';
+          }
+        }
+      });
     }
 
     // Update relative times periodically

@@ -110,16 +110,16 @@ def generate_html_structure(file_list, firebase_enabled=False):
         <table id="table-{file_name}">
           <thead>
             <tr>
-              <th data-nosort>Problem Name</th>
-              <th>Difficulty</th>
-              <th>Intermediate Time</th>
-              <th>Advanced Time</th>
-              <th>Top Time</th>
-              <th>Pattern</th>
-              <th>Solved</th>
-              <th>Time to Solve</th>
-              <th>Comments</th>
-              <th>Solved Date</th>
+              <th data-sort="name">Problem Name<span class="sort-indicator"></span></th>
+              <th data-sort="difficulty">Difficulty<span class="sort-indicator"></span></th>
+              <th data-sort="intermediate_time">Intermediate Time<span class="sort-indicator"></span></th>
+              <th data-sort="advanced_time">Advanced Time<span class="sort-indicator"></span></th>
+              <th data-sort="top_time">Top Time<span class="sort-indicator"></span></th>
+              <th data-nosort>Pattern</th>
+              <th data-nosort>Solved</th>
+              <th data-sort="time_to_solve">Time to Solve<span class="sort-indicator"></span></th>
+              <th data-nosort>Comments</th>
+              <th data-sort="solved_date">Solved Date<span class="sort-indicator"></span></th>
             </tr>
           </thead>
           <tbody id="tbody-{file_name}">
