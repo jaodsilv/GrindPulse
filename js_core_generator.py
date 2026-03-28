@@ -141,29 +141,23 @@ def generate_js_core():
 
     // Show a toast notification for storage errors
     function showStorageToast(message, type) {
-      const show = () => {
-        const existing = document.getElementById('storage-toast');
-        if (existing) existing.remove();
-        const toast = document.createElement('div');
-        toast.id = 'storage-toast';
-        toast.className = 'sync-toast ' + (type === 'error' ? 'sync-toast-error' : 'sync-toast-warning');
-        toast.textContent = message;
-        document.body.appendChild(toast);
-        setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 5000);
-      };
-      if (document.body) {
-        show();
-      } else {
-        document.addEventListener('DOMContentLoaded', show);
-      }
+      const existing = document.getElementById('storage-toast');
+      if (existing) existing.remove();
+      const toast = document.createElement('div');
+      toast.id = 'storage-toast';
+      toast.className = 'sync-toast ' + (type === 'error' ? 'sync-toast-error' : 'sync-toast-warning');
+      toast.style.bottom = '70px';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 5000);
     }
 
     // Load data from localStorage
     function loadFromLocalStorage() {
       PROBLEM_DATA.file_list.forEach(fileKey => {
-        const saved = localStorage.getItem(`tracker_${fileKey}`);
-        if (saved) {
-          try {
+        try {
+          const saved = localStorage.getItem(`tracker_${fileKey}`);
+          if (saved) {
             const savedData = JSON.parse(saved);
             // Merge saved data with original data
             PROBLEM_DATA.data[fileKey].forEach((problem, idx) => {
@@ -174,10 +168,10 @@ def generate_js_core():
                 problem.solved_date = savedData[idx].solved_date || "";
               }
             });
-          } catch (e) {
-            console.error(`Error loading saved data for ${fileKey}:`, e);
-            showStorageToast('Your saved progress could not be loaded. Data may be corrupted.', 'error');
           }
+        } catch (e) {
+          console.error(`Error loading saved data for ${fileKey}:`, e);
+          showStorageToast('Your saved progress could not be loaded. Data may be corrupted.', 'error');
         }
       });
     }
