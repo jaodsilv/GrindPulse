@@ -9,7 +9,8 @@ import {
   setMockProblemData,
   resetState,
   setConfig,
-  getConfig
+  getConfig,
+  TIER_RANK
 } from './urgent-review.js';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -233,7 +234,7 @@ describe('Most Urgent Review Filter', () => {
 
       const result = applyUrgentReviewFilter('test', { problems, rows, statusEl: null });
 
-      expect(result.minDays).toBe(0);
+      expect(result.globalMinDays).toBe(0);
       expect(result.urgentIndices.has(0)).toBe(true);
       expect(result.urgentIndices.has(1)).toBe(false);
     });
@@ -290,13 +291,94 @@ describe('Most Urgent Review Filter', () => {
 
       const result = applyUrgentReviewFilter('test', { problems, rows, statusEl: null });
 
-      expect(result.minDays).toBeGreaterThanOrEqual(0);
-      expect(isFinite(result.minDays)).toBe(true);
+      expect(result.globalMinDays).toBeGreaterThanOrEqual(0);
+      expect(isFinite(result.globalMinDays)).toBe(true);
     });
 
     it('returns null for empty problem list', () => {
       const result = applyUrgentReviewFilter('test', { problems: [], rows: [], statusEl: null });
       expect(result).toBeNull();
+    });
+
+    it('red problem shown even when yellows have fewer days', () => {
+      const problems = [
+        makeProblem({ name: 'Red', solved_date: dateAgo(60) }),
+        makeProblem({ name: 'Yellow1', solved_date: dateAgo(10) }),
+        makeProblem({ name: 'Yellow2', solved_date: dateAgo(12) })
+      ];
+      const rows = [makeRow(0), makeRow(1), makeRow(2)];
+
+      const mockGetAwarenessClass = (score) => {
+        if (score >= 90) return 'awareness-dark-red';
+        if (score >= 70) return 'awareness-red';
+        if (score >= 50) return 'awareness-yellow';
+        if (score >= 30) return 'awareness-green';
+        return 'awareness-white';
+      };
+      const mockCalcScore = (problem) => {
+        const days = (Date.now() - new Date(problem.solved_date).getTime()) / 86400000;
+        return { score: Math.min(days, 100), invalidDate: false };
+      };
+
+      const result = applyUrgentReviewFilter('test', {
+        problems, rows, statusEl: null,
+        getAwarenessClassFn: mockGetAwarenessClass,
+        calculateAwarenessScoreFn: mockCalcScore
+      });
+
+      expect(result).not.toBeNull();
+      expect(result.urgentIndices.has(0)).toBe(true);
+    });
+
+    it('flashing problem always included regardless of days', () => {
+      const problems = [
+        makeProblem({ name: 'Flashing', solved_date: dateAgo(200) }),
+        makeProblem({ name: 'Yellow1', solved_date: dateAgo(5) }),
+        makeProblem({ name: 'Yellow2', solved_date: dateAgo(8) })
+      ];
+      const rows = [makeRow(0), makeRow(1), makeRow(2)];
+
+      const mockGetAwarenessClass = (score) => {
+        if (score >= 90) return 'awareness-flashing';
+        if (score >= 50) return 'awareness-yellow';
+        return 'awareness-white';
+      };
+      const mockCalcScore = (problem) => {
+        const days = (Date.now() - new Date(problem.solved_date).getTime()) / 86400000;
+        return { score: Math.min(days, 200), invalidDate: false };
+      };
+
+      const result = applyUrgentReviewFilter('test', {
+        problems, rows, statusEl: null,
+        getAwarenessClassFn: mockGetAwarenessClass,
+        calculateAwarenessScoreFn: mockCalcScore
+      });
+
+      expect(result).not.toBeNull();
+      expect(result.urgentIndices.has(0)).toBe(true);
+    });
+
+    it('only yellows — shows min-days yellow same as before', () => {
+      const problems = [
+        makeProblem({ name: 'Yellow1', solved_date: dateAgo(20) }),
+        makeProblem({ name: 'Yellow2', solved_date: dateAgo(5) }),
+        makeProblem({ name: 'Yellow3', solved_date: dateAgo(5) })
+      ];
+      const rows = [makeRow(0), makeRow(1), makeRow(2)];
+
+      const mockGetAwarenessClass = (_score) => 'awareness-yellow';
+      const mockCalcScore = (problem) => ({ score: 50, invalidDate: false });
+
+      const result = applyUrgentReviewFilter('test', {
+        problems, rows, statusEl: null,
+        getAwarenessClassFn: mockGetAwarenessClass,
+        calculateAwarenessScoreFn: mockCalcScore
+      });
+
+      expect(result).not.toBeNull();
+      expect(result.urgentIndices.has(0)).toBe(true);
+      expect(result.urgentIndices.has(1)).toBe(true);
+      expect(result.urgentIndices.has(2)).toBe(true);
     });
 
   });

@@ -10,6 +10,7 @@
 
 import {
   calculateAwarenessScore,
+  getAwarenessClass,
   getCommitmentFactor,
   getTierDifficultyMultiplier,
   getSolvedFactor,
@@ -18,6 +19,8 @@ import {
   resetConfig,
   setConfig
 } from './awareness.js';
+
+export const TIER_RANK = { 'awareness-flashing': 5, 'awareness-dark-red': 4, 'awareness-red': 3, 'awareness-yellow': 2, 'awareness-green': 1, 'awareness-white': 0, 'unsolved-problem': -1 };
 
 // ── Injectable state for testing ─────────────────────────────────────────────
 
@@ -71,18 +74,30 @@ export function calculateDaysUntilFlashing(problem) {
  * @param {Array} deps.problems - Problem array for this fileKey
  * @param {Array} deps.rows - Row objects with style.display and dataset.index
  * @param {Object|null} deps.statusEl - Element with .textContent for status message
- * @returns {{ minDays: number, urgentIndices: Set<number> }|null} null if no solved problems
+ * @param {Function} [deps.getAwarenessClassFn] - Injectable getAwarenessClass for testing
+ * @param {Function} [deps.calculateAwarenessScoreFn] - Injectable calculateAwarenessScore for testing
+ * @returns {{ globalMinDays: number, urgentIndices: Set<number> }|null} null if no solved problems
  */
-export function applyUrgentReviewFilter(fileKey, { problems, rows, statusEl }) {
+export function applyUrgentReviewFilter(fileKey, { problems, rows, statusEl, getAwarenessClassFn, calculateAwarenessScoreFn }) {
+  const _getAwarenessClass = getAwarenessClassFn || getAwarenessClass;
+  const _calculateAwarenessScore = calculateAwarenessScoreFn || calculateAwarenessScore;
+
   const solvedProblems = problems
-    .map((problem, idx) => ({ idx, days: calculateDaysUntilFlashing(problem) }))
-    .filter(item => item.days !== Infinity);
+    .map((problem, idx) => {
+      const days = calculateDaysUntilFlashing(problem);
+      if (days === Infinity) return null;
+      const scoreResult = _calculateAwarenessScore(problem);
+      const tier = TIER_RANK[_getAwarenessClass(scoreResult.score)] || 0;
+      return { idx, days, tier };
+    })
+    .filter(item => item !== null);
 
   if (solvedProblems.length === 0) return null;
 
-  const minDays = Math.min(...solvedProblems.map(item => item.days));
+  const maxTier = Math.max(...solvedProblems.map(item => item.tier));
+  const globalMinDays = Math.min(...solvedProblems.map(item => item.days));
   const urgentIndices = new Set(
-    solvedProblems.filter(item => item.days === minDays).map(item => item.idx)
+    solvedProblems.filter(item => item.tier === maxTier || item.days === globalMinDays).map(item => item.idx)
   );
 
   rows.forEach(row => {
@@ -92,13 +107,13 @@ export function applyUrgentReviewFilter(fileKey, { problems, rows, statusEl }) {
 
   if (statusEl) {
     const count = urgentIndices.size;
-    const msg = minDays === 0
+    const msg = globalMinDays === 0
       ? `${count} problem(s) flashing NOW`
-      : `${count} problem(s) flashing in ${minDays} day(s)`;
+      : `${count} problem(s) flashing in ${globalMinDays} day(s)`;
     statusEl.textContent = msg;
   }
 
-  return { minDays, urgentIndices };
+  return { globalMinDays, urgentIndices };
 }
 
 // ── updateUrgentBtnState ──────────────────────────────────────────────────────

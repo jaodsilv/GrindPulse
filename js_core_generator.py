@@ -598,19 +598,27 @@ def generate_js_core():
 
     // Apply urgent review filter: show only the most urgently-due solved problems
     function applyUrgentReviewFilter(fileKey) {
+      const TIER_RANK = { 'awareness-flashing': 5, 'awareness-dark-red': 4, 'awareness-red': 3, 'awareness-yellow': 2, 'awareness-green': 1, 'awareness-white': 0, 'unsolved-problem': -1 };
       const problems = PROBLEM_DATA.data[fileKey];
       const tbody = document.getElementById(`tbody-${fileKey}`);
       if (!tbody) return;
 
       const solvedProblems = problems
-        .map((problem, idx) => ({ idx, days: calculateDaysUntilFlashing(problem) }))
-        .filter(item => item.days !== Infinity);
+        .map((problem, idx) => {
+          const days = calculateDaysUntilFlashing(problem);
+          if (days === Infinity) return null;
+          const scoreResult = calculateAwarenessScore(problem);
+          const tier = TIER_RANK[getAwarenessClass(scoreResult.score)] || 0;
+          return { idx, days, tier };
+        })
+        .filter(item => item !== null);
 
       if (solvedProblems.length === 0) return;
 
-      const minDays = Math.min(...solvedProblems.map(item => item.days));
+      const maxTier = Math.max(...solvedProblems.map(item => item.tier));
+      const globalMinDays = Math.min(...solvedProblems.map(item => item.days));
       const urgentIndices = new Set(
-        solvedProblems.filter(item => item.days === minDays).map(item => item.idx)
+        solvedProblems.filter(item => item.tier === maxTier || item.days === globalMinDays).map(item => item.idx)
       );
 
       const rows = tbody.querySelectorAll('tr');
@@ -625,9 +633,9 @@ def generate_js_core():
       const count = urgentIndices.size;
       const statusEl = document.getElementById(`progress-text-${fileKey}`);
       if (statusEl) {
-        const msg = minDays === 0
+        const msg = globalMinDays === 0
           ? `${count} problem(s) flashing NOW`
-          : `${count} problem(s) flashing in ${minDays} day(s)`;
+          : `${count} problem(s) flashing in ${globalMinDays} day(s)`;
         statusEl.textContent = msg;
       }
     }
