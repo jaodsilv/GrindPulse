@@ -721,12 +721,20 @@ def generate_css():
     }
 
     @keyframes random-highlight {
-      0%, 100% { background: transparent; }
-      50% { background: rgba(102, 126, 234, 0.3); }
+      0% { background: transparent; }
+      10% { background: rgba(255,215,0,0.85); }
+      20% { background: transparent; }
+      30% { background: rgba(255,215,0,0.85); }
+      40% { background: transparent; }
+      50% { background: rgba(255,215,0,0.85); }
+      60%, 80% { background: rgba(255,215,0,0.4); }
+      100% { background: transparent; }
     }
 
     .random-highlight {
-      animation: random-highlight 2s ease;
+      animation: random-highlight 4s ease forwards;
+      border-left: 4px solid #f6c90e;
+      box-shadow: inset 4px 0 0 rgba(246,201,14,0.3);
     }
 
     .table-container {
