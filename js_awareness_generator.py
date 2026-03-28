@@ -376,6 +376,7 @@ def generate_js_awareness():
     // Manual refresh function (can be called from button)
     function manualRefreshAwareness() {
       updateAwarenessColors(true);  // Update all tabs for manual refresh
+      PROBLEM_DATA.file_list.forEach(function(fileKey) { if (typeof applyFilters === 'function') applyFilters(fileKey); });
     }
 
     // Initialize awareness on load
