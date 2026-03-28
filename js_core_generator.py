@@ -605,6 +605,7 @@ def generate_js_core():
       if (btn && btn.classList.contains('active')) {
         btn.classList.remove('active');
         applyFilters(fileKey);
+        updateProgress(fileKey);
         return;
       }
 
