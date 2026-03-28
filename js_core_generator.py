@@ -502,6 +502,7 @@ def generate_js_core():
     // Pick a random visible problem for the given tab
     function pickRandomProblem(fileKey) {
       const tbody = document.getElementById(`tbody-${fileKey}`);
+      if (!tbody) return;
       const visibleRows = Array.from(tbody.querySelectorAll('tr')).filter(
         row => row.style.display !== 'none'
       );
@@ -514,6 +515,7 @@ def generate_js_core():
       const randomIndex = Math.floor(Math.random() * visibleRows.length);
       const selectedRow = visibleRows[randomIndex];
 
+      Array.from(tbody.querySelectorAll('tr')).forEach(r => r.classList.remove('random-highlight'));
       selectedRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
       selectedRow.classList.add('random-highlight');
       setTimeout(() => selectedRow.classList.remove('random-highlight'), 2000);
