@@ -39,11 +39,13 @@ jobs:
       tag: ${{ steps.version.outputs.tag }}
     steps:
       - name: Checkout code
+        timeout-minutes: 5
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Determine version
+        timeout-minutes: 2
         id: version
         run: |
           set -eo pipefail
@@ -100,19 +102,23 @@ jobs:
     needs: validate
     steps:
       - name: Checkout code
+        timeout-minutes: 5
         uses: actions/checkout@v6
 
       - name: Setup Python 3.12
+        timeout-minutes: 5
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
       - name: Build tracker.html
+        timeout-minutes: 10
         run: |
           set -eo pipefail
           python build_tracker.py
 
       - name: Verify build
+        timeout-minutes: 2
         run: |
           set -eo pipefail
 
@@ -144,6 +150,7 @@ jobs:
           echo "- **Size:** ${SIZE_KB}.${SIZE_KB_FRAC}KB" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload build artifact
+        timeout-minutes: 5
         uses: actions/upload-artifact@v7
         with:
           name: release-tracker-${{ needs.validate.outputs.version }}
@@ -156,9 +163,11 @@ jobs:
     needs: build
     steps:
       - name: Checkout code
+        timeout-minutes: 5
         uses: actions/checkout@v6
 
       - name: Setup Node.js
+        timeout-minutes: 5
         uses: actions/setup-node@v6
         with:
           node-version: '20.x'
@@ -166,12 +175,14 @@ jobs:
           cache-dependency-path: tests/package-lock.json
 
       - name: Install dependencies
+        timeout-minutes: 5
         working-directory: tests
         run: |
           set -eo pipefail
           npm ci
 
       - name: Run tests
+        timeout-minutes: 10
         working-directory: tests
         run: |
           set -eo pipefail
@@ -185,11 +196,13 @@ jobs:
       changelog: ${{ steps.changelog.outputs.changelog }}
     steps:
       - name: Checkout code
+        timeout-minutes: 5
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Generate changelog
+        timeout-minutes: 2
         id: changelog
         run: |
           set -eo pipefail
@@ -267,6 +280,7 @@ jobs:
           echo "CHANGELOG_EOF" >> $GITHUB_OUTPUT
 
       - name: Upload changelog
+        timeout-minutes: 5
         uses: actions/upload-artifact@v7
         with:
           name: changelog
@@ -280,16 +294,19 @@ jobs:
     if: ${{ !inputs.dry_run }}
     steps:
       - name: Checkout code
+        timeout-minutes: 5
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Download build artifact
+        timeout-minutes: 5
         uses: actions/download-artifact@v8
         with:
           name: release-tracker-${{ needs.validate.outputs.version }}
 
       - name: Verify downloaded artifact
+        timeout-minutes: 2
         run: |
           set -eo pipefail
 
@@ -320,6 +337,7 @@ jobs:
           echo "Artifact verified: tracker.html ($SIZE bytes)"
 
       - name: Create version bump branch and PR
+        timeout-minutes: 5
         if: github.event_name == 'workflow_dispatch'
         id: version-pr
         env:
@@ -414,6 +432,7 @@ jobs:
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
 
       - name: Create tag via GitHub API
+        timeout-minutes: 2
         if: github.event_name == 'workflow_dispatch'
         id: create-tag
         env:
@@ -494,6 +513,7 @@ jobs:
       # The root cause error is already captured by the create-tag step's ::error:: output.
       # This step provides cleanup of orphan resources, not diagnosis of the failure.
       - name: Cleanup on tag creation failure
+        timeout-minutes: 2
         if: failure() && steps.create-tag.outcome == 'failure' && steps.version-pr.outputs.pr_url
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -524,6 +544,7 @@ jobs:
           fi
 
       - name: Create GitHub Release
+        timeout-minutes: 5
         if: steps.create-tag.outputs.tag_existed != 'true'
         id: create-release
         uses: softprops/action-gh-release@v2
@@ -558,6 +579,7 @@ jobs:
           generate_release_notes: false
 
       - name: Verify release creation
+        timeout-minutes: 2
         if: steps.create-tag.outputs.tag_existed != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -610,6 +632,7 @@ jobs:
           echo "Release verified: $RELEASE_URL with tracker.html and $ASSET_COUNT total asset(s)"
 
       - name: Verify or create release for existing tag
+        timeout-minutes: 2
         if: steps.create-tag.outputs.tag_existed == 'true'
         id: verify-existing-release
         env:
@@ -675,6 +698,7 @@ jobs:
           fi
 
       - name: Create GitHub Release for existing tag
+        timeout-minutes: 5
         if: steps.create-tag.outputs.tag_existed == 'true' && steps.verify-existing-release.outputs.release_existed != 'true'
         id: create-release-existing-tag
         uses: softprops/action-gh-release@v2
@@ -709,6 +733,7 @@ jobs:
           generate_release_notes: false
 
       - name: Verify release for existing tag
+        timeout-minutes: 2
         if: steps.create-tag.outputs.tag_existed == 'true' && steps.verify-existing-release.outputs.release_existed != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -751,6 +776,7 @@ jobs:
           echo "Release verified: $RELEASE_URL with tracker.html"
 
       - name: Release Summary (tag existed - release verified/created)
+        timeout-minutes: 2
         if: steps.create-tag.outputs.tag_existed == 'true'
         run: |
           set -eo pipefail
@@ -773,6 +799,7 @@ jobs:
           echo "**Release:** $RELEASE_URL" >> $GITHUB_STEP_SUMMARY
 
       - name: Release Summary
+        timeout-minutes: 2
         if: steps.create-tag.outputs.tag_existed != 'true'
         run: |
           set -eo pipefail
