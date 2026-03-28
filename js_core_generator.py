@@ -565,7 +565,7 @@ def generate_js_core():
       Array.from(tbody.querySelectorAll('tr')).forEach(r => r.classList.remove('random-highlight'));
       selectedRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
       selectedRow.classList.add('random-highlight');
-      setTimeout(() => selectedRow.classList.remove('random-highlight'), 2000);
+      setTimeout(() => selectedRow.classList.remove('random-highlight'), 4000);
     }
 
     // Enable or disable the random button based on visible row count
