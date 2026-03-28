@@ -20,6 +20,9 @@ def generate_js_core():
         initConfigSync();
       }
 
+      if (!isLocalStorageAvailable()) {
+        showStorageToast('localStorage is not available. Your progress will not be saved.', 'warning');
+      }
       loadFromLocalStorage();
       initAwareness();
       populatePatternFilters();
@@ -123,6 +126,38 @@ def generate_js_core():
       document.getElementById(`tab-${tabName}`).classList.add('active');
     }
 
+    // Check if localStorage is available
+    function isLocalStorageAvailable() {
+      try {
+        const testKey = '__storage_test__';
+        localStorage.setItem(testKey, '1');
+        localStorage.getItem(testKey);
+        localStorage.removeItem(testKey);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    // Show a toast notification for storage errors
+    function showStorageToast(message, type) {
+      const show = () => {
+        const existing = document.getElementById('storage-toast');
+        if (existing) existing.remove();
+        const toast = document.createElement('div');
+        toast.id = 'storage-toast';
+        toast.className = 'sync-toast ' + (type === 'error' ? 'sync-toast-error' : 'sync-toast-warning');
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 5000);
+      };
+      if (document.body) {
+        show();
+      } else {
+        document.addEventListener('DOMContentLoaded', show);
+      }
+    }
+
     // Load data from localStorage
     function loadFromLocalStorage() {
       PROBLEM_DATA.file_list.forEach(fileKey => {
@@ -141,6 +176,7 @@ def generate_js_core():
             });
           } catch (e) {
             console.error(`Error loading saved data for ${fileKey}:`, e);
+            showStorageToast('Your saved progress could not be loaded. Data may be corrupted.', 'error');
           }
         }
       });
@@ -155,7 +191,12 @@ def generate_js_core():
         comments: p.comments,
         solved_date: p.solved_date
       }));
-      localStorage.setItem(`tracker_${fileKey}`, JSON.stringify(data));
+      try {
+        localStorage.setItem(`tracker_${fileKey}`, JSON.stringify(data));
+      } catch (e) {
+        console.error(`Error saving data for ${fileKey}:`, e);
+        showStorageToast('Your progress could not be saved. Consider exporting your data as a backup.', 'warning');
+      }
 
       // Trigger cloud sync (debounced) if Firebase is enabled
       if (typeof syncToCloudDebounced === 'function' && typeof isCloudSyncEnabled === 'function' && isCloudSyncEnabled()) {
