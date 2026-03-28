@@ -25,6 +25,7 @@ def generate_js_core():
       populatePatternFilters();
       renderAllTabs();
       updateAllProgress();
+      PROBLEM_DATA.file_list.forEach(fileKey => updateRandomBtnState(fileKey));
       setupEventListeners();
       initSettingsButton();
 
@@ -438,6 +439,8 @@ def generate_js_core():
 
         row.style.display = show ? '' : 'none';
       });
+
+      updateRandomBtnState(fileKey);
     }
 
     // Update progress for a tab
@@ -494,6 +497,40 @@ def generate_js_core():
       link.download = filename;
       link.click();
       URL.revokeObjectURL(link.href);
+    }
+
+    // Pick a random visible problem for the given tab
+    function pickRandomProblem(fileKey) {
+      const tbody = document.getElementById(`tbody-${fileKey}`);
+      if (!tbody) return;
+      const visibleRows = Array.from(tbody.querySelectorAll('tr')).filter(
+        row => row.style.display !== 'none'
+      );
+
+      if (visibleRows.length === 0) {
+        updateRandomBtnState(fileKey);
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * visibleRows.length);
+      const selectedRow = visibleRows[randomIndex];
+
+      Array.from(tbody.querySelectorAll('tr')).forEach(r => r.classList.remove('random-highlight'));
+      selectedRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      selectedRow.classList.add('random-highlight');
+      setTimeout(() => selectedRow.classList.remove('random-highlight'), 2000);
+    }
+
+    // Enable or disable the random button based on visible row count
+    function updateRandomBtnState(fileKey) {
+      const btn = document.getElementById(`random-btn-${fileKey}`);
+      if (!btn) return;
+      const tbody = document.getElementById(`tbody-${fileKey}`);
+      if (!tbody) { btn.disabled = true; return; }
+      const visibleRows = Array.from(tbody.querySelectorAll('tr')).filter(
+        row => row.style.display !== 'none'
+      );
+      btn.disabled = visibleRows.length === 0;
     }
 
     // Update relative times periodically

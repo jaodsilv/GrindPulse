@@ -676,6 +676,37 @@ def generate_css():
       box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     }
 
+    .random-btn {
+      padding: 12px 24px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .random-btn:hover {
+      background: #5a6fd6;
+    }
+
+    .random-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    @keyframes random-highlight {
+      0%, 100% { background: transparent; }
+      50% { background: rgba(102, 126, 234, 0.3); }
+    }
+
+    .random-highlight {
+      animation: random-highlight 2s ease;
+    }
+
     .table-container {
       overflow-x: auto;
       border-radius: 8px;
@@ -1207,8 +1238,12 @@ def generate_css():
         align-items: stretch;
       }
 
-      .search-box, .filter-dropdown, .export-btn {
+      .search-box, .filter-dropdown, .export-btn, .random-btn {
         width: 100%;
+      }
+
+      .random-btn {
+        min-height: 40px;
       }
 
       .comments-input {
