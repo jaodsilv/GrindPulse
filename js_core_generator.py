@@ -28,7 +28,6 @@ def generate_js_core():
       initAwareness();
       populatePatternFilters();
       PROBLEM_DATA.file_list.forEach(fileKey => {
-        problem => { problem._originalIndex = PROBLEM_DATA.data[fileKey].indexOf(problem); };
         PROBLEM_DATA.data[fileKey].forEach((problem, idx) => { problem._originalIndex = idx; });
         restoreSortStateForTab(fileKey);
       });
@@ -598,13 +597,6 @@ def generate_js_core():
           const d = Date.parse(problem.solved_date);
           return isNaN(d) ? null : d;
         }
-        case 'color_points': {
-          if (typeof calculateAwarenessScore === 'function') {
-            const result = calculateAwarenessScore(problem);
-            return result != null ? result.score : null;
-          }
-          return null;
-        }
         case 'name':
           return problem.name ? problem.name.toLowerCase() : null;
         default:
@@ -640,7 +632,10 @@ def generate_js_core():
       try {
         const saved = localStorage.getItem(`tracker_sort_${fileKey}`);
         if (saved) {
-          sortState[fileKey] = JSON.parse(saved);
+          const parsed = JSON.parse(saved);
+          if (parsed && typeof parsed.column === 'string' && (parsed.direction === 'asc' || parsed.direction === 'desc')) {
+            sortState[fileKey] = parsed;
+          }
         }
       } catch (e) {}
     }

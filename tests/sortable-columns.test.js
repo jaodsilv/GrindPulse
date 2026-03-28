@@ -75,20 +75,20 @@ describe('getSortValue', () => {
       expect(getSortValue({ difficulty: 'Hard' }, 'difficulty')).toBe(3);
     });
 
-    it('returns Infinity for empty string difficulty', () => {
-      expect(getSortValue({ difficulty: '' }, 'difficulty')).toBe(Infinity);
+    it('returns null for empty string difficulty', () => {
+      expect(getSortValue({ difficulty: '' }, 'difficulty')).toBeNull();
     });
 
-    it('returns Infinity for null difficulty', () => {
-      expect(getSortValue({ difficulty: null }, 'difficulty')).toBe(Infinity);
+    it('returns null for null difficulty', () => {
+      expect(getSortValue({ difficulty: null }, 'difficulty')).toBeNull();
     });
 
-    it('returns Infinity for undefined difficulty', () => {
-      expect(getSortValue({}, 'difficulty')).toBe(Infinity);
+    it('returns null for undefined difficulty', () => {
+      expect(getSortValue({}, 'difficulty')).toBeNull();
     });
 
-    it('returns Infinity for unknown difficulty string', () => {
-      expect(getSortValue({ difficulty: 'VeryHard' }, 'difficulty')).toBe(Infinity);
+    it('returns null for unknown difficulty string', () => {
+      expect(getSortValue({ difficulty: 'VeryHard' }, 'difficulty')).toBeNull();
     });
   });
 
@@ -101,19 +101,19 @@ describe('getSortValue', () => {
       expect(getSortValue({ name: 'merge intervals' }, 'name')).toBe('merge intervals');
     });
 
-    it('returns sentinel for null name', () => {
+    it('returns null for null name', () => {
       const v = getSortValue({ name: null }, 'name');
-      expect(v).toBe('\uffff');
+      expect(v).toBeNull();
     });
 
-    it('returns sentinel for empty name', () => {
+    it('returns null for empty name', () => {
       const v = getSortValue({ name: '' }, 'name');
-      expect(v).toBe('\uffff');
+      expect(v).toBeNull();
     });
 
-    it('returns sentinel for missing name', () => {
+    it('returns null for missing name', () => {
       const v = getSortValue({}, 'name');
-      expect(v).toBe('\uffff');
+      expect(v).toBeNull();
     });
   });
 
@@ -129,20 +129,20 @@ describe('getSortValue', () => {
         expect(getSortValue({ [col]: '30.5' }, col)).toBe(30.5);
       });
 
-      it(`returns Infinity for empty string in ${col}`, () => {
-        expect(getSortValue({ [col]: '' }, col)).toBe(Infinity);
+      it(`returns null for empty string in ${col}`, () => {
+        expect(getSortValue({ [col]: '' }, col)).toBeNull();
       });
 
-      it(`returns Infinity for null in ${col}`, () => {
-        expect(getSortValue({ [col]: null }, col)).toBe(Infinity);
+      it(`returns null for null in ${col}`, () => {
+        expect(getSortValue({ [col]: null }, col)).toBeNull();
       });
 
-      it(`returns Infinity for undefined in ${col}`, () => {
-        expect(getSortValue({}, col)).toBe(Infinity);
+      it(`returns null for undefined in ${col}`, () => {
+        expect(getSortValue({}, col)).toBeNull();
       });
 
-      it(`returns Infinity for non-numeric string in ${col}`, () => {
-        expect(getSortValue({ [col]: 'abc' }, col)).toBe(Infinity);
+      it(`returns null for non-numeric string in ${col}`, () => {
+        expect(getSortValue({ [col]: 'abc' }, col)).toBeNull();
       });
     });
   });
@@ -159,26 +159,26 @@ describe('getSortValue', () => {
       expect(result).toBe(Date.parse(date));
     });
 
-    it('returns Infinity for empty string', () => {
-      expect(getSortValue({ solved_date: '' }, 'solved_date')).toBe(Infinity);
+    it('returns null for empty string', () => {
+      expect(getSortValue({ solved_date: '' }, 'solved_date')).toBeNull();
     });
 
-    it('returns Infinity for null', () => {
-      expect(getSortValue({ solved_date: null }, 'solved_date')).toBe(Infinity);
+    it('returns null for null', () => {
+      expect(getSortValue({ solved_date: null }, 'solved_date')).toBeNull();
     });
 
-    it('returns Infinity for undefined', () => {
-      expect(getSortValue({}, 'solved_date')).toBe(Infinity);
+    it('returns null for undefined', () => {
+      expect(getSortValue({}, 'solved_date')).toBeNull();
     });
 
-    it('returns Infinity for invalid date string', () => {
-      expect(getSortValue({ solved_date: 'not-a-date' }, 'solved_date')).toBe(Infinity);
+    it('returns null for invalid date string', () => {
+      expect(getSortValue({ solved_date: 'not-a-date' }, 'solved_date')).toBeNull();
     });
   });
 
   describe('unknown column', () => {
-    it('returns Infinity for unknown column', () => {
-      expect(getSortValue({ foo: 'bar' }, 'nonexistent')).toBe(Infinity);
+    it('returns null for unknown column', () => {
+      expect(getSortValue({ foo: 'bar' }, 'nonexistent')).toBeNull();
     });
   });
 });

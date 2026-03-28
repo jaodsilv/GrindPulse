@@ -42,40 +42,35 @@ const DIFFICULTY_ORDER = { Easy: 1, Medium: 2, Hard: 3 };
 
 /**
  * Extracts a comparable sort value from a problem for a given column.
- * Empty/null values always sort last (returns Infinity for numbers/dates).
+ * Empty/null values always sort last (returns null).
  *
  * @param {Object} problem
  * @param {string} column  - 'difficulty'|'name'|'time_to_solve'|'intermediate_time'|
  *                           'advanced_time'|'top_time'|'solved_date'
- * @returns {number|string}
+ * @returns {number|string|null}
  */
 export function getSortValue(problem, column) {
   switch (column) {
     case 'difficulty': {
-      const d = problem.difficulty;
-      return (d && DIFFICULTY_ORDER[d] !== undefined) ? DIFFICULTY_ORDER[d] : Infinity;
+      const map = { Easy: 1, Medium: 2, Hard: 3 };
+      return map[problem.difficulty] != null ? map[problem.difficulty] : null;
     }
-    case 'name': {
-      const n = problem.name;
-      return (n != null && n !== '') ? String(n).toLowerCase() : '\uffff';
-    }
+    case 'name':
+      return problem.name ? problem.name.toLowerCase() : null;
     case 'time_to_solve':
     case 'intermediate_time':
     case 'advanced_time':
     case 'top_time': {
-      const v = problem[column];
-      if (v == null || v === '') return Infinity;
-      const parsed = parseFloat(v);
-      return isNaN(parsed) ? Infinity : parsed;
+      const v = parseFloat(problem[column]);
+      return isNaN(v) ? null : v;
     }
     case 'solved_date': {
-      const d = problem.solved_date;
-      if (d == null || d === '') return Infinity;
-      const ts = Date.parse(d);
-      return isNaN(ts) ? Infinity : ts;
+      if (!problem.solved_date) return null;
+      const d = Date.parse(problem.solved_date);
+      return isNaN(d) ? null : d;
     }
     default:
-      return Infinity;
+      return null;
   }
 }
 
@@ -105,12 +100,9 @@ export function getSortedProblems(fileKey) {
     const va = getSortValue(a, column);
     const vb = getSortValue(b, column);
 
-    // Nulls/empties (Infinity or sentinel) always last
-    const aIsNull = va === Infinity || va === '\uffff';
-    const bIsNull = vb === Infinity || vb === '\uffff';
-    if (aIsNull && bIsNull) return 0;
-    if (aIsNull) return 1;
-    if (bIsNull) return -1;
+    if (va === null && vb === null) return 0;
+    if (va === null) return 1;
+    if (vb === null) return -1;
 
     if (va < vb) return -1 * asc;
     if (va > vb) return 1 * asc;
