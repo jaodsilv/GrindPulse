@@ -169,12 +169,15 @@ def generate_js_core():
           if (saved) {
             const savedData = JSON.parse(saved);
             // Merge saved data with original data
-            PROBLEM_DATA.data[fileKey].forEach((problem, idx) => {
-              if (savedData[idx]) {
-                problem.solved = savedData[idx].solved || false;
-                problem.time_to_solve = savedData[idx].time_to_solve || "";
-                problem.comments = savedData[idx].comments || "";
-                problem.solved_date = savedData[idx].solved_date || "";
+            const savedMap = {};
+            savedData.forEach(function(item) { if (item && item.name) savedMap[item.name] = item; });
+            PROBLEM_DATA.data[fileKey].forEach(function(problem) {
+              const saved = savedMap[problem.name];
+              if (saved) {
+                problem.solved = saved.solved || false;
+                problem.time_to_solve = saved.time_to_solve || "";
+                problem.comments = saved.comments || "";
+                problem.solved_date = saved.solved_date || "";
               }
             });
           }
