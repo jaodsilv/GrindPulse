@@ -40,13 +40,14 @@ def generate_css():
       background: white;
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
+      overflow: visible;
     }
 
     header {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       padding: 20px 30px;
+      border-radius: 12px 12px 0 0;
     }
 
     .header-content {
