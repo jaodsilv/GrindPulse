@@ -148,6 +148,7 @@ def generate_css():
       position: relative;
       display: inline-block;
       margin-left: auto;
+      z-index: 1;
     }
 
     /* Hamburger button */
