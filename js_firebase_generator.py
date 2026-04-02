@@ -598,6 +598,25 @@ def generate_js_firebase(firebase_config=None):
       );
     }
 
+    function classifyFirebaseError(error) {
+      if (!error) return { type: 'generic', message: 'An unknown error occurred.' };
+      const code = error.code || '';
+      const msg = (error.message || '').toLowerCase();
+      if (code === 'resource-exhausted' || msg.includes('quota')) {
+        return { type: 'quota-exceeded', message: 'Quota exceeded - uploads paused. Cached reads still work.' };
+      }
+      if (code === 'permission-denied' || code === 'PERMISSION_DENIED') {
+        return { type: 'permission-denied', message: 'Permission denied - check Firebase security rules.' };
+      }
+      if (code === 'unauthenticated' || code === 'UNAUTHENTICATED') {
+        return { type: 'unauthenticated', message: 'Authentication failed - please sign in again.' };
+      }
+      if (code === 'unavailable' || code === 'UNAVAILABLE' || msg.includes('network')) {
+        return { type: 'unavailable', message: 'Service unavailable - check your network connection.' };
+      }
+      return { type: 'generic', message: error.message || 'An unknown error occurred.' };
+    }
+
     /**
      * Validate image URL to prevent XSS attacks via javascript: or other dangerous protocols
      */
@@ -713,13 +732,14 @@ def generate_js_firebase(firebase_config=None):
         updateSyncStatusUI('synced');
       } catch (error) {
         console.error('Sync to cloud failed:', error);
-        if (isQuotaExceededError(error)) {
+        const classified = classifyFirebaseError(error);
+        if (classified.type === 'quota-exceeded') {
           console.warn('Firebase quota exceeded. Uploads paused. Cached reads still work.');
-          showSyncToast('Quota exceeded - uploads paused. Cached reads still work.', 'warning');
           updateSyncStatusUI('quota-exceeded');
         } else {
-          updateSyncStatusUI('error', error.message);
+          updateSyncStatusUI('error', classified.message);
         }
+        showSyncToast(classified.message, classified.type === 'quota-exceeded' ? 'warning' : 'error');
       }
     }
 
@@ -882,13 +902,14 @@ def generate_js_firebase(firebase_config=None):
         updateSyncStatusUI('synced');
       } catch (error) {
         console.error('Sync all to cloud failed:', error);
-        if (isQuotaExceededError(error)) {
+        const classified = classifyFirebaseError(error);
+        if (classified.type === 'quota-exceeded') {
           console.warn('Firebase quota exceeded. Uploads paused. Cached reads still work.');
-          showSyncToast('Quota exceeded - uploads paused. Cached reads still work.', 'warning');
           updateSyncStatusUI('quota-exceeded');
         } else {
-          updateSyncStatusUI('error', error.message);
+          updateSyncStatusUI('error', classified.message);
         }
+        showSyncToast(classified.message, classified.type === 'quota-exceeded' ? 'warning' : 'error');
       }
     }
 
@@ -997,7 +1018,9 @@ def generate_js_firebase(firebase_config=None):
         lastPullTime = Date.now(); // Track pull time for focus-based refresh
       } catch (error) {
         console.error('Pull from cloud failed:', error);
-        updateSyncStatusUI('error', error.message);
+        const classified = classifyFirebaseError(error);
+        updateSyncStatusUI('error', classified.message);
+        showSyncToast(classified.message, 'error');
         throw error;
       }
 
@@ -1064,13 +1087,14 @@ def generate_js_firebase(firebase_config=None):
         updateSyncStatusUI('synced');
       } catch (error) {
         console.error('Manual sync failed:', error);
-        if (isQuotaExceededError(error)) {
+        const classified = classifyFirebaseError(error);
+        if (classified.type === 'quota-exceeded') {
           console.warn('Firebase quota exceeded. Uploads paused. Cached reads still work.');
-          showSyncToast('Quota exceeded - uploads paused. Cached reads still work.', 'warning');
           updateSyncStatusUI('quota-exceeded');
         } else {
-          updateSyncStatusUI('error', error.message);
+          updateSyncStatusUI('error', classified.message);
         }
+        showSyncToast(classified.message, classified.type === 'quota-exceeded' ? 'warning' : 'error');
       } finally {
         if (syncBtn) {
           syncBtn.classList.remove('syncing');
