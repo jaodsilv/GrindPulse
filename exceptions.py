@@ -22,22 +22,27 @@ class GrindPulseError(Exception):
         super().__init__(full_message)
 
 
-class FileIOError(GrindPulseError):
+class GrindPulseIOError(GrindPulseError):
     """Raised when file read/write operations fail."""
 
     pass
 
 
-class DataFileNotFoundError(FileIOError):
+FileIOError = GrindPulseIOError
+
+
+class DataFileNotFoundError(GrindPulseIOError):
     """Raised when a required data file is missing."""
 
-    pass
+    def __init__(self, message: str, file_path: str, suggestion: str | None = None) -> None:
+        super().__init__(message, file_path, suggestion)
 
 
-class DataFileEmptyError(FileIOError):
+class DataFileEmptyError(GrindPulseIOError):
     """Raised when a data file exists but is empty."""
 
-    pass
+    def __init__(self, message: str, file_path: str, suggestion: str | None = None) -> None:
+        super().__init__(message, file_path, suggestion)
 
 
 class ParseError(GrindPulseError):
@@ -63,7 +68,9 @@ class TSVParseError(ParseError):
         suggestion: str | None = None,
     ) -> None:
         self.line_number = line_number
-        if line_number:
+        if line_number is not None:
+            if line_number < 1:
+                raise ValueError(f"line_number must be >= 1, got {line_number}")
             message = f"{message} (line {line_number})"
         super().__init__(message, file_path, suggestion)
 

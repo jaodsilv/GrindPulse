@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Data Parser Sub-Agent
-Reads and parses all TSV files dynamically from GrindPulse/raw/
+Reads and parses all TSV files dynamically from the raw/ directory
 """
 
 import csv
@@ -164,6 +164,7 @@ def parse_tsv_files(raw_folder):
     if total_problems == 0:
         raise ValidationError(
             "No problems parsed from any TSV file",
+            file_path=str(raw_path),
             suggestion="Check that TSV files contain data rows after the header",
         )
 
