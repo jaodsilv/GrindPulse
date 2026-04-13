@@ -547,7 +547,7 @@ jobs:
         timeout-minutes: 5
         if: steps.create-tag.outputs.tag_existed != 'true'
         id: create-release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ needs.validate.outputs.tag }}
           name: GrindPulse ${{ needs.validate.outputs.tag }}
@@ -701,7 +701,7 @@ jobs:
         timeout-minutes: 5
         if: steps.create-tag.outputs.tag_existed == 'true' && steps.verify-existing-release.outputs.release_existed != 'true'
         id: create-release-existing-tag
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ needs.validate.outputs.tag }}
           name: GrindPulse ${{ needs.validate.outputs.tag }}
