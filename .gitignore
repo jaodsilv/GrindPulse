@@ -1,6 +1,7 @@
 # Generated files
 tracker.html
 parsed_data.json
+.claude/scripts/helpers/debug_out/
 
 # Python cache
 __pycache__/
@@ -12,7 +13,6 @@ __pycache__/
 .idea/
 
 # Local development
-.claude/
 .thoughts/
 
 # Firebase secrets
@@ -23,3 +23,8 @@ node_modules/
 
 # Generated DataConnect SDK
 src/dataconnect-generated/
+
+# Playwright auth (local only)
+.claude/scripts/.auth.json
+.claude/scripts/.playwright-profile/
+.claude/scripts/.neetcode-profile/
