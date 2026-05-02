@@ -1,10 +1,8 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Project Overview
 
-**GrindPulse** - Offline-first web application for tracking coding interview preparation progress across multiple problem lists (Blind 75, NeetCode 150/250, Salesforce). Generates a single self-contained HTML file with embedded CSS/JS from Python scripts.
+**GrindPulse** - Offline-first web application for tracking coding interview preparation progress across multiple problem lists (Blind 75, NeetCode 150/250, LeetCode, etc). Generates a single self-contained HTML file with embedded CSS/JS from Python scripts.
 
 ## Build Commands
 
@@ -201,6 +199,13 @@ The awareness functions in `tests/awareness.js` are extracted from `js_awareness
     ├── awareness.test.js      # Test suite
     └── package.json           # Jest configuration
 ```
+
+## Worktree Conventions
+
+- Main repo at `/d/src/GrindPulse/main`
+- Feature worktrees at `/d/src/GrindPulse/<short-name>` (e.g., `/d/src/GrindPulse/problem-links`)
+- Branch naming: `feature/issue-<N>-<description>` or `bugfix/<description>`
+- Each issue gets its own worktree for isolation
 
 ## Adding New Problem Lists
 
