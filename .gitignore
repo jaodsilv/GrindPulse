@@ -1,7 +1,7 @@
 # Generated files
 tracker.html
 parsed_data.json
-.claude/scripts/helpers/debug_out/
+tools/debug/debug_out/
 
 # Python cache
 __pycache__/
