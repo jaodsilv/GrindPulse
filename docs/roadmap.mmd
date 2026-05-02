@@ -1,0 +1,45 @@
+%% Code Challenges Patterns Roadmap
+flowchart TD
+
+    %% Nodes
+    Arrays_Hashing["Arrays & Hashing"]
+    Two_Pointers["Two Pointers"]
+    Stack["Stack"]
+    Binary_Search["Binary Search"]
+    Sliding_Window["Sliding Window"]
+    Linked_List["Linked List"]
+    Trees["Trees"]
+    Tries["Tries"]
+    Backtracking["Backtracking"]
+    Heap_Priority_Queue["Heap / Priority Queue"]
+    Graphs["Graphs"]
+    1_D_DP["1-D DP"]
+    Intervals["Intervals"]
+    Greedy["Greedy"]
+    Advanced_Graphs["Advanced Graphs"]
+    2_D_DP["2-D DP"]
+    Bit_Manipulation["Bit Manipulation"]
+    Math_Geometry["Math & Geometry"]
+
+    %% Edges
+    Arrays_Hashing --> Two_Pointers
+    Arrays_Hashing --> Stack
+    Two_Pointers --> Binary_Search
+    Two_Pointers --> Sliding_Window
+    Two_Pointers --> Linked_List
+    Binary_Search --> Trees
+    Linked_List --> Trees
+    Trees --> Tries
+    Trees --> Backtracking
+    Trees --> Heap_Priority_Queue
+    Backtracking --> Graphs
+    Backtracking --> 1_D_DP
+    Heap_Priority_Queue --> Intervals
+    Heap_Priority_Queue --> Greedy
+    Heap_Priority_Queue --> Advanced_Graphs
+    Graphs --> Advanced_Graphs
+    Graphs --> 2_D_DP
+    Graphs --> Math_Geometry
+    1_D_DP --> 2_D_DP
+    1_D_DP --> Bit_Manipulation
+    Bit_Manipulation --> Math_Geometry
