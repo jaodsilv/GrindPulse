@@ -1,0 +1,171 @@
+Problem Name	Difficulty	Intermediate Max Time	Advanced Max Time	Top of the Crop Max Time	Problem Pattern	Link
+Product of Array Except Self	Medium	45	30	20	Arrays & Hashing	https://neetcode.io/problems/products-of-array-discluding-self/question?list=companyTagged&company=Uber
+Best Time to Buy And Sell Stock	Easy	20	12	7	Sliding Window	https://neetcode.io/problems/buy-and-sell-crypto/question?list=companyTagged&company=Uber
+Random Pick with Weight	Medium	35	20	10	Binary Search	https://neetcode.io/problems/random-pick-with-weight/question?list=companyTagged&company=Uber
+Course Schedule II	Medium	45	35	20	Graphs	https://neetcode.io/problems/course-schedule-ii/question?list=companyTagged&company=Uber
+The Maze	Medium	40	25	15	Graphs	https://neetcode.io/problems/the-maze/question?list=companyTagged&company=Uber
+Rotating the Box	Medium	45	30	18	Math & Geometry	https://neetcode.io/problems/rotating-the-box/question?list=companyTagged&company=Uber
+Two Sum	Easy	25	15	8	Arrays & Hashing	https://neetcode.io/problems/two-integer-sum/question?list=companyTagged&company=Uber
+Spiral Matrix	Medium	50	35	25	Math & Geometry	https://neetcode.io/problems/spiral-matrix/question?list=companyTagged&company=Uber
+Time Based Key Value Store	Medium	45	35	20	Binary Search	https://neetcode.io/problems/time-based-key-value-store/question?list=companyTagged&company=Uber
+Cherry Pickup	Hard	75	45	25	2-D Dynamic Programming	https://neetcode.io/problems/cherry-pickup/question?list=companyTagged&company=Uber
+Alien Dictionary	Hard	70	50	35	Advanced Graphs	https://neetcode.io/problems/foreign-dictionary/question?list=companyTagged&company=Uber
+Coin Change	Medium	40	28	18	1-D Dynamic Programming	https://neetcode.io/problems/coin-change/question?list=companyTagged&company=Uber
+Group Anagrams	Medium	40	28	18	Arrays & Hashing	https://neetcode.io/problems/anagram-groups/question?list=companyTagged&company=Uber
+Valid Sudoku	Medium	45	35	20	Arrays & Hashing	https://neetcode.io/problems/valid-sudoku/question?list=companyTagged&company=Uber
+The Maze II	Medium	55	30	18	Graphs	https://neetcode.io/problems/the-maze-ii/question?list=companyTagged&company=Uber
+Valid Anagram	Easy	18	10	6	Arrays & Hashing	https://neetcode.io/problems/is-anagram/question?list=companyTagged&company=Uber
+Koko Eating Bananas	Medium	45	35	20	Binary Search	https://neetcode.io/problems/eating-bananas/question?list=companyTagged&company=Uber
+First Unique Number	Medium	32	20	11	Arrays & Hashing	https://neetcode.io/problems/first-unique-number/question?list=companyTagged&company=Uber
+Number of Islands II	Hard	55	35	20	Graphs	https://neetcode.io/problems/number-of-islands-ii/question?list=companyTagged&company=Uber
+Find Median From Data Stream	Hard	65	48	35	Heap / Priority Queue	https://neetcode.io/problems/find-median-in-a-data-stream/question?list=companyTagged&company=Uber
+House Robber	Medium	30	20	12	1-D Dynamic Programming	https://neetcode.io/problems/house-robber/question?list=companyTagged&company=Uber
+Optimal Account Balancing	Hard	60	40	25	1-D Dynamic Programming	https://neetcode.io/problems/optimal-account-balancing/question?list=companyTagged&company=Uber
+Walls And Gates	Medium	45	35	20	Graphs	https://neetcode.io/problems/islands-and-treasure/question?list=companyTagged&company=Uber
+Insert Interval	Medium	45	30	22	Intervals	https://neetcode.io/problems/insert-new-interval/question?list=companyTagged&company=Uber
+Rotate Image	Medium	40	28	20	Math & Geometry	https://neetcode.io/problems/rotate-matrix/question?list=companyTagged&company=Uber
+Trapping Rain Water	Hard	60	45	30	Two Pointers	https://neetcode.io/problems/trapping-rain-water/question?list=companyTagged&company=Uber
+Largest Rectangle In Histogram	Hard	60	45	30	Stack	https://neetcode.io/problems/largest-rectangle-in-histogram/question?list=companyTagged&company=Uber
+Next Permutation	Medium	40	24	12	Greedy	https://neetcode.io/problems/next-permutation/question?list=companyTagged&company=Uber
+Interval List Intersections	Medium	30	18	10	Intervals	https://neetcode.io/problems/interval-list-intersections/question?list=companyTagged&company=Uber
+Design Hit Counter	Medium	28	16	8	Arrays & Hashing	https://neetcode.io/problems/design-hit-counter/question?list=companyTagged&company=Uber
+Number of Islands	Medium	35	25	18	Graphs	https://neetcode.io/problems/count-number-of-islands/question?list=companyTagged&company=Uber
+Minimum Window Substring	Hard	70	50	38	Sliding Window	https://neetcode.io/problems/minimum-window-with-characters/question?list=companyTagged&company=Uber
+Bus Routes	Hard	55	35	20	Advanced Graphs	https://neetcode.io/problems/bus-routes/question?list=companyTagged&company=Uber
+Boundary of Binary Tree	Medium	45	28	15	Trees	https://neetcode.io/problems/boundary-of-binary-tree/question?list=companyTagged&company=Uber
+Pacific Atlantic Water Flow	Medium	55	40	30	Graphs	https://neetcode.io/problems/pacific-atlantic-water-flow/question?list=companyTagged&company=Uber
+Task Scheduler	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/task-scheduling/question?list=companyTagged&company=Uber
+Word Ladder	Hard	60	45	30	Graphs	https://neetcode.io/problems/word-ladder/question?list=companyTagged&company=Uber
+Reverse Integer	Medium	45	35	20	Bit Manipulation	https://neetcode.io/problems/reverse-integer/question?list=companyTagged&company=Uber
+Construct Quad Tree	Medium	45	32	24	Trees	https://neetcode.io/problems/construct-quad-tree/question?list=companyTagged&company=Uber
+Candy	Hard	75	52	38	Greedy	https://neetcode.io/problems/candy/question?list=companyTagged&company=Uber
+LFU Cache	Hard	85	60	45	Linked List	https://neetcode.io/problems/lfu-cache/question?list=companyTagged&company=Uber
+Find Peak Element	Medium	35	18	8	Binary Search	https://neetcode.io/problems/find-peak-element/question?list=companyTagged&company=Uber
+Squares of a Sorted Array	Easy	20	10	5	Two Pointers	https://neetcode.io/problems/squares-of-a-sorted-array/question?list=companyTagged&company=Uber
+Find First And Last Position of Element In Sorted Array	Medium	35	18	10	Binary Search	https://neetcode.io/problems/find-first-and-last-position-of-element-in-sorted-array/question?list=companyTagged&company=Uber
+3Sum	Medium	55	40	28	Two Pointers	https://neetcode.io/problems/three-integer-sum/question?list=companyTagged&company=Uber
+Search In Rotated Sorted Array	Medium	50	35	25	Binary Search	https://neetcode.io/problems/find-target-in-rotated-sorted-array/question?list=companyTagged&company=Uber
+Maximum Depth of Binary Tree	Easy	18	10	6	Trees	https://neetcode.io/problems/depth-of-binary-tree/question?list=companyTagged&company=Uber
+Word Search	Medium	55	40	28	Backtracking	https://neetcode.io/problems/search-for-word/question?list=companyTagged&company=Uber
+Decode Ways	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/decode-ways/question?list=companyTagged&company=Uber
+Serialize And Deserialize Binary Tree	Hard	70	50	38	Trees	https://neetcode.io/problems/serialize-and-deserialize-binary-tree/question?list=companyTagged&company=Uber
+Min Cost to Connect All Points	Medium	45	35	20	Advanced Graphs	https://neetcode.io/problems/min-cost-to-connect-points/question?list=companyTagged&company=Uber
+Longest Increasing Path In a Matrix	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/longest-increasing-path-in-matrix/question?list=companyTagged&company=Uber
+Merge Strings Alternately	Easy	18	12	7	Two Pointers	https://neetcode.io/problems/merge-strings-alternately/question?list=companyTagged&company=Uber
+Evaluate Division	Medium	48	34	25	Graphs	https://neetcode.io/problems/evaluate-division/question?list=companyTagged&company=Uber
+Minimum Cost For Tickets	Medium	45	28	15	1-D Dynamic Programming	https://neetcode.io/problems/minimum-cost-for-tickets/question?list=companyTagged&company=Uber
+Minimum Cost to Connect Sticks	Medium	20	12	5	Heap / Priority Queue	https://neetcode.io/problems/minimum-cost-to-connect-sticks/question?list=companyTagged&company=Uber
+Leftmost Column With at Least a One	Medium	35	20	10	Binary Search	https://neetcode.io/problems/leftmost-column-with-at-least-a-one/question?list=companyTagged&company=Uber
+Valid Palindrome	Easy	20	12	8	Two Pointers	https://neetcode.io/problems/is-palindrome/question?list=companyTagged&company=Uber
+Find Minimum In Rotated Sorted Array	Medium	40	25	18	Binary Search	https://neetcode.io/problems/find-minimum-in-rotated-sorted-array/question?list=companyTagged&company=Uber
+Maximum Subarray	Medium	35	25	15	Greedy	https://neetcode.io/problems/maximum-subarray/question?list=companyTagged&company=Uber
+Container With Most Water	Medium	35	20	15	Two Pointers	https://neetcode.io/problems/max-water-container/question?list=companyTagged&company=Uber
+Longest Repeating Character Replacement	Medium	50	35	25	Sliding Window	https://neetcode.io/problems/longest-repeating-substring-with-replacement/question?list=companyTagged&company=Uber
+Add Two Numbers	Medium	45	35	20	Linked List	https://neetcode.io/problems/add-two-numbers/question?list=companyTagged&company=Uber
+LRU Cache	Medium	45	35	20	Linked List	https://neetcode.io/problems/lru-cache/question?list=companyTagged&company=Uber
+Reconstruct Itinerary	Hard	60	45	30	Advanced Graphs	https://neetcode.io/problems/reconstruct-flight-path/question?list=companyTagged&company=Uber
+Regular Expression Matching	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/regular-expression-matching/question?list=companyTagged&company=Uber
+Happy Number	Easy	30	20	10	Math & Geometry	https://neetcode.io/problems/non-cyclical-number/question?list=companyTagged&company=Uber
+Asteroid Collision	Medium	40	28	20	Stack	https://neetcode.io/problems/asteroid-collision/question?list=companyTagged&company=Uber
+Sqrt(x)	Easy	20	12	8	Binary Search	https://neetcode.io/problems/sqrtx/question?list=companyTagged&company=Uber
+House Robber III	Medium	50	35	26	Trees	https://neetcode.io/problems/house-robber-iii/question?list=companyTagged&company=Uber
+Minimum Path Sum	Medium	38	26	18	2-D Dynamic Programming	https://neetcode.io/problems/minimum-path-sum/question?list=companyTagged&company=Uber
+Palindrome Number	Easy	12	6	3	Math & Geometry	https://neetcode.io/problems/palindrome-number/question?list=companyTagged&company=Uber
+Move Zeroes	Easy	12	6	3	Two Pointers	https://neetcode.io/problems/move-zeroes/question?list=companyTagged&company=Uber
+Number of Provinces	Medium	30	18	8	Graphs	https://neetcode.io/problems/number-of-provinces/question?list=companyTagged&company=Uber
+Next Greater Element I	Easy	22	12	6	Arrays & Hashing	https://neetcode.io/problems/next-greater-element-i/question?list=companyTagged&company=Uber
+Custom Sort String	Medium	25	12	5	Arrays & Hashing	https://neetcode.io/problems/custom-sort-string/question?list=companyTagged&company=Uber
+Candy Crush	Medium	50	32	18	Arrays & Hashing	https://neetcode.io/problems/candy-crush/question?list=companyTagged&company=Uber
+Brightest Position on Street	Medium	50	25	15	Arrays & Hashing	https://neetcode.io/problems/brightest-position-on-street/question?list=companyTagged&company=Uber
+The Earliest Moment When Everyone Become Friends	Medium	45	27	15	Arrays & Hashing	https://neetcode.io/problems/the-earliest-moment-when-everyone-become-friends/question?list=companyTagged&company=Uber
+Contains Duplicate	Easy	15	10	5	Arrays & Hashing	https://neetcode.io/problems/duplicate-integer/question?list=companyTagged&company=Uber
+Meeting Rooms	Easy	20	12	8	Intervals	https://neetcode.io/problems/meeting-schedule/question?list=companyTagged&company=Uber
+Word Search II	Hard	75	55	40	Tries	https://neetcode.io/problems/search-for-word-ii/question?list=companyTagged&company=Uber
+House Robber II	Medium	45	30	20	1-D Dynamic Programming	https://neetcode.io/problems/house-robber-ii/question?list=companyTagged&company=Uber
+Word Break	Medium	50	35	25	1-D Dynamic Programming	https://neetcode.io/problems/word-break/question?list=companyTagged&company=Uber
+Binary Tree Maximum Path Sum	Hard	65	48	35	Trees	https://neetcode.io/problems/binary-tree-maximum-path-sum/question?list=companyTagged&company=Uber
+Sliding Window Maximum	Hard	60	45	30	Sliding Window	https://neetcode.io/problems/sliding-window-maximum/question?list=companyTagged&company=Uber
+Median of Two Sorted Arrays	Hard	60	45	30	Binary Search	https://neetcode.io/problems/median-of-two-sorted-arrays/question?list=companyTagged&company=Uber
+Permutations	Medium	45	35	20	Backtracking	https://neetcode.io/problems/permutations/question?list=companyTagged&company=Uber
+Surrounded Regions	Medium	45	35	20	Graphs	https://neetcode.io/problems/surrounded-regions/question?list=companyTagged&company=Uber
+Swim In Rising Water	Hard	60	45	30	Advanced Graphs	https://neetcode.io/problems/swim-in-rising-water/question?list=companyTagged&company=Uber
+Cheapest Flights Within K Stops	Medium	45	35	20	Advanced Graphs	https://neetcode.io/problems/cheapest-flight-path/question?list=companyTagged&company=Uber
+Burst Balloons	Hard	60	45	30	2-D Dynamic Programming	https://neetcode.io/problems/burst-balloons/question?list=companyTagged&company=Uber
+Maximum Profit in Job Scheduling	Hard	55	38	22	1-D Dynamic Programming	https://neetcode.io/problems/maximum-profit-in-job-scheduling/question?list=companyTagged&company=Uber
+Put Marbles in Bags	Hard	50	35	20	Greedy	https://neetcode.io/problems/put-marbles-in-bags/question?list=companyTagged&company=Uber
+Analyze User Website Visit Pattern	Medium	55	30	21	Arrays & Hashing	https://neetcode.io/problems/analyze-user-website-visit-pattern/question?list=companyTagged&company=Uber
+Remove Element	Easy	15	10	5	Arrays & Hashing	https://neetcode.io/problems/remove-element/question?list=companyTagged&company=Uber
+Subarray Sum Equals K	Medium	45	32	24	Arrays & Hashing	https://neetcode.io/problems/subarray-sum-equals-k/question?list=companyTagged&company=Uber
+Split Array Largest Sum	Hard	80	55	40	Binary Search	https://neetcode.io/problems/split-array-largest-sum/question?list=companyTagged&company=Uber
+Word Break II	Hard	80	55	40	Backtracking	https://neetcode.io/problems/word-break-ii/question?list=companyTagged&company=Uber
+Stone Game II	Medium	50	35	26	2-D Dynamic Programming	https://neetcode.io/problems/stone-game-ii/question?list=companyTagged&company=Uber
+Maximum Frequency Stack	Hard	80	55	40	Stack	https://neetcode.io/problems/maximum-frequency-stack/question?list=companyTagged&company=Uber
+Frequency of The Most Frequent Element	Medium	45	28	15	Sliding Window	https://neetcode.io/problems/frequency-of-the-most-frequent-element/question?list=companyTagged&company=Uber
+Shortest Bridge	Medium	45	30	18	Graphs	https://neetcode.io/problems/shortest-bridge/question?list=companyTagged&company=Uber
+Insert Delete Get Random O(1)	Medium	25	14	8	Arrays & Hashing	https://neetcode.io/problems/insert-delete-getrandom-o1/question?list=companyTagged&company=Uber
+Maximum Points You Can Obtain From Cards	Medium	38	22	12	Greedy	https://neetcode.io/problems/maximum-points-you-can-obtain-from-cards/question?list=companyTagged&company=Uber
+Design File System	Medium	40	25	13	Tries	https://neetcode.io/problems/design-file-system/question?list=companyTagged&company=Uber
+Meeting Rooms II	Medium	45	32	22	Intervals	https://neetcode.io/problems/meeting-schedule-ii/question?list=companyTagged&company=Uber
+Longest Consecutive Sequence	Medium	40	28	20	Arrays & Hashing	https://neetcode.io/problems/longest-consecutive-sequence/question?list=companyTagged&company=Uber
+Merge K Sorted Lists	Hard	65	45	32	Linked List	https://neetcode.io/problems/merge-k-sorted-linked-lists/question?list=companyTagged&company=Uber
+Clone Graph	Medium	40	28	20	Graphs	https://neetcode.io/problems/clone-graph/question?list=companyTagged&company=Uber
+Course Schedule	Medium	45	32	22	Graphs	https://neetcode.io/problems/course-schedule/question?list=companyTagged&company=Uber
+Merge Intervals	Medium	35	25	18	Intervals	https://neetcode.io/problems/merge-intervals/question?list=companyTagged&company=Uber
+Top K Frequent Elements	Medium	38	28	18	Arrays & Hashing	https://neetcode.io/problems/top-k-elements-in-list/question?list=companyTagged&company=Uber
+Validate Binary Search Tree	Medium	40	28	20	Trees	https://neetcode.io/problems/valid-binary-search-tree/question?list=companyTagged&company=Uber
+Kth Smallest Element In a Bst	Medium	35	25	18	Trees	https://neetcode.io/problems/kth-smallest-integer-in-bst/question?list=companyTagged&company=Uber
+Construct Binary Tree From Preorder And Inorder Traversal	Medium	50	35	25	Trees	https://neetcode.io/problems/binary-tree-from-preorder-and-inorder-traversal/question?list=companyTagged&company=Uber
+Binary Tree Right Side View	Medium	45	35	20	Trees	https://neetcode.io/problems/binary-tree-right-side-view/question?list=companyTagged&company=Uber
+Design Twitter	Medium	45	35	20	Heap / Priority Queue	https://neetcode.io/problems/design-twitter-feed/question?list=companyTagged&company=Uber
+Palindrome Partitioning	Medium	45	35	20	Backtracking	https://neetcode.io/problems/palindrome-partitioning/question?list=companyTagged&company=Uber
+Letter Combinations of a Phone Number	Medium	45	35	20	Backtracking	https://neetcode.io/problems/combinations-of-a-phone-number/question?list=companyTagged&company=Uber
+N Queens	Hard	60	45	30	Backtracking	https://neetcode.io/problems/n-queens/question?list=companyTagged&company=Uber
+Max Area of Island	Medium	45	35	20	Graphs	https://neetcode.io/problems/max-area-of-island/question?list=companyTagged&company=Uber
+Rotting Oranges	Medium	45	35	20	Graphs	https://neetcode.io/problems/rotting-fruit/question?list=companyTagged&company=Uber
+Valid Parenthesis String	Medium	45	35	20	Greedy	https://neetcode.io/problems/valid-parenthesis-string/question?list=companyTagged&company=Uber
+Plus One	Easy	30	20	10	Math & Geometry	https://neetcode.io/problems/plus-one/question?list=companyTagged&company=Uber
+Valid Palindrome II	Easy	22	14	9	Two Pointers	https://neetcode.io/problems/valid-palindrome-ii/question?list=companyTagged&company=Uber
+Longest Common Prefix	Easy	20	12	8	Arrays & Hashing	https://neetcode.io/problems/longest-common-prefix/question?list=companyTagged&company=Uber
+Majority Element	Easy	20	12	8	Arrays & Hashing	https://neetcode.io/problems/majority-element/question?list=companyTagged&company=Uber
+Minimum Size Subarray Sum	Medium	40	28	20	Sliding Window	https://neetcode.io/problems/minimum-size-subarray-sum/question?list=companyTagged&company=Uber
+Find K Closest Elements	Medium	40	28	20	Sliding Window	https://neetcode.io/problems/find-k-closest-elements/question?list=companyTagged&company=Uber
+Capacity to Ship Packages Within D Days	Medium	45	32	24	Binary Search	https://neetcode.io/problems/capacity-to-ship-packages-within-d-days/question?list=companyTagged&company=Uber
+Search In Rotated Sorted Array II	Medium	45	32	24	Binary Search	https://neetcode.io/problems/search-in-rotated-sorted-array-ii/question?list=companyTagged&company=Uber
+Delete Node in a BST	Medium	40	28	20	Trees	https://neetcode.io/problems/delete-node-in-a-bst/question?list=companyTagged&company=Uber
+Matchsticks to Square	Medium	50	35	26	Backtracking	https://neetcode.io/problems/matchsticks-to-square/question?list=companyTagged&company=Uber
+Verifying An Alien Dictionary	Easy	22	14	9	Graphs	https://neetcode.io/problems/verifying-an-alien-dictionary/question?list=companyTagged&company=Uber
+Open The Lock	Medium	45	32	24	Graphs	https://neetcode.io/problems/open-the-lock/question?list=companyTagged&company=Uber
+Course Schedule IV	Medium	45	32	24	Graphs	https://neetcode.io/problems/course-schedule-iv/question?list=companyTagged&company=Uber
+Accounts Merge	Medium	50	35	26	Graphs	https://neetcode.io/problems/accounts-merge/question?list=companyTagged&company=Uber
+Meeting Rooms III	Hard	80	58	42	Intervals	https://neetcode.io/problems/meeting-rooms-iii/question?list=companyTagged&company=Uber
+Add Binary	Easy	20	12	8	Bit Manipulation	https://neetcode.io/problems/add-binary/question?list=companyTagged&company=Uber
+Find Critical and Pseudo Critical Edges in Minimum Spanning Tree	Hard	85	60	45	Advanced Graphs	https://neetcode.io/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/question?list=companyTagged&company=Uber
+Shortest Path in Binary Matrix	Medium	35	20	12	Graphs	https://neetcode.io/problems/shortest-path-in-binary-matrix/question?list=companyTagged&company=Uber
+Basic Calculator II	Medium	45	28	15	Stack	https://neetcode.io/problems/basic-calculator-ii/question?list=companyTagged&company=Uber
+Zigzag Conversion	Medium	35	20	10	Math & Geometry	https://neetcode.io/problems/zigzag-conversion/question?list=companyTagged&company=Uber
+Flood Fill	Easy	22	12	6	Graphs	https://neetcode.io/problems/flood-fill/question?list=companyTagged&company=Uber
+Ransom Note	Easy	18	8	4	Arrays & Hashing	https://neetcode.io/problems/ransom-note/question?list=companyTagged&company=Uber
+Text Justification	Hard	70	45	30	Arrays & Hashing	https://neetcode.io/problems/text-justification/question?list=companyTagged&company=Uber
+Paint House	Medium	35	20	10	1-D Dynamic Programming	https://neetcode.io/problems/paint-house/question?list=companyTagged&company=Uber
+Isomorphic Strings	Easy	25	15	7	Arrays & Hashing	https://neetcode.io/problems/isomorphic-strings/question?list=companyTagged&company=Uber
+Subarrays with K Different Integers	Hard	60	45	28	Sliding Window	https://neetcode.io/problems/subarrays-with-k-different-integers/question?list=companyTagged&company=Uber
+Binary Search Tree Iterator	Medium	40	22	12	Trees	https://neetcode.io/problems/binary-search-tree-iterator/question?list=companyTagged&company=Uber
+Count Primes	Medium	35	18	8	Math & Geometry	https://neetcode.io/problems/count-primes/question?list=companyTagged&company=Uber
+Largest Divisible Subset	Medium	50	32	18	1-D Dynamic Programming	https://neetcode.io/problems/largest-divisible-subset/question?list=companyTagged&company=Uber
+Length of Last Word	Easy	8	3	1	Arrays & Hashing	https://neetcode.io/problems/length-of-last-word/question?list=companyTagged&company=Uber
+One Edit Distance	Medium	35	23	13	Arrays & Hashing	https://neetcode.io/problems/one-edit-distance/question?list=companyTagged&company=Uber
+Reverse Words in a String II	Medium	25	14	10	Arrays & Hashing	https://neetcode.io/problems/reverse-words-in-a-string-ii/question?list=companyTagged&company=Uber
+Group Shifted Strings	Medium	30	19	12	Arrays & Hashing	https://neetcode.io/problems/group-shifted-strings/question?list=companyTagged&company=Uber
+Palindrome Permutation	Easy	18	10	5	Arrays & Hashing	https://neetcode.io/problems/palindrome-permutation/question?list=companyTagged&company=Uber
+Binary Tree Longest Consecutive Sequence II	Medium	45	28	15	Trees	https://neetcode.io/problems/binary-tree-longest-consecutive-sequence-ii/question?list=companyTagged&company=Uber
+Find the Celebrity	Medium	40	25	12	Graphs	https://neetcode.io/problems/find-the-celebrity/question?list=companyTagged&company=Uber
+Parallel Courses	Medium	45	30	18	Graphs	https://neetcode.io/problems/parallel-courses/question?list=companyTagged&company=Uber
+Design In-Memory File System	Hard	50	32	18	Tries	https://neetcode.io/problems/design-in-memory-file-system/question?list=companyTagged&company=Uber
+Design Search Autocomplete System	Hard	55	38	22	Tries	https://neetcode.io/problems/design-search-autocomplete-system/question?list=companyTagged&company=Uber
+Design Snake Game	Medium	35	28	19	Arrays & Hashing	https://neetcode.io/problems/design-snake-game/question?list=companyTagged&company=Uber
+Factor Combinations	Medium	45	28	15	Backtracking	https://neetcode.io/problems/factor-combinations/question?list=companyTagged&company=Uber
+Word Pattern	Easy	22	12	6	Arrays & Hashing	https://neetcode.io/problems/word-pattern/question?list=companyTagged&company=Uber
+Meeting Scheduler	Medium	30	22	14	Two Pointers	https://neetcode.io/problems/meeting-scheduler/question?list=companyTagged&company=Uber
+Strobogrammatic Number	Easy	16	12	7	Two Pointers	https://neetcode.io/problems/strobogrammatic-number/question?list=companyTagged&company=Uber
+Word Pattern II	Medium	44	35	18	Backtracking	https://neetcode.io/problems/word-pattern-ii/question?list=companyTagged&company=Uber
+Ones and Zeroes	Medium	50	32	18	2-D Dynamic Programming	https://neetcode.io/problems/ones-and-zeroes/question?list=companyTagged&company=Uber
