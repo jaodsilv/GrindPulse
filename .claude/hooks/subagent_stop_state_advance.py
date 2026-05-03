@@ -23,6 +23,8 @@ _SCRIPTS = os.path.normpath(os.path.join(_HERE, "..", "scripts"))
 if _SCRIPTS not in sys.path:
     sys.path.insert(0, _SCRIPTS)
 
+from lib.active_list import load_pair as _load_active_list  # noqa: E402
+
 
 def log_err(msg):
     sys.stderr.write(f"[subagent_stop_state_advance] {msg}\n")
@@ -86,7 +88,11 @@ def _scan_transcript(transcript_path):
                     continue
                 try:
                     rec = json.loads(line)
-                except Exception:
+                except json.JSONDecodeError:
+                    # Transcripts are JSONL; non-JSON lines (banners, blanks)
+                    # are expected and skipped silently to avoid spamming
+                    # stderr per pipeline run. The narrowed exception ensures
+                    # only true parse errors are swallowed.
                     continue
                 for s in _iter_strings(rec):
                     if problem_id is None:
@@ -102,29 +108,6 @@ def _scan_transcript(transcript_path):
     except Exception as e:
         log_err(f"failed to scan transcript {transcript_path}: {e}")
     return problem_id, source
-
-
-def _load_active_list():
-    """Return (list_name, work_folder) from .active-list.yaml, or (None, None) on error."""
-    path = os.path.join(".thoughts", "time-estimatives", ".active-list.yaml")
-    try:
-        import yaml
-    except ImportError:
-        log_err("PyYAML not installed; cannot read .active-list.yaml")
-        return None, None
-    try:
-        with open(path, encoding="utf-8") as f:
-            cfg = yaml.safe_load(f) or {}
-    except Exception as e:
-        log_err(f"failed to read {path}: {e}")
-        return None, None
-    if not isinstance(cfg, dict):
-        return None, None
-    list_name = cfg.get("list-name") or cfg.get("name")
-    work_folder = cfg.get("work-folder")
-    if not work_folder and list_name:
-        work_folder = os.path.join(".thoughts", "time-estimatives", list_name)
-    return list_name, work_folder
 
 
 def _read_problem_name(work_folder, problem_id):
@@ -219,6 +202,47 @@ def _route(worker, source):
     return None, None
 
 
+def _atomic_decrement_counter(work_folder):
+    """Atomically decrement the in-flight counter under .dispatch.lock.
+
+    Uses lib.file_lock to coordinate with concurrent stop hooks. If the counter
+    file is missing or malformed, logs clearly and clamps to 0 (never below).
+    Returns True iff a decrement was successfully written, False on any failure.
+    """
+    try:
+        from lib.dispatch_state import counter_path, write_counter
+        from lib.file_lock import file_lock
+    except Exception as e:
+        log_err(f"failed to import counter helpers: {e}")
+        return False
+
+    cpath = counter_path(work_folder)
+    try:
+        with file_lock(os.path.join(work_folder, ".dispatch.lock")):
+            current = 0
+            if os.path.isfile(cpath):
+                try:
+                    current = int(cpath.read_text().strip())
+                except Exception as e:
+                    log_err(
+                        f"in-flight counter at {cpath} is malformed ({e!r}); "
+                        f"clamping to 0 before decrement"
+                    )
+                    current = 0
+            if current <= 0:
+                log_err(
+                    f"in-flight counter at {cpath} is {current}; "
+                    f"clamping to 0 (possible drift or double-stop)"
+                )
+                write_counter(work_folder, 0)
+            else:
+                write_counter(work_folder, current - 1)
+    except Exception as e:
+        log_err(f"failed to decrement in-flight counter: {e}")
+        return False
+    return True
+
+
 def main():
     try:
         raw = sys.stdin.read()
@@ -242,54 +266,67 @@ def main():
     if worker is None:
         return 0
 
-    transcript_path = payload.get("agent_transcript_path") or payload.get("transcript_path")
-    problem_id, source = _scan_transcript(transcript_path)
-    if problem_id is None:
-        log_err(f"could not find <problem-id> in transcript for worker {worker!r}")
-        return 0
-
-    _, work_folder = _load_active_list()
-    if not work_folder:
-        log_err("could not determine work-folder from .active-list.yaml")
-        return 0
-
+    # From this point on, this stop event corresponds to an in-flight worker that
+    # agent_dispatch previously incremented for. We MUST decrement exactly once,
+    # regardless of whether transcript scanning, metadata loading, routing, or
+    # status_io updates succeed. Use try/finally with a guard so we never
+    # double-decrement if an inner step also tries.
+    decremented = False
     try:
-        from filelock import FileLock
-        from lib.dispatch_state import read_counter, write_counter
+        transcript_path = payload.get("agent_transcript_path") or payload.get("transcript_path")
+        problem_id, source = _scan_transcript(transcript_path)
+        if problem_id is None:
+            log_err(f"could not find <problem-id> in transcript for worker {worker!r}")
+            return 0
 
-        with FileLock(os.path.join(work_folder, ".dispatch.lock")):
-            write_counter(work_folder, read_counter(work_folder) - 1)
-    except Exception as e:
-        log_err(f"failed to decrement in-flight counter: {e}")
+        _, work_folder = _load_active_list()
+        if not work_folder:
+            log_err("could not determine work-folder from .active-list.yaml")
+            return 0
 
-    problem_name = _read_problem_name(work_folder, problem_id)
-    if not problem_name:
-        log_err(f"could not read problem-name from metadata.yaml for p{problem_id}")
+        if _atomic_decrement_counter(work_folder):
+            decremented = True
+
+        problem_name = _read_problem_name(work_folder, problem_id)
+        if not problem_name:
+            log_err(f"could not read problem-name from metadata.yaml for p{problem_id}")
+            return 0
+
+        from_phase, to_phase = _route(worker, source)
+        if from_phase is None:
+            log_err(f"no routing for worker={worker!r} source={source!r}")
+            return 0
+        if to_phase is None:
+            return 0
+
+        try:
+            from lib import status_io  # type: ignore[import-not-found]
+        except Exception as e:
+            log_err(f"failed to import status_io: {e}")
+            return 0
+
+        try:
+            status_io.release_work_item(work_folder, from_phase, to_phase, problem_name)
+        except Exception as e:
+            log_err(
+                f"release_work_item failed (worker={worker} source={source} "
+                f"name={problem_name!r} from={from_phase} to={to_phase}): {e}"
+            )
+            return 0
+
         return 0
-
-    from_phase, to_phase = _route(worker, source)
-    if from_phase is None:
-        log_err(f"no routing for worker={worker!r} source={source!r}")
-        return 0
-    if to_phase is None:
-        return 0
-
-    try:
-        from lib import status_io  # type: ignore[import-not-found]
-    except Exception as e:
-        log_err(f"failed to import status_io: {e}")
-        return 0
-
-    try:
-        status_io.release_work_item(work_folder, from_phase, to_phase, problem_name)
-    except Exception as e:
-        log_err(
-            f"release_work_item failed (worker={worker} source={source} "
-            f"name={problem_name!r} from={from_phase} to={to_phase}): {e}"
-        )
-        return 0
-
-    return 0
+    finally:
+        if not decremented:
+            # We failed before reaching the in-line decrement (e.g. transcript
+            # scan or .active-list.yaml load failed). Best-effort: try to load
+            # work_folder again and decrement, so a missing transcript tag does
+            # not leak the in-flight slot until the dispatcher times out.
+            try:
+                _, wf = _load_active_list()
+                if wf:
+                    _atomic_decrement_counter(wf)
+            except Exception as e:
+                log_err(f"final-fallback counter decrement failed: {e}")
 
 
 if __name__ == "__main__":
