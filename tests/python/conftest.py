@@ -1,9 +1,18 @@
 """Pytest fixtures for GrindPulse Python tests."""
 
 import json
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+# Ensure PyYAML is available — CI only pre-installs pytest/pytest-cov, but
+# modules under test (process_list_hook, time_selection, list_work, status_io)
+# import yaml at module level, which would abort collection without this.
+try:
+    import yaml  # noqa: F401
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "PyYAML"])
 
 import pytest
 
