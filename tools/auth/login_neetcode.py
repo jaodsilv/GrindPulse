@@ -1,6 +1,8 @@
 """One-time manual login into neetcode.io.
 
-Opens Edge with the persistent profile at .claude/scripts/.playwright-profile/.
+Run from the project root.
+
+Opens Edge with the persistent profile at .claude/scripts/.neetcode-profile/.
 Log in manually, then close the browser window — the session is saved to disk
 and will be reused by fetch_problem.py in headless mode.
 """
@@ -11,7 +13,7 @@ from playwright.sync_api import sync_playwright
 
 
 def main() -> None:
-    profile_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".playwright-profile")
+    profile_dir = os.path.join(".claude", "scripts", ".neetcode-profile")
     os.makedirs(profile_dir, exist_ok=True)
 
     with sync_playwright() as p:
