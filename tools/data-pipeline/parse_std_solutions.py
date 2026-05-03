@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Parse standard-solutions.md for all problems and write std-solution/ files."""
 
+import argparse
 import os
 import re
-import sys
 
-LIST_NAME = "uber"
-BASE = f".thoughts/time-estimatives/{LIST_NAME}"
+DEFAULT_LIST_NAME = "uber"
+DEFAULT_INPUT_DIR = ".thoughts/time-estimatives"
+DEFAULT_START = 1
+DEFAULT_END = 50
 
 
 def get_time_complexity(sol):
@@ -35,8 +37,8 @@ def complexity_order(tc):
     return 2
 
 
-def parse_and_write(problem_id, start=None, end=None):
-    pdir = f"{BASE}/p{problem_id}"
+def parse_and_write(problem_id, base):
+    pdir = f"{base}/p{problem_id}"
     input_file = f"{pdir}/standard-solutions.md"
     output_dir = f"{pdir}/std-solution"
     status_file = f"{pdir}/status.std-solutions.yaml"
@@ -85,13 +87,57 @@ def parse_and_write(problem_id, start=None, end=None):
     return n, f"parsed {n} solutions"
 
 
-def main():
-    start = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-    end = int(sys.argv[2]) if len(sys.argv) > 2 else 50
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(
+        description="Parse standard-solutions.md for problems and write std-solution/ files.",
+    )
+    parser.add_argument(
+        "--list-name",
+        default=DEFAULT_LIST_NAME,
+        help=f"Problem list name under the input dir (default: {DEFAULT_LIST_NAME})",
+    )
+    parser.add_argument(
+        "--input-dir",
+        default=DEFAULT_INPUT_DIR,
+        help=(f"Root directory containing the list folder (default: {DEFAULT_INPUT_DIR})"),
+    )
+    parser.add_argument(
+        "--start",
+        type=int,
+        default=DEFAULT_START,
+        help=f"First problem id (inclusive, default: {DEFAULT_START})",
+    )
+    parser.add_argument(
+        "--end",
+        type=int,
+        default=DEFAULT_END,
+        help=f"Last problem id (inclusive, default: {DEFAULT_END})",
+    )
+    parser.add_argument(
+        "--problem-id",
+        type=int,
+        action="append",
+        default=None,
+        help=(
+            "Specific problem id to process; may be passed multiple times. "
+            "When provided, overrides --start/--end."
+        ),
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv=None):
+    args = parse_args(argv)
+    base = f"{args.input_dir.rstrip('/')}/{args.list_name}"
+
+    if args.problem_id:
+        pids = list(args.problem_id)
+    else:
+        pids = list(range(args.start, args.end + 1))
 
     total = 0
-    for pid in range(start, end + 1):
-        count, msg = parse_and_write(pid)
+    for pid in pids:
+        count, msg = parse_and_write(pid, base)
         total += count
         print(f"p{pid}: {msg}")
 
