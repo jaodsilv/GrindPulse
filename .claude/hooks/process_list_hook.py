@@ -31,7 +31,7 @@ def _parse_positive_int(flag: str, parts: list[str]) -> tuple[int | None, str | 
 
 
 def _parse_phases(parts: list[str]) -> tuple[int, int, str | None]:
-    """Return (start_phase, end_phase, error_msg). Defaults to (0, 6, None)."""
+    """Return (start_phase, end_phase, error_msg). Defaults to (0, 7, None)."""
     flag = "--phases"
     if flag not in parts:
         return 0, 7, None
@@ -111,7 +111,7 @@ def _rebuild_queues_and_clear_claims(
                     pass
 
     plan: list[tuple[str, str, list[str]]] = []
-    if start_phase <= 1 <= end_phase:
+    if start_phase <= 1 < end_phase:
         plan.append(("parse-needed", "parse.yaml", []))
         if ai_path:
             plan.append(("solve-easy-needed", "solve-easy.yaml", ["--ai-path"]))
@@ -119,17 +119,17 @@ def _rebuild_queues_and_clear_claims(
             plan.append(("solve-hard-needed", "solve-hard.yaml", ["--ai-path"]))
         if community_path:
             plan.append(("community-needed", "community.yaml", ["--community-path"]))
-    if start_phase <= 2 <= end_phase:
+    if start_phase <= 2 < end_phase:
         plan.append(("explain-needed", "explain.yaml", []))
-    if start_phase <= 3 <= end_phase:
+    if start_phase <= 3 < end_phase:
         plan.append(("analyze-easy-needed", "analyze-easy.yaml", []))
         plan.append(("analyze-medium-needed", "analyze-medium.yaml", []))
         plan.append(("analyze-hard-needed", "analyze-hard.yaml", []))
-    if start_phase <= 4 <= end_phase:
+    if start_phase <= 4 < end_phase:
         plan.append(("critique-easy-needed", "critique-easy.yaml", []))
         plan.append(("critique-medium-needed", "critique-medium.yaml", []))
         plan.append(("critique-hard-needed", "critique-hard.yaml", []))
-    if start_phase <= 5 <= end_phase:
+    if start_phase <= 5 < end_phase:
         plan.append(("select-needed", "select.yaml", []))
 
     list_work_py = os.path.normpath(
