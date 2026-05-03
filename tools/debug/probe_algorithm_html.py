@@ -39,8 +39,10 @@ def main():
                     if (el.inner_text() or "").strip() == "Solution":
                         el.click()
                         break
-                except Exception:
-                    pass
+                except Exception as e:
+                    # Debug scan: detached/animating nodes raise transiently;
+                    # log and keep scanning.
+                    print(f"skipping element while searching Solution tab: {type(e).__name__}: {e}")
             page.wait_for_timeout(3500)
 
             html = page.evaluate("() => document.body.innerHTML")

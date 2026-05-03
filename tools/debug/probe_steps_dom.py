@@ -50,8 +50,13 @@ def probe(slug: str, url: str, p) -> None:
                 if (el.inner_text() or "").strip() == "Solution":
                     el.click()
                     break
-            except Exception:
-                pass
+            except Exception as e:
+                # Debug scan: detached/animating nodes raise transiently; we
+                # only need any one element to match, so log and keep scanning.
+                print(
+                    f"[{slug}] skipping element while searching Solution tab: "
+                    f"{type(e).__name__}: {e}"
+                )
         page.wait_for_timeout(2500)
 
         visible = page.evaluate("() => document.body.innerText")
@@ -97,7 +102,10 @@ def probe(slug: str, url: str, p) -> None:
                         page.wait_for_timeout(500)
                         clicked += 1
                     break
-            except Exception:
+            except Exception as e:
+                # Debug probe trying multiple candidate selectors; failure on
+                # any one is expected (selector not present), keep trying.
+                print(f"[{slug}] selector {sel!r} failed: {type(e).__name__}: {e}")
                 continue
         if clicked:
             visible2 = page.evaluate("() => document.body.innerText")

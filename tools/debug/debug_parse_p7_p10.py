@@ -55,7 +55,12 @@ def dump(slug: str, url: str, p) -> None:
                     el.click()
                     clicked = True
                     break
-            except Exception:
+            except Exception as e:
+                # Debug scan: only one element needs to match; log and continue.
+                print(
+                    f"[{slug}] skipping element while searching Solution tab: "
+                    f"{type(e).__name__}: {e}"
+                )
                 continue
         print(f"[{slug}] clicked Solution tab: {clicked}")
         page.wait_for_timeout(3500)
@@ -70,7 +75,10 @@ def dump(slug: str, url: str, p) -> None:
         for i, pre in enumerate(pres):
             try:
                 t = pre.inner_text()
-            except Exception:
+            except Exception as e:
+                # Debug scan: detached <pre> elements raise transiently; log
+                # and skip so the rest of the dump still completes.
+                print(f"[{slug}] skipping <pre>[{i}]: {type(e).__name__}: {e}")
                 continue
             with open(os.path.join(OUT, f"{slug}.pre-{i}.txt"), "w", encoding="utf-8") as f:
                 f.write(t or "")
