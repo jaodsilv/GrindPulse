@@ -18,6 +18,7 @@ if _HERE not in sys.path:
     sys.path.insert(0, _HERE)
 
 from lib import status_io  # noqa: E402
+from lib.active_list import load_pair as _load_active_pair  # noqa: E402
 
 
 def _parse_args(argv: list[str]) -> str:
@@ -26,15 +27,7 @@ def _parse_args(argv: list[str]) -> str:
         if a == "--list-name" and i + 1 < len(argv):
             list_name = argv[i + 1]
     if not list_name:
-        active_path = os.path.join(".thoughts", "time-estimatives", ".active-list.yaml")
-        try:
-            import yaml
-
-            with open(active_path, encoding="utf-8") as f:
-                cfg = yaml.safe_load(f) or {}
-            list_name = cfg.get("list-name")
-        except Exception:
-            pass
+        list_name, _ = _load_active_pair()
     if not list_name:
         print("--list-name is required (or .active-list.yaml must be present)", file=sys.stderr)
         sys.exit(1)
@@ -49,7 +42,14 @@ def _count_complete(status: dict) -> int:
         return 0
     try:
         return len(complete)
-    except TypeError:
+    except TypeError as e:
+        # status.complete is expected to be list-of-strings (old) or
+        # list-of-dicts (new). Anything else is malformed; log and treat as 0.
+        print(
+            f"warning: status.complete is not list-shaped ({type(complete).__name__}: {e}); "
+            f"treating as 0",
+            file=sys.stderr,
+        )
         return 0
 
 

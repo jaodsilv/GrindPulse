@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """PreToolUse(Agent) hook: gates dispatcher subagents and claims work items for worker subagents."""
+# ruff: noqa: E402
 
 import json
 import os
@@ -7,6 +8,7 @@ import re
 import subprocess
 import sys
 import traceback
+from xml.sax.saxutils import escape, quoteattr
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _SCRIPTS = os.path.normpath(os.path.join(_HERE, "..", "scripts"))
@@ -16,6 +18,9 @@ try:
     from lib import status_io as _status_io
 except ImportError:
     _status_io = None
+
+from lib.active_list import load as _load_active_list
+from lib.file_lock import file_lock
 
 try:
     from lib.dispatch_state import read_counter, write_counter
@@ -49,7 +54,12 @@ def write_pending_claim(work_folder, subagent_type, xml):
         with open(pending_path, encoding="utf-8") as f:
             try:
                 existing = yaml.safe_load(f) or []
-            except Exception:
+            except yaml.YAMLError as e:
+                print(
+                    f"warning: pending-claims file {pending_path} is malformed YAML "
+                    f"({e}); replacing with fresh list",
+                    file=sys.stderr,
+                )
                 existing = []
         if not isinstance(existing, list):
             existing = []
@@ -139,23 +149,9 @@ def parse_flag(prompt, flag):
     return None
 
 
-def _load_active_list():
-    """Return config dict from .active-list.yaml, or None on failure."""
-    path = os.path.join(".thoughts", "time-estimatives", ".active-list.yaml")
-    try:
-        import yaml
-    except ImportError:
-        return None
-    try:
-        with open(path, encoding="utf-8") as f:
-            return yaml.safe_load(f) or {}
-    except Exception:
-        return None
-
-
 def run_list_work(args):
     """Run `python .claude/scripts/list_work.py <args>` and return (stdout, stderr, returncode)."""
-    cmd = ["python", ".claude/scripts/list_work.py"] + args
+    cmd = [sys.executable, ".claude/scripts/list_work.py"] + args
     proc = subprocess.run(
         cmd,
         capture_output=True,
@@ -232,7 +228,12 @@ def materialize_queue(verb, list_name, queue_path, extra_args=None):
 
 
 def _seed_phase_status(work_folder, queue_path, phase_key):
-    """Best-effort: seed status.yaml waiting list from materialized queue."""
+    """Best-effort: seed status.yaml waiting list from materialized queue.
+
+    status.yaml is a UX mirror of the queue files; the queue files themselves
+    are the source of truth for what work runs. Any failure here is logged and
+    swallowed so a corrupt status entry never blocks dispatch.
+    """
     if _status_io is None:
         return
     try:
@@ -255,7 +256,12 @@ def _seed_phase_status(work_folder, queue_path, phase_key):
                 with open(meta_path, encoding="utf-8") as f:
                     meta = yaml.safe_load(f) or {}
                 name = meta.get("problem-name") or meta.get("name") or f"p{problem_id}"
-            except Exception:
+            except (OSError, yaml.YAMLError) as e:
+                print(
+                    f"warning: could not read {meta_path} while seeding {phase_key} "
+                    f"status: {e}; falling back to p{problem_id}",
+                    file=sys.stderr,
+                )
                 name = f"p{problem_id}"
             try:
                 _status_io.move_to_phase(
@@ -266,10 +272,20 @@ def _seed_phase_status(work_folder, queue_path, phase_key):
                     from_phase=None,
                     to_phase=phase_key,
                 )
-            except Exception:
-                pass
-    except Exception:
-        pass
+            except Exception as e:
+                # Best-effort UX mirror; do not abort seeding the rest of the queue.
+                print(
+                    f"warning: status_io.move_to_phase failed for "
+                    f"{name}/{phase_key}: {type(e).__name__}: {e}",
+                    file=sys.stderr,
+                )
+    except Exception as e:
+        # Top-level safety net: status seeding must never break dispatch.
+        print(
+            f"warning: _seed_phase_status({queue_path}, {phase_key}) failed: "
+            f"{type(e).__name__}: {e}",
+            file=sys.stderr,
+        )
 
 
 def handle_dispatcher(subagent_type):
@@ -404,7 +420,12 @@ def handle_dispatcher(subagent_type):
                             with open(meta_path, encoding="utf-8") as f2:
                                 meta = yaml.safe_load(f2) or {}
                             name = meta.get("problem-name") or f"p{problem_id}"
-                        except Exception:
+                        except (OSError, yaml.YAMLError) as e:
+                            print(
+                                f"warning: phase-3 dispatcher could not read "
+                                f"{meta_path}: {e}; falling back to p{problem_id}",
+                                file=sys.stderr,
+                            )
                             name = f"p{problem_id}"
                         if _status_io:
                             try:
@@ -416,10 +437,21 @@ def handle_dispatcher(subagent_type):
                                     from_phase=None,
                                     to_phase=phase_key,
                                 )
-                            except Exception:
-                                pass
-                except Exception:
-                    pass
+                            except Exception as e:
+                                # Best-effort UX mirror; do not abort dispatch.
+                                print(
+                                    f"warning: phase-3 dispatcher status update "
+                                    f"failed for {name}: {type(e).__name__}: {e}",
+                                    file=sys.stderr,
+                                )
+                except Exception as e:
+                    # Top-level safety net for the seed loop; queue is already
+                    # written, so swallow + log to keep dispatch flowing.
+                    print(
+                        f"warning: phase-3 dispatcher status seed loop failed: "
+                        f"{type(e).__name__}: {e}",
+                        file=sys.stderr,
+                    )
         emit_implicit_allow()
         return
 
@@ -467,7 +499,12 @@ def handle_dispatcher(subagent_type):
                             with open(meta_path, encoding="utf-8") as f2:
                                 meta = yaml.safe_load(f2) or {}
                             name = meta.get("problem-name") or f"p{problem_id}"
-                        except Exception:
+                        except (OSError, yaml.YAMLError) as e:
+                            print(
+                                f"warning: phase-4 dispatcher could not read "
+                                f"{meta_path}: {e}; falling back to p{problem_id}",
+                                file=sys.stderr,
+                            )
                             name = f"p{problem_id}"
                         if _status_io:
                             try:
@@ -479,10 +516,21 @@ def handle_dispatcher(subagent_type):
                                     from_phase=None,
                                     to_phase=phase_key,
                                 )
-                            except Exception:
-                                pass
-                except Exception:
-                    pass
+                            except Exception as e:
+                                # Best-effort UX mirror; do not abort dispatch.
+                                print(
+                                    f"warning: phase-4 dispatcher status update "
+                                    f"failed for {name}: {type(e).__name__}: {e}",
+                                    file=sys.stderr,
+                                )
+                except Exception as e:
+                    # Top-level safety net for the seed loop; queue is already
+                    # written, so swallow + log to keep dispatch flowing.
+                    print(
+                        f"warning: phase-4 dispatcher status seed loop failed: "
+                        f"{type(e).__name__}: {e}",
+                        file=sys.stderr,
+                    )
         emit_implicit_allow()
         return
 
@@ -525,22 +573,13 @@ def handle_worker(subagent_type):
     queue_path = os.path.join(work_folder_abs, "queues", queue_file)
 
     try:
-        from filelock import FileLock
-    except ImportError:
-        emit_deny(
-            "filelock package not installed; run `pip install -r .claude/scripts/requirements.txt`"
-        )
-        return
-
-    try:
         import yaml
     except ImportError:
         emit_deny("PyYAML package not installed")
         return
 
-    lock = FileLock(os.path.join(work_folder_abs, ".dispatch.lock"))
     try:
-        with lock:
+        with file_lock(os.path.join(work_folder_abs, ".dispatch.lock")):
             if not os.path.exists(queue_path):
                 emit_deny("queue empty")
                 return
@@ -620,16 +659,24 @@ def handle_worker(subagent_type):
                 phase_key = None
             if phase_key:
                 _status_io.claim_work_item(work_folder_abs, phase_key, problem_name)
-        except Exception:
-            pass
+        except Exception as e:
+            # Best-effort UX mirror: the work-item has already been popped from
+            # the queue and claimed via in-flight counter, so a status.yaml
+            # mirror failure must not block worker dispatch. Log to stderr.
+            print(
+                f"warning: claim_work_item status update failed for "
+                f"{subagent_type} (problem-id={problem_id}): "
+                f"{type(e).__name__}: {e}",
+                file=sys.stderr,
+            )
 
     parts = ["<work-item>"]
-    parts.append(f"  <list-name>{list_name}</list-name>")
-    parts.append(f"  <problem-id>{problem_id}</problem-id>")
+    parts.append(f"  <list-name>{escape(str(list_name))}</list-name>")
+    parts.append(f"  <problem-id>{escape(str(problem_id))}</problem-id>")
     if "source" in item:
-        parts.append(f"  <source>{item['source']}</source>")
+        parts.append(f"  <source>{escape(str(item['source']))}</source>")
     if "pair-type" in item:
-        parts.append(f"  <pair-type>{item['pair-type']}</pair-type>")
+        parts.append(f"  <pair-type>{escape(str(item['pair-type']))}</pair-type>")
 
     worker_kind = _normalize_worker_type(subagent_type)
     if worker_kind in ("solution-analyzer", "justification-criticizer"):
@@ -654,14 +701,16 @@ def handle_worker(subagent_type):
             return
         parts.extend(extra_lines)
     elif worker_kind == "coding-challenge-solver":
-        parts.append(f"  <pdir>{pdir}</pdir>")
-        parts.append(f"  <problem-md-path>{os.path.join(pdir, 'problem.md')}</problem-md-path>")
+        parts.append(f"  <pdir>{escape(str(pdir))}</pdir>")
+        parts.append(
+            f"  <problem-md-path>{escape(os.path.join(pdir, 'problem.md'))}</problem-md-path>"
+        )
 
     parts.append("</work-item>")
     context = "\n".join(parts)
 
     try:
-        with FileLock(os.path.join(work_folder_abs, ".dispatch.lock")):
+        with file_lock(os.path.join(work_folder_abs, ".dispatch.lock")):
             write_pending_claim(work_folder_abs, subagent_type, context)
     except Exception as e:
         emit_deny(f"failed to write pending claim: {e}")
@@ -685,7 +734,7 @@ def _build_select_context(item, list_name, work_folder=None):
 
     try:
         proc = subprocess.run(
-            ["python", list_work_script, "select-discover", "--pdir", pdir],
+            [sys.executable, list_work_script, "select-discover", "--pdir", pdir],
             capture_output=True,
             text=True,
         )
@@ -727,9 +776,9 @@ def _build_select_context(item, list_name, work_folder=None):
     pattern = metadata.get("problem-pattern") or metadata.get("pattern") or ""
 
     lines = [
-        f"  <problem-name>{problem_name}</problem-name>",
-        f"  <difficulty>{difficulty}</difficulty>",
-        f"  <pattern>{pattern}</pattern>",
+        f"  <problem-name>{escape(str(problem_name))}</problem-name>",
+        f"  <difficulty>{escape(str(difficulty))}</difficulty>",
+        f"  <pattern>{escape(str(pattern))}</pattern>",
     ]
 
     if not sources:
@@ -742,7 +791,10 @@ def _build_select_context(item, list_name, work_folder=None):
             name = src.get("name", "")
             ev = src.get("eval", "")
             cr = src.get("critique", "")
-            lines.append(f'    <source name="{name}" eval="{ev}" critique="{cr}"/>')
+            lines.append(
+                f"    <source name={quoteattr(str(name))} "
+                f"eval={quoteattr(str(ev))} critique={quoteattr(str(cr))}/>"
+            )
         lines.append("  </sources>")
 
     return lines
@@ -789,13 +841,13 @@ def _build_tiebreak_context(item, list_name, work_folder=None):
         )
 
     lines = [
-        f"  <pdir>{pdir}</pdir>",
-        f"  <problem-name>{problem_name}</problem-name>",
-        f"  <difficulty>{difficulty}</difficulty>",
-        f"  <pattern>{pattern}</pattern>",
+        f"  <pdir>{escape(str(pdir))}</pdir>",
+        f"  <problem-name>{escape(str(problem_name))}</problem-name>",
+        f"  <difficulty>{escape(str(difficulty))}</difficulty>",
+        f"  <pattern>{escape(str(pattern))}</pattern>",
     ]
     for cand in candidates:
-        lines.append(f"  <candidate-source>{cand}</candidate-source>")
+        lines.append(f"  <candidate-source>{escape(str(cand))}</candidate-source>")
     return lines
 
 
@@ -832,10 +884,10 @@ def _build_community_context(item, list_name, work_folder=None):
     pattern = metadata.get("problem-pattern") or metadata.get("pattern") or ""
 
     return [
-        f"  <pdir>{pdir}</pdir>",
-        f"  <problem-name>{problem_name}</problem-name>",
-        f"  <difficulty>{difficulty}</difficulty>",
-        f"  <pattern>{pattern}</pattern>",
+        f"  <pdir>{escape(str(pdir))}</pdir>",
+        f"  <problem-name>{escape(str(problem_name))}</problem-name>",
+        f"  <difficulty>{escape(str(difficulty))}</difficulty>",
+        f"  <pattern>{escape(str(pattern))}</pattern>",
     ]
 
 
@@ -873,29 +925,31 @@ def _build_path_context(subagent_type, item, list_name, work_folder=None):
 
     source = item.get("source", "")
     lines = [
-        f"  <problem-name>{problem_name}</problem-name>",
-        f"  <difficulty>{difficulty}</difficulty>",
-        f"  <pattern>{pattern}</pattern>",
+        f"  <problem-name>{escape(str(problem_name))}</problem-name>",
+        f"  <difficulty>{escape(str(difficulty))}</difficulty>",
+        f"  <pattern>{escape(str(pattern))}</pattern>",
     ]
 
     worker_kind = _normalize_worker_type(subagent_type)
     if worker_kind == "solution-analyzer":
         sol_md, sol_py, analysis_path = _resolve_analyzer_paths(pdir, source)
-        lines.append(f"  <solution-md>{sol_md}</solution-md>")
-        lines.append(f"  <solution-py>{sol_py}</solution-py>")
-        lines.append(f"  <analysis-path>{analysis_path}</analysis-path>")
-        lines.append(f"  <output-path>{analysis_path}</output-path>")
+        lines.append(f"  <solution-md>{escape(str(sol_md))}</solution-md>")
+        lines.append(f"  <solution-py>{escape(str(sol_py))}</solution-py>")
+        lines.append(f"  <analysis-path>{escape(str(analysis_path))}</analysis-path>")
+        lines.append(f"  <output-path>{escape(str(analysis_path))}</output-path>")
     else:
         pair_type = item.get("pair-type", "")
         sol_md, sol_py, analysis_or_estimative, critique_path = _resolve_criticizer_paths(
             pdir, source, pair_type
         )
         if sol_md is not None:
-            lines.append(f"  <solution-md>{sol_md}</solution-md>")
+            lines.append(f"  <solution-md>{escape(str(sol_md))}</solution-md>")
         if sol_py is not None:
-            lines.append(f"  <solution-py>{sol_py}</solution-py>")
-        lines.append(f"  <analysis-or-estimative>{analysis_or_estimative}</analysis-or-estimative>")
-        lines.append(f"  <critique-path>{critique_path}</critique-path>")
+            lines.append(f"  <solution-py>{escape(str(sol_py))}</solution-py>")
+        lines.append(
+            f"  <analysis-or-estimative>{escape(str(analysis_or_estimative))}</analysis-or-estimative>"
+        )
+        lines.append(f"  <critique-path>{escape(str(critique_path))}</critique-path>")
 
     return lines
 

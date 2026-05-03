@@ -3,6 +3,7 @@
 Usage:
   python write_tsv.py --list-name X --problem-id N --intermediate I --advanced A --top T --source SRC
 """
+# ruff: noqa: E402
 
 import datetime
 import os
@@ -14,7 +15,8 @@ import yaml
 _HERE = os.path.dirname(os.path.abspath(__file__))
 if _HERE not in sys.path:
     sys.path.insert(0, _HERE)
-from lib import status_io  # type: ignore[import-not-found]  # noqa: E402
+from lib import status_io  # type: ignore[import-not-found]
+from lib.active_list import load as _load_active_list  # type: ignore[import-not-found]
 
 
 def main() -> None:
@@ -38,9 +40,10 @@ def main() -> None:
         metadata = yaml.safe_load(f)
     problem_name: str = metadata["problem-name"]
 
-    active_cfg = os.path.join(".thoughts/time-estimatives", ".active-list.yaml")
-    with open(active_cfg, encoding="utf-8") as f:
-        config = yaml.safe_load(f)
+    config = _load_active_list()
+    if not config or "list-path" not in config:
+        print("ERROR: .active-list.yaml missing or has no list-path", file=sys.stderr)
+        sys.exit(1)
     list_path: str = config["list-path"]
 
     with open(list_path, encoding="utf-8") as f:
@@ -48,25 +51,29 @@ def main() -> None:
 
     updated = False
     new_lines = [lines[0]]
-    for line in lines[1:]:
+    for idx, line in enumerate(lines[1:], start=2):
         stripped = line.rstrip("\n")
         if not stripped:
             new_lines.append(line)
             continue
         cols = stripped.split("\t")
-        if len(cols) >= 5 and cols[0].strip() == problem_name:
-            cols[2] = str(intermediate)
-            cols[3] = str(advanced)
-            cols[4] = str(top)
-            new_lines.append("\t".join(cols) + "\n")
-            updated = True
-        else:
-            new_lines.append(line)
+        try:
+            if len(cols) >= 5 and cols[0].strip() == problem_name:
+                cols[2] = str(intermediate)
+                cols[3] = str(advanced)
+                cols[4] = str(top)
+                new_lines.append("\t".join(cols) + "\n")
+                updated = True
+            else:
+                new_lines.append(line)
+        except (KeyError, IndexError) as e:
+            raise KeyError(f"missing field {e!s} while writing {list_path} row {idx}") from e
 
     if not updated:
         print(f"ERROR: problem {problem_name!r} not found in {list_path}", file=sys.stderr)
         sys.exit(1)
 
+    # Called only once per pipeline run (at the end), so concurrent writers cannot occur and no file lock is needed.
     tmp = list_path + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         f.writelines(new_lines)

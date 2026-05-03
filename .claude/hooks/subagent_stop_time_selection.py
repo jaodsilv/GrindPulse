@@ -20,6 +20,13 @@ import re
 import subprocess
 import sys
 
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_SCRIPTS = os.path.normpath(os.path.join(_HERE, "..", "scripts"))
+if _SCRIPTS not in sys.path:
+    sys.path.insert(0, _SCRIPTS)
+
+from lib.active_list import load_pair as _load_active_list  # noqa: E402
+
 
 def log_err(msg):
     sys.stderr.write(f"[subagent_stop_time_selection] {msg}\n")
@@ -44,29 +51,6 @@ def _parse_contract(msg):
         "source": m.group(4),
         "problem_id": int(m.group(5)),
     }
-
-
-def _load_active_list():
-    """Return (list_name, work_folder) from .active-list.yaml, or (None, None) on error."""
-    path = os.path.join(".thoughts", "time-estimatives", ".active-list.yaml")
-    try:
-        import yaml
-    except ImportError:
-        log_err("PyYAML not installed; cannot read .active-list.yaml")
-        return None, None
-    try:
-        with open(path, encoding="utf-8") as f:
-            cfg = yaml.safe_load(f) or {}
-    except Exception as e:
-        log_err(f"failed to read {path}: {e}")
-        return None, None
-    if not isinstance(cfg, dict):
-        return None, None
-    list_name = cfg.get("list-name") or cfg.get("name")
-    work_folder = cfg.get("work-folder")
-    if not work_folder and list_name:
-        work_folder = os.path.join(".thoughts", "time-estimatives", list_name)
-    return list_name, work_folder
 
 
 def _emit_block(reason):
