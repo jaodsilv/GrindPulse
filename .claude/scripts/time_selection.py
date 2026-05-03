@@ -23,6 +23,14 @@ import traceback
 
 import yaml
 
+_HERE = os.path.dirname(os.path.abspath(__file__))
+if _HERE not in sys.path:
+    sys.path.insert(0, _HERE)
+from lib.discover_problems import (  # type: ignore[import-not-found]  # noqa: E402
+    discover_problem_sources,
+    iter_problem_dirs,
+)
+
 HIGH_SEVERITY_RE = re.compile(
     # Severity flags surfaced by the criticizer agent template.
     r"\b(bias(?:ed)?|unrealistic|incorrect|over[-\s]?confident|"
@@ -33,26 +41,93 @@ HIGH_SEVERITY_WEIGHT = 2.0
 OTHER_BULLET_WEIGHT = 1.0
 DEFAULT_TIEBREAK_THRESHOLD = 1.5
 
-TIER_LABELS = {
+# Fallback used when the time-estimating skill source cannot be located/parsed.
+# Kept in sync historically with the skill; only used after a stderr warning.
+_TIER_LABELS_FALLBACK = {
     "intermediate": "Intermediate Max Time",
     "advanced": "Advanced Max Time",
     "top": "Top of the Crop Max Time",
 }
 
+# Path to the skill file that is the source of truth for the tier label strings.
+# Resolved relative to this script: .claude/scripts/time_selection.py ->
+# .claude/skills/time-estimating/SKILL.md
+_SKILL_PATH = os.path.normpath(
+    os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "..",
+        "skills",
+        "time-estimating",
+        "SKILL.md",
+    )
+)
 
-def _problem_dirs(root):
-    """Return sorted list of (problem_id, abs_path) for p{N} dirs in root."""
-    result = []
+# Matches a single tier line in the skill's Output Format block, e.g.:
+#   - Estimated Time for "Intermediate Max Time": [N] minutes
+_SKILL_TIER_LINE_RE = re.compile(
+    r'Estimated\s+Time\s+for\s+"([^"]+)"\s*:\s*\[N\]\s*minutes',
+    re.IGNORECASE,
+)
+
+
+def _tier_key_for_label(label):
+    """Map a parsed label string to its canonical tier key.
+
+    The skill labels use the prefixes "Intermediate", "Advanced", and
+    "Top of the Crop". The mapping is anchored on those prefixes (case-
+    insensitive) so reordering or whitespace tweaks in the skill don't
+    break parsing. Returns None if the label doesn't match any tier.
+    """
+    norm = label.strip().lower()
+    if norm.startswith("intermediate"):
+        return "intermediate"
+    if norm.startswith("advanced"):
+        return "advanced"
+    if norm.startswith("top"):
+        return "top"
+    return None
+
+
+def _load_tier_labels():
+    """Parse tier label strings from the time-estimating skill file.
+
+    Returns a dict {tier_key: label_string} matching the structure of
+    `_TIER_LABELS_FALLBACK`. On any failure (file missing, all three tiers
+    not found, IO error) emits a clear stderr warning naming the expected
+    skill path and returns the fallback dict.
+    """
     try:
-        entries = os.listdir(root)
-    except FileNotFoundError:
-        return result
-    for entry in entries:
-        m = re.match(r"^p(\d+)$", entry)
-        if m:
-            result.append((int(m.group(1)), os.path.join(root, entry)))
-    result.sort(key=lambda x: x[0])
-    return result
+        with open(_SKILL_PATH, encoding="utf-8") as f:
+            text = f.read()
+    except OSError as e:
+        print(
+            f"warning: could not read time-estimating skill at {_SKILL_PATH}: {e}; "
+            f"falling back to hardcoded TIER_LABELS",
+            file=sys.stderr,
+        )
+        return dict(_TIER_LABELS_FALLBACK)
+
+    parsed: dict[str, str] = {}
+    for m in _SKILL_TIER_LINE_RE.finditer(text):
+        label = m.group(1).strip()
+        key = _tier_key_for_label(label)
+        if key and key not in parsed:
+            parsed[key] = label
+
+    if set(parsed.keys()) != set(_TIER_LABELS_FALLBACK.keys()):
+        print(
+            f"warning: time-estimating skill at {_SKILL_PATH} did not yield all "
+            f"three tier labels (got {sorted(parsed.keys())}); "
+            f"falling back to hardcoded TIER_LABELS",
+            file=sys.stderr,
+        )
+        return dict(_TIER_LABELS_FALLBACK)
+
+    return parsed
+
+
+# Module-level constant: parsed once at import. Downstream code reads from this.
+TIER_LABELS = _load_tier_labels()
 
 
 def _source_sort_key(name):
@@ -63,75 +138,18 @@ def _source_sort_key(name):
 def discover_sources(pdir):
     """Walk pdir to discover paired (eval + critique) source files.
 
-    Mirrors list_work.cmd_select_discover. Returns a list of dicts with absolute
-    eval/critique paths and the source name.
+    Thin wrapper around lib.discover_problems.discover_problem_sources that
+    keeps the legacy dict shape used by the rest of this module.
     """
-    items = []
-
-    std_dir = os.path.join(pdir, "std-solution")
-    if os.path.isdir(std_dir):
-        for fname in sorted(os.listdir(std_dir)):
-            m = re.match(r"^critique-(\d+)\.md$", fname)
-            if not m:
-                continue
-            n = m.group(1)
-            eval_named = f"time-evaluation-{n}.md"
-            eval_path = os.path.join(std_dir, eval_named)
-            if os.path.isfile(eval_path):
-                items.append(
-                    {
-                        "name": f"std-{n}",
-                        "kind": "std",
-                        "eval": eval_path,
-                        "critique": os.path.join(std_dir, fname),
-                    }
-                )
-            elif n == "1":
-                eval_fallback = os.path.join(std_dir, "time-evaluation.md")
-                if os.path.isfile(eval_fallback):
-                    items.append(
-                        {
-                            "name": f"std-{n}",
-                            "kind": "std",
-                            "eval": eval_fallback,
-                            "critique": os.path.join(std_dir, fname),
-                        }
-                    )
-
-    ai_dir = os.path.join(pdir, "ai-solution")
-    if os.path.isdir(ai_dir):
-        ev = os.path.join(ai_dir, "time-evaluation.md")
-        cr = os.path.join(ai_dir, "critique.md")
-        if os.path.isfile(ev) and os.path.isfile(cr):
-            items.append(
-                {
-                    "name": "ai",
-                    "kind": "ai",
-                    "eval": ev,
-                    "critique": cr,
-                }
-            )
-
-    comm_dir = os.path.join(pdir, "community")
-    if os.path.isdir(comm_dir):
-        for fname in sorted(os.listdir(comm_dir)):
-            m = re.match(r"^critique-(\d+)\.md$", fname)
-            if not m:
-                continue
-            n = m.group(1)
-            est_named = f"estimative-{n}.md"
-            est_path = os.path.join(comm_dir, est_named)
-            if os.path.isfile(est_path):
-                items.append(
-                    {
-                        "name": f"community-{n}",
-                        "kind": "community",
-                        "eval": est_path,
-                        "critique": os.path.join(comm_dir, fname),
-                    }
-                )
-
-    return items
+    return [
+        {
+            "name": s.name,
+            "kind": s.kind,
+            "eval": s.eval_abs,
+            "critique": s.critique_abs,
+        }
+        for s in discover_problem_sources(pdir)
+    ]
 
 
 def read_estimative(path):
@@ -143,7 +161,16 @@ def read_estimative(path):
     try:
         with open(path, encoding="utf-8") as f:
             text = f.read()
-    except OSError:
+    except FileNotFoundError:
+        return None
+    except OSError as e:
+        # Permission/IO error other than missing-file: caller treats None as
+        # "no source data" and skips the source. Log so a misconfigured perm
+        # isn't silently dropping a source.
+        print(
+            f"warning: could not read estimative {path}: {e}; skipping source",
+            file=sys.stderr,
+        )
         return None
 
     out: dict[str, int | None] = {"intermediate": None, "advanced": None, "top": None}
@@ -196,7 +223,13 @@ def read_critique(path):
     try:
         with open(path, encoding="utf-8") as f:
             return f.read()
-    except OSError:
+    except FileNotFoundError:
+        return None
+    except OSError as e:
+        print(
+            f"warning: could not read critique {path}: {e}; treating as missing",
+            file=sys.stderr,
+        )
         return None
 
 
@@ -401,7 +434,12 @@ def append_tiebreak(work_folder, problem_id, candidate_sources):
                 loaded = yaml.safe_load(f) or []
             if isinstance(loaded, list):
                 existing = [item for item in loaded if isinstance(item, dict)]
-        except Exception:
+        except (OSError, yaml.YAMLError) as e:
+            print(
+                f"warning: could not read existing tiebreak queue {path}: {e}; "
+                f"replacing with fresh list",
+                file=sys.stderr,
+            )
             existing = []
 
     for item in existing:
@@ -528,7 +566,7 @@ def main():
         "error": 0,
     }
 
-    for pid, pdir in _problem_dirs(work_folder):
+    for pid, pdir in iter_problem_dirs(work_folder):
         counters["processed"] += 1
         try:
             result = process_problem(pid, pdir, work_folder, threshold)

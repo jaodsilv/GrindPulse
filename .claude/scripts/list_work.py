@@ -35,6 +35,14 @@ import sys
 
 import yaml
 
+_HERE = os.path.dirname(os.path.abspath(__file__))
+if _HERE not in sys.path:
+    sys.path.insert(0, _HERE)
+from lib.discover_problems import (  # type: ignore[import-not-found]  # noqa: E402
+    discover_problem_sources,
+    iter_problem_dirs,
+)
+
 
 def _dir_has_nonempty_file(path: str) -> bool:
     """True iff path is a directory containing at least one file of size > 0."""
@@ -44,24 +52,15 @@ def _dir_has_nonempty_file(path: str) -> bool:
         for entry in os.scandir(path):
             if entry.is_file() and entry.stat().st_size > 0:
                 return True
-    except OSError:
+    except OSError as e:
+        # Treat unreadable directories as "empty" so the caller schedules the
+        # work; log so a permission misconfiguration isn't invisible.
+        print(
+            f"warning: could not scan {path}: {e}; treating as empty",
+            file=sys.stderr,
+        )
         return False
     return False
-
-
-def _problem_dirs(root: str) -> list[tuple[int, str]]:
-    """Return sorted list of (problem_id, abs_path) for p{N} dirs in root."""
-    result = []
-    try:
-        entries = os.listdir(root)
-    except FileNotFoundError:
-        return result
-    for entry in entries:
-        m = re.match(r"^p(\d+)$", entry)
-        if m:
-            result.append((int(m.group(1)), os.path.join(root, entry)))
-    result.sort(key=lambda x: x[0])
-    return result
 
 
 def _has_writeup(md_path: str) -> bool:
@@ -80,7 +79,13 @@ def _problem_difficulty(pdir: str) -> str | None:
     try:
         with open(meta_path, encoding="utf-8") as f:
             data = yaml.safe_load(f)
-    except (OSError, yaml.YAMLError):
+    except FileNotFoundError:
+        return None
+    except (OSError, yaml.YAMLError) as e:
+        print(
+            f"warning: could not read {meta_path} for difficulty lookup: {e}",
+            file=sys.stderr,
+        )
         return None
     if not isinstance(data, dict):
         return None
@@ -107,7 +112,7 @@ def _filter_items_by_tier(root: str, items: list[dict], tier: str) -> list[dict]
 
 def cmd_parse_needed(root: str) -> list[dict]:
     items = []
-    for pid, pdir in _problem_dirs(root):
+    for pid, pdir in iter_problem_dirs(root):
         has_src = os.path.isfile(os.path.join(pdir, "standard-solutions.md"))
         has_parsed = _dir_has_nonempty_file(os.path.join(pdir, "std-solution"))
         if has_src and not has_parsed:
@@ -117,7 +122,7 @@ def cmd_parse_needed(root: str) -> list[dict]:
 
 def cmd_solve_needed(root: str) -> list[dict]:
     items = []
-    for pid, pdir in _problem_dirs(root):
+    for pid, pdir in iter_problem_dirs(root):
         if not _dir_has_nonempty_file(os.path.join(pdir, "ai-solution")):
             items.append({"problem-id": pid})
     return items
@@ -125,7 +130,7 @@ def cmd_solve_needed(root: str) -> list[dict]:
 
 def cmd_community_needed(root: str) -> list[dict]:
     items = []
-    for pid, pdir in _problem_dirs(root):
+    for pid, pdir in iter_problem_dirs(root):
         if not _dir_has_nonempty_file(os.path.join(pdir, "community")):
             items.append({"problem-id": pid})
     return items
@@ -133,7 +138,7 @@ def cmd_community_needed(root: str) -> list[dict]:
 
 def cmd_explain_needed(root: str) -> list[dict]:
     items = []
-    for pid, pdir in _problem_dirs(root):
+    for pid, pdir in iter_problem_dirs(root):
         std_dir = os.path.join(pdir, "std-solution")
         if not os.path.isdir(std_dir):
             continue
@@ -149,7 +154,7 @@ def cmd_explain_needed(root: str) -> list[dict]:
 
 def cmd_analyze_needed(root: str, ai: bool) -> list[dict]:
     items = []
-    for pid, pdir in _problem_dirs(root):
+    for pid, pdir in iter_problem_dirs(root):
         std_dir = os.path.join(pdir, "std-solution")
         if os.path.isdir(std_dir):
             for fname in sorted(os.listdir(std_dir)):
@@ -171,7 +176,7 @@ def cmd_analyze_needed(root: str, ai: bool) -> list[dict]:
 
 def cmd_critique_needed(root: str, ai: bool, comm: bool) -> list[dict]:
     items = []
-    for pid, pdir in _problem_dirs(root):
+    for pid, pdir in iter_problem_dirs(root):
         std_dir = os.path.join(pdir, "std-solution")
         if os.path.isdir(std_dir):
             for fname in sorted(os.listdir(std_dir)):
@@ -209,7 +214,7 @@ def cmd_critique_needed(root: str, ai: bool, comm: bool) -> list[dict]:
 
 def cmd_select_needed(root: str, ai: bool, comm: bool) -> list[dict]:
     items = []
-    for pid, pdir in _problem_dirs(root):
+    for pid, pdir in iter_problem_dirs(root):
         if os.path.isfile(os.path.join(pdir, "selected-times.md")):
             continue
         has_work = False
@@ -256,68 +261,14 @@ def cmd_select_discover(pdir: str) -> list[dict]:
     Returns a list of {name, eval, critique} dicts with paths relative to pdir.
     Returns empty list if no sources found or pdir does not exist.
     """
-    items = []
-
-    std_dir = os.path.join(pdir, "std-solution")
-    if os.path.isdir(std_dir):
-        for fname in sorted(os.listdir(std_dir)):
-            m = re.match(r"^critique-(\d+)\.md$", fname)
-            if not m:
-                continue
-            n = m.group(1)
-            eval_named = f"time-evaluation-{n}.md"
-            eval_path = os.path.join(std_dir, eval_named)
-            if os.path.isfile(eval_path):
-                items.append(
-                    {
-                        "name": f"std-{n}",
-                        "eval": f"std-solution/{eval_named}",
-                        "critique": f"std-solution/{fname}",
-                    }
-                )
-            elif n == "1":
-                eval_fallback = os.path.join(std_dir, "time-evaluation.md")
-                if os.path.isfile(eval_fallback):
-                    items.append(
-                        {
-                            "name": f"std-{n}",
-                            "eval": "std-solution/time-evaluation.md",
-                            "critique": f"std-solution/{fname}",
-                        }
-                    )
-
-    ai_dir = os.path.join(pdir, "ai-solution")
-    if os.path.isdir(ai_dir):
-        ev = os.path.join(ai_dir, "time-evaluation.md")
-        cr = os.path.join(ai_dir, "critique.md")
-        if os.path.isfile(ev) and os.path.isfile(cr):
-            items.append(
-                {
-                    "name": "ai",
-                    "eval": "ai-solution/time-evaluation.md",
-                    "critique": "ai-solution/critique.md",
-                }
-            )
-
-    comm_dir = os.path.join(pdir, "community")
-    if os.path.isdir(comm_dir):
-        for fname in sorted(os.listdir(comm_dir)):
-            m = re.match(r"^critique-(\d+)\.md$", fname)
-            if not m:
-                continue
-            n = m.group(1)
-            est_named = f"estimative-{n}.md"
-            est_path = os.path.join(comm_dir, est_named)
-            if os.path.isfile(est_path):
-                items.append(
-                    {
-                        "name": f"community-{n}",
-                        "eval": f"community/{est_named}",
-                        "critique": f"community/{fname}",
-                    }
-                )
-
-    return items
+    return [
+        {
+            "name": s.name,
+            "eval": s.eval_rel,
+            "critique": s.critique_rel,
+        }
+        for s in discover_problem_sources(pdir)
+    ]
 
 
 def cmd_solve_needed_tier(root: str, tier: str) -> list[dict]:
@@ -343,7 +294,13 @@ def cmd_tiebreak_needed(root: str) -> list[dict]:
     try:
         with open(path, encoding="utf-8") as f:
             data = yaml.safe_load(f)
-    except (FileNotFoundError, yaml.YAMLError):
+    except FileNotFoundError:
+        return []
+    except yaml.YAMLError as e:
+        print(
+            f"warning: tiebreak queue {path} is malformed YAML ({e}); treating as empty",
+            file=sys.stderr,
+        )
         return []
     if not isinstance(data, list):
         return []
