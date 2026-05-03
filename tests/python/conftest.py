@@ -11,6 +11,12 @@ import pytest
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+# Add .claude/scripts so tests can import lib.dispatch_state, list_work, time_selection.
+sys.path.insert(0, str(PROJECT_ROOT / ".claude" / "scripts"))
+
+# Add .claude/hooks so tests can import process_list_hook, subagent_stop_state_advance.
+sys.path.insert(0, str(PROJECT_ROOT / ".claude" / "hooks"))
+
 
 @pytest.fixture
 def temp_dir():
