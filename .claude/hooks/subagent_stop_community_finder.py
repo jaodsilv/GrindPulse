@@ -20,6 +20,11 @@ import os
 import re
 import sys
 
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_SCRIPTS = os.path.normpath(os.path.join(_HERE, "..", "scripts"))
+if _SCRIPTS not in sys.path:
+    sys.path.insert(0, _SCRIPTS)
+
 INTER_MULT = 0.7
 TOP_MULT = 1.0 / 1.5
 
@@ -51,7 +56,10 @@ def _find_pdir_from_transcript(transcript_path):
                     continue
                 try:
                     rec = json.loads(line)
-                except Exception:
+                except json.JSONDecodeError:
+                    # Transcripts are JSONL; non-JSON lines (banners, blanks)
+                    # are expected and skipped silently. Narrowed from a bare
+                    # Exception so only true parse errors are swallowed.
                     continue
                 # Walk all string values looking for <pdir>X</pdir>.
                 for s in _iter_strings(rec):
@@ -95,7 +103,10 @@ def _most_recent_estimative(pdir):
             full = os.path.join(cdir, name)
             try:
                 candidates.append((os.path.getmtime(full), full))
-            except OSError:
+            except OSError as e:
+                # File raced away between listdir and getmtime; skip it but
+                # log so a permission issue isn't invisible.
+                log_err(f"could not stat {full}: {e}; skipping")
                 continue
     if not candidates:
         return None
@@ -196,42 +207,53 @@ def main():
         return 0
 
     try:
-        with open(target, encoding="utf-8") as f:
-            text = f.read()
+        from lib.file_lock import file_lock
     except Exception as e:
-        log_err(f"failed to read {target}: {e}")
-        return 0
-
-    fm, body = _parse_frontmatter(text)
-    if fm is None:
-        log_err(f"{target}: missing or unparseable YAML front-matter")
-        return 0
-
-    level = fm.get("level")
-    time_minutes = fm.get("time-minutes")
-    if time_minutes is None:
-        log_err(f"{target}: front-matter missing 'time-minutes'")
+        log_err(f"failed to import file_lock: {e}")
         return 0
 
     try:
-        tiers = _compute_tiers(level, time_minutes)
-    except Exception as e:
-        log_err(f"{target}: failed to compute tiers: {e}")
-        return 0
+        with file_lock(target):
+            try:
+                with open(target, encoding="utf-8") as f:
+                    text = f.read()
+            except Exception as e:
+                log_err(f"failed to read {target}: {e}")
+                return 0
 
-    fm["intermediate"] = tiers["intermediate"]
-    fm["advanced"] = tiers["advanced"]
-    fm["top"] = tiers["top"]
+            fm, body = _parse_frontmatter(text)
+            if fm is None:
+                log_err(f"{target}: missing or unparseable YAML front-matter")
+                return 0
 
-    new_text = _serialize(fm, body)
-    if new_text is None:
-        return 0
+            level = fm.get("level")
+            time_minutes = fm.get("time-minutes")
+            if time_minutes is None:
+                log_err(f"{target}: front-matter missing 'time-minutes'")
+                return 0
 
-    try:
-        with open(target, "w", encoding="utf-8") as f:
-            f.write(new_text)
-    except Exception as e:
-        log_err(f"failed to write {target}: {e}")
+            try:
+                tiers = _compute_tiers(level, time_minutes)
+            except Exception as e:
+                log_err(f"{target}: failed to compute tiers: {e}")
+                return 0
+
+            fm["intermediate"] = tiers["intermediate"]
+            fm["advanced"] = tiers["advanced"]
+            fm["top"] = tiers["top"]
+
+            new_text = _serialize(fm, body)
+            if new_text is None:
+                return 0
+
+            try:
+                with open(target, "w", encoding="utf-8") as f:
+                    f.write(new_text)
+            except Exception as e:
+                log_err(f"failed to write {target}: {e}")
+                return 0
+    except OSError as e:
+        log_err(f"failed to acquire lock for {target}: {e}")
         return 0
 
     return 0

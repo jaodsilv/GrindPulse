@@ -1,7 +1,6 @@
 # Python deps for .claude pipeline scripts/hooks.
 # After installing, run `playwright install` once to fetch browser binaries
 # required by .claude/scripts/auth_neetcode.py.
-filelock>=3
 PyYAML>=5.4
 beautifulsoup4>=4.9
 playwright>=1.40

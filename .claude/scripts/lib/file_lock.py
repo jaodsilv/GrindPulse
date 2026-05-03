@@ -64,7 +64,13 @@ def file_lock(path: str) -> Iterator[None]:
                     msvcrt.locking(fd, msvcrt.LK_UNLCK, 1)  # pyright: ignore[reportPossiblyUnbound]
                 else:
                     fcntl.flock(fd, fcntl.LOCK_UN)  # pyright: ignore[reportPossiblyUnbound, reportAttributeAccessIssue]
-            except OSError:
-                pass
+            except OSError as e:
+                # Unlock failure: the descriptor is about to be closed in the
+                # outer finally, which releases the OS lock anyway. Log so a
+                # stuck lock stays visible without aborting the caller.
+                print(
+                    f"warning: failed to release lock on {lock_path}: {e}",
+                    file=sys.stderr,
+                )
     finally:
         os.close(fd)

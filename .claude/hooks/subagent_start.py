@@ -17,6 +17,9 @@ _SCRIPTS = os.path.normpath(os.path.join(_HERE, "..", "scripts"))
 if _SCRIPTS not in sys.path:
     sys.path.insert(0, _SCRIPTS)
 
+from lib.active_list import load_pair as _load_active_pair  # noqa: E402
+from lib.file_lock import file_lock  # noqa: E402
+
 
 def _detect_subagent_type(payload):
     for key in ("subagent_type", "agent_type", "name"):
@@ -27,43 +30,33 @@ def _detect_subagent_type(payload):
 
 
 def _load_work_folder():
-    path = os.path.join(".thoughts", "time-estimatives", ".active-list.yaml")
-    try:
-        import yaml
-    except ImportError:
-        return None
-    try:
-        with open(path, encoding="utf-8") as f:
-            cfg = yaml.safe_load(f) or {}
-    except Exception:
-        return None
-    if not isinstance(cfg, dict):
-        return None
-    list_name = cfg.get("list-name")
-    work_folder = cfg.get("work-folder")
-    if not work_folder and list_name:
-        work_folder = os.path.join(".thoughts", "time-estimatives", list_name)
+    _, work_folder = _load_active_pair()
     return os.path.abspath(work_folder) if work_folder else None
 
 
 def _pop_pending_claim(work_folder, subagent_type):
     try:
         import yaml
-        from filelock import FileLock
-    except ImportError:
-        return None
+    except ImportError as e:
+        sys.stderr.write(
+            f"[subagent_start.py] FATAL: failed to import required dependency "
+            f"'yaml' (PyYAML) needed to pop pending claim "
+            f"for subagent_type={subagent_type!r}: {e}\n"
+        )
+        raise
 
     pending_path = os.path.join(work_folder, "pending-claims", f"{subagent_type}.yaml")
     lock_path = os.path.join(work_folder, ".dispatch.lock")
 
     try:
-        with FileLock(lock_path):
+        with file_lock(lock_path):
             if not os.path.exists(pending_path):
                 return None
             with open(pending_path, encoding="utf-8") as f:
                 try:
                     items = yaml.safe_load(f) or []
-                except Exception:
+                except yaml.YAMLError as e:
+                    sys.stderr.write(f"[subagent_start.py] could not parse {pending_path}: {e}\n")
                     return None
             if not isinstance(items, list) or not items:
                 return None
@@ -72,7 +65,14 @@ def _pop_pending_claim(work_folder, subagent_type):
             with open(pending_path, "w", encoding="utf-8") as f:
                 yaml.safe_dump(rest, f, sort_keys=False)
             return head if isinstance(head, str) else None
-    except Exception:
+    except Exception as e:
+        # Top-level safety net: this hook runs on every SubagentStart event;
+        # raising here would abort the spawned subagent. Log so a misconfigured
+        # work folder / lock contention is visible without aborting the run.
+        sys.stderr.write(
+            f"[subagent_start.py] _pop_pending_claim({subagent_type!r}) failed: "
+            f"{type(e).__name__}: {e}\n"
+        )
         return None
 
 
@@ -90,13 +90,15 @@ def emit_additional_context(context):
 def main():
     try:
         raw = sys.stdin.read()
-    except Exception:
+    except Exception as e:
+        sys.stderr.write(f"[subagent_start.py] failed to read stdin: {e}\n")
         return 0
     if not raw.strip():
         return 0
     try:
         payload = json.loads(raw)
-    except Exception:
+    except json.JSONDecodeError as e:
+        sys.stderr.write(f"[subagent_start.py] payload not valid JSON: {e}\n")
         return 0
     if not isinstance(payload, dict):
         return 0
@@ -118,5 +120,8 @@ def main():
 if __name__ == "__main__":
     try:
         sys.exit(main() or 0)
-    except Exception:
+    except Exception as e:
+        # Top-level safety net: SubagentStart hook must never crash the
+        # spawned subagent. Log to stderr so the failure is visible.
+        sys.stderr.write(f"[subagent_start.py] unhandled exception: {type(e).__name__}: {e}\n")
         sys.exit(0)
