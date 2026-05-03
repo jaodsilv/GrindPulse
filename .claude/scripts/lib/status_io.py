@@ -36,6 +36,7 @@ Schema (top-level keys):
 from __future__ import annotations
 
 import os
+import sys
 from typing import Any
 
 import yaml
@@ -113,7 +114,16 @@ def read_status(work_folder: str) -> dict:
     try:
         with open(path, encoding="utf-8") as f:
             return yaml.safe_load(f) or {}
-    except OSError:
+    except FileNotFoundError:
+        return {}
+    except OSError as e:
+        # Permission/IO error other than missing-file: log so the caller can
+        # see why the status appears reset. Still return {} to keep the
+        # documented contract (best-effort UX mirror).
+        print(
+            f"warning: could not read {path}: {e}; treating as empty status",
+            file=sys.stderr,
+        )
         return {}
 
 
@@ -221,7 +231,12 @@ def claim_work_item(work_folder: str, phase: str, name: str) -> None:
             return
         try:
             node = _resolve_phase_node(data, phase)
-        except KeyError:
+        except KeyError as e:
+            print(
+                f"warning: claim_work_item: phase {phase!r} not found in "
+                f"status.yaml ({e}); leaving {name!r} unclaimed",
+                file=sys.stderr,
+            )
             return
         waiting = node.setdefault("waiting", [])
         ongoing = node.setdefault("ongoing", [])
@@ -251,7 +266,12 @@ def release_work_item(
         if from_phase is not None:
             try:
                 src = _resolve_phase_node(data, from_phase)
-            except KeyError:
+            except KeyError as e:
+                print(
+                    f"warning: release_work_item: source phase {from_phase!r} "
+                    f"not found in status.yaml ({e}); leaving {name!r} in place",
+                    file=sys.stderr,
+                )
                 return
             ongoing = src.get("ongoing", [])
             for e in list(ongoing):
@@ -262,8 +282,15 @@ def release_work_item(
         if to_phase is not None and entry is not None:
             try:
                 dst = _resolve_phase_node(data, to_phase)
-            except KeyError:
-                pass
+            except KeyError as e:
+                # The destination phase may legitimately not exist when an
+                # optional path (ai/community) is disabled. Log so a typo in
+                # the caller's `to_phase` is still visible.
+                print(
+                    f"warning: release_work_item: destination phase {to_phase!r} "
+                    f"not found in status.yaml ({e}); leaving {name!r} unfiled",
+                    file=sys.stderr,
+                )
             else:
                 dst.setdefault("waiting", [])
                 if not _has_entry_by_name(dst["waiting"], name):

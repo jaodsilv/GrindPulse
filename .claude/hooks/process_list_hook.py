@@ -105,10 +105,17 @@ def _rebuild_queues_and_clear_claims(
     if os.path.isdir(pending_dir):
         for entry in os.listdir(pending_dir):
             if entry.endswith(".yaml"):
+                pending_path = os.path.join(pending_dir, entry)
                 try:
-                    os.remove(os.path.join(pending_dir, entry))
-                except OSError:
-                    pass
+                    os.remove(pending_path)
+                except OSError as e:
+                    # Best-effort cleanup of stale pending-claim files; the
+                    # rebuild plan below replaces them, so log and continue
+                    # rather than failing the rebuild on a transient FS error.
+                    print(
+                        f"warning: could not remove stale pending claim {pending_path}: {e}",
+                        file=sys.stderr,
+                    )
 
     plan: list[tuple[str, str, list[str]]] = []
     if start_phase <= 1 < end_phase:

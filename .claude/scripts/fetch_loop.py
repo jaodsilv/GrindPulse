@@ -71,7 +71,11 @@ def load_active_list():
                 try:
                     fetch_delay = int(value)
                 except ValueError:
-                    pass
+                    print(
+                        f"warning: ignoring non-integer fetch-delay-seconds={value!r} "
+                        f"in {ACTIVE_LIST_PATH}; using default {fetch_delay}",
+                        file=sys.stderr,
+                    )
 
     if not list_name:
         emit_fetch_error(f"`list-name` missing from {ACTIVE_LIST_PATH}")
@@ -146,8 +150,13 @@ def main():
                     _status_io.set_fetcher_state(
                         os.path.abspath(root.rstrip("/\\").rstrip(os.sep)), "complete"
                     )
-                except Exception:
-                    pass
+                except (OSError, KeyError) as e:
+                    # Best-effort status update: fetch_complete sentinel file is
+                    # the source of truth; status.yaml mirrors it for UX.
+                    print(
+                        f"warning: could not set fetcher state to complete: {e}",
+                        file=sys.stderr,
+                    )
             print("<result>fetch_complete</result>")
             print(f"<count>{fetched_count}</count>")
             print(f"<skipped>{skipped_count}</skipped>")

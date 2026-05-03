@@ -23,7 +23,15 @@ def _is_logged_in(page) -> bool:
     """Login detected when neetcode sets `last-login-provider` in localStorage."""
     try:
         provider = page.evaluate("() => localStorage.getItem('last-login-provider')")
-    except Exception:
+    except Exception as e:
+        # Polled every POLL_INTERVAL_SEC during login; transient eval failures
+        # (page navigating, frame detached) are expected. Log so a persistent
+        # auth issue (e.g. SecurityError on localStorage) is visible without
+        # forcing a 10-minute timeout to surface it.
+        print(
+            f"warning: localStorage probe failed: {type(e).__name__}: {e}",
+            file=sys.stderr,
+        )
         return False
     return bool(provider)
 
