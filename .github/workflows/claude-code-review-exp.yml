@@ -42,17 +42,17 @@ jobs:
             gitx@jaodsilv-claudius-marketplace
           prompt: |
             This is Test.
-            Just respond if you have access to ci results.
+            Just respond if you have access to ci results and their logs.
             repo: ${{ github.repository }}
             pr: ${{ github.event.pull_request.number }}
 
           # /gitx:address-ci --repo ${{ github.repository }} --pr ${{ github.event.pull_request.number }} --ci-mode ${{ github.job }}
           track_progress: true # ✨ Enables tracking comments
-          # additional_permissions: |
-          # contents: write
+          additional_permissions: |
+            contents: write
+            pull-requests: write
           # actions: read
           # checks: read
-          # pull-requests: write
           claude_args: |
             --allowedTools "Agent,Skill,TaskCreate,TaskUpdate,Read,Write,Grep,Glob,Bash(git -C *),Bash(*scripts/commits/commit-push-execute.sh *),Bash(git diff *),Bash(git log *)"
 
