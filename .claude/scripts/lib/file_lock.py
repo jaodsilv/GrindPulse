@@ -46,11 +46,11 @@ def file_lock(path: str) -> Iterator[None]:
         while True:
             try:
                 if _IS_WINDOWS:
-                    msvcrt.locking(fd, msvcrt.LK_LOCK, 1)  # pyright: ignore[reportPossiblyUnbound]
+                    msvcrt.locking(fd, msvcrt.LK_NBLCK, 1)  # pyright: ignore[reportPossiblyUnbound]
                 else:
-                    fcntl.flock(fd, fcntl.LOCK_EX)  # pyright: ignore[reportPossiblyUnbound, reportAttributeAccessIssue]
+                    fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)  # pyright: ignore[reportPossiblyUnbound, reportAttributeAccessIssue]
                 break
-            except OSError:
+            except (BlockingIOError, OSError):
                 if time.monotonic() > deadline:
                     raise
                 time.sleep(0.05)
