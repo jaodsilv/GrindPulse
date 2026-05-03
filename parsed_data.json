@@ -6863,9 +6863,9 @@
       {
         "name": "Length of Last Word",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "8",
+        "advanced_time": "3",
+        "top_time": "1",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/length-of-last-word/question?list=allNC",
         "solved": false,
@@ -6967,9 +6967,9 @@
       {
         "name": "Group Shifted Strings",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "30",
+        "advanced_time": "19",
+        "top_time": "12",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/group-shifted-strings/question?list=allNC",
         "solved": false,
@@ -7019,9 +7019,9 @@
       {
         "name": "Isomorphic Strings",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "25",
+        "advanced_time": "15",
+        "top_time": "7",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/isomorphic-strings/question?list=allNC",
         "solved": false,
@@ -7071,9 +7071,9 @@
       {
         "name": "Next Greater Element I",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "22",
+        "advanced_time": "12",
+        "top_time": "6",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/next-greater-element-i/question?list=allNC",
         "solved": false,
@@ -7188,9 +7188,9 @@
       {
         "name": "Word Pattern",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "22",
+        "advanced_time": "12",
+        "top_time": "6",
         "pattern": "Arrays & Hashing",
         "link": "https://leetcode.com/problems/word-pattern/",
         "solved": false,
@@ -7357,9 +7357,9 @@
       {
         "name": "Ransom Note",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "18",
+        "advanced_time": "8",
+        "top_time": "4",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/ransom-note/question?list=allNC",
         "solved": false,
@@ -7526,9 +7526,9 @@
       {
         "name": "Palindrome Permutation",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "18",
+        "advanced_time": "10",
+        "top_time": "5",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/palindrome-permutation/question?list=allNC",
         "solved": false,
@@ -7799,9 +7799,9 @@
       {
         "name": "Custom Sort String",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "25",
+        "advanced_time": "12",
+        "top_time": "5",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/custom-sort-string/question?list=allNC",
         "solved": false,
@@ -7877,9 +7877,9 @@
       {
         "name": "Candy Crush",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "50",
+        "advanced_time": "32",
+        "top_time": "18",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/candy-crush/question?list=allNC",
         "solved": false,
@@ -7916,9 +7916,9 @@
       {
         "name": "Analyze User Website Visit Pattern",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "55",
+        "advanced_time": "30",
+        "top_time": "21",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/analyze-user-website-visit-pattern/question?list=allNC",
         "solved": false,
@@ -8124,9 +8124,9 @@
       {
         "name": "One Edit Distance",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "35",
+        "advanced_time": "23",
+        "top_time": "13",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/one-edit-distance/question?list=allNC",
         "solved": false,
@@ -8267,9 +8267,9 @@
       {
         "name": "Insert Delete Get Random O(1)",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "25",
+        "advanced_time": "14",
+        "top_time": "8",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/insert-delete-getrandom-o1/question?list=allNC",
         "solved": false,
@@ -8384,9 +8384,9 @@
       {
         "name": "Reverse Words in a String II",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "25",
+        "advanced_time": "14",
+        "top_time": "10",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/reverse-words-in-a-string-ii/question?list=allNC",
         "solved": false,
@@ -8683,9 +8683,9 @@
       {
         "name": "First Unique Number",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "32",
+        "advanced_time": "20",
+        "top_time": "11",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/first-unique-number/question?list=allNC",
         "solved": false,
@@ -8709,9 +8709,9 @@
       {
         "name": "Design Snake Game",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "35",
+        "advanced_time": "28",
+        "top_time": "19",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/design-snake-game/question?list=allNC",
         "solved": false,
@@ -8722,9 +8722,9 @@
       {
         "name": "Text Justification",
         "difficulty": "Hard",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "70",
+        "advanced_time": "45",
+        "top_time": "30",
         "pattern": "Arrays & Hashing",
         "link": "https://neetcode.io/problems/text-justification/question?list=allNC",
         "solved": false,
@@ -8878,9 +8878,9 @@
       {
         "name": "Move Zeroes",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "12",
+        "advanced_time": "6",
+        "top_time": "3",
         "pattern": "Two Pointers",
         "link": "https://neetcode.io/problems/move-zeroes/question?list=allNC",
         "solved": false,
@@ -8904,9 +8904,9 @@
       {
         "name": "Squares of a Sorted Array",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "20",
+        "advanced_time": "10",
+        "top_time": "5",
         "pattern": "Two Pointers",
         "link": "https://neetcode.io/problems/squares-of-a-sorted-array/question?list=allNC",
         "solved": false,
@@ -9437,9 +9437,9 @@
       {
         "name": "Frequency of The Most Frequent Element",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
         "pattern": "Sliding Window",
         "link": "https://neetcode.io/problems/frequency-of-the-most-frequent-element/question?list=allNC",
         "solved": false,
@@ -9749,9 +9749,9 @@
       {
         "name": "Subarrays with K Different Integers",
         "difficulty": "Hard",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "28",
         "pattern": "Sliding Window",
         "link": "https://neetcode.io/problems/subarrays-with-k-different-integers/question?list=allNC",
         "solved": false,
@@ -10139,9 +10139,9 @@
       {
         "name": "Basic Calculator II",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
         "pattern": "Stack",
         "link": "https://neetcode.io/problems/basic-calculator-ii/question?list=allNC",
         "solved": false,
@@ -10412,9 +10412,9 @@
       {
         "name": "Find Peak Element",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "35",
+        "advanced_time": "18",
+        "top_time": "8",
         "pattern": "Binary Search",
         "link": "https://neetcode.io/problems/find-peak-element/question?list=allNC",
         "solved": false,
@@ -10607,9 +10607,9 @@
       {
         "name": "Find First And Last Position of Element In Sorted Array",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "35",
+        "advanced_time": "18",
+        "top_time": "10",
         "pattern": "Binary Search",
         "link": "https://neetcode.io/problems/find-first-and-last-position-of-element-in-sorted-array/question?list=allNC",
         "solved": false,
@@ -10646,9 +10646,9 @@
       {
         "name": "Random Pick with Weight",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "10",
         "pattern": "Binary Search",
         "link": "https://neetcode.io/problems/random-pick-with-weight/question?list=allNC",
         "solved": false,
@@ -12076,9 +12076,9 @@
       {
         "name": "Binary Search Tree Iterator",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "40",
+        "advanced_time": "22",
+        "top_time": "12",
         "pattern": "Trees",
         "link": "https://neetcode.io/problems/binary-search-tree-iterator/question?list=allNC",
         "solved": false,
@@ -12232,9 +12232,9 @@
       {
         "name": "Binary Tree Longest Consecutive Sequence II",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
         "pattern": "Trees",
         "link": "https://neetcode.io/problems/binary-tree-longest-consecutive-sequence-ii/question?list=allNC",
         "solved": false,
@@ -12271,9 +12271,9 @@
       {
         "name": "Boundary of Binary Tree",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
         "pattern": "Trees",
         "link": "https://neetcode.io/problems/boundary-of-binary-tree/question?list=allNC",
         "solved": false,
@@ -12700,9 +12700,9 @@
       {
         "name": "Minimum Cost to Connect Sticks",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "20",
+        "advanced_time": "12",
+        "top_time": "5",
         "pattern": "Heap / Priority Queue",
         "link": "https://neetcode.io/problems/minimum-cost-to-connect-sticks/question?list=allNC",
         "solved": false,
@@ -13337,9 +13337,9 @@
       {
         "name": "Design In-Memory File System",
         "difficulty": "Hard",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "50",
+        "advanced_time": "32",
+        "top_time": "18",
         "pattern": "Tries",
         "link": "https://neetcode.io/problems/design-in-memory-file-system/question?list=allNC",
         "solved": false,
@@ -13350,9 +13350,9 @@
       {
         "name": "Design Search Autocomplete System",
         "difficulty": "Hard",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "55",
+        "advanced_time": "38",
+        "top_time": "22",
         "pattern": "Tries",
         "link": "https://neetcode.io/problems/design-search-autocomplete-system/question?list=allNC",
         "solved": false,
@@ -13402,9 +13402,9 @@
       {
         "name": "Flood Fill",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "22",
+        "advanced_time": "12",
+        "top_time": "6",
         "pattern": "Graphs",
         "link": "https://neetcode.io/problems/flood-fill/question?list=allNC",
         "solved": false,
@@ -13675,9 +13675,9 @@
       {
         "name": "Shortest Bridge",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "45",
+        "advanced_time": "30",
+        "top_time": "18",
         "pattern": "Graphs",
         "link": "https://neetcode.io/problems/shortest-bridge/question?list=allNC",
         "solved": false,
@@ -13688,9 +13688,9 @@
       {
         "name": "Shortest Path in Binary Matrix",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "12",
         "pattern": "Graphs",
         "link": "https://neetcode.io/problems/shortest-path-in-binary-matrix/question?list=allNC",
         "solved": false,
@@ -13831,9 +13831,9 @@
       {
         "name": "Number of Provinces",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "30",
+        "advanced_time": "18",
+        "top_time": "8",
         "pattern": "Graphs",
         "link": "https://neetcode.io/problems/number-of-provinces/question?list=allNC",
         "solved": false,
@@ -13987,9 +13987,9 @@
       {
         "name": "Find the Celebrity",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "40",
+        "advanced_time": "25",
+        "top_time": "12",
         "pattern": "Graphs",
         "link": "https://neetcode.io/problems/find-the-celebrity/question?list=allNC",
         "solved": false,
@@ -14052,9 +14052,9 @@
       {
         "name": "Parallel Courses",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "45",
+        "advanced_time": "30",
+        "top_time": "18",
         "pattern": "Graphs",
         "link": "https://neetcode.io/problems/parallel-courses/question?list=allNC",
         "solved": false,
@@ -14065,9 +14065,9 @@
       {
         "name": "The Maze",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "40",
+        "advanced_time": "25",
+        "top_time": "15",
         "pattern": "Graphs",
         "link": "https://neetcode.io/problems/the-maze/question?list=allNC",
         "solved": false,
@@ -14078,9 +14078,9 @@
       {
         "name": "The Maze II",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "55",
+        "advanced_time": "30",
+        "top_time": "18",
         "pattern": "Graphs",
         "link": "https://neetcode.io/problems/the-maze-ii/question?list=allNC",
         "solved": false,
@@ -14208,9 +14208,9 @@
       {
         "name": "Number of Islands II",
         "difficulty": "Hard",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "55",
+        "advanced_time": "35",
+        "top_time": "20",
         "pattern": "Graphs",
         "link": "https://neetcode.io/problems/number-of-islands-ii/question?list=allNC",
         "solved": false,
@@ -14572,9 +14572,9 @@
       {
         "name": "Bus Routes",
         "difficulty": "Hard",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "55",
+        "advanced_time": "35",
+        "top_time": "20",
         "pattern": "Advanced Graphs",
         "link": "https://neetcode.io/problems/bus-routes/question?list=allNC",
         "solved": false,
@@ -14819,9 +14819,9 @@
       {
         "name": "Paint House",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "10",
         "pattern": "1-D Dynamic Programming",
         "link": "https://neetcode.io/problems/paint-house/question?list=allNC",
         "solved": false,
@@ -14897,9 +14897,9 @@
       {
         "name": "Minimum Cost For Tickets",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
         "pattern": "1-D Dynamic Programming",
         "link": "https://neetcode.io/problems/minimum-cost-for-tickets/question?list=allNC",
         "solved": false,
@@ -15079,9 +15079,9 @@
       {
         "name": "Largest Divisible Subset",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "50",
+        "advanced_time": "32",
+        "top_time": "18",
         "pattern": "1-D Dynamic Programming",
         "link": "https://neetcode.io/problems/largest-divisible-subset/question?list=allNC",
         "solved": false,
@@ -15196,9 +15196,9 @@
       {
         "name": "Maximum Profit in Job Scheduling",
         "difficulty": "Hard",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "55",
+        "advanced_time": "38",
+        "top_time": "22",
         "pattern": "1-D Dynamic Programming",
         "link": "https://neetcode.io/problems/maximum-profit-in-job-scheduling/question?list=allNC",
         "solved": false,
@@ -15443,9 +15443,9 @@
       {
         "name": "Ones and Zeroes",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "50",
+        "advanced_time": "32",
+        "top_time": "18",
         "pattern": "2-D Dynamic Programming",
         "link": "https://leetcode.com/problems/ones-and-zeroes/",
         "solved": false,
@@ -15794,9 +15794,9 @@
       {
         "name": "Cherry Pickup",
         "difficulty": "Hard",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "75",
+        "advanced_time": "45",
+        "top_time": "25",
         "pattern": "2-D Dynamic Programming",
         "link": "https://neetcode.io/problems/cherry-pickup/question?list=allNC",
         "solved": false,
@@ -16236,9 +16236,9 @@
       {
         "name": "Maximum Points You Can Obtain From Cards",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "38",
+        "advanced_time": "22",
+        "top_time": "12",
         "pattern": "Greedy",
         "link": "https://neetcode.io/problems/maximum-points-you-can-obtain-from-cards/question?list=allNC",
         "solved": false,
@@ -16574,9 +16574,9 @@
       {
         "name": "Next Permutation",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "40",
+        "advanced_time": "24",
+        "top_time": "12",
         "pattern": "Greedy",
         "link": "https://neetcode.io/problems/next-permutation/question?list=allNC",
         "solved": false,
@@ -16626,9 +16626,9 @@
       {
         "name": "Put Marbles in Bags",
         "difficulty": "Hard",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "20",
         "pattern": "Greedy",
         "link": "https://neetcode.io/problems/put-marbles-in-bags/question?list=allNC",
         "solved": false,
@@ -16782,9 +16782,9 @@
       {
         "name": "Interval List Intersections",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "30",
+        "advanced_time": "18",
+        "top_time": "10",
         "pattern": "Intervals",
         "link": "https://neetcode.io/problems/interval-list-intersections/question?list=allNC",
         "solved": false,
@@ -17276,9 +17276,9 @@
       {
         "name": "Palindrome Number",
         "difficulty": "Easy",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "12",
+        "advanced_time": "6",
+        "top_time": "3",
         "pattern": "Math & Geometry",
         "link": "https://neetcode.io/problems/palindrome-number/question?list=allNC",
         "solved": false,
@@ -17445,9 +17445,9 @@
       {
         "name": "Zigzag Conversion",
         "difficulty": "Medium",
-        "intermediate_time": "40",
-        "advanced_time": "25",
-        "top_time": "15",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "10",
         "pattern": "Math & Geometry",
         "link": "https://neetcode.io/problems/zigzag-conversion/question?list=allNC",
         "solved": false,
@@ -17458,9 +17458,9 @@
       {
         "name": "Rotating the Box",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "45",
+        "advanced_time": "30",
+        "top_time": "18",
         "pattern": "Math & Geometry",
         "link": "https://neetcode.io/problems/rotating-the-box/question?list=allNC",
         "solved": false,
@@ -17627,9 +17627,9 @@
       {
         "name": "Count Primes",
         "difficulty": "Medium",
-        "intermediate_time": "0",
-        "advanced_time": "0",
-        "top_time": "0",
+        "intermediate_time": "35",
+        "advanced_time": "18",
+        "top_time": "8",
         "pattern": "Math & Geometry",
         "link": "https://neetcode.io/problems/count-primes/question?list=allNC",
         "solved": false,
@@ -18455,6 +18455,136 @@
         "time_to_solve": "",
         "comments": "",
         "solved_date": ""
+      },
+      {
+        "name": "Optimal Account Balancing",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "40",
+        "top_time": "25",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/optimal-account-balancing/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Design Hit Counter",
+        "difficulty": "Medium",
+        "intermediate_time": "28",
+        "advanced_time": "16",
+        "top_time": "8",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/design-hit-counter/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Leftmost Column With at Least a One",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "10",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/leftmost-column-with-at-least-a-one/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Brightest Position on Street",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "25",
+        "top_time": "15",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/brightest-position-on-street/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "The Earliest Moment When Everyone Become Friends",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "27",
+        "top_time": "15",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/the-earliest-moment-when-everyone-become-friends/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Design File System",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "25",
+        "top_time": "13",
+        "pattern": "Tries",
+        "link": "https://neetcode.io/problems/design-file-system/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Factor Combinations",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/factor-combinations/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Meeting Scheduler",
+        "difficulty": "Medium",
+        "intermediate_time": "30",
+        "advanced_time": "22",
+        "top_time": "14",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/meeting-scheduler/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Strobogrammatic Number",
+        "difficulty": "Easy",
+        "intermediate_time": "16",
+        "advanced_time": "12",
+        "top_time": "7",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/strobogrammatic-number/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Word Pattern II",
+        "difficulty": "Medium",
+        "intermediate_time": "44",
+        "advanced_time": "35",
+        "top_time": "18",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/word-pattern-ii/question?list=allNC",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
       }
     ],
     "salesforce": [
@@ -18666,6 +18796,2218 @@
         "comments": "",
         "solved_date": ""
       }
+    ],
+    "uber": [
+      {
+        "name": "Product of Array Except Self",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "30",
+        "top_time": "20",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/products-of-array-discluding-self/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Best Time to Buy And Sell Stock",
+        "difficulty": "Easy",
+        "intermediate_time": "20",
+        "advanced_time": "12",
+        "top_time": "7",
+        "pattern": "Sliding Window",
+        "link": "https://neetcode.io/problems/buy-and-sell-crypto/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Random Pick with Weight",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "10",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/random-pick-with-weight/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Course Schedule II",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/course-schedule-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "The Maze",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "25",
+        "top_time": "15",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/the-maze/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Rotating the Box",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "30",
+        "top_time": "18",
+        "pattern": "Math & Geometry",
+        "link": "https://neetcode.io/problems/rotating-the-box/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Two Sum",
+        "difficulty": "Easy",
+        "intermediate_time": "25",
+        "advanced_time": "15",
+        "top_time": "8",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/two-integer-sum/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Spiral Matrix",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "25",
+        "pattern": "Math & Geometry",
+        "link": "https://neetcode.io/problems/spiral-matrix/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Time Based Key Value Store",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/time-based-key-value-store/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Cherry Pickup",
+        "difficulty": "Hard",
+        "intermediate_time": "75",
+        "advanced_time": "45",
+        "top_time": "25",
+        "pattern": "2-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/cherry-pickup/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Alien Dictionary",
+        "difficulty": "Hard",
+        "intermediate_time": "70",
+        "advanced_time": "50",
+        "top_time": "35",
+        "pattern": "Advanced Graphs",
+        "link": "https://neetcode.io/problems/foreign-dictionary/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Coin Change",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "18",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/coin-change/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Group Anagrams",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "18",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/anagram-groups/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Valid Sudoku",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/valid-sudoku/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "The Maze II",
+        "difficulty": "Medium",
+        "intermediate_time": "55",
+        "advanced_time": "30",
+        "top_time": "18",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/the-maze-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Valid Anagram",
+        "difficulty": "Easy",
+        "intermediate_time": "18",
+        "advanced_time": "10",
+        "top_time": "6",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/is-anagram/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Koko Eating Bananas",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/eating-bananas/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "First Unique Number",
+        "difficulty": "Medium",
+        "intermediate_time": "32",
+        "advanced_time": "20",
+        "top_time": "11",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/first-unique-number/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Number of Islands II",
+        "difficulty": "Hard",
+        "intermediate_time": "55",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/number-of-islands-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Find Median From Data Stream",
+        "difficulty": "Hard",
+        "intermediate_time": "65",
+        "advanced_time": "48",
+        "top_time": "35",
+        "pattern": "Heap / Priority Queue",
+        "link": "https://neetcode.io/problems/find-median-in-a-data-stream/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "House Robber",
+        "difficulty": "Medium",
+        "intermediate_time": "30",
+        "advanced_time": "20",
+        "top_time": "12",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/house-robber/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Optimal Account Balancing",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "40",
+        "top_time": "25",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/optimal-account-balancing/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Walls And Gates",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/islands-and-treasure/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Insert Interval",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "30",
+        "top_time": "22",
+        "pattern": "Intervals",
+        "link": "https://neetcode.io/problems/insert-new-interval/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Rotate Image",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "20",
+        "pattern": "Math & Geometry",
+        "link": "https://neetcode.io/problems/rotate-matrix/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Trapping Rain Water",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/trapping-rain-water/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Largest Rectangle In Histogram",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "Stack",
+        "link": "https://neetcode.io/problems/largest-rectangle-in-histogram/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Next Permutation",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "24",
+        "top_time": "12",
+        "pattern": "Greedy",
+        "link": "https://neetcode.io/problems/next-permutation/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Interval List Intersections",
+        "difficulty": "Medium",
+        "intermediate_time": "30",
+        "advanced_time": "18",
+        "top_time": "10",
+        "pattern": "Intervals",
+        "link": "https://neetcode.io/problems/interval-list-intersections/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Design Hit Counter",
+        "difficulty": "Medium",
+        "intermediate_time": "28",
+        "advanced_time": "16",
+        "top_time": "8",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/design-hit-counter/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Number of Islands",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "25",
+        "top_time": "18",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/count-number-of-islands/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Minimum Window Substring",
+        "difficulty": "Hard",
+        "intermediate_time": "70",
+        "advanced_time": "50",
+        "top_time": "38",
+        "pattern": "Sliding Window",
+        "link": "https://neetcode.io/problems/minimum-window-with-characters/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Bus Routes",
+        "difficulty": "Hard",
+        "intermediate_time": "55",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Advanced Graphs",
+        "link": "https://neetcode.io/problems/bus-routes/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Boundary of Binary Tree",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/boundary-of-binary-tree/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Pacific Atlantic Water Flow",
+        "difficulty": "Medium",
+        "intermediate_time": "55",
+        "advanced_time": "40",
+        "top_time": "30",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/pacific-atlantic-water-flow/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Task Scheduler",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Heap / Priority Queue",
+        "link": "https://neetcode.io/problems/task-scheduling/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Word Ladder",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/word-ladder/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Reverse Integer",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Bit Manipulation",
+        "link": "https://neetcode.io/problems/reverse-integer/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Construct Quad Tree",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "32",
+        "top_time": "24",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/construct-quad-tree/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Candy",
+        "difficulty": "Hard",
+        "intermediate_time": "75",
+        "advanced_time": "52",
+        "top_time": "38",
+        "pattern": "Greedy",
+        "link": "https://neetcode.io/problems/candy/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "LFU Cache",
+        "difficulty": "Hard",
+        "intermediate_time": "85",
+        "advanced_time": "60",
+        "top_time": "45",
+        "pattern": "Linked List",
+        "link": "https://neetcode.io/problems/lfu-cache/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Find Peak Element",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "18",
+        "top_time": "8",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/find-peak-element/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Squares of a Sorted Array",
+        "difficulty": "Easy",
+        "intermediate_time": "20",
+        "advanced_time": "10",
+        "top_time": "5",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/squares-of-a-sorted-array/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Find First And Last Position of Element In Sorted Array",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "18",
+        "top_time": "10",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/find-first-and-last-position-of-element-in-sorted-array/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "3Sum",
+        "difficulty": "Medium",
+        "intermediate_time": "55",
+        "advanced_time": "40",
+        "top_time": "28",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/three-integer-sum/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Search In Rotated Sorted Array",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "25",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/find-target-in-rotated-sorted-array/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Maximum Depth of Binary Tree",
+        "difficulty": "Easy",
+        "intermediate_time": "18",
+        "advanced_time": "10",
+        "top_time": "6",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/depth-of-binary-tree/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Word Search",
+        "difficulty": "Medium",
+        "intermediate_time": "55",
+        "advanced_time": "40",
+        "top_time": "28",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/search-for-word/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Decode Ways",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "25",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/decode-ways/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Serialize And Deserialize Binary Tree",
+        "difficulty": "Hard",
+        "intermediate_time": "70",
+        "advanced_time": "50",
+        "top_time": "38",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/serialize-and-deserialize-binary-tree/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Min Cost to Connect All Points",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Advanced Graphs",
+        "link": "https://neetcode.io/problems/min-cost-to-connect-points/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Longest Increasing Path In a Matrix",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "2-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/longest-increasing-path-in-matrix/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Merge Strings Alternately",
+        "difficulty": "Easy",
+        "intermediate_time": "18",
+        "advanced_time": "12",
+        "top_time": "7",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/merge-strings-alternately/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Evaluate Division",
+        "difficulty": "Medium",
+        "intermediate_time": "48",
+        "advanced_time": "34",
+        "top_time": "25",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/evaluate-division/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Minimum Cost For Tickets",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/minimum-cost-for-tickets/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Minimum Cost to Connect Sticks",
+        "difficulty": "Medium",
+        "intermediate_time": "20",
+        "advanced_time": "12",
+        "top_time": "5",
+        "pattern": "Heap / Priority Queue",
+        "link": "https://neetcode.io/problems/minimum-cost-to-connect-sticks/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Leftmost Column With at Least a One",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "10",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/leftmost-column-with-at-least-a-one/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Valid Palindrome",
+        "difficulty": "Easy",
+        "intermediate_time": "20",
+        "advanced_time": "12",
+        "top_time": "8",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/is-palindrome/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Find Minimum In Rotated Sorted Array",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "25",
+        "top_time": "18",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/find-minimum-in-rotated-sorted-array/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Maximum Subarray",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "25",
+        "top_time": "15",
+        "pattern": "Greedy",
+        "link": "https://neetcode.io/problems/maximum-subarray/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Container With Most Water",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "15",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/max-water-container/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Longest Repeating Character Replacement",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "25",
+        "pattern": "Sliding Window",
+        "link": "https://neetcode.io/problems/longest-repeating-substring-with-replacement/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Add Two Numbers",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Linked List",
+        "link": "https://neetcode.io/problems/add-two-numbers/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "LRU Cache",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Linked List",
+        "link": "https://neetcode.io/problems/lru-cache/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Reconstruct Itinerary",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "Advanced Graphs",
+        "link": "https://neetcode.io/problems/reconstruct-flight-path/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Regular Expression Matching",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "2-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/regular-expression-matching/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Happy Number",
+        "difficulty": "Easy",
+        "intermediate_time": "30",
+        "advanced_time": "20",
+        "top_time": "10",
+        "pattern": "Math & Geometry",
+        "link": "https://neetcode.io/problems/non-cyclical-number/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Asteroid Collision",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "20",
+        "pattern": "Stack",
+        "link": "https://neetcode.io/problems/asteroid-collision/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Sqrt(x)",
+        "difficulty": "Easy",
+        "intermediate_time": "20",
+        "advanced_time": "12",
+        "top_time": "8",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/sqrtx/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "House Robber III",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "26",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/house-robber-iii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Minimum Path Sum",
+        "difficulty": "Medium",
+        "intermediate_time": "38",
+        "advanced_time": "26",
+        "top_time": "18",
+        "pattern": "2-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/minimum-path-sum/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Palindrome Number",
+        "difficulty": "Easy",
+        "intermediate_time": "12",
+        "advanced_time": "6",
+        "top_time": "3",
+        "pattern": "Math & Geometry",
+        "link": "https://neetcode.io/problems/palindrome-number/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Move Zeroes",
+        "difficulty": "Easy",
+        "intermediate_time": "12",
+        "advanced_time": "6",
+        "top_time": "3",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/move-zeroes/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Number of Provinces",
+        "difficulty": "Medium",
+        "intermediate_time": "30",
+        "advanced_time": "18",
+        "top_time": "8",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/number-of-provinces/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Next Greater Element I",
+        "difficulty": "Easy",
+        "intermediate_time": "22",
+        "advanced_time": "12",
+        "top_time": "6",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/next-greater-element-i/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Custom Sort String",
+        "difficulty": "Medium",
+        "intermediate_time": "25",
+        "advanced_time": "12",
+        "top_time": "5",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/custom-sort-string/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Candy Crush",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "32",
+        "top_time": "18",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/candy-crush/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Brightest Position on Street",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "25",
+        "top_time": "15",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/brightest-position-on-street/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "The Earliest Moment When Everyone Become Friends",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "27",
+        "top_time": "15",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/the-earliest-moment-when-everyone-become-friends/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Contains Duplicate",
+        "difficulty": "Easy",
+        "intermediate_time": "15",
+        "advanced_time": "10",
+        "top_time": "5",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/duplicate-integer/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Meeting Rooms",
+        "difficulty": "Easy",
+        "intermediate_time": "20",
+        "advanced_time": "12",
+        "top_time": "8",
+        "pattern": "Intervals",
+        "link": "https://neetcode.io/problems/meeting-schedule/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Word Search II",
+        "difficulty": "Hard",
+        "intermediate_time": "75",
+        "advanced_time": "55",
+        "top_time": "40",
+        "pattern": "Tries",
+        "link": "https://neetcode.io/problems/search-for-word-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "House Robber II",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "30",
+        "top_time": "20",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/house-robber-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Word Break",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "25",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/word-break/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Binary Tree Maximum Path Sum",
+        "difficulty": "Hard",
+        "intermediate_time": "65",
+        "advanced_time": "48",
+        "top_time": "35",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/binary-tree-maximum-path-sum/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Sliding Window Maximum",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "Sliding Window",
+        "link": "https://neetcode.io/problems/sliding-window-maximum/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Median of Two Sorted Arrays",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/median-of-two-sorted-arrays/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Permutations",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/permutations/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Surrounded Regions",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/surrounded-regions/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Swim In Rising Water",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "Advanced Graphs",
+        "link": "https://neetcode.io/problems/swim-in-rising-water/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Cheapest Flights Within K Stops",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Advanced Graphs",
+        "link": "https://neetcode.io/problems/cheapest-flight-path/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Burst Balloons",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "2-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/burst-balloons/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Maximum Profit in Job Scheduling",
+        "difficulty": "Hard",
+        "intermediate_time": "55",
+        "advanced_time": "38",
+        "top_time": "22",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/maximum-profit-in-job-scheduling/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Put Marbles in Bags",
+        "difficulty": "Hard",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Greedy",
+        "link": "https://neetcode.io/problems/put-marbles-in-bags/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Analyze User Website Visit Pattern",
+        "difficulty": "Medium",
+        "intermediate_time": "55",
+        "advanced_time": "30",
+        "top_time": "21",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/analyze-user-website-visit-pattern/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Remove Element",
+        "difficulty": "Easy",
+        "intermediate_time": "15",
+        "advanced_time": "10",
+        "top_time": "5",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/remove-element/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Subarray Sum Equals K",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "32",
+        "top_time": "24",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/subarray-sum-equals-k/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Split Array Largest Sum",
+        "difficulty": "Hard",
+        "intermediate_time": "80",
+        "advanced_time": "55",
+        "top_time": "40",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/split-array-largest-sum/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Word Break II",
+        "difficulty": "Hard",
+        "intermediate_time": "80",
+        "advanced_time": "55",
+        "top_time": "40",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/word-break-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Stone Game II",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "26",
+        "pattern": "2-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/stone-game-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Maximum Frequency Stack",
+        "difficulty": "Hard",
+        "intermediate_time": "80",
+        "advanced_time": "55",
+        "top_time": "40",
+        "pattern": "Stack",
+        "link": "https://neetcode.io/problems/maximum-frequency-stack/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Frequency of The Most Frequent Element",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
+        "pattern": "Sliding Window",
+        "link": "https://neetcode.io/problems/frequency-of-the-most-frequent-element/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Shortest Bridge",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "30",
+        "top_time": "18",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/shortest-bridge/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Insert Delete Get Random O(1)",
+        "difficulty": "Medium",
+        "intermediate_time": "25",
+        "advanced_time": "14",
+        "top_time": "8",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/insert-delete-getrandom-o1/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Maximum Points You Can Obtain From Cards",
+        "difficulty": "Medium",
+        "intermediate_time": "38",
+        "advanced_time": "22",
+        "top_time": "12",
+        "pattern": "Greedy",
+        "link": "https://neetcode.io/problems/maximum-points-you-can-obtain-from-cards/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Design File System",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "25",
+        "top_time": "13",
+        "pattern": "Tries",
+        "link": "https://neetcode.io/problems/design-file-system/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Meeting Rooms II",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "32",
+        "top_time": "22",
+        "pattern": "Intervals",
+        "link": "https://neetcode.io/problems/meeting-schedule-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Longest Consecutive Sequence",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "20",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/longest-consecutive-sequence/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Merge K Sorted Lists",
+        "difficulty": "Hard",
+        "intermediate_time": "65",
+        "advanced_time": "45",
+        "top_time": "32",
+        "pattern": "Linked List",
+        "link": "https://neetcode.io/problems/merge-k-sorted-linked-lists/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Clone Graph",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "20",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/clone-graph/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Course Schedule",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "32",
+        "top_time": "22",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/course-schedule/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Merge Intervals",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "25",
+        "top_time": "18",
+        "pattern": "Intervals",
+        "link": "https://neetcode.io/problems/merge-intervals/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Top K Frequent Elements",
+        "difficulty": "Medium",
+        "intermediate_time": "38",
+        "advanced_time": "28",
+        "top_time": "18",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/top-k-elements-in-list/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Validate Binary Search Tree",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "20",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/valid-binary-search-tree/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Kth Smallest Element In a Bst",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "25",
+        "top_time": "18",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/kth-smallest-integer-in-bst/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Construct Binary Tree From Preorder And Inorder Traversal",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "25",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/binary-tree-from-preorder-and-inorder-traversal/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Binary Tree Right Side View",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/binary-tree-right-side-view/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Design Twitter",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Heap / Priority Queue",
+        "link": "https://neetcode.io/problems/design-twitter-feed/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Palindrome Partitioning",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/palindrome-partitioning/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Letter Combinations of a Phone Number",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/combinations-of-a-phone-number/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "N Queens",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/n-queens/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Max Area of Island",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/max-area-of-island/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Rotting Oranges",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/rotting-fruit/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Valid Parenthesis String",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "35",
+        "top_time": "20",
+        "pattern": "Greedy",
+        "link": "https://neetcode.io/problems/valid-parenthesis-string/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Plus One",
+        "difficulty": "Easy",
+        "intermediate_time": "30",
+        "advanced_time": "20",
+        "top_time": "10",
+        "pattern": "Math & Geometry",
+        "link": "https://neetcode.io/problems/plus-one/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Valid Palindrome II",
+        "difficulty": "Easy",
+        "intermediate_time": "22",
+        "advanced_time": "14",
+        "top_time": "9",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/valid-palindrome-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Longest Common Prefix",
+        "difficulty": "Easy",
+        "intermediate_time": "20",
+        "advanced_time": "12",
+        "top_time": "8",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/longest-common-prefix/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Majority Element",
+        "difficulty": "Easy",
+        "intermediate_time": "20",
+        "advanced_time": "12",
+        "top_time": "8",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/majority-element/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Minimum Size Subarray Sum",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "20",
+        "pattern": "Sliding Window",
+        "link": "https://neetcode.io/problems/minimum-size-subarray-sum/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Find K Closest Elements",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "20",
+        "pattern": "Sliding Window",
+        "link": "https://neetcode.io/problems/find-k-closest-elements/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Capacity to Ship Packages Within D Days",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "32",
+        "top_time": "24",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/capacity-to-ship-packages-within-d-days/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Search In Rotated Sorted Array II",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "32",
+        "top_time": "24",
+        "pattern": "Binary Search",
+        "link": "https://neetcode.io/problems/search-in-rotated-sorted-array-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Delete Node in a BST",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "28",
+        "top_time": "20",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/delete-node-in-a-bst/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Matchsticks to Square",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "26",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/matchsticks-to-square/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Verifying An Alien Dictionary",
+        "difficulty": "Easy",
+        "intermediate_time": "22",
+        "advanced_time": "14",
+        "top_time": "9",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/verifying-an-alien-dictionary/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Open The Lock",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "32",
+        "top_time": "24",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/open-the-lock/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Course Schedule IV",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "32",
+        "top_time": "24",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/course-schedule-iv/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Accounts Merge",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "35",
+        "top_time": "26",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/accounts-merge/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Meeting Rooms III",
+        "difficulty": "Hard",
+        "intermediate_time": "80",
+        "advanced_time": "58",
+        "top_time": "42",
+        "pattern": "Intervals",
+        "link": "https://neetcode.io/problems/meeting-rooms-iii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Add Binary",
+        "difficulty": "Easy",
+        "intermediate_time": "20",
+        "advanced_time": "12",
+        "top_time": "8",
+        "pattern": "Bit Manipulation",
+        "link": "https://neetcode.io/problems/add-binary/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Find Critical and Pseudo Critical Edges in Minimum Spanning Tree",
+        "difficulty": "Hard",
+        "intermediate_time": "85",
+        "advanced_time": "60",
+        "top_time": "45",
+        "pattern": "Advanced Graphs",
+        "link": "https://neetcode.io/problems/find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Shortest Path in Binary Matrix",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "12",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/shortest-path-in-binary-matrix/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Basic Calculator II",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
+        "pattern": "Stack",
+        "link": "https://neetcode.io/problems/basic-calculator-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Zigzag Conversion",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "10",
+        "pattern": "Math & Geometry",
+        "link": "https://neetcode.io/problems/zigzag-conversion/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Flood Fill",
+        "difficulty": "Easy",
+        "intermediate_time": "22",
+        "advanced_time": "12",
+        "top_time": "6",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/flood-fill/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Ransom Note",
+        "difficulty": "Easy",
+        "intermediate_time": "18",
+        "advanced_time": "8",
+        "top_time": "4",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/ransom-note/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Text Justification",
+        "difficulty": "Hard",
+        "intermediate_time": "70",
+        "advanced_time": "45",
+        "top_time": "30",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/text-justification/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Paint House",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "20",
+        "top_time": "10",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/paint-house/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Isomorphic Strings",
+        "difficulty": "Easy",
+        "intermediate_time": "25",
+        "advanced_time": "15",
+        "top_time": "7",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/isomorphic-strings/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Subarrays with K Different Integers",
+        "difficulty": "Hard",
+        "intermediate_time": "60",
+        "advanced_time": "45",
+        "top_time": "28",
+        "pattern": "Sliding Window",
+        "link": "https://neetcode.io/problems/subarrays-with-k-different-integers/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Binary Search Tree Iterator",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "22",
+        "top_time": "12",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/binary-search-tree-iterator/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Count Primes",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "18",
+        "top_time": "8",
+        "pattern": "Math & Geometry",
+        "link": "https://neetcode.io/problems/count-primes/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Largest Divisible Subset",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "32",
+        "top_time": "18",
+        "pattern": "1-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/largest-divisible-subset/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Length of Last Word",
+        "difficulty": "Easy",
+        "intermediate_time": "8",
+        "advanced_time": "3",
+        "top_time": "1",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/length-of-last-word/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "One Edit Distance",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "23",
+        "top_time": "13",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/one-edit-distance/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Reverse Words in a String II",
+        "difficulty": "Medium",
+        "intermediate_time": "25",
+        "advanced_time": "14",
+        "top_time": "10",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/reverse-words-in-a-string-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Group Shifted Strings",
+        "difficulty": "Medium",
+        "intermediate_time": "30",
+        "advanced_time": "19",
+        "top_time": "12",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/group-shifted-strings/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Palindrome Permutation",
+        "difficulty": "Easy",
+        "intermediate_time": "18",
+        "advanced_time": "10",
+        "top_time": "5",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/palindrome-permutation/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Binary Tree Longest Consecutive Sequence II",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
+        "pattern": "Trees",
+        "link": "https://neetcode.io/problems/binary-tree-longest-consecutive-sequence-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Find the Celebrity",
+        "difficulty": "Medium",
+        "intermediate_time": "40",
+        "advanced_time": "25",
+        "top_time": "12",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/find-the-celebrity/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Parallel Courses",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "30",
+        "top_time": "18",
+        "pattern": "Graphs",
+        "link": "https://neetcode.io/problems/parallel-courses/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Design In-Memory File System",
+        "difficulty": "Hard",
+        "intermediate_time": "50",
+        "advanced_time": "32",
+        "top_time": "18",
+        "pattern": "Tries",
+        "link": "https://neetcode.io/problems/design-in-memory-file-system/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Design Search Autocomplete System",
+        "difficulty": "Hard",
+        "intermediate_time": "55",
+        "advanced_time": "38",
+        "top_time": "22",
+        "pattern": "Tries",
+        "link": "https://neetcode.io/problems/design-search-autocomplete-system/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Design Snake Game",
+        "difficulty": "Medium",
+        "intermediate_time": "35",
+        "advanced_time": "28",
+        "top_time": "19",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/design-snake-game/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Factor Combinations",
+        "difficulty": "Medium",
+        "intermediate_time": "45",
+        "advanced_time": "28",
+        "top_time": "15",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/factor-combinations/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Word Pattern",
+        "difficulty": "Easy",
+        "intermediate_time": "22",
+        "advanced_time": "12",
+        "top_time": "6",
+        "pattern": "Arrays & Hashing",
+        "link": "https://neetcode.io/problems/word-pattern/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Meeting Scheduler",
+        "difficulty": "Medium",
+        "intermediate_time": "30",
+        "advanced_time": "22",
+        "top_time": "14",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/meeting-scheduler/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Strobogrammatic Number",
+        "difficulty": "Easy",
+        "intermediate_time": "16",
+        "advanced_time": "12",
+        "top_time": "7",
+        "pattern": "Two Pointers",
+        "link": "https://neetcode.io/problems/strobogrammatic-number/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Word Pattern II",
+        "difficulty": "Medium",
+        "intermediate_time": "44",
+        "advanced_time": "35",
+        "top_time": "18",
+        "pattern": "Backtracking",
+        "link": "https://neetcode.io/problems/word-pattern-ii/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      },
+      {
+        "name": "Ones and Zeroes",
+        "difficulty": "Medium",
+        "intermediate_time": "50",
+        "advanced_time": "32",
+        "top_time": "18",
+        "pattern": "2-D Dynamic Programming",
+        "link": "https://neetcode.io/problems/ones-and-zeroes/question?list=companyTagged&company=Uber",
+        "solved": false,
+        "time_to_solve": "",
+        "comments": "",
+        "solved_date": ""
+      }
     ]
   },
   "duplicate_map": {
@@ -18673,31 +21015,36 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Valid Anagram": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Two Sum": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Group Anagrams": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Top K Frequent Elements": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Encode and Decode Strings": [
       "blind75",
@@ -18709,37 +21056,43 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Longest Consecutive Sequence": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Valid Palindrome": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "3Sum": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Container With Most Water": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Best Time to Buy And Sell Stock": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Longest Substring Without Repeating Characters": [
       "blind75",
@@ -18752,14 +21105,16 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Minimum Window Substring": [
       "blind75",
       "neetcode150",
       "neetcode250",
       "neetcodeall",
-      "salesforce"
+      "salesforce",
+      "uber"
     ],
     "Valid Parentheses": [
       "blind75",
@@ -18771,13 +21126,15 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Search In Rotated Sorted Array": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Reverse Linked List": [
       "blind75",
@@ -18814,7 +21171,8 @@
       "neetcode150",
       "neetcode250",
       "neetcodeall",
-      "salesforce"
+      "salesforce",
+      "uber"
     ],
     "Invert Binary Tree": [
       "blind75",
@@ -18826,7 +21184,8 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Same Tree": [
       "blind75",
@@ -18857,38 +21216,44 @@
       "neetcode150",
       "neetcode250",
       "neetcodeall",
-      "salesforce"
+      "salesforce",
+      "uber"
     ],
     "Kth Smallest Element In a Bst": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Construct Binary Tree From Preorder And Inorder Traversal": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Binary Tree Maximum Path Sum": [
       "blind75",
       "neetcode150",
       "neetcode250",
       "neetcodeall",
-      "salesforce"
+      "salesforce",
+      "uber"
     ],
     "Serialize And Deserialize Binary Tree": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Find Median From Data Stream": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Combination Sum": [
       "blind75",
@@ -18901,7 +21266,8 @@
       "neetcode150",
       "neetcode250",
       "neetcodeall",
-      "salesforce"
+      "salesforce",
+      "uber"
     ],
     "Implement Trie Prefix Tree": [
       "blind75",
@@ -18919,31 +21285,36 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Number of Islands": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Clone Graph": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Pacific Atlantic Water Flow": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Course Schedule": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Graph Valid Tree": [
       "blind75",
@@ -18961,7 +21332,8 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Climbing Stairs": [
       "blind75",
@@ -18973,13 +21345,15 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "House Robber II": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Longest Palindromic Substring": [
       "blind75",
@@ -18998,13 +21372,15 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Coin Change": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Maximum Product Subarray": [
       "blind75",
@@ -19016,7 +21392,8 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Longest Increasing Subsequence": [
       "blind75",
@@ -19041,7 +21418,8 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Jump Game": [
       "blind75",
@@ -19053,13 +21431,15 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Merge Intervals": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Non Overlapping Intervals": [
       "blind75",
@@ -19071,25 +21451,29 @@
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Meeting Rooms II": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Rotate Image": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Spiral Matrix": [
       "blind75",
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Set Matrix Zeroes": [
       "blind75",
@@ -19130,7 +21514,8 @@
     "Valid Sudoku": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Two Sum II Input Array Is Sorted": [
       "neetcode150",
@@ -19140,7 +21525,8 @@
     "Trapping Rain Water": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Permutation In String": [
       "neetcode150",
@@ -19150,7 +21536,8 @@
     "Sliding Window Maximum": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Min Stack": [
       "neetcode150",
@@ -19175,7 +21562,8 @@
     "Largest Rectangle In Histogram": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Binary Search": [
       "neetcode150",
@@ -19190,17 +21578,20 @@
     "Koko Eating Bananas": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Time Based Key Value Store": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Median of Two Sorted Arrays": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Copy List With Random Pointer": [
       "neetcode150",
@@ -19210,7 +21601,8 @@
     "Add Two Numbers": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Find The Duplicate Number": [
       "neetcode150",
@@ -19221,7 +21613,8 @@
       "neetcode150",
       "neetcode250",
       "neetcodeall",
-      "salesforce"
+      "salesforce",
+      "uber"
     ],
     "Reverse Nodes In K Group": [
       "neetcode150",
@@ -19242,7 +21635,8 @@
     "Binary Tree Right Side View": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Count Good Nodes In Binary Tree": [
       "neetcode150",
@@ -19272,12 +21666,14 @@
     "Task Scheduler": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Design Twitter": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Subsets": [
       "neetcode150",
@@ -19292,7 +21688,8 @@
     "Permutations": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Subsets II": [
       "neetcode150",
@@ -19307,43 +21704,51 @@
     "Palindrome Partitioning": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Letter Combinations of a Phone Number": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "N Queens": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Max Area of Island": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Walls And Gates": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Rotting Oranges": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Surrounded Regions": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Course Schedule II": [
       "neetcode150",
       "neetcode250",
       "neetcodeall",
-      "salesforce"
+      "salesforce",
+      "uber"
     ],
     "Redundant Connection": [
       "neetcode150",
@@ -19353,7 +21758,8 @@
     "Word Ladder": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Network Delay Time": [
       "neetcode150",
@@ -19363,22 +21769,26 @@
     "Reconstruct Itinerary": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Min Cost to Connect All Points": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Swim In Rising Water": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Cheapest Flights Within K Stops": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Min Cost Climbing Stairs": [
       "neetcode150",
@@ -19413,7 +21823,8 @@
     "Longest Increasing Path In a Matrix": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Distinct Subsequences": [
       "neetcode150",
@@ -19429,12 +21840,14 @@
     "Burst Balloons": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Regular Expression Matching": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Jump Game II": [
       "neetcode150",
@@ -19464,7 +21877,8 @@
     "Valid Parenthesis String": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Minimum Interval to Include Each Query": [
       "neetcode150",
@@ -19474,12 +21888,14 @@
     "Happy Number": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Plus One": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Pow(x, n)": [
       "neetcode150",
@@ -19504,7 +21920,8 @@
     "Reverse Integer": [
       "neetcode150",
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Concatenation of Array": [
       "neetcode250",
@@ -19512,15 +21929,18 @@
     ],
     "Longest Common Prefix": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Remove Element": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Majority Element": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Design HashSet": [
       "neetcode250",
@@ -19552,7 +21972,8 @@
     ],
     "Subarray Sum Equals K": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "First Missing Positive": [
       "neetcode250",
@@ -19564,11 +21985,13 @@
     ],
     "Valid Palindrome II": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Merge Strings Alternately": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Merge Sorted Array": [
       "neetcode250",
@@ -19596,11 +22019,13 @@
     ],
     "Minimum Size Subarray Sum": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Find K Closest Elements": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Baseball Game": [
       "neetcode250",
@@ -19616,7 +22041,8 @@
     ],
     "Asteroid Collision": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Online Stock Span": [
       "neetcode250",
@@ -19632,7 +22058,8 @@
     ],
     "Maximum Frequency Stack": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Search Insert Position": [
       "neetcode250",
@@ -19644,19 +22071,23 @@
     ],
     "Sqrt(x)": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Capacity to Ship Packages Within D Days": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Search In Rotated Sorted Array II": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Split Array Largest Sum": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Find in Mountain Array": [
       "neetcode250",
@@ -19673,7 +22104,8 @@
     "LFU Cache": [
       "neetcode250",
       "neetcodeall",
-      "salesforce"
+      "salesforce",
+      "uber"
     ],
     "Binary Tree Inorder Traversal": [
       "neetcode250",
@@ -19693,15 +22125,18 @@
     ],
     "Delete Node in a BST": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Construct Quad Tree": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "House Robber III": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Delete Leaves With a Given Value": [
       "neetcode250",
@@ -19741,7 +22176,8 @@
     ],
     "Matchsticks to Square": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Partition to K Equal Sum Subsets": [
       "neetcode250",
@@ -19753,7 +22189,8 @@
     ],
     "Word Break II": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Extra Characters in a String": [
       "neetcode250",
@@ -19765,7 +22202,8 @@
     ],
     "Verifying An Alien Dictionary": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Find the Town Judge": [
       "neetcode250",
@@ -19773,19 +22211,23 @@
     ],
     "Open The Lock": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Course Schedule IV": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Accounts Merge": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Evaluate Division": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Minimum Height Trees": [
       "neetcode250",
@@ -19797,7 +22239,8 @@
     ],
     "Find Critical and Pseudo Critical Edges in Minimum Spanning Tree": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Build a Matrix With Conditions": [
       "neetcode250",
@@ -19833,7 +22276,8 @@
     ],
     "Minimum Path Sum": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Last Stone Weight II": [
       "neetcode250",
@@ -19845,7 +22289,8 @@
     ],
     "Stone Game II": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Lemonade Change": [
       "neetcode250",
@@ -19869,11 +22314,13 @@
     ],
     "Candy": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Meeting Rooms III": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Excel Sheet Column Title": [
       "neetcode250",
@@ -19897,7 +22344,8 @@
     ],
     "Add Binary": [
       "neetcode250",
-      "neetcodeall"
+      "neetcodeall",
+      "uber"
     ],
     "Bitwise AND of Numbers Range": [
       "neetcode250",
@@ -19907,17 +22355,270 @@
       "neetcode250",
       "neetcodeall"
     ],
+    "Length of Last Word": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Group Shifted Strings": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Isomorphic Strings": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Next Greater Element I": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Word Pattern": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Ransom Note": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Palindrome Permutation": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Custom Sort String": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Candy Crush": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Analyze User Website Visit Pattern": [
+      "neetcodeall",
+      "uber"
+    ],
+    "One Edit Distance": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Insert Delete Get Random O(1)": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Reverse Words in a String II": [
+      "neetcodeall",
+      "uber"
+    ],
+    "First Unique Number": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Design Snake Game": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Text Justification": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Move Zeroes": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Squares of a Sorted Array": [
+      "neetcodeall",
+      "uber"
+    ],
     "String Compression": [
       "neetcodeall",
       "salesforce"
+    ],
+    "Frequency of The Most Frequent Element": [
+      "neetcodeall",
+      "uber"
     ],
     "Subarray Product Less Than K": [
       "neetcodeall",
       "salesforce"
     ],
+    "Subarrays with K Different Integers": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Basic Calculator II": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Find Peak Element": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Find First And Last Position of Element In Sorted Array": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Random Pick with Weight": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Binary Search Tree Iterator": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Binary Tree Longest Consecutive Sequence II": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Boundary of Binary Tree": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Minimum Cost to Connect Sticks": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Design In-Memory File System": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Design Search Autocomplete System": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Flood Fill": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Shortest Bridge": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Shortest Path in Binary Matrix": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Number of Provinces": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Find the Celebrity": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Parallel Courses": [
+      "neetcodeall",
+      "uber"
+    ],
+    "The Maze": [
+      "neetcodeall",
+      "uber"
+    ],
+    "The Maze II": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Number of Islands II": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Bus Routes": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Paint House": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Minimum Cost For Tickets": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Largest Divisible Subset": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Maximum Profit in Job Scheduling": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Ones and Zeroes": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Cherry Pickup": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Maximum Points You Can Obtain From Cards": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Next Permutation": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Put Marbles in Bags": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Interval List Intersections": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Palindrome Number": [
+      "neetcodeall",
+      "uber"
+    ],
     "Zigzag Conversion": [
       "neetcodeall",
-      "salesforce"
+      "salesforce",
+      "uber"
+    ],
+    "Rotating the Box": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Count Primes": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Optimal Account Balancing": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Design Hit Counter": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Leftmost Column With at Least a One": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Brightest Position on Street": [
+      "neetcodeall",
+      "uber"
+    ],
+    "The Earliest Moment When Everyone Become Friends": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Design File System": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Factor Combinations": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Meeting Scheduler": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Strobogrammatic Number": [
+      "neetcodeall",
+      "uber"
+    ],
+    "Word Pattern II": [
+      "neetcodeall",
+      "uber"
     ]
   },
   "file_list": [
@@ -19926,6 +22627,7 @@
     "neetcode150",
     "neetcode250",
     "neetcodeall",
-    "salesforce"
+    "salesforce",
+    "uber"
   ]
 }
