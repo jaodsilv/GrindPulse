@@ -304,7 +304,28 @@ def handle_dispatcher(subagent_type):
         ]
         if has_ai:
             materializations.append(
-                ("solve-needed", "solve.yaml", ["--ai-path"], "ai-solutions-path/phase1-producer")
+                (
+                    "solve-easy-needed",
+                    "solve-easy.yaml",
+                    ["--ai-path"],
+                    "ai-solutions-path/phase1-producer",
+                )
+            )
+            materializations.append(
+                (
+                    "solve-medium-needed",
+                    "solve-medium.yaml",
+                    ["--ai-path"],
+                    "ai-solutions-path/phase1-producer",
+                )
+            )
+            materializations.append(
+                (
+                    "solve-hard-needed",
+                    "solve-hard.yaml",
+                    ["--ai-path"],
+                    "ai-solutions-path/phase1-producer",
+                )
             )
         if has_community:
             materializations.append(
@@ -348,53 +369,57 @@ def handle_dispatcher(subagent_type):
 
     if subagent_type == "phase-3-analyze-dispatcher":
         extra = ["--ai-path"] if has_ai else None
-        qp = os.path.join(queues_dir, "analyze.yaml")
-        try:
-            count = materialize_queue("analyze-needed", list_name, qp, extra)
-        except RuntimeError as e:
-            emit_deny(str(e))
-            return
-
-        if count > 0:
+        tier_configs = [
+            ("analyze-easy-needed", "analyze-easy.yaml"),
+            ("analyze-medium-needed", "analyze-medium.yaml"),
+            ("analyze-hard-needed", "analyze-hard.yaml"),
+        ]
+        for tier_verb, tier_fname in tier_configs:
+            qp = os.path.join(queues_dir, tier_fname)
             try:
-                import yaml
+                count = materialize_queue(tier_verb, list_name, qp, extra)
+            except RuntimeError as e:
+                emit_deny(str(e))
+                return
+            if count > 0:
+                try:
+                    import yaml
 
-                with open(qp, encoding="utf-8") as f:
-                    items = yaml.safe_load(f) or []
-                for item in items if isinstance(items, list) else []:
-                    source = item.get("source", "") if isinstance(item, dict) else ""
-                    phase_key = (
-                        "ai-solutions-path/phase3-time-estimator"
-                        if source == "ai"
-                        else "standard-solutions-path/phase3-time-estimator"
-                    )
-                    problem_id = item.get("problem-id") if isinstance(item, dict) else None
-                    if problem_id is None:
-                        continue
-                    problem_folder = item.get("problem-folder") or f"p{problem_id}"
-                    pdir = os.path.join(work_folder_abs, problem_folder)
-                    meta_path = os.path.join(pdir, "metadata.yaml")
-                    try:
-                        with open(meta_path, encoding="utf-8") as f2:
-                            meta = yaml.safe_load(f2) or {}
-                        name = meta.get("problem-name") or f"p{problem_id}"
-                    except Exception:
-                        name = f"p{problem_id}"
-                    if _status_io:
+                    with open(qp, encoding="utf-8") as f:
+                        items = yaml.safe_load(f) or []
+                    for item in items if isinstance(items, list) else []:
+                        source = item.get("source", "") if isinstance(item, dict) else ""
+                        phase_key = (
+                            "ai-solutions-path/phase3-time-estimator"
+                            if source == "ai"
+                            else "standard-solutions-path/phase3-time-estimator"
+                        )
+                        problem_id = item.get("problem-id") if isinstance(item, dict) else None
+                        if problem_id is None:
+                            continue
+                        problem_folder = item.get("problem-folder") or f"p{problem_id}"
+                        pdir = os.path.join(work_folder_abs, problem_folder)
+                        meta_path = os.path.join(pdir, "metadata.yaml")
                         try:
-                            _status_io.move_to_phase(
-                                work_folder_abs,
-                                name,
-                                problem_id,
-                                problem_folder,
-                                from_phase=None,
-                                to_phase=phase_key,
-                            )
+                            with open(meta_path, encoding="utf-8") as f2:
+                                meta = yaml.safe_load(f2) or {}
+                            name = meta.get("problem-name") or f"p{problem_id}"
                         except Exception:
-                            pass
-            except Exception:
-                pass
-
+                            name = f"p{problem_id}"
+                        if _status_io:
+                            try:
+                                _status_io.move_to_phase(
+                                    work_folder_abs,
+                                    name,
+                                    problem_id,
+                                    problem_folder,
+                                    from_phase=None,
+                                    to_phase=phase_key,
+                                )
+                            except Exception:
+                                pass
+                except Exception:
+                    pass
         emit_implicit_allow()
         return
 
@@ -404,56 +429,60 @@ def handle_dispatcher(subagent_type):
             extra.append("--ai-path")
         if has_community:
             extra.append("--community-path")
-        qp = os.path.join(queues_dir, "critique.yaml")
-        try:
-            count = materialize_queue("critique-needed", list_name, qp, extra or None)
-        except RuntimeError as e:
-            emit_deny(str(e))
-            return
-
-        if count > 0:
+        tier_configs = [
+            ("critique-easy-needed", "critique-easy.yaml"),
+            ("critique-medium-needed", "critique-medium.yaml"),
+            ("critique-hard-needed", "critique-hard.yaml"),
+        ]
+        for tier_verb, tier_fname in tier_configs:
+            qp = os.path.join(queues_dir, tier_fname)
             try:
-                import yaml
+                count = materialize_queue(tier_verb, list_name, qp, extra or None)
+            except RuntimeError as e:
+                emit_deny(str(e))
+                return
+            if count > 0:
+                try:
+                    import yaml
 
-                with open(qp, encoding="utf-8") as f:
-                    items = yaml.safe_load(f) or []
-                for item in items if isinstance(items, list) else []:
-                    if not isinstance(item, dict):
-                        continue
-                    source = item.get("source", "")
-                    if source.startswith("community"):
-                        phase_key = "community-times-path/phase4-criticizer"
-                    elif source == "ai":
-                        phase_key = "ai-solutions-path/phase4-criticizer"
-                    else:
-                        phase_key = "standard-solutions-path/phase4-criticizer"
-                    problem_id = item.get("problem-id")
-                    if problem_id is None:
-                        continue
-                    problem_folder = item.get("problem-folder") or f"p{problem_id}"
-                    pdir = os.path.join(work_folder_abs, problem_folder)
-                    meta_path = os.path.join(pdir, "metadata.yaml")
-                    try:
-                        with open(meta_path, encoding="utf-8") as f2:
-                            meta = yaml.safe_load(f2) or {}
-                        name = meta.get("problem-name") or f"p{problem_id}"
-                    except Exception:
-                        name = f"p{problem_id}"
-                    if _status_io:
+                    with open(qp, encoding="utf-8") as f:
+                        items = yaml.safe_load(f) or []
+                    for item in items if isinstance(items, list) else []:
+                        if not isinstance(item, dict):
+                            continue
+                        source = item.get("source", "")
+                        if source.startswith("community"):
+                            phase_key = "community-times-path/phase4-criticizer"
+                        elif source == "ai":
+                            phase_key = "ai-solutions-path/phase4-criticizer"
+                        else:
+                            phase_key = "standard-solutions-path/phase4-criticizer"
+                        problem_id = item.get("problem-id")
+                        if problem_id is None:
+                            continue
+                        problem_folder = item.get("problem-folder") or f"p{problem_id}"
+                        pdir = os.path.join(work_folder_abs, problem_folder)
+                        meta_path = os.path.join(pdir, "metadata.yaml")
                         try:
-                            _status_io.move_to_phase(
-                                work_folder_abs,
-                                name,
-                                problem_id,
-                                problem_folder,
-                                from_phase=None,
-                                to_phase=phase_key,
-                            )
+                            with open(meta_path, encoding="utf-8") as f2:
+                                meta = yaml.safe_load(f2) or {}
+                            name = meta.get("problem-name") or f"p{problem_id}"
                         except Exception:
-                            pass
-            except Exception:
-                pass
-
+                            name = f"p{problem_id}"
+                        if _status_io:
+                            try:
+                                _status_io.move_to_phase(
+                                    work_folder_abs,
+                                    name,
+                                    problem_id,
+                                    problem_folder,
+                                    from_phase=None,
+                                    to_phase=phase_key,
+                                )
+                            except Exception:
+                                pass
+                except Exception:
+                    pass
         emit_implicit_allow()
         return
 

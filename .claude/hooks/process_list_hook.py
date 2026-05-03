@@ -114,15 +114,21 @@ def _rebuild_queues_and_clear_claims(
     if start_phase <= 1 <= end_phase:
         plan.append(("parse-needed", "parse.yaml", []))
         if ai_path:
-            plan.append(("solve-needed", "solve.yaml", ["--ai-path"]))
+            plan.append(("solve-easy-needed", "solve-easy.yaml", ["--ai-path"]))
+            plan.append(("solve-medium-needed", "solve-medium.yaml", ["--ai-path"]))
+            plan.append(("solve-hard-needed", "solve-hard.yaml", ["--ai-path"]))
         if community_path:
             plan.append(("community-needed", "community.yaml", ["--community-path"]))
     if start_phase <= 2 <= end_phase:
         plan.append(("explain-needed", "explain.yaml", []))
     if start_phase <= 3 <= end_phase:
-        plan.append(("analyze-needed", "analyze.yaml", []))
+        plan.append(("analyze-easy-needed", "analyze-easy.yaml", []))
+        plan.append(("analyze-medium-needed", "analyze-medium.yaml", []))
+        plan.append(("analyze-hard-needed", "analyze-hard.yaml", []))
     if start_phase <= 4 <= end_phase:
-        plan.append(("critique-needed", "critique.yaml", []))
+        plan.append(("critique-easy-needed", "critique-easy.yaml", []))
+        plan.append(("critique-medium-needed", "critique-medium.yaml", []))
+        plan.append(("critique-hard-needed", "critique-hard.yaml", []))
     if start_phase <= 5 <= end_phase:
         plan.append(("select-needed", "select.yaml", []))
 
