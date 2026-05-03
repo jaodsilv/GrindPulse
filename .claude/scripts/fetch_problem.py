@@ -7,6 +7,7 @@ CLI flags:
     --problem-id N  Problem counter emitted in the success XML as
                     <problem-id>. Defaults to 1.
 """
+# ruff: noqa: E402
 
 import argparse
 import os
@@ -14,6 +15,7 @@ import re
 import shutil
 import sys
 import traceback
+from urllib.parse import urlparse
 
 import yaml
 from bs4 import BeautifulSoup
@@ -22,13 +24,35 @@ from bs4.element import NavigableString, Tag
 _HERE = os.path.dirname(os.path.abspath(__file__))
 if _HERE not in sys.path:
     sys.path.insert(0, _HERE)
-from lib import status_io  # type: ignore[import-not-found]  # noqa: E402
+from lib import status_io  # type: ignore[import-not-found]
+from lib.active_list import load as _load_active_list_raw  # type: ignore[import-not-found]
+from lib.file_lock import file_lock  # type: ignore[import-not-found]
+
+_ALLOWED_NAV_HOSTS = frozenset({"neetcode.io"})
+
+
+def _validate_nav_url(url: str) -> None:
+    """Validate that a URL is safe to feed into Playwright's page.goto.
+
+    Rejects non-http(s) schemes (file://, chrome://, javascript:, ...) and
+    empty hosts, and enforces the allowlist of expected hosts. Raises
+    ValueError on any failure, before navigation.
+    """
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        raise ValueError(f"refusing to navigate to non-http(s) URL: {url}")
+    if not parsed.netloc:
+        raise ValueError(f"refusing to navigate to non-http(s) URL: {url}")
+    host = parsed.hostname or ""
+    if host not in _ALLOWED_NAV_HOSTS:
+        raise ValueError(f"refusing to navigate to non-http(s) URL: {url}")
 
 
 def _load_active_list() -> dict:
-    path = os.path.join(".thoughts", "time-estimatives", ".active-list.yaml")
-    with open(path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+    cfg = _load_active_list_raw()
+    if not cfg:
+        raise OSError("could not load .active-list.yaml (see stderr)")
+    return cfg
 
 
 def _is_row_filled(list_path: str, problem_name: str) -> bool:
@@ -41,24 +65,38 @@ def _is_row_filled(list_path: str, problem_name: str) -> bool:
                         t2 = int(cols[2].strip() or "0")
                         t3 = int(cols[3].strip() or "0")
                         t4 = int(cols[4].strip() or "0")
-                    except ValueError:
+                    except ValueError as e:
+                        # Non-integer time column: treat row as not-yet-filled
+                        # so the caller fetches and overwrites with valid data.
+                        print(
+                            f"warning: malformed time columns for {problem_name!r} "
+                            f"in {list_path}: {e}; treating as not-filled",
+                            file=sys.stderr,
+                        )
                         return False
                     return t2 > 0 and t3 > 0 and t4 > 0
-    except OSError:
-        pass
+    except OSError as e:
+        # Best-effort: if the source TSV is unreadable we treat the row as
+        # not-yet-filled so the caller proceeds to fetch. Log so a misconfigured
+        # path doesn't fail silently across the whole run.
+        print(
+            f"warning: could not read {list_path} to check row {problem_name!r}: {e}",
+            file=sys.stderr,
+        )
     return False
 
 
 def _next_id(work_folder: str) -> str:
     id_file = os.path.join(work_folder, "next-id.txt")
-    try:
-        with open(id_file, encoding="utf-8") as f:
-            current = int(f.read().strip())
-    except (OSError, ValueError):
-        current = 1
-    with open(id_file, "w", encoding="utf-8") as f:
-        f.write(str(current + 1))
-    return str(current)
+    with file_lock(id_file):
+        try:
+            with open(id_file, encoding="utf-8") as f:
+                current = int(f.read().strip())
+        except (OSError, ValueError):
+            current = 1
+        with open(id_file, "w", encoding="utf-8") as f:
+            f.write(str(current + 1))
+        return str(current)
 
 
 def _find_existing_pn(work_folder: str, problem_name: str):
@@ -73,7 +111,11 @@ def _find_existing_pn(work_folder: str, problem_name: str):
             if data and data.get("problem-name") == problem_name:
                 pn_dir = os.path.basename(os.path.dirname(meta_path))  # e.g. "p3"
                 matches.append(int(pn_dir[1:]))
-        except Exception:
+        except (OSError, yaml.YAMLError, ValueError) as e:
+            print(
+                f"warning: could not parse {meta_path} while searching for {problem_name!r}: {e}",
+                file=sys.stderr,
+            )
             continue
     if not matches:
         return None
@@ -102,8 +144,13 @@ def _find_problem_in_tsv(list_path: str, problem_name: str) -> dict:
                     "problem-pattern": cols[5].strip(),
                     "link": cols[6].strip(),
                 }
-    except OSError:
-        pass
+    except OSError as e:
+        # If the source TSV cannot be read, return {} so the caller surfaces
+        # the missing-link as a fetch error; don't swallow the failure.
+        print(
+            f"warning: could not read {list_path} for problem lookup {problem_name!r}: {e}",
+            file=sys.stderr,
+        )
     return {}
 
 
@@ -472,6 +519,7 @@ def _fetch_problem_content(link: str) -> tuple:
             context = browser.new_context()
         try:
             page = context.new_page()
+            _validate_nav_url(url)
             page.goto(url, wait_until="networkidle", timeout=30000)
             page.wait_for_timeout(1500)
 
@@ -514,7 +562,15 @@ def _fetch_problem_content(link: str) -> tuple:
                     if (el.inner_text() or "").strip() == "Solution":
                         el.click()
                         break
-                except Exception:
+                except Exception as e:
+                    # Playwright may raise on detached/animating nodes during
+                    # the linear scan; logging and continuing is correct here
+                    # because we only need one element to match.
+                    print(
+                        f"warning: skipping element while searching for Solution tab: "
+                        f"{type(e).__name__}: {e}",
+                        file=sys.stderr,
+                    )
                     continue
             page.wait_for_timeout(3500)
 
@@ -527,7 +583,13 @@ def _fetch_problem_content(link: str) -> tuple:
             for pre in pres:
                 try:
                     t = pre.inner_text()
-                except Exception:
+                except Exception as e:
+                    # Playwright may raise if a node detaches mid-iteration;
+                    # skip it and rely on the remaining matches.
+                    print(
+                        f"warning: skipping <pre> element: {type(e).__name__}: {e}",
+                        file=sys.stderr,
+                    )
                     continue
                 if t.strip() and ("class Solution" in t or "def " in t or "public " in t):
                     code_blocks.append(t.rstrip())
@@ -786,14 +848,24 @@ def main():
         if not skip_fetch and os.path.isdir(problem_folder):
             try:
                 shutil.rmtree(problem_folder)
-            except OSError:
-                pass
+            except OSError as cleanup_err:
+                # Best-effort: the original fetch failure is what matters; surface
+                # the cleanup glitch as a warning so it isn't invisible.
+                print(
+                    f"warning: could not remove partial folder {problem_folder}: {cleanup_err}",
+                    file=sys.stderr,
+                )
         # Restore chosen to the front of problems so next run retries it.
         problems.insert(0, chosen)
         try:
             _write_remaining(remaining_path, problems)
-        except OSError:
-            pass
+        except OSError as restore_err:
+            # Best-effort: failing to persist the restore means the next run may
+            # skip this problem. Log so the user sees the inconsistency.
+            print(
+                f"warning: could not restore {chosen!r} to {remaining_path}: {restore_err}",
+                file=sys.stderr,
+            )
 
         traceback.print_exc(file=sys.stderr)
         msg = str(e).split("\n", 1)[0].strip() or repr(e)
