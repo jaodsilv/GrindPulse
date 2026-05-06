@@ -8,6 +8,7 @@ Usage:
 import datetime
 import os
 import sys
+from typing import NoReturn
 
 import yaml
 
@@ -20,7 +21,7 @@ from lib.active_list import load as _load_active_list  # type: ignore[import-not
 _REQUIRED = ("list-name", "problem-id", "intermediate", "advanced", "top")
 
 
-def _die(msg: str) -> None:
+def _die(msg: str) -> NoReturn:
     print(f"ERROR: {msg}", file=sys.stderr)
     sys.exit(2)
 
