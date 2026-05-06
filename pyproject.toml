@@ -26,6 +26,8 @@ omit = [
     "*_generator.py",
     "html_generator.py",
     "css_generator.py",
+    ".claude/*",
+    "tools/*",
 ]
 
 [tool.coverage.report]
