@@ -223,7 +223,7 @@ def _atomic_decrement_counter(work_folder):
             if os.path.isfile(cpath):
                 try:
                     current = int(cpath.read_text().strip())
-                except Exception as e:
+                except (OSError, ValueError) as e:
                     log_err(
                         f"in-flight counter at {cpath} is malformed ({e!r}); "
                         f"clamping to 0 before decrement"
@@ -237,7 +237,9 @@ def _atomic_decrement_counter(work_folder):
                 write_counter(work_folder, 0)
             else:
                 write_counter(work_folder, current - 1)
-    except Exception as e:
+    except (OSError, RuntimeError) as e:
+        # OSError: file_lock acquisition / counter write failure.
+        # RuntimeError: defensive net for other low-level helper failures.
         log_err(f"failed to decrement in-flight counter: {e}")
         return False
     return True

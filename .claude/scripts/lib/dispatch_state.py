@@ -1,9 +1,12 @@
 """Shared in-flight counter helpers for agent_dispatch and subagent_stop_state_advance.
 
-All read/modify/write of the counter file is serialized via lib.file_lock on a
-sibling .lock file so concurrent SubagentStop / agent_dispatch hooks cannot
-race. The lock primitive is reentrant-safe across processes (advisory OS lock
-on a separate file descriptor).
+Concurrency contract: callers MUST hold the dispatch lock
+(`file_lock(<work_folder>/.dispatch.lock)`) for the duration of any
+read-modify-write sequence on the counter. read_counter/write_counter
+deliberately do NOT take a second lock of their own — doing so would be
+redundant with the caller's dispatch lock and only adds I/O. The hooks in
+`.claude/hooks/agent_dispatch.py` and `.claude/hooks/subagent_stop_state_advance.py`
+already enter the dispatch lock before invoking these helpers.
 
 Malformed counter contents (empty, non-int, partial write from a crashed
 process) are logged to stderr with the file path and offending content, then
@@ -13,8 +16,6 @@ ValueError.
 
 import sys
 from pathlib import Path
-
-from lib.file_lock import file_lock
 
 
 def counter_path(work_folder):
@@ -46,21 +47,18 @@ def _parse_counter(p):
 
 
 def read_counter(work_folder):
-    """Read the in-flight counter under the dispatch lock.
+    """Read the in-flight counter. Caller must hold the dispatch lock.
 
     Returns 0 if the file is missing, empty, or malformed (with stderr log).
     """
-    p = counter_path(work_folder)
-    with file_lock(str(p)):
-        return _parse_counter(p)
+    return _parse_counter(counter_path(work_folder))
 
 
 def write_counter(work_folder, n):
-    """Write the in-flight counter under the dispatch lock, clamped to >= 0."""
+    """Write the in-flight counter, clamped to >= 0. Caller must hold the dispatch lock."""
     p = counter_path(work_folder)
-    with file_lock(str(p)):
-        try:
-            p.write_text(str(max(0, n)))
-        except OSError as e:
-            _log_err(f"failed to write counter at {p} (n={n!r}): {e!r}")
-            raise
+    try:
+        p.write_text(str(max(0, n)))
+    except OSError as e:
+        _log_err(f"failed to write counter at {p} (n={n!r}): {e!r}")
+        raise
