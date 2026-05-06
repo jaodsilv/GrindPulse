@@ -7,7 +7,6 @@ Usage:
 
 import datetime
 import os
-import shutil
 import sys
 
 import yaml
@@ -18,6 +17,13 @@ if _HERE not in sys.path:
 from lib import status_io  # type: ignore[import-not-found]
 from lib.active_list import load as _load_active_list  # type: ignore[import-not-found]
 
+_REQUIRED = ("list-name", "problem-id", "intermediate", "advanced", "top")
+
+
+def _die(msg: str) -> None:
+    print(f"ERROR: {msg}", file=sys.stderr)
+    sys.exit(2)
+
 
 def main() -> None:
     args = sys.argv[1:]
@@ -26,11 +32,23 @@ def main() -> None:
         if a.startswith("--") and i + 1 < len(args):
             params[a[2:]] = args[i + 1]
 
+    missing = [k for k in _REQUIRED if k not in params]
+    if missing:
+        _die(
+            "missing required argument(s): "
+            + ", ".join(f"--{k}" for k in missing)
+            + f"; usage: {os.path.basename(__file__)} "
+            "--list-name X --problem-id N --intermediate I --advanced A --top T [--source SRC]"
+        )
+
     list_name = params["list-name"]
-    problem_id = int(params["problem-id"])
-    intermediate = int(params["intermediate"])
-    advanced = int(params["advanced"])
-    top = int(params["top"])
+    try:
+        problem_id = int(params["problem-id"])
+        intermediate = int(params["intermediate"])
+        advanced = int(params["advanced"])
+        top = int(params["top"])
+    except ValueError as e:
+        _die(f"--problem-id/--intermediate/--advanced/--top must be integers ({e})")
     source = params.get("source", "std-0")
 
     root = f".thoughts/time-estimatives/{list_name}"
@@ -74,10 +92,12 @@ def main() -> None:
         sys.exit(1)
 
     # Called only once per pipeline run (at the end), so concurrent writers cannot occur and no file lock is needed.
+    # os.replace is atomic on the same filesystem (POSIX rename(2) / Windows MoveFileEx with REPLACE_EXISTING),
+    # which guarantees the active list file is never observed in a half-written state.
     tmp = list_path + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         f.writelines(new_lines)
-    shutil.move(tmp, list_path)
+    os.replace(tmp, list_path)
 
     audit_path = os.path.join(root, "audit.log")
     ts = datetime.datetime.now(datetime.timezone.utc).isoformat()
