@@ -602,6 +602,19 @@ def generate_js_core():
       return Math.ceil(daysNeeded);
     }
 
+    function calculateDaysUntilScore(problem, targetScore) {
+      if (!problem.solved) return Infinity;
+      const result = calculateAwarenessScore(problem);
+      if (result.score < 0) return Infinity;
+      if (result.score >= targetScore) return 0;
+      const commitmentFactor = getCommitmentFactor();
+      const tierDiffMultiplier = getTierDifficultyMultiplier(problem);
+      const solvedFactor = getSolvedFactor(problem);
+      const dailyRate = AWARENESS_CONFIG.baseRate * commitmentFactor * tierDiffMultiplier / solvedFactor;
+      if (dailyRate <= 0) return Infinity;
+      return Math.ceil((targetScore - result.score) / dailyRate);
+    }
+
     // Apply urgent review filter: show only the most urgently-due solved problems
     function applyUrgentReviewFilter(fileKey) {
       const btn = document.getElementById(`urgent-review-btn-${fileKey}`);
@@ -617,23 +630,65 @@ def generate_js_core():
       const tbody = document.getElementById(`tbody-${fileKey}`);
       if (!tbody) return;
 
+      const thresholds = AWARENESS_CONFIG.thresholds;
+
+      const NEXT_TIER_THRESHOLD = {
+        'awareness-dark-red': thresholds.darkRed,
+        'awareness-red':      thresholds.red,
+        'awareness-yellow':   thresholds.yellow,
+        'awareness-green':    thresholds.green,
+        'awareness-white':    thresholds.white,
+      };
+
+      const TIER_WATERFALL = [
+        ['awareness-flashing',  Infinity],
+        ['awareness-dark-red',  7],
+        ['awareness-red',       5],
+        ['awareness-yellow',    3],
+        ['awareness-green',     1],
+      ];
+
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
       const solvedProblems = problems
         .map((problem, idx) => {
-          const days = calculateDaysUntilFlashing(problem);
-          if (days === Infinity) return null;
+          if (!problem.solved) return null;
+          if (problem.solved_date) {
+            const solvedDate = new Date(problem.solved_date);
+            if (!isNaN(solvedDate) && solvedDate > sevenDaysAgo) return null;
+          }
           const scoreResult = calculateAwarenessScore(problem);
-          const tier = TIER_RANK[getAwarenessClass(scoreResult.score)] || 0;
-          return { idx, days, tier };
+          if (scoreResult.score < 0) return null;
+          const tierClass = getAwarenessClass(scoreResult.score);
+          const tier = TIER_RANK[tierClass] ?? 0;
+          return { idx, tier, tierClass, score: scoreResult.score, problem };
         })
         .filter(item => item !== null);
 
       if (solvedProblems.length === 0) return;
 
-      const maxTier = Math.max(...solvedProblems.map(item => item.tier));
-      const globalMinDays = Math.min(...solvedProblems.map(item => item.days));
-      const urgentIndices = new Set(
-        solvedProblems.filter(item => item.tier === maxTier || item.days === globalMinDays).map(item => item.idx)
-      );
+      const urgentIndices = new Set();
+      for (const [tierClass, limit] of TIER_WATERFALL) {
+        const tierItems = solvedProblems.filter(item => item.tierClass === tierClass);
+        if (tierItems.length === 0) continue;
+
+        const nextThreshold = NEXT_TIER_THRESHOLD[tierClass];
+        if (nextThreshold !== undefined) {
+          tierItems.sort((a, b) => {
+            const dA = calculateDaysUntilScore(a.problem, nextThreshold);
+            const dB = calculateDaysUntilScore(b.problem, nextThreshold);
+            return dA - dB;
+          });
+        } else {
+          tierItems.sort((a, b) => b.score - a.score);
+        }
+
+        const toAdd = isFinite(limit) ? tierItems.slice(0, limit) : tierItems;
+        for (const item of toAdd) urgentIndices.add(item.idx);
+
+        if (urgentIndices.size > 0) break;
+      }
 
       const rows = tbody.querySelectorAll('tr');
       rows.forEach(row => {
@@ -648,10 +703,15 @@ def generate_js_core():
       const count = urgentIndices.size;
       const statusEl = document.getElementById(`progress-text-${fileKey}`);
       if (statusEl) {
-        const msg = globalMinDays === 0
-          ? `${count} problem(s) flashing NOW`
-          : `${count} problem(s) flashing in ${globalMinDays} day(s)`;
-        statusEl.textContent = msg;
+        if (count === 0) {
+          statusEl.textContent = 'No urgent problems';
+        } else {
+          const flashingCount = solvedProblems.filter(item => item.tierClass === 'awareness-flashing').length;
+          const msg = flashingCount > 0
+            ? `${count} problem(s) flashing NOW`
+            : `${count} problem(s) due for review soon`;
+          statusEl.textContent = msg;
+        }
       }
     }
 

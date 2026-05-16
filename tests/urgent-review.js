@@ -62,11 +62,36 @@ export function calculateDaysUntilFlashing(problem) {
   return Math.ceil(daysNeeded);
 }
 
+// ── calculateDaysUntilScore ───────────────────────────────────────────────────
+
+/**
+ * Compute how many days (ceiling) until this problem reaches targetScore.
+ * Returns 0 if already at/above target, Infinity if unsolved/no date/rate <= 0.
+ *
+ * @param {Object} problem
+ * @param {number} targetScore
+ * @returns {number} Infinity | 0 | positive integer (Math.ceil)
+ */
+export function calculateDaysUntilScore(problem, targetScore) {
+  if (!problem.solved) return Infinity;
+  const result = calculateAwarenessScore(problem);
+  if (result.score < 0) return Infinity;
+  if (result.score >= targetScore) return 0;
+  const commitmentFactor = getCommitmentFactor();
+  const tierDiffMultiplier = getTierDifficultyMultiplier(problem);
+  const solvedFactor = getSolvedFactor(problem);
+  const config = getConfig();
+  const dailyRate = config.baseRate * commitmentFactor * tierDiffMultiplier / solvedFactor;
+  if (dailyRate <= 0) return Infinity;
+  return Math.ceil((targetScore - result.score) / dailyRate);
+}
+
 // ── applyUrgentReviewFilter ───────────────────────────────────────────────────
 
 /**
- * Filter rows to show only the most urgently-due solved problems.
- * Returns null with no DOM changes if no solved problems exist.
+ * Filter rows using tiered waterfall: flashing(all) → dark-red(7) → red(5) → yellow(3) → green(1).
+ * Excludes problems solved within the last 7 days.
+ * Returns null with no DOM changes if no qualifying solved problems exist.
  *
  * Injectable deps version for testing:
  * @param {string} fileKey
@@ -74,31 +99,71 @@ export function calculateDaysUntilFlashing(problem) {
  * @param {Array} deps.problems - Problem array for this fileKey
  * @param {Array} deps.rows - Row objects with style.display and dataset.index
  * @param {Object|null} deps.statusEl - Element with .textContent for status message
- * @param {Function} [deps.getAwarenessClassFn] - Injectable getAwarenessClass for testing
- * @param {Function} [deps.calculateAwarenessScoreFn] - Injectable calculateAwarenessScore for testing
- * @returns {{ globalMinDays: number, urgentIndices: Set<number> }|null} null if no solved problems
+ * @param {Date} [deps.now] - Injectable current date for testing freshness exclusion
+ * @returns {{ urgentIndices: Set<number>, flashingCount: number }|null}
  */
-export function applyUrgentReviewFilter(fileKey, { problems, rows, statusEl, getAwarenessClassFn, calculateAwarenessScoreFn }) {
-  const _getAwarenessClass = getAwarenessClassFn || getAwarenessClass;
-  const _calculateAwarenessScore = calculateAwarenessScoreFn || calculateAwarenessScore;
+export function applyUrgentReviewFilter(fileKey, { problems, rows, statusEl, now }) {
+  const _now = now || new Date();
+  const sevenDaysAgo = new Date(_now);
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+  const config = getConfig();
+  const thresholds = config.thresholds;
+
+  const NEXT_TIER_THRESHOLD = {
+    'awareness-dark-red': thresholds.darkRed,
+    'awareness-red':      thresholds.red,
+    'awareness-yellow':   thresholds.yellow,
+    'awareness-green':    thresholds.green,
+    'awareness-white':    thresholds.white,
+  };
+
+  const TIER_WATERFALL = [
+    ['awareness-flashing',  Infinity],
+    ['awareness-dark-red',  7],
+    ['awareness-red',       5],
+    ['awareness-yellow',    3],
+    ['awareness-green',     1],
+  ];
 
   const solvedProblems = problems
     .map((problem, idx) => {
-      const days = calculateDaysUntilFlashing(problem);
-      if (days === Infinity) return null;
-      const scoreResult = _calculateAwarenessScore(problem);
-      const tier = TIER_RANK[_getAwarenessClass(scoreResult.score)] || 0;
-      return { idx, days, tier };
+      if (!problem.solved) return null;
+      if (problem.solved_date) {
+        const solvedDate = new Date(problem.solved_date);
+        if (!isNaN(solvedDate) && solvedDate > sevenDaysAgo) return null;
+      }
+      const scoreResult = calculateAwarenessScore(problem);
+      if (scoreResult.score < 0) return null;
+      const tierClass = getAwarenessClass(scoreResult.score);
+      const tier = TIER_RANK[tierClass] ?? 0;
+      return { idx, tier, tierClass, score: scoreResult.score, problem };
     })
     .filter(item => item !== null);
 
   if (solvedProblems.length === 0) return null;
 
-  const maxTier = Math.max(...solvedProblems.map(item => item.tier));
-  const globalMinDays = Math.min(...solvedProblems.map(item => item.days));
-  const urgentIndices = new Set(
-    solvedProblems.filter(item => item.tier === maxTier || item.days === globalMinDays).map(item => item.idx)
-  );
+  const urgentIndices = new Set();
+  for (const [tierClass, limit] of TIER_WATERFALL) {
+    const tierItems = solvedProblems.filter(item => item.tierClass === tierClass);
+    if (tierItems.length === 0) continue;
+
+    const nextThreshold = NEXT_TIER_THRESHOLD[tierClass];
+    if (nextThreshold !== undefined) {
+      tierItems.sort((a, b) => {
+        const dA = calculateDaysUntilScore(a.problem, nextThreshold);
+        const dB = calculateDaysUntilScore(b.problem, nextThreshold);
+        return dA - dB;
+      });
+    } else {
+      tierItems.sort((a, b) => b.score - a.score);
+    }
+
+    const toAdd = isFinite(limit) ? tierItems.slice(0, limit) : tierItems;
+    for (const item of toAdd) urgentIndices.add(item.idx);
+
+    if (urgentIndices.size > 0) break;
+  }
 
   rows.forEach(row => {
     const idx = parseInt(row.dataset.index, 10);
@@ -107,13 +172,19 @@ export function applyUrgentReviewFilter(fileKey, { problems, rows, statusEl, get
 
   if (statusEl) {
     const count = urgentIndices.size;
-    const msg = globalMinDays === 0
-      ? `${count} problem(s) flashing NOW`
-      : `${count} problem(s) flashing in ${globalMinDays} day(s)`;
-    statusEl.textContent = msg;
+    if (count === 0) {
+      statusEl.textContent = 'No urgent problems';
+    } else {
+      const flashingCount = solvedProblems.filter(item => item.tierClass === 'awareness-flashing').length;
+      const msg = flashingCount > 0
+        ? `${count} problem(s) flashing NOW`
+        : `${count} problem(s) due for review soon`;
+      statusEl.textContent = msg;
+    }
   }
 
-  return { globalMinDays, urgentIndices };
+  const flashingCount = solvedProblems.filter(item => item.tierClass === 'awareness-flashing').length;
+  return { urgentIndices, flashingCount };
 }
 
 // ── updateUrgentBtnState ──────────────────────────────────────────────────────
