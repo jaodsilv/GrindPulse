@@ -52,7 +52,7 @@ jobs:
 
       - name: Comment coverage on PR
         if: github.event_name == 'pull_request' && matrix.node-version == '20.x'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
@@ -161,7 +161,7 @@ jobs:
 
       - name: Comment build size on PR
         if: github.event_name == 'pull_request' && matrix.python-version == '3.12'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const sizeKb = '${{ steps.size.outputs.size_kb }}';
