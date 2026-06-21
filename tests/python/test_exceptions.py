@@ -1,11 +1,14 @@
 """Tests for the custom exception hierarchy."""
 
+import pytest
+
 from exceptions import (
     DataFileEmptyError,
     DataFileNotFoundError,
     FileIOError,
     GeneratorError,
     GrindPulseError,
+    GrindPulseIOError,
     JSONParseError,
     ParseError,
     TSVParseError,
@@ -66,8 +69,30 @@ class TestGrindPulseError:
         assert err.suggestion is None
 
 
+class TestGrindPulseIOError:
+    """Tests for GrindPulseIOError (renamed from FileIOError)."""
+
+    def test_inherits_from_grindpulse_error(self):
+        err = GrindPulseIOError("IO failed")
+        assert isinstance(err, GrindPulseError)
+
+    def test_with_file_path(self):
+        err = GrindPulseIOError("Cannot read", file_path="/test.txt")
+        assert "/test.txt" in str(err)
+
+    def test_file_io_error_alias_works(self):
+        """FileIOError backward-compat alias should still work."""
+        err = FileIOError("IO failed")
+        assert isinstance(err, GrindPulseIOError)
+        assert isinstance(err, GrindPulseError)
+
+    def test_file_io_error_alias_is_same_class(self):
+        """FileIOError alias should be the same class as GrindPulseIOError."""
+        assert FileIOError is GrindPulseIOError
+
+
 class TestFileIOError:
-    """Tests for FileIOError."""
+    """Tests for FileIOError (backward-compat alias)."""
 
     def test_inherits_from_grindpulse_error(self):
         """Should inherit from GrindPulseError."""
@@ -84,10 +109,21 @@ class TestDataFileNotFoundError:
     """Tests for DataFileNotFoundError."""
 
     def test_inherits_from_file_io_error(self):
-        """Should inherit from FileIOError."""
-        err = DataFileNotFoundError("Not found")
+        """Should inherit from GrindPulseIOError (via FileIOError alias)."""
+        err = DataFileNotFoundError("Not found", "path.tsv")
         assert isinstance(err, FileIOError)
         assert isinstance(err, GrindPulseError)
+
+    def test_requires_file_path(self):
+        """Should raise TypeError when file_path is omitted."""
+        with pytest.raises(TypeError):
+            DataFileNotFoundError("Not found")
+
+    def test_with_file_path(self):
+        """Should work correctly when file_path is provided."""
+        err = DataFileNotFoundError("Not found", "path.tsv")
+        assert "path.tsv" in str(err)
+        assert "Not found" in str(err)
 
     def test_typical_usage(self):
         """Should work with typical missing file scenario."""
@@ -107,14 +143,25 @@ class TestDataFileEmptyError:
 
     def test_inherits_from_file_io_error(self):
         """Should inherit from FileIOError."""
-        err = DataFileEmptyError("File is empty")
+        err = DataFileEmptyError("File is empty", "path.tsv")
         assert isinstance(err, FileIOError)
+
+    def test_requires_file_path(self):
+        """Should raise TypeError when file_path is omitted."""
+        with pytest.raises(TypeError):
+            DataFileEmptyError("File is empty")
+
+    def test_with_file_path(self):
+        """Should work correctly when file_path is provided."""
+        err = DataFileEmptyError("File is empty", "path.tsv")
+        assert "path.tsv" in str(err)
+        assert "File is empty" in str(err)
 
     def test_typical_usage(self):
         """Should work with typical empty file scenario."""
         err = DataFileEmptyError(
             "TSV file is empty",
-            file_path="/raw/blind75.tsv",
+            "/raw/blind75.tsv",
             suggestion="Add problem data",
         )
         assert "TSV file is empty" in str(err)
@@ -193,6 +240,26 @@ class TestTSVParseError:
         assert "/raw/problems.tsv" in message
         assert "Add missing columns" in message
 
+    def test_line_number_zero_raises_value_error(self):
+        """line_number=0 should raise ValueError."""
+        with pytest.raises(ValueError, match="line_number must be >= 1"):
+            TSVParseError("msg", "file.tsv", line_number=0)
+
+    def test_line_number_negative_raises_value_error(self):
+        """Negative line_number should raise ValueError."""
+        with pytest.raises(ValueError, match="line_number must be >= 1"):
+            TSVParseError("msg", "file.tsv", line_number=-1)
+
+    def test_line_number_one_is_valid(self):
+        """line_number=1 should work and include '(line 1)' in message."""
+        err = TSVParseError("msg", "file.tsv", line_number=1)
+        assert "line 1" in str(err)
+
+    def test_line_number_none_works_without_line_info(self):
+        """line_number=None should work and not include line info."""
+        err = TSVParseError("msg", "file.tsv", line_number=None)
+        assert "line" not in str(err)
+
 
 class TestGeneratorError:
     """Tests for GeneratorError."""
@@ -241,6 +308,18 @@ class TestValidationError:
         assert "No problems parsed" in message
         assert "Check TSV files" in message
 
+    def test_with_file_path_includes_path_in_message(self):
+        """ValidationError with file_path should include path in error context."""
+        err = ValidationError(
+            "No problems parsed from any TSV file",
+            file_path="/path/to/raw",
+            suggestion="Check that TSV files contain data rows after the header",
+        )
+        message = str(err)
+        assert "No problems parsed" in message
+        assert "/path/to/raw" in message
+        assert err.file_path == "/path/to/raw"
+
 
 class TestExceptionHierarchy:
     """Tests for exception class inheritance."""
@@ -277,12 +356,17 @@ class TestExceptionHierarchy:
         """ValidationError should inherit from GrindPulseError."""
         assert issubclass(ValidationError, GrindPulseError)
 
+    def test_grindpulse_io_error_in_hierarchy(self):
+        """GrindPulseIOError should be in hierarchy and catchable as GrindPulseError."""
+        assert issubclass(GrindPulseIOError, GrindPulseError)
+
     def test_can_catch_all_with_base(self):
         """Should be able to catch all errors with GrindPulseError."""
         errors = [
             FileIOError("test"),
-            DataFileNotFoundError("test"),
-            DataFileEmptyError("test"),
+            GrindPulseIOError("test"),
+            DataFileNotFoundError("test", "/test"),
+            DataFileEmptyError("test", "/test"),
             ParseError("test"),
             JSONParseError("test"),
             TSVParseError("test", file_path="/test"),
