@@ -367,7 +367,7 @@ for row in reader:
         "solved": False,
         "time_to_solve": "",
         "comments": "",
-        "solved_date": ""
+        "solved_date": "",
     }
 ```
 
